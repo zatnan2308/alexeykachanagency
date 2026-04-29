@@ -473,17 +473,208 @@
       "optional_label": "Opzionale",
       "success_title": "Brief ricevuto",
       "success_body": "Grazie. Lo esaminiamo e torniamo entro 4 ore in orario d'ufficio con scope, calendario e prezzo per iscritto.",
-      "intro_note": "I tuoi dati restano riservati. Li usiamo solo per definire l'engagement."
+      "intro_note": "Rispondi solo a quanto è rilevante — le bozze si salvano automaticamente nel browser. Salta le sezioni che non si applicano.",
+      "contact_section_title": "Contatto rapido"
     },
     "website": {
       "kicker": "Brief progetto web",
       "h1": "Raccontaci del sito.",
-      "lead": "Otto domande, otto minuti. Più precise sono le tue risposte, più accurato sarà il preventivo — e più veloce il kickoff."
+      "lead": "Più precise sono le tue risposte, più accurato sarà il preventivo. Salta le sezioni che non si applicano — colmiamo i vuoti nel call di kickoff.",
+      "contact_fields": [
+        { "name": "company_name", "label": "Nome dell'azienda", "type": "text", "required": true, "placeholder": "Marchio o ragione sociale" },
+        { "name": "contact_person", "label": "Il tuo nome e ruolo", "type": "text", "required": true, "placeholder": "es. Anna Rossi, Direttrice Marketing" },
+        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "tu@azienda.com" },
+        { "name": "phone_messenger", "label": "Telefono o messaggistica", "type": "tel", "required": false, "placeholder": "+ prefisso paese, o @telegram" }
+      ],
+      "sections": [
+        {
+          "title": "Azienda e geografia",
+          "subtitle": "Una panoramica di 30 secondi ci aiuta ad abbinare tono e fuso orario.",
+          "name": "section_company",
+          "placeholder": "• Anno di fondazione, breve storia\n• Decisore se diverso dal contatto (nome, contatto)\n• URL del sito esistente e link social\n• Città / regione / paese / internazionale\n• Fuso orario per le call"
+        },
+        {
+          "title": "Business e prodotto",
+          "subtitle": "Ci aiuta a scegliere il tipo di sito — landing, catalogo, e-commerce, portale.",
+          "name": "section_business",
+          "placeholder": "• Descrivi il business in 2–3 frasi (come a un vicino di casa)\n• Cosa vendi: prodotto / servizio / abbonamento / SaaS / infoprodotto\n• Top 5–10 prodotti o categorie\n• Scontrino medio / fascia di prezzo\n• Margine (basso / medio / alto)\n• Stagionalità — quando sono i picchi?\n• Ciclo di vendita — ore, giorni, settimane, mesi?"
+        },
+        {
+          "title": "Pubblico obiettivo",
+          "subtitle": "Definisce tono, elementi di fiducia e filtri del catalogo.",
+          "name": "section_audience",
+          "placeholder": "• B2B / B2C / B2G / misto\n• 2–4 segmenti — età, ruolo, reddito, geografia\n• Quale problema risolve il prodotto per ogni segmento\n• Linguaggio del cliente — termini pro / semplice / premium\n• Top obiezioni e paure\n• Cosa conta di più nella scelta — prezzo / tempo / qualità / servizio / garanzie / reputazione (priorizzare)"
+        },
+        {
+          "title": "Concorrenti e posizionamento",
+          "subtitle": "L'USP è la base di ogni pagina e CTA.",
+          "name": "section_competitors",
+          "placeholder": "• 3–5 concorrenti diretti (link)\n• Cosa fanno bene e ti piace\n• Cosa fanno male e non vuoi\n• Il tuo vero USP (non «qualità e prezzo»)\n• 3–5 motivi per acquistare proprio da te\n• Punti deboli che design o contenuti devono compensare"
+        },
+        {
+          "title": "Obiettivi e KPI",
+          "subtitle": "Gli obiettivi determinano tutto — struttura, posizione delle CTA, tracking.",
+          "name": "section_goals",
+          "placeholder": "• Top 1–2 obiettivi: lead / vendita online / catalogo / immagine / costruzione database / supporto clienti\n• Azione obiettivo: form / chiamata / acquisto / abbonamento / download / registrazione\n• KPI misurabile: lead o vendite al mese\n• Da dove arrivano i clienti oggi e quanti circa"
+        },
+        {
+          "title": "Struttura del sito",
+          "subtitle": "Per stimare lo scope, scegliere il CMS, progettare l'architettura URL.",
+          "name": "section_structure",
+          "placeholder": "• Pagine / sezioni necessarie (o chiedici di proporre)\n• Profondità del catalogo — categorie, sottocategorie, prodotti\n• Blog / news / articoli?\n• Landing dedicate per servizio / città / segmento?\n• Lingue — quali, quale è la master?\n• Multi-regione — sottodomini / cartelle / geo-routing?"
+        },
+        {
+          "title": "Funzionalità",
+          "subtitle": "Ogni voce sono ore o giorni di lavoro e plasma lo stack.",
+          "name": "section_functionality",
+          "placeholder": "Spunta o descrivi:\n• Catalogo con filtri — quali?\n• Carrello, checkout, pagamenti online — quali metodi?\n• Area cliente / login (e-mail / telefono / SSO)\n• Calcolatore, configuratore, prenotazione online\n• Chat / chatbot\n• Form — quali, dove vanno?\n• Integrazioni — CRM (quale?), 1C, ERP, telefonia, e-mail, analytics, messaggistica, pagamenti, spedizioni\n• Ricerca, comparatore, preferiti, recensioni, fidelity, multiutente (B2B)"
+        },
+        {
+          "title": "Stato dei contenuti",
+          "subtitle": "Il contenuto è la causa numero 1 di slittamenti dei tempi.",
+          "name": "section_content",
+          "placeholder": "• Chi scrive i testi: tu / il nostro copywriter / insieme\n• Foto e video: shooting interno / stock / shooting da parte nostra\n• Logo + brand guideline pronti? (condividili)\n• Colori, font, grafiche di brand pronti?\n• Numero di prodotti/servizi al lancio\n• Testi pronti o da scrivere da zero?"
+        },
+        {
+          "title": "Preferenze di design",
+          "subtitle": "Accelera il design e riduce i giri di revisioni.",
+          "name": "section_design",
+          "placeholder": "• Stile: minimal / classico / premium / audace / tech / caldo / corporate / altro\n• 3–5 siti che ti piacciono (link + cosa specificamente)\n• 2–3 siti che non ti piacciono (link + perché)\n• Palette — mantenere brand / aperti / colori da evitare\n• Tono — amichevole / esperto / formale / giocoso\n• Dark mode?\n• Accessibilità (WCAG)?\n• Animazioni — minime / moderate / ricche"
+        },
+        {
+          "title": "Requisiti tecnici",
+          "subtitle": "Determina lo stack ed eventuali fornitori esterni.",
+          "name": "section_tech",
+          "placeholder": "• Preferenza CMS / piattaforma: WordPress / Shopify / Webflow / custom / nessuna\n• Hosting — il tuo / nostra raccomandazione\n• Dominio — esiste / da registrare\n• Pannello admin per editing autonomo — quali blocchi editabili?\n• Traffico mensile previsto\n• Adattivo — desktop + tablet + mobile (priorità?)\n• SEO — schema, sitemap, robots, meta — gestiamo noi?\n• Analytics — GA4 / Plausible / Clarity / altri\n• Sync CRM, call-tracking\n• Sicurezza — SSL, anti-bot, backup, GDPR / residenza dati"
+        },
+        {
+          "title": "SEO e crescita",
+          "subtitle": "Se è prevista SEO, struttura e URL devono supportarla dal giorno 1.",
+          "name": "section_seo",
+          "placeholder": "• SEO pianificata dopo il lancio?\n• Ricerca keyword fatta / da fare\n• Regioni target\n• Struttura SEO (cluster di pagine)?\n• Sito esistente con autorità SEO accumulata (gestiamo noi i 301)?"
+        },
+        {
+          "title": "Tempi e budget",
+          "subtitle": "Scope realistico. Meglio meno e fatto bene, che tutto e male.",
+          "name": "section_timeline",
+          "placeholder": "• Data di lancio desiderata\n• Deadline rigida (evento, stagione, contratto)\n• Range di budget — da / a\n• Budget supporto post-lancio al mese\n• Disponibilità a investire in traffico a pagamento dopo il lancio — budget mensile indicativo"
+        },
+        {
+          "title": "Supporto post-lancio",
+          "subtitle": "Chiarisce chi gestisce il sito dopo il go-live.",
+          "name": "section_support",
+          "placeholder": "• Chi gestirà il day-by-day: tu / noi / sviluppatore assunto\n• Formazione admin e video tutorial necessari?\n• SLA — tempo di risposta agli incidenti?\n• Aggiornamenti funzionali periodici previsti?"
+        },
+        {
+          "title": "Legale e organizzativo",
+          "subtitle": "Evita sorprese prima della firma del contratto.",
+          "name": "section_legal",
+          "placeholder": "• Trasferimento dei diritti su codice e design\n• Milestone di pagamento\n• Approvatori — decisore, designer, marketing\n• Canale di comunicazione preferito — Telegram / e-mail / Slack / Trello\n• Frequenza e formato dei report"
+        }
+      ]
     },
     "ads": {
       "kicker": "Brief advertising",
       "h1": "Raccontaci della campagna.",
-      "lead": "Sei sezioni, dieci minuti. Torniamo con un mix di canali consigliato, un budget di partenza e un obiettivo misurabile prima di qualsiasi contratto."
+      "lead": "Salta ciò che non si applica — le bozze si salvano nel browser. Torniamo con un mix di canali consigliato, un budget di partenza e un obiettivo misurabile — prima di qualsiasi contratto.",
+      "contact_fields": [
+        { "name": "company_name", "label": "Nome dell'azienda", "type": "text", "required": true, "placeholder": "Marchio o ragione sociale" },
+        { "name": "contact_person", "label": "Il tuo nome e ruolo", "type": "text", "required": true, "placeholder": "es. Anna Rossi, Direttrice Marketing" },
+        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "tu@azienda.com" },
+        { "name": "phone_messenger", "label": "Telefono o messaggistica", "type": "tel", "required": false, "placeholder": "+ prefisso paese, o @telegram" }
+      ],
+      "sections": [
+        {
+          "title": "Azienda e geografia",
+          "subtitle": "Ci aiuta ad allineare la scelta dei canali al tuo mercato.",
+          "name": "section_company",
+          "placeholder": "• URL del sito e profili social\n• Approvatore di creatività e strategia se diverso dal contatto\n• Città / paesi in cui fai pubblicità\n• Fuso orario"
+        },
+        {
+          "title": "Prodotto e offerta",
+          "subtitle": "Definisce CPA target, tipo di campagna e angolazione creativa.",
+          "name": "section_product",
+          "placeholder": "• Cosa pubblicizziamo — un prodotto / categoria / tutto il business\n• Prezzo / scontrino medio / fascia\n• Margine (% indicativo) — determina il CPL ammissibile\n• LTV se la conosci — la pubblicità rientra nel tempo?\n• Punti distintivi\n• Offerta attuale (sconto / bonus / audit gratuito / prova)\n• Lead magnet, se presente"
+        },
+        {
+          "title": "Pubblico obiettivo",
+          "subtitle": "Guida la scelta dei canali, il targeting e la direzione creativa.",
+          "name": "section_audience",
+          "placeholder": "• 2–4 segmenti — demografia, geografia, interessi, comportamenti, reddito\n• Dolori e bisogni per segmento\n• Stadio del funnel — inconsapevoli / problema / soluzione / pronti all'acquisto\n• Obiezioni e paure\n• Dove si trova il pubblico (social, search, siti)"
+        },
+        {
+          "title": "Obiettivi e KPI",
+          "subtitle": "L'obiettivo determina la strategia di bidding e la definizione di successo.",
+          "name": "section_goals",
+          "placeholder": "Scegli 1–2 obiettivi principali:\n• Lead (form, chiamate)\n• Vendite online dirette\n• Installazioni app\n• Iscrizioni / database\n• Notorietà / portata\n• Traffico al sito senza conversione esplicita\n• Re-engagement / remarketing\n\nKPI:\n• CPA target / costo per cliente\n• ROAS target\n• Volume mensile di lead/vendite\n• Tempo per raggiungere gli obiettivi"
+        },
+        {
+          "title": "Budget",
+          "subtitle": "Definisce reach, numero di ipotesi testabili e canali possibili.",
+          "name": "section_budget",
+          "placeholder": "• Budget pubblicitario mensile totale\n• Ripartizione per canale se hai un'idea, oppure chiedici un consiglio\n• Periodo di test e budget di test\n• Disponibilità a scalare al raggiungimento del KPI?\n• IVA e fee agenzia — dentro o oltre il budget?"
+        },
+        {
+          "title": "Canali",
+          "subtitle": "Il mix di canali è allineato a obiettivo e pubblico.",
+          "name": "section_channels",
+          "placeholder": "Spunta gli interessanti / chiedici di consigliare:\n• Google Ads (Search, PMax, Display, YouTube)\n• Meta Ads (Facebook + Instagram)\n• TikTok Ads\n• LinkedIn Ads\n• Microsoft / Bing Ads\n• Telegram Ads\n• Influencer marketing su YouTube\n• Annunci marketplace (Amazon, eBay)\n• Mappe locali (Google Business)\n• Campagne e-mail\n• Programmatic / DSP"
+        },
+        {
+          "title": "Storia e analytics",
+          "subtitle": "Senza dati, ottimizzare è tirare a indovinare. Le lacune le colmiamo per prime.",
+          "name": "section_history",
+          "placeholder": "• Pubblicità precedenti — dove, risultati, cosa ha funzionato / cosa no\n• Accessi agli account ad pronti o da creare\n• Pixel installati: GA4, Meta Pixel, TikTok…\n• Obiettivi/eventi configurati (quali)\n• Call-tracking — fornitore, stato\n• Analytics end-to-end — fornitore\n• CRM e accesso API\n• Dati clienti per lookalike / retargeting"
+        },
+        {
+          "title": "Landing page",
+          "subtitle": "Landing scadenti bruciano budget. A volte vanno sistemate prima.",
+          "name": "section_landing",
+          "placeholder": "• Dove atterra il traffico — home / categoria / landing dedicata / quiz / form / messaggistica / chiamata\n• Landing pronte o da costruire\n• Qualità della versione mobile\n• Velocità (Core Web Vitals) — nota?\n• Passaggi dal click all'azione obiettivo\n• Tasso di conversione attuale (se noto)"
+        },
+        {
+          "title": "Creatività e materiali",
+          "subtitle": "La produzione creativa è una voce a parte — non sottovalutarla.",
+          "name": "section_creatives",
+          "placeholder": "• Chi produce le creatività — tu / noi / insieme\n• Testi, headline, offerte pronti?\n• Materiale foto e video — cosa, quale qualità\n• Brand guideline e stile\n• Tono — serio / amichevole / provocatorio / esperto\n• Restrizioni visuali o testuali (legali, interne)\n• Temi / angolazioni da non usare"
+        },
+        {
+          "title": "USP e messaggi",
+          "subtitle": "Guida i temi creativi e la gerarchia dei copy.",
+          "name": "section_usp",
+          "placeholder": "• 3–5 messaggi chiave da trasmettere\n• Come ti distingui in pubblicità\n• Trigger che funzionano — prezzo / urgenza / esclusività / riprova sociale / garanzia / autorevolezza\n• Promozioni e offerte previste (quando, quali, durata)"
+        },
+        {
+          "title": "Annunci dei concorrenti",
+          "subtitle": "Benchmark per offerte, creatività, prezzi.",
+          "name": "section_competitor_ads",
+          "placeholder": "• 3–5 concorrenti che vedi pubblicizzarsi\n• Cosa è forte nei loro annunci\n• Loro offerte e prezzi\n• Dove si pubblicizzano più attivamente"
+        },
+        {
+          "title": "Restrizioni legali e di settore",
+          "subtitle": "La moderazione può fermare una campagna. Anticipare fa risparmiare tempo.",
+          "name": "section_legal_restrictions",
+          "placeholder": "• Settore regolamentato? (medicale, finanza, integratori, gioco, alcol, tabacco, farma, istruzione, immobiliare, investimenti)\n• Licenze, certificati, disclaimer obbligatori\n• Etichettatura pubblicitaria (chi se ne occupa)\n• Restrizioni d'età\n• Revisione legale delle creatività necessaria?"
+        },
+        {
+          "title": "Stagionalità e priorità",
+          "subtitle": "Aiuta ad allocare il budget tra mesi e linee di prodotto.",
+          "name": "section_seasonality",
+          "placeholder": "• Stagionalità del prodotto (picchi/cali per mese)\n• Prodotti / città / regioni prioritari per i prossimi 3 mesi\n• Aree in cui non fare pubblicità\n• Orari del team vendite (quando mostrare CTA «chiama ora»)"
+        },
+        {
+          "title": "Vendite e gestione lead",
+          "subtitle": "I migliori annunci sono inutili se i lead non vengono lavorati.",
+          "name": "section_sales",
+          "placeholder": "• Chi riceve i lead e in quanto tempo\n• Quanti commerciali li lavorano\n• Orari / fuso orario\n• Script di vendita e procedure\n• Tasso di conversione lead-vendita (se noto)\n• Dove sono archiviati i lead — CRM / foglio / e-mail\n• Lead persi o lavorati lentamente?"
+        },
+        {
+          "title": "Tempi e reportistica",
+          "subtitle": "Allinea le aspettative su cadenza e visibilità.",
+          "name": "section_timeline",
+          "placeholder": "• Data di partenza desiderata\n• Durata del periodo di test (tipicamente 1–2 mesi)\n• Formato e cadenza dei report — settimanali / mensili / dashboard live\n• Metriche chiave nei report\n• Canale di comunicazione preferito"
+        }
+      ]
     }
   },
   "legal_pages": {

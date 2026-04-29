@@ -403,23 +403,214 @@
       "step_label": "Step {current} of {total}",
       "next": "Next",
       "back": "Back",
-      "submit": "Submit brief",
-      "submitting": "Submitting…",
+      "submit": "Send brief",
+      "submitting": "Sending…",
       "required_label": "Required",
       "optional_label": "Optional",
       "success_title": "Brief received",
       "success_body": "Thanks. We'll review and come back within 4 hours during business hours with a written scope, timeline and price.",
-      "intro_note": "Your data stays private. We use it only to scope the engagement."
+      "intro_note": "Answer only what's relevant — drafts auto-save in your browser. Skip any section that doesn't apply.",
+      "contact_section_title": "Quick contact"
     },
     "website": {
       "kicker": "Website project brief",
       "h1": "Tell us about the site.",
-      "lead": "Eight questions, eight minutes. The more specific your answers, the more accurate our quote will be — and the faster we can get to a kickoff."
+      "lead": "The more specific your answers, the more accurate our quote will be. Skip sections that don't apply — we'll fill the gaps in the kickoff call.",
+      "contact_fields": [
+        { "name": "company_name", "label": "Company name", "type": "text", "required": true, "placeholder": "Brand or legal name" },
+        { "name": "contact_person", "label": "Your name & role", "type": "text", "required": true, "placeholder": "e.g. Anna Müller, Marketing Director" },
+        { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "you@company.com" },
+        { "name": "phone_messenger", "label": "Phone or messenger", "type": "tel", "required": false, "placeholder": "+ country code, or @telegram" }
+      ],
+      "sections": [
+        {
+          "title": "Company & geography",
+          "subtitle": "A 30-second snapshot helps us match the right tone and time-zone.",
+          "name": "section_company",
+          "placeholder": "• Year founded, brief history\n• Decision maker if different from contact (name, contact)\n• Existing site URL and social links\n• City / region / country / international\n• Time-zone for calls"
+        },
+        {
+          "title": "Business & product",
+          "subtitle": "Helps us pick the right type of site — landing, catalogue, e-commerce, portal.",
+          "name": "section_business",
+          "placeholder": "• Describe the business in 2–3 sentences (as you would to a neighbour)\n• What you sell: product / service / subscription / SaaS / info-product\n• Top 5–10 products or categories\n• Average ticket / price range\n• Margin level (low / medium / high)\n• Seasonality — when are the peaks?\n• Sales cycle — hours, days, weeks, months?"
+        },
+        {
+          "title": "Target audience",
+          "subtitle": "Defines the tone, the trust elements and the catalogue filters.",
+          "name": "section_audience",
+          "placeholder": "• B2B / B2C / B2G / mixed\n• 2–4 audience segments — age, role, income, geography\n• What problem your product solves for each segment\n• Customer language — professional terms / plain / premium\n• Top objections and fears\n• What matters most when choosing — price / speed / quality / service / guarantees / reputation (rank them)"
+        },
+        {
+          "title": "Competitors & positioning",
+          "subtitle": "Your USP is the foundation of every page and CTA.",
+          "name": "section_competitors",
+          "placeholder": "• 3–5 direct competitors (links)\n• What they do well that you like\n• What they do badly that you don't want\n• Your real USP (not 'quality and price')\n• 3–5 reasons to buy from you specifically\n• Weak points you'd like the design or content to compensate for"
+        },
+        {
+          "title": "Goals & KPIs",
+          "subtitle": "Goals determine everything — structure, CTA placement, tracking.",
+          "name": "section_goals",
+          "placeholder": "• Top 1–2 goals: leads / online sales / catalogue / image / database building / customer support\n• Target action: form / call / purchase / subscription / download / signup\n• Measurable KPI: leads or sales per month\n• Where customers come from today and roughly how many"
+        },
+        {
+          "title": "Site structure",
+          "subtitle": "Used to estimate scope, choose the CMS, design URL architecture.",
+          "name": "section_structure",
+          "placeholder": "• Pages / sections you need (or ask us to suggest)\n• Catalogue depth — categories, sub-categories, items\n• Blog / news / articles needed?\n• Service-specific landing pages, city or segment pages?\n• Languages — which, which is master?\n• Multi-region — sub-domains / folders / geo-routing?"
+        },
+        {
+          "title": "Functionality needed",
+          "subtitle": "Each item is hours or days of work and shapes the tech stack.",
+          "name": "section_functionality",
+          "placeholder": "Tick or describe what's needed:\n• Catalogue with filters — which filters?\n• Cart, checkout, online payments — which methods?\n• Customer area / login (email / phone / SSO)\n• Calculators, configurator, online booking\n• Live chat / chat-bot\n• Forms — which, where do they go?\n• Integrations — CRM (which?), 1C, ERP, telephony, email tools, analytics, messengers, payments, delivery\n• Search, comparison, wishlist, reviews, loyalty, multi-user mode (B2B)"
+        },
+        {
+          "title": "Content readiness",
+          "subtitle": "Content is the #1 cause of timeline slips — important to know upfront.",
+          "name": "section_content",
+          "placeholder": "• Who writes the copy: you / our copywriter / together\n• Photo & video: in-house shoot / stock / new shoot by us\n• Logo + brand guidelines ready? (please share)\n• Brand colours, fonts, graphics in place?\n• Number of products/services to describe at launch\n• Texts ready, or to be written from scratch?"
+        },
+        {
+          "title": "Design preferences",
+          "subtitle": "Speeds up design and reduces revision rounds.",
+          "name": "section_design",
+          "placeholder": "• Style: minimal / classic / premium / bold / techy / warm / corporate / other\n• 3–5 sites you love (links + what specifically)\n• 2–3 sites you don't like (links + why)\n• Colour palette — keep brand / open to suggestions / colours to avoid\n• Tone — friendly / expert / formal / playful\n• Dark mode?\n• Accessibility (WCAG) needs?\n• Animation level — minimal / moderate / rich"
+        },
+        {
+          "title": "Technical requirements",
+          "subtitle": "Determines stack and any sub-vendors.",
+          "name": "section_tech",
+          "placeholder": "• CMS / platform preference: WordPress / Shopify / Webflow / custom / no preference\n• Hosting — your existing / our recommendation\n• Domain — you have it / need to register\n• Admin panel for self-editing — which blocks editable?\n• Expected traffic per month\n• Adaptive — desktop + tablet + mobile (priority?)\n• SEO — schema, sitemap, robots, metas — handled by us?\n• Analytics — GA4 / Plausible / Clarity / other\n• CRM data sync, call-tracking\n• Security — SSL, anti-bot, backups, GDPR / data-residency"
+        },
+        {
+          "title": "SEO & growth",
+          "subtitle": "If SEO is planned, structure and URLs need to support it from day one.",
+          "name": "section_seo",
+          "placeholder": "• SEO promotion planned after launch?\n• Keyword research ready / to be done\n• Target regions\n• SEO-driven structure needed (cluster pages)?\n• Existing site with accumulated SEO equity? (we'll handle 301s)"
+        },
+        {
+          "title": "Timeline & budget",
+          "subtitle": "Realistic scope. Better to ship less, well, than everything badly.",
+          "name": "section_timeline",
+          "placeholder": "• Desired launch date\n• Hard deadline reason (event, season, contract)\n• Build budget range — from / to\n• Post-launch support budget per month\n• Willing to invest in paid traffic post-launch — rough monthly?"
+        },
+        {
+          "title": "Post-launch support",
+          "subtitle": "Sets expectations on who runs the site after launch.",
+          "name": "section_support",
+          "placeholder": "• Who'll own day-to-day support: you / us / hired developer\n• Need admin training and video docs?\n• SLA — incident response time?\n• Regular feature updates planned?"
+        },
+        {
+          "title": "Legal & operational",
+          "subtitle": "Avoid surprises before signing the contract.",
+          "name": "section_legal",
+          "placeholder": "• Code & design ownership transfer terms\n• Payment milestones preferences\n• Approvers — DM, designer, marketer\n• Preferred comms — Telegram / email / Slack / Trello\n• Reporting cadence and format"
+        }
+      ]
     },
     "ads": {
       "kicker": "Advertising brief",
       "h1": "Tell us about the campaign.",
-      "lead": "Six sections, ten minutes. We'll come back with a recommended channel mix, a starting budget, and a measurable target before any contract."
+      "lead": "Skip what doesn't apply — drafts save in your browser. We'll come back with a recommended channel mix, a starting budget, and a measurable target before any contract.",
+      "contact_fields": [
+        { "name": "company_name", "label": "Company name", "type": "text", "required": true, "placeholder": "Brand or legal name" },
+        { "name": "contact_person", "label": "Your name & role", "type": "text", "required": true, "placeholder": "e.g. Anna Müller, Marketing Director" },
+        { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "you@company.com" },
+        { "name": "phone_messenger", "label": "Phone or messenger", "type": "tel", "required": false, "placeholder": "+ country code, or @telegram" }
+      ],
+      "sections": [
+        {
+          "title": "Company & geography",
+          "subtitle": "Helps us match channel choices to your market.",
+          "name": "section_company",
+          "placeholder": "• Website URL and social handles\n• Decision maker for creatives & strategy if different from contact\n• Cities / countries you advertise in\n• Time-zone"
+        },
+        {
+          "title": "Product & offer",
+          "subtitle": "Defines target CPA, campaign type and creative angle.",
+          "name": "section_product",
+          "placeholder": "• What we're advertising — single product / category / whole business\n• Price / average order value / price range\n• Margin (rough %) — drives allowable CPL\n• LTV if known — does paid pay back over time?\n• Unique selling points\n• Current offer (discount / bonus / free audit / trial)\n• Lead magnet, if any"
+        },
+        {
+          "title": "Target audience",
+          "subtitle": "Drives channel selection, targeting, creative direction.",
+          "name": "section_audience",
+          "placeholder": "• 2–4 segments — demographics, geography, interests, behaviour, income\n• Pains and needs per segment\n• Funnel stage — unaware / problem-aware / solution-aware / ready to buy\n• Objections and fears\n• Where they hang out (social, search, sites)"
+        },
+        {
+          "title": "Goals & KPI",
+          "subtitle": "Goal determines bidding strategy and definition of success.",
+          "name": "section_goals",
+          "placeholder": "Pick 1–2 main goals:\n• Leads (forms, calls)\n• Direct online sales\n• App installs\n• Subscriptions / database\n• Awareness / reach\n• Site traffic without explicit conversion\n• Re-engagement / remarketing\n\nKPI:\n• Target CPA / cost-per-customer\n• Target ROAS\n• Target lead/sales volume per month\n• Time to hit those targets"
+        },
+        {
+          "title": "Budget",
+          "subtitle": "Defines reach, number of testable hypotheses, channels we can run.",
+          "name": "section_budget",
+          "placeholder": "• Monthly ad budget total\n• Channel split if you have a view, or ask us to recommend\n• Test period and test budget\n• Willing to scale once KPI is hit?\n• VAT and agency fee — inside the budget or on top?"
+        },
+        {
+          "title": "Channels",
+          "subtitle": "Channel mix is matched to goal and audience.",
+          "name": "section_channels",
+          "placeholder": "Tick interesting / ask us to recommend:\n• Google Ads (Search, PMax, Display, YouTube)\n• Meta Ads (Facebook + Instagram)\n• TikTok Ads\n• LinkedIn Ads\n• Microsoft / Bing Ads\n• Telegram Ads\n• YouTube influencer marketing\n• Marketplace ads (Amazon, eBay)\n• Local maps (Google Business)\n• Email campaigns\n• Programmatic / DSP"
+        },
+        {
+          "title": "History & analytics",
+          "subtitle": "Without data, optimisation is guesswork. If gaps exist, we fix them first.",
+          "name": "section_history",
+          "placeholder": "• Previous ads run — where, results, what worked / didn't\n• Ad-account access ready or to be created\n• Pixels installed: GA4, Meta Pixel, TikTok, etc.\n• Goals/events configured (which)\n• Call-tracking — provider, status\n• End-to-end analytics — provider\n• CRM and API access\n• Customer data for lookalikes / retargeting"
+        },
+        {
+          "title": "Landing pages",
+          "subtitle": "Bad landings burn budget. We may need to fix them first.",
+          "name": "section_landing",
+          "placeholder": "• Where does traffic land — homepage / category / dedicated landing / quiz / form / messenger / call\n• Landing pages ready or need to be built\n• Mobile version quality\n• Page speed (Core Web Vitals) — known?\n• Steps from click to target action\n• Current site conversion rate (if known)"
+        },
+        {
+          "title": "Creatives & assets",
+          "subtitle": "Creative production is its own line item — don't underestimate it.",
+          "name": "section_creatives",
+          "placeholder": "• Who produces creatives — you / us / together\n• Copy, headlines, offers ready?\n• Photo and video material — what, what quality\n• Brand guidelines and style\n• Tone — serious / friendly / provocative / expert\n• Visual or text restrictions (legal, corporate)\n• Topics / angles you don't want to use"
+        },
+        {
+          "title": "USP & messages",
+          "subtitle": "Drives creative themes and ad copy hierarchy.",
+          "name": "section_usp",
+          "placeholder": "• 3–5 key messages we want to land\n• How you differ from competitors in ads\n• Triggers that work — price / urgency / exclusivity / social proof / guarantee / expertise\n• Promotions and special offers planned (when, what, duration)"
+        },
+        {
+          "title": "Competitor ads",
+          "subtitle": "Benchmark for bids, creatives, offers.",
+          "name": "section_competitor_ads",
+          "placeholder": "• 3–5 competitors you see advertising\n• What's strong about their ads\n• Their offers and prices\n• Where they advertise most actively"
+        },
+        {
+          "title": "Legal & vertical restrictions",
+          "subtitle": "Moderation can kill a campaign. Knowing in advance saves time.",
+          "name": "section_legal_restrictions",
+          "placeholder": "• Regulated vertical? (medical, finance, supplements, gambling, alcohol, tobacco, pharma, education, real estate, investments)\n• Required licences, certificates, disclaimers\n• Ad-disclosure / labelling requirements (who handles)\n• Age restrictions\n• Legal review needed for creatives?"
+        },
+        {
+          "title": "Seasonality & priorities",
+          "subtitle": "Helps allocate budget across months and product lines.",
+          "name": "section_seasonality",
+          "placeholder": "• Product seasonality (peaks/lows by month)\n• Priority products / cities / regions for the next 3 months\n• Areas you don't want to advertise\n• Sales-team hours (when to show 'call now' CTAs)"
+        },
+        {
+          "title": "Sales team & lead handling",
+          "subtitle": "The best ads are useless if leads aren't worked. Sometimes we fix sales first.",
+          "name": "section_sales",
+          "placeholder": "• Who receives the leads and how fast\n• How many sales reps process them\n• Hours / time-zone\n• Sales scripts and process docs\n• Lead-to-sale conversion rate (if known)\n• Where leads are stored — CRM / spreadsheet / email\n• Are leads being lost or processed slowly?"
+        },
+        {
+          "title": "Timeline & reporting",
+          "subtitle": "Aligns expectations on cadence and visibility.",
+          "name": "section_timeline",
+          "placeholder": "• Desired campaign start date\n• Test period length (typically 1–2 months)\n• Reporting format and cadence — weekly / monthly / live dashboard\n• Key metrics you want to see in reports\n• Preferred comms channel"
+        }
+      ]
     }
   },
   "legal_pages": {

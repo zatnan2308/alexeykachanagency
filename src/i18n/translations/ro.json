@@ -473,17 +473,208 @@
       "optional_label": "Opțional",
       "success_title": "Brief primit",
       "success_body": "Mulțumim. Îl analizăm și revenim în mai puțin de 4 ore în program de lucru cu scope, calendar și preț în scris.",
-      "intro_note": "Datele tale rămân confidențiale. Le folosim doar pentru a defini angajamentul."
+      "intro_note": "Răspunde doar la ce este relevant — schițele se salvează automat în browser. Sari peste secțiunile care nu se aplică.",
+      "contact_section_title": "Contact rapid"
     },
     "website": {
       "kicker": "Brief proiect web",
       "h1": "Spune-ne despre site.",
-      "lead": "Opt întrebări, opt minute. Cu cât răspunsurile sunt mai precise, cu atât oferta este mai exactă — și cu atât ajungem mai repede la kickoff."
+      "lead": "Cu cât răspunsurile sunt mai precise, cu atât oferta este mai exactă. Sari peste secțiunile care nu se aplică — completăm golurile la apelul de kickoff.",
+      "contact_fields": [
+        { "name": "company_name", "label": "Numele companiei", "type": "text", "required": true, "placeholder": "Numele de brand sau juridic" },
+        { "name": "contact_person", "label": "Numele tău și funcția", "type": "text", "required": true, "placeholder": "ex. Ana Popescu, Director Marketing" },
+        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "tu@companie.ro" },
+        { "name": "phone_messenger", "label": "Telefon sau messenger", "type": "tel", "required": false, "placeholder": "+ prefix țară, sau @telegram" }
+      ],
+      "sections": [
+        {
+          "title": "Companie și geografie",
+          "subtitle": "O privire de 30 de secunde ne ajută să adaptăm tonul și fusul orar.",
+          "name": "section_company",
+          "placeholder": "• Anul fondării, scurt istoric\n• Persoana care decide dacă diferă de contact (nume, contact)\n• URL-ul site-ului existent și conturile sociale\n• Oraș / regiune / țară / internațional\n• Fus orar pentru apeluri"
+        },
+        {
+          "title": "Business și produs",
+          "subtitle": "Ne ajută să alegem tipul potrivit de site — landing, catalog, e-commerce, portal.",
+          "name": "section_business",
+          "placeholder": "• Descrie afacerea în 2–3 fraze (ca unui vecin)\n• Ce vinzi: produs / serviciu / abonament / SaaS / infoprodus\n• Top 5–10 produse sau categorii\n• Coș mediu / interval de prețuri\n• Marjă (mică / medie / mare)\n• Sezonalitate — când sunt vârfurile?\n• Ciclu de vânzare — ore, zile, săptămâni, luni?"
+        },
+        {
+          "title": "Public țintă",
+          "subtitle": "Definește tonul, elementele de încredere și filtrele catalogului.",
+          "name": "section_audience",
+          "placeholder": "• B2B / B2C / B2G / mixt\n• 2–4 segmente — vârstă, funcție, venit, geografie\n• Ce problemă rezolvă produsul pentru fiecare segment\n• Limbajul clientului — termeni profesionali / simplu / premium\n• Top obiecții și temeri\n• Ce contează cel mai mult la alegere — preț / termen / calitate / serviciu / garanții / reputație (prioritizează)"
+        },
+        {
+          "title": "Concurență și poziționare",
+          "subtitle": "USP-ul tău este baza fiecărei pagini și CTA.",
+          "name": "section_competitors",
+          "placeholder": "• 3–5 concurenți direcți (linkuri)\n• Ce fac bine și îți place\n• Ce fac slab și nu vrei\n• USP-ul real (nu „calitate și preț\")\n• 3–5 motive să cumpere de la tine specific\n• Puncte slabe pe care designul sau conținutul ar trebui să le compenseze"
+        },
+        {
+          "title": "Obiective și KPI",
+          "subtitle": "Obiectivele determină totul — structură, plasarea CTA-urilor, tracking.",
+          "name": "section_goals",
+          "placeholder": "• Top 1–2 obiective: lead-uri / vânzări online / catalog / imagine / construcție bază / suport clienți\n• Acțiunea țintă: formular / apel / cumpărare / abonare / descărcare / înregistrare\n• KPI măsurabil: lead-uri sau vânzări pe lună\n• De unde vin clienții azi și aproximativ câți"
+        },
+        {
+          "title": "Structura site-ului",
+          "subtitle": "Pentru estimarea scope-ului, alegerea CMS și arhitectura URL.",
+          "name": "section_structure",
+          "placeholder": "• Pagini / secțiuni necesare (sau cere-ne sugestii)\n• Adâncimea catalogului — categorii, subcategorii, produse\n• Blog / știri / articole?\n• Landinguri dedicate per serviciu / oraș / segment?\n• Limbi — care, care e master?\n• Multi-regiune — subdomenii / foldere / geo-routing?"
+        },
+        {
+          "title": "Funcționalități",
+          "subtitle": "Fiecare punct înseamnă ore sau zile de muncă și definește stack-ul.",
+          "name": "section_functionality",
+          "placeholder": "Bifează sau descrie:\n• Catalog cu filtre — care?\n• Coș, comandă, plăți online — ce metode?\n• Cont client / login (e-mail / telefon / SSO)\n• Calculator, configurator, programări online\n• Chat / chatbot\n• Formulare — care, unde merg?\n• Integrări — CRM (care?), 1C, ERP, telefonie, e-mail, analytics, mesagerie, plăți, livrări\n• Căutare, comparator, favorite, recenzii, fidelitate, multi-utilizator (B2B)"
+        },
+        {
+          "title": "Pregătirea conținutului",
+          "subtitle": "Conținutul este cauza nr. 1 a întârzierilor.",
+          "name": "section_content",
+          "placeholder": "• Cine scrie textele: tu / copywriter-ul nostru / împreună\n• Foto și video: ședință proprie / stock / ședință cu noi\n• Logo + ghid de brand gata? (trimite)\n• Culori, fonturi, grafică de brand pregătite?\n• Număr de produse/servicii la lansare\n• Texte gata sau de scris de la zero?"
+        },
+        {
+          "title": "Preferințe de design",
+          "subtitle": "Accelerează design-ul și reduce rundele de revizii.",
+          "name": "section_design",
+          "placeholder": "• Stil: minimal / clasic / premium / îndrăzneț / tech / cald / corporate / altul\n• 3–5 site-uri care îți plac (linkuri + ce anume)\n• 2–3 site-uri care nu îți plac (linkuri + de ce)\n• Paletă — păstrăm brandul / deschis / culori de evitat\n• Ton — prietenos / expert / formal / jucăuș\n• Mod întunecat?\n• Accesibilitate (WCAG)?\n• Animații — minime / moderate / bogate"
+        },
+        {
+          "title": "Cerințe tehnice",
+          "subtitle": "Determină stack-ul și sub-furnizorii.",
+          "name": "section_tech",
+          "placeholder": "• Preferință CMS / platformă: WordPress / Shopify / Webflow / custom / fără\n• Hosting — al tău / recomandare de la noi\n• Domeniu — îl ai / de înregistrat\n• Panou admin pentru editare proprie — ce blocuri editabile?\n• Trafic lunar estimat\n• Adaptiv — desktop + tabletă + mobil (prioritate?)\n• SEO — schema, sitemap, robots, meta — gestionăm noi?\n• Analytics — GA4 / Plausible / Clarity / altele\n• Sync CRM, call-tracking\n• Securitate — SSL, anti-bot, backup, GDPR / rezidența datelor"
+        },
+        {
+          "title": "SEO și creștere",
+          "subtitle": "Dacă SEO e planificat, structura și URL-urile trebuie să-l susțină din ziua 1.",
+          "name": "section_seo",
+          "placeholder": "• SEO planificat după lansare?\n• Cercetare keywords gata / de făcut\n• Regiuni țintă\n• Structură SEO (pagini cluster)?\n• Site existent cu autoritate SEO acumulată (gestionăm 301-urile)?"
+        },
+        {
+          "title": "Termen și buget",
+          "subtitle": "Scope realist. Mai bine mai puțin și bine, decât tot și prost.",
+          "name": "section_timeline",
+          "placeholder": "• Data de lansare dorită\n• Deadline ferm (eveniment, sezon, contract)\n• Interval de buget — de la / până la\n• Buget de suport post-lansare pe lună\n• Disponibilitate de a investi în trafic plătit după lansare — buget lunar aprox"
+        },
+        {
+          "title": "Suport post-lansare",
+          "subtitle": "Clarifică cine operează site-ul după lansare.",
+          "name": "section_support",
+          "placeholder": "• Cine se ocupă zilnic: tu / noi / dezvoltator angajat\n• Trainings admin și video-tutoriale necesare?\n• SLA — timp de răspuns la incidente?\n• Actualizări funcționale periodice planificate?"
+        },
+        {
+          "title": "Legal și organizatoric",
+          "subtitle": "Evită surprizele înainte de semnarea contractului.",
+          "name": "section_legal",
+          "placeholder": "• Transfer drepturi cod și design\n• Etape de plată\n• Aprobatori — decident, designer, marketing\n• Canal preferat — Telegram / e-mail / Slack / Trello\n• Frecvență și format al rapoartelor"
+        }
+      ]
     },
     "ads": {
       "kicker": "Brief publicitar",
       "h1": "Spune-ne despre campanie.",
-      "lead": "Șase secțiuni, zece minute. Revenim cu un mix recomandat de canale, un buget de pornire și o țintă măsurabilă înainte de orice contract."
+      "lead": "Sari peste ce nu se aplică — schițele se salvează în browser. Revenim cu un mix recomandat de canale, un buget de pornire și o țintă măsurabilă — înainte de orice contract.",
+      "contact_fields": [
+        { "name": "company_name", "label": "Numele companiei", "type": "text", "required": true, "placeholder": "Numele de brand sau juridic" },
+        { "name": "contact_person", "label": "Numele tău și funcția", "type": "text", "required": true, "placeholder": "ex. Ana Popescu, Director Marketing" },
+        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "tu@companie.ro" },
+        { "name": "phone_messenger", "label": "Telefon sau messenger", "type": "tel", "required": false, "placeholder": "+ prefix țară, sau @telegram" }
+      ],
+      "sections": [
+        {
+          "title": "Companie și geografie",
+          "subtitle": "Ne ajută să aliniem alegerea canalelor cu piața ta.",
+          "name": "section_company",
+          "placeholder": "• URL site și conturi sociale\n• Aprobator de creative și strategie dacă diferă de contact\n• Orașe / țări unde faci publicitate\n• Fus orar"
+        },
+        {
+          "title": "Produs și ofertă",
+          "subtitle": "Definește CPA țintă, tipul de campanie și unghiul creativ.",
+          "name": "section_product",
+          "placeholder": "• Ce promovăm — un singur produs / categorie / întreaga afacere\n• Preț / valoare medie a comenzii / interval\n• Marjă (% aprox) — determină CPL-ul admisibil\n• LTV dacă o știi — se rentabilizează publicitatea în timp?\n• Puncte distinctive\n• Oferta curentă (reducere / bonus / audit gratuit / probă)\n• Lead magnet, dacă există"
+        },
+        {
+          "title": "Public țintă",
+          "subtitle": "Determină alegerea canalelor, targetingul și direcția creativă.",
+          "name": "section_audience",
+          "placeholder": "• 2–4 segmente — demografie, geografie, interese, comportament, venit\n• Dureri și nevoi pe segment\n• Etapa funnel-ului — neconștientizați / conștienți de problemă / de soluție / gata să cumpere\n• Obiecții și temeri\n• Unde se află publicul (social, search, site-uri)"
+        },
+        {
+          "title": "Obiective și KPI",
+          "subtitle": "Obiectivul determină strategia de bidding și definiția succesului.",
+          "name": "section_goals",
+          "placeholder": "Alege 1–2 obiective principale:\n• Lead-uri (formulare, apeluri)\n• Vânzări online directe\n• Instalări de aplicație\n• Abonări / bază\n• Notorietate / reach\n• Trafic pe site fără conversie clară\n• Re-engagement / remarketing\n\nKPI:\n• CPA țintă / cost per client\n• ROAS țintă\n• Volum lunar de lead-uri/vânzări\n• Termen pentru atingerea acestor obiective"
+        },
+        {
+          "title": "Buget",
+          "subtitle": "Definește reach-ul, ipotezele testabile și canalele posibile.",
+          "name": "section_budget",
+          "placeholder": "• Buget total lunar de publicitate\n• Distribuția pe canale dacă ai o viziune, sau cere-ne recomandare\n• Perioadă și buget de testare\n• Disponibilitate de scalare la atingerea KPI-ului?\n• TVA și onorariul agenției — incluse sau separate?"
+        },
+        {
+          "title": "Canale",
+          "subtitle": "Mixul de canale se aliniază cu obiectivul și publicul.",
+          "name": "section_channels",
+          "placeholder": "Bifează cele care interesează / cere recomandare:\n• Google Ads (Search, PMax, Display, YouTube)\n• Meta Ads (Facebook + Instagram)\n• TikTok Ads\n• LinkedIn Ads\n• Microsoft / Bing Ads\n• Telegram Ads\n• Marketing cu influenceri pe YouTube\n• Anunțuri în marketplace-uri (Amazon, eBay)\n• Hărți locale (Google Business)\n• Campanii e-mail\n• Programmatic / DSP"
+        },
+        {
+          "title": "Istoric și analytics",
+          "subtitle": "Fără date, optimizarea e ghicire. Lipsurile le acoperim mai întâi.",
+          "name": "section_history",
+          "placeholder": "• Publicitate anterioară — unde, rezultate, ce a funcționat / nu\n• Acces la conturile de ads gata sau de creat\n• Pixeli instalați: GA4, Meta Pixel, TikTok…\n• Obiective/evenimente configurate (care)\n• Call-tracking — furnizor, status\n• Analytics end-to-end — furnizor\n• CRM și acces API\n• Date despre clienți pentru lookalike / retargeting"
+        },
+        {
+          "title": "Pagini de aterizare",
+          "subtitle": "Landing-urile slabe ard buget. Uneori trebuie reparate întâi.",
+          "name": "section_landing",
+          "placeholder": "• Unde aterizează traficul — pagina principală / categorie / landing dedicată / quiz / formular / messenger / apel\n• Landing-urile sunt gata sau de construit\n• Calitatea versiunii mobile\n• Viteza (Core Web Vitals) — cunoscută?\n• Pași de la click la acțiunea țintă\n• Rata curentă de conversie a site-ului (dacă e cunoscută)"
+        },
+        {
+          "title": "Creative și materiale",
+          "subtitle": "Producția creativă e linie aparte — nu o subestima.",
+          "name": "section_creatives",
+          "placeholder": "• Cine produce creativele — tu / noi / împreună\n• Texte, titluri, oferte gata?\n• Material foto și video — ce, în ce calitate\n• Ghid de brand și stil\n• Ton — serios / prietenos / provocator / expert\n• Restricții vizuale sau de text (legale, interne)\n• Subiecte / unghiuri de evitat"
+        },
+        {
+          "title": "USP și mesaje",
+          "subtitle": "Conduce temele creative și ierarhia copy-urilor.",
+          "name": "section_usp",
+          "placeholder": "• 3–5 mesaje cheie de transmis\n• Cum te diferențiezi în publicitate\n• Triggere care funcționează — preț / urgență / exclusivitate / dovadă socială / garanție / expertiză\n• Promoții și oferte speciale planificate (când, care, durată)"
+        },
+        {
+          "title": "Anunțurile concurenței",
+          "subtitle": "Benchmark pentru sume licitate, creative, oferte.",
+          "name": "section_competitor_ads",
+          "placeholder": "• 3–5 concurenți pe care îi vezi făcând publicitate\n• Ce e puternic în anunțurile lor\n• Ofertele și prețurile lor\n• Unde fac cea mai activă publicitate"
+        },
+        {
+          "title": "Restricții legale și de domeniu",
+          "subtitle": "Moderarea poate opri o campanie. Anticiparea economisește timp.",
+          "name": "section_legal_restrictions",
+          "placeholder": "• Domeniu reglementat? (medical, financiar, suplimente, jocuri, alcool, tutun, farma, educație, imobiliare, investiții)\n• Licențe, certificate, mențiuni obligatorii\n• Etichetare publicitară (cine se ocupă)\n• Restricții de vârstă\n• Verificare juridică a creativelor necesară?"
+        },
+        {
+          "title": "Sezonalitate și priorități",
+          "subtitle": "Ajută la alocarea bugetului între luni și linii de produs.",
+          "name": "section_seasonality",
+          "placeholder": "• Sezonalitatea produsului (vârfuri/scăderi pe luni)\n• Produse / orașe / regiuni prioritare în următoarele 3 luni\n• Zone unde nu vrei publicitate\n• Programul echipei de vânzări (când să afișezi CTA „sună acum\")"
+        },
+        {
+          "title": "Echipa de vânzări și gestionarea lead-urilor",
+          "subtitle": "Cele mai bune anunțuri sunt inutile dacă lead-urile nu se lucrează.",
+          "name": "section_sales",
+          "placeholder": "• Cine primește lead-urile și în cât timp\n• Câți comerciali îi procesează\n• Program / fus orar\n• Scripturi de vânzare și proceduri\n• Rata lead-spre-vânzare (dacă e cunoscută)\n• Unde sunt stocate lead-urile — CRM / tabel / e-mail\n• Lead-uri pierdute sau procesate lent?"
+        },
+        {
+          "title": "Termene și raportare",
+          "subtitle": "Aliniază așteptările privind cadența și vizibilitatea.",
+          "name": "section_timeline",
+          "placeholder": "• Data dorită de start\n• Durata perioadei de testare (uzual 1–2 luni)\n• Format și frecvență a rapoartelor — săptămânal / lunar / dashboard live\n• Metrici cheie de văzut în rapoarte\n• Canal de comunicare preferat"
+        }
+      ]
     }
   },
   "legal_pages": {

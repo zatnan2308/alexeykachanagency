@@ -1,10 +1,17 @@
 ---
 /**
- * BriefForm — multi-step intake brief.
- * Variants: 'website' (8 fields) | 'ads' (8 fields)
+ * BriefForm — comprehensive intake brief, accordion sections.
+ * Variants: 'website' | 'ads'
  *
- * Fields are arranged in 2 logical groups but rendered as one long form for simplicity.
- * Submission goes to Web3Forms with `redirect` to the localized thank-you page.
+ * Field schema lives in translations under
+ *   brief_pages.<variant>.contact_fields  — quick-contact inputs (top of form)
+ *   brief_pages.<variant>.sections        — array of { title, subtitle, name, placeholder }
+ *
+ * Each section is rendered as a single textarea so the user can answer
+ * the listed sub-questions in their own words. Mobile-friendly: each
+ * accordion fits one screen, can be opened/closed without losing entered text.
+ *
+ * Submission goes to Web3Forms with redirect to localized thank-you page.
  */
 import { useTranslations, getTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
@@ -24,67 +31,22 @@ const common = all?.brief_pages?.common ?? enAll.brief_pages.common;
 
 const thankYouUrl = getLocalizedPath('thank-you', lang) || '/thank-you/';
 
-// Field schemas per variant
-const websiteFields = [
-  { name: 'company',           label: 'Company',                       type: 'text',     required: true,  group: 1 },
-  { name: 'name',              label: 'Your name',                     type: 'text',     required: true,  group: 1 },
-  { name: 'email',             label: 'Email',                         type: 'email',    required: true,  group: 1 },
-  { name: 'country',           label: 'Country',                       type: 'text',     required: false, group: 1 },
-  { name: 'project_type',      label: 'Project type',                  type: 'select',   required: true,  group: 2,
-    options: ['New website', 'Redesign of existing site', 'Migration to a new stack', 'Multilingual rollout', 'Not sure yet'] },
-  { name: 'current_url',       label: 'Current website URL',           type: 'url',      required: false, group: 2 },
-  { name: 'languages',         label: 'Languages needed',              type: 'text',     required: false, group: 2,
-    placeholder: 'e.g. English, German, French' },
-  { name: 'pages_estimate',    label: 'Approximate page count',        type: 'select',   required: false, group: 2,
-    options: ['< 10 pages', '10–25 pages', '25–50 pages', '50+ pages', 'Not sure'] },
-  { name: 'goals',             label: 'Primary goal',                  type: 'textarea', required: true,  group: 3,
-    placeholder: 'What does success look like 6 months after launch?' },
-  { name: 'must_have_features',label: 'Must-have features',            type: 'textarea', required: false, group: 3,
-    placeholder: 'CMS for blog, multilingual, custom integrations, e-commerce, members area…' },
-  { name: 'tech_constraints',  label: 'Tech constraints',              type: 'textarea', required: false, group: 3,
-    placeholder: 'Existing CMS, hosting requirements, legal/security constraints…' },
-  { name: 'timeline',          label: 'Timeline',                      type: 'select',   required: true,  group: 4,
-    options: ['ASAP — under 4 weeks', '1–2 months', '2–3 months', 'Q3 / Q4 this year', 'Flexible'] },
-  { name: 'budget',            label: 'Budget range',                  type: 'select',   required: true,  group: 4,
-    options: ['Under $5k', '$5–10k', '$10–25k', '$25–50k', '$50k+', 'Not sure / advise'] },
-  { name: 'decision_makers',   label: 'Who signs off',                 type: 'text',     required: false, group: 4 },
-  { name: 'inspiration',       label: 'Sites you admire',              type: 'textarea', required: false, group: 5 },
-  { name: 'extra_notes',       label: 'Anything else we should know',  type: 'textarea', required: false, group: 5 },
-];
+interface ContactField {
+  name: string;
+  label: string;
+  type: 'text' | 'email' | 'tel' | 'url';
+  required?: boolean;
+  placeholder?: string;
+}
+interface Section {
+  title: string;
+  subtitle?: string;
+  name: string;
+  placeholder?: string;
+}
 
-const adsFields = [
-  { name: 'company',           label: 'Company',                       type: 'text',     required: true,  group: 1 },
-  { name: 'name',              label: 'Your name',                     type: 'text',     required: true,  group: 1 },
-  { name: 'email',             label: 'Email',                         type: 'email',    required: true,  group: 1 },
-  { name: 'website',           label: 'Website URL',                   type: 'url',      required: true,  group: 1 },
-  { name: 'product_description', label: 'What you sell',               type: 'textarea', required: true,  group: 2,
-    placeholder: 'Product/service in 1–2 sentences. Average price/contract value.' },
-  { name: 'audience',          label: 'Target audience',               type: 'textarea', required: true,  group: 2,
-    placeholder: 'Who is the ideal customer? Industry, role, geography.' },
-  { name: 'selling_points',    label: 'Why customers pick you',        type: 'textarea', required: false, group: 2 },
-  { name: 'channels_running',  label: 'Channels currently running',    type: 'text',     required: false, group: 3,
-    placeholder: 'e.g. Google Ads, Meta, LinkedIn, none' },
-  { name: 'monthly_spend',     label: 'Current monthly ad spend',      type: 'select',   required: false, group: 3,
-    options: ['Not running ads yet', 'Under $2k', '$2–5k', '$5–10k', '$10–30k', '$30k+'] },
-  { name: 'current_metrics',   label: 'Current CAC / ROAS',            type: 'text',     required: false, group: 3,
-    placeholder: 'e.g. CAC $180, ROAS 2.4×' },
-  { name: 'primary_kpi',       label: 'Primary KPI',                   type: 'select',   required: true,  group: 4,
-    options: ['Leads / form submissions', 'E-commerce revenue', 'App installs', 'Sign-ups / trials', 'Brand awareness', 'Other'] },
-  { name: 'target_cac',        label: 'Target CAC',                    type: 'text',     required: false, group: 4 },
-  { name: 'target_volume',     label: 'Target monthly volume',         type: 'text',     required: false, group: 4,
-    placeholder: 'e.g. 80 qualified leads / month' },
-  { name: 'start_date',        label: 'Ideal start date',              type: 'select',   required: true,  group: 5,
-    options: ['ASAP — within 2 weeks', 'Within 1 month', '1–2 months', 'Flexible'] },
-  { name: 'monthly_budget',    label: 'Proposed monthly budget',       type: 'select',   required: true,  group: 5,
-    options: ['$5–10k', '$10–25k', '$25–50k', '$50k+', 'Not sure / advise'] },
-  { name: 'decision_makers',   label: 'Who signs off',                 type: 'text',     required: false, group: 5 },
-  { name: 'extra_notes',       label: 'Anything else',                 type: 'textarea', required: false, group: 6 },
-];
-
-const fields = variant === 'website' ? websiteFields : adsFields;
-const groupLabels = variant === 'website'
-  ? ['About you', 'About the project', 'Goals & scope', 'Timeline & budget', 'References']
-  : ['About you', 'About the product', 'Current state', 'Goals', 'Timeline & budget', 'Anything else'];
+const contactFields: ContactField[] = data.contact_fields ?? enAll.brief_pages[variant].contact_fields;
+const sections: Section[] = data.sections ?? enAll.brief_pages[variant].sections;
 ---
 
 <Breadcrumb
@@ -110,6 +72,7 @@ const groupLabels = variant === 'website'
     <form
       class="brief-form"
       data-brief-form
+      data-brief-variant={variant}
       action="https://api.web3forms.com/submit"
       method="POST"
       novalidate
@@ -121,49 +84,55 @@ const groupLabels = variant === 'website'
       <input type="hidden" name="redirect" value={thankYouUrl} />
       <input type="checkbox" name="botcheck" class="brief-form__honeypot" tabindex="-1" autocomplete="off" />
 
-      {groupLabels.map((groupLabel, gi) => {
-        const groupNum = gi + 1;
-        const groupFields = fields.filter((f) => f.group === groupNum);
-        if (groupFields.length === 0) return null;
+      {/* Quick contact group — always visible */}
+      <fieldset class="brief-form__group brief-form__group--contact">
+        <legend class="brief-form__legend">
+          <span class="brief-form__legend-num">/01</span>
+          <span>{common.contact_section_title}</span>
+        </legend>
+        <div class="brief-form__fields">
+          {contactFields.map((f) => (
+            <label class={`brief-form__field ${f.type === 'tel' ? '' : 'is-half'}`}>
+              <span class="brief-form__label">
+                {f.label}
+                {f.required ? <em>{common.required_label}</em> : <em>{common.optional_label}</em>}
+              </span>
+              <input
+                type={f.type}
+                name={f.name}
+                required={f.required}
+                placeholder={f.placeholder ?? ''}
+                class="brief-form__input"
+                autocomplete={f.type === 'email' ? 'email' : f.type === 'tel' ? 'tel' : 'on'}
+              />
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      {/* Section accordions — one textarea per section with sub-question hints */}
+      {sections.map((s, i) => {
+        const num = (i + 2).toString().padStart(2, '0');
+        const isOpen = i < 2; // first 2 sections open by default; rest closed
         return (
-          <fieldset class="brief-form__group">
-            <legend class="brief-form__legend">
-              <span class="brief-form__legend-num">/{groupNum.toString().padStart(2, '0')}</span>
-              <span>{groupLabel}</span>
-            </legend>
-            <div class="brief-form__fields">
-              {groupFields.map((f) => (
-                <label class={`brief-form__field ${f.type === 'textarea' ? 'is-full' : ''}`}>
-                  <span class="brief-form__label">
-                    {f.label}
-                    {f.required ? <em>{common.required_label}</em> : <em>{common.optional_label}</em>}
-                  </span>
-                  {f.type === 'textarea' ? (
-                    <textarea
-                      name={f.name}
-                      rows="4"
-                      required={f.required}
-                      placeholder={(f as any).placeholder ?? ''}
-                      class="brief-form__textarea"
-                    />
-                  ) : f.type === 'select' ? (
-                    <select name={f.name} required={f.required} class="brief-form__input">
-                      <option value="">—</option>
-                      {(f as any).options.map((opt: string) => <option>{opt}</option>)}
-                    </select>
-                  ) : (
-                    <input
-                      type={f.type as 'text' | 'email' | 'url'}
-                      name={f.name}
-                      required={f.required}
-                      placeholder={(f as any).placeholder ?? ''}
-                      class="brief-form__input"
-                    />
-                  )}
-                </label>
-              ))}
+          <details class="brief-form__group brief-form__group--section" open={isOpen}>
+            <summary class="brief-form__legend">
+              <span class="brief-form__legend-num">/{num}</span>
+              <span>{s.title}</span>
+              <svg class="brief-form__chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="brief-form__section-body">
+              {s.subtitle && <p class="brief-form__section-sub">{s.subtitle}</p>}
+              <textarea
+                name={s.name}
+                rows="6"
+                class="brief-form__textarea"
+                placeholder={s.placeholder ?? ''}
+              />
             </div>
-          </fieldset>
+          </details>
         );
       })}
 
@@ -211,44 +180,77 @@ const groupLabels = variant === 'website'
   .brief-form {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
-    max-width: 48rem;
+    gap: 1.25rem;
+    max-width: 52rem;
   }
   .brief-form__honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; }
+
   .brief-form__group {
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
-    padding: 1.75rem;
+    padding: 1.5rem;
     background: var(--bg-secondary);
     margin: 0;
   }
-  @media (min-width: 768px) { .brief-form__group { padding: 2.25rem; } }
+  @media (min-width: 768px) { .brief-form__group { padding: 2rem; } }
+
+  .brief-form__group--section { padding: 0; transition: border-color var(--duration-fast) var(--ease-out); }
+  .brief-form__group--section[open] { border-color: var(--border-strong, var(--border)); }
+  .brief-form__group--section > summary { padding: 1.25rem 1.5rem; cursor: pointer; list-style: none; }
+  .brief-form__group--section > summary::-webkit-details-marker { display: none; }
+  @media (min-width: 768px) {
+    .brief-form__group--section > summary { padding: 1.5rem 2rem; }
+  }
+  .brief-form__group--section > summary:hover .brief-form__legend { color: var(--text-primary); }
+  .brief-form__chevron { margin-left: auto; transition: transform var(--duration-base) var(--ease-out); color: var(--text-muted); }
+  .brief-form__group--section[open] .brief-form__chevron { transform: rotate(180deg); }
+
   .brief-form__legend {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 0.875rem;
     font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 600;
     color: var(--text-primary);
     letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
+    width: 100%;
   }
+  .brief-form__group--contact .brief-form__legend { margin-bottom: 1.5rem; }
   .brief-form__legend-num {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     color: var(--accent);
     font-weight: 500;
     letter-spacing: 0.06em;
+    flex-shrink: 0;
   }
+
+  .brief-form__section-body {
+    padding: 0 1.5rem 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .brief-form__section-body { padding: 0 2rem 1.75rem; }
+  }
+  .brief-form__section-sub {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    max-width: 44rem;
+  }
+
   .brief-form__fields {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1rem;
   }
-  @media (min-width: 640px) { .brief-form__fields { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 640px) {
+    .brief-form__fields { grid-template-columns: 1fr 1fr; }
+  }
   .brief-form__field { display: flex; flex-direction: column; gap: 0.5rem; }
-  .brief-form__field.is-full { grid-column: 1 / -1; }
+  .brief-form__field.is-half { grid-column: span 1; }
   .brief-form__label {
     display: flex;
     align-items: baseline;
@@ -278,7 +280,13 @@ const groupLabels = variant === 'website'
     font-family: inherit;
     transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
   }
-  .brief-form__textarea { min-height: 6rem; resize: vertical; }
+  .brief-form__textarea {
+    min-height: 8rem;
+    resize: vertical;
+    line-height: 1.55;
+    white-space: pre-wrap;
+  }
+  .brief-form__textarea::placeholder { color: var(--text-muted); opacity: 0.85; }
   .brief-form__input:focus,
   .brief-form__textarea:focus {
     outline: none;
@@ -294,6 +302,7 @@ const groupLabels = variant === 'website'
     line-height: 1.45;
     cursor: pointer;
     max-width: 36rem;
+    margin-top: 1rem;
   }
   .brief-form__consent input { margin-top: 0.25rem; flex-shrink: 0; accent-color: var(--accent); }
   .brief-form__submit {
@@ -324,11 +333,34 @@ const groupLabels = variant === 'website'
     if (!form || form.dataset.bound === '1') return;
     form.dataset.bound = '1';
 
+    const variant = form.dataset.briefVariant || 'website';
     const status = form.querySelector('[data-brief-status]') as HTMLElement | null;
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
     const submitLabel = submit?.querySelector('.brief-form__submit-label');
     const accessKey = (form.elements.namedItem('access_key') as HTMLInputElement | null)?.value;
     const redirectUrl = (form.elements.namedItem('redirect') as HTMLInputElement | null)?.value;
+
+    // Autosave to localStorage so users don't lose long answers
+    const saveKey = `brief-draft-${variant}`;
+    try {
+      const saved = JSON.parse(localStorage.getItem(saveKey) || '{}');
+      Object.entries(saved).forEach(([k, v]) => {
+        const el = form.elements.namedItem(k) as HTMLInputElement | HTMLTextAreaElement | null;
+        if (el && typeof v === 'string') el.value = v;
+      });
+    } catch { /* ignore corrupt JSON */ }
+
+    const persist = () => {
+      const fd = new FormData(form);
+      const obj: Record<string, string> = {};
+      fd.forEach((v, k) => {
+        if (typeof v === 'string' && k !== 'access_key' && k !== 'subject' && k !== 'from_name' && k !== 'redirect' && k !== 'botcheck' && k !== 'consent') {
+          obj[k] = v;
+        }
+      });
+      try { localStorage.setItem(saveKey, JSON.stringify(obj)); } catch { /* ignore quota */ }
+    };
+    form.addEventListener('input', persist);
 
     form.addEventListener('submit', async (e) => {
       if (!status || !submit) return;
@@ -344,6 +376,7 @@ const groupLabels = variant === 'website'
       // Placeholder key — pretend success and redirect
       if (!accessKey || accessKey.includes('REPLACE_WITH')) {
         await new Promise((r) => setTimeout(r, 500));
+        try { localStorage.removeItem(saveKey); } catch { /* ignore */ }
         if (redirectUrl) { window.location.assign(redirectUrl); return; }
         if (submitLabel) submitLabel.textContent = originalLabel;
         submit.disabled = false;
@@ -353,6 +386,7 @@ const groupLabels = variant === 'website'
       try {
         const res = await fetch(form.action, { method: 'POST', body: formData });
         if (res.ok) {
+          try { localStorage.removeItem(saveKey); } catch { /* ignore */ }
           if (redirectUrl) { window.location.assign(redirectUrl); return; }
           status.dataset.state = 'success';
           status.textContent = 'Brief received. Talk soon.';
