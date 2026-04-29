@@ -78,7 +78,7 @@
     "items": {
       "website_development": {
         "title": "Dezvoltare web",
-        "short": "Site-uri rapide, sigure, orientate spre conversie — care chiar vând."
+        "short": "Instrumentul potrivit pentru proiect — WordPress, Shopify, Astro, custom. Site-uri orientate spre conversie, fără snobism tehnologic."
       },
       "site_redesign": {
         "title": "Redesign de site",
@@ -928,105 +928,226 @@
     "website_development": {
       "hero": {
         "kicker": "Dezvoltare web",
-        "h1": "Site-uri care se lansează în săptămâni și se poziționează în luni.",
-        "lead": "Site-uri orientate spre conversie, construite cu Astro, Next.js sau CMS headless — rapide, sigure, multilingve și pregătite pentru SEO din prima zi.",
+        "h1": "Site-uri pe platforma care se potrivește afacerii tale — nu mie.",
+        "lead": "Construiesc pe ce se potrivește proiectului — WordPress, Shopify, Wix Studio, Astro sau Next.js custom. Treaba mea e să te ajut să alegi instrumentul potrivit, nu să-ți vând unul la modă.",
         "primary_cta": "Începe un proiect",
         "secondary_cta": "Vezi proiectele web"
+      },
+      "platforms": {
+        "label": "Platforme și stack",
+        "title": "Lucrez pe orice platformă serioasă — și pe câteva mai puțin serioase, când au sens.",
+        "subtitle": "Platforma este un instrument, nu o ideologie. Cea potrivită depinde de echipa ta, fluxul de conținut, buget și orizontul de creștere — nu de ce e la modă luna asta pe Twitter.",
+        "cta_helper": "Nu ești sigur ce platformă se potrivește? Spune-mi despre proiect — îți voi da o recomandare onestă, nu un pitch pentru opțiunea cea mai scumpă.",
+        "groups": [
+          {
+            "id": "quick_affordable",
+            "title": "Rapid și accesibil",
+            "subtitle": "Când trebuie să fii online repede, cu personalizări ușoare.",
+            "platforms": [
+              {
+                "name": "Wix Studio",
+                "when": "Builder no-code premium. Rezultat finisat fără termene lungi. Bun pentru lansări rapide și pagini design-first.",
+                "price": "de la 800 $"
+              },
+              {
+                "name": "Elementor (WordPress)",
+                "when": "Când ai nevoie de flexibilitatea WordPress dar nu vrei să scrii cod custom de tema. Editor vizual, conținut dinamic, ecosistem de plugin-uri.",
+                "price": "de la 1.200 $"
+              },
+              {
+                "name": "Plain HTML / CSS / JS",
+                "when": "One-pager-uri și microsite-uri statice unde fiecare kilooctet contează. Se încarcă sub o secundă, găzduit gratis pe edge.",
+                "price": "de la 800 $"
+              }
+            ]
+          },
+          {
+            "id": "popular_business",
+            "title": "Cele mai populare pentru business",
+            "subtitle": "Platforme verificate pe care 90 % dintre site-urile de business ar trebui să fie.",
+            "platforms": [
+              {
+                "name": "WordPress",
+                "when": "Standardul pentru site-uri de conținut care au nevoie de un CMS adevărat. Ecosistem uriaș de plugin-uri, editare ușoară, flexibilitate aproape infinită cu cod custom.",
+                "price": "de la 2.500 $"
+              },
+              {
+                "name": "WooCommerce",
+                "when": "E-commerce pe WordPress când nu vrei comisioanele Shopify. Proprietate completă, checkout custom, se integrează cu orice.",
+                "price": "de la 4.500 $"
+              },
+              {
+                "name": "Shopify",
+                "when": "Cea mai bună alegere pentru e-commerce serios. Stabil, rapid, fiecare procesator de plată integrat, scalează fără muncă de sysadmin.",
+                "price": "de la 4.000 $"
+              }
+            ]
+          },
+          {
+            "id": "performance_growth",
+            "title": "Performanță și creștere",
+            "subtitle": "Stack-uri moderne pentru site-uri unde viteza, SEO-ul și autonomia editorială contează la fel.",
+            "platforms": [
+              {
+                "name": "Astro",
+                "when": "Site-uri de conținut, landing page-uri, site-uri de agenție unde Lighthouse 95+ și SEO-ul bun sunt obligatorii. Static-first, livrează aproape deloc JavaScript.",
+                "price": "de la 3.500 $"
+              },
+              {
+                "name": "Next.js",
+                "when": "Dashboard-uri SaaS, interfețe tip aplicație, site-uri cu interactivitate puternică. Cel mai bun framework React cu putere completă pe server.",
+                "price": "de la 8.000 $"
+              },
+              {
+                "name": "Headless CMS",
+                "when": "Sanity, Storyblok sau Contentful. Când echipa editorială are nevoie de autonomie completă fără a fi limitată de front-end.",
+                "price": "+1.500 $ în plus"
+              }
+            ]
+          },
+          {
+            "id": "custom_solutions",
+            "title": "Soluții custom",
+            "subtitle": "Când nevoile depășesc orice platformă pre-existentă.",
+            "platforms": [
+              {
+                "name": "Node.js bespoke",
+                "when": "Integrări custom, instrumente interne, logică non-standard, funcții în timp real. Construit de la zero când nicio platformă nu se potrivește.",
+                "price": "de la 15.000 $"
+              }
+            ]
+          }
+        ]
       },
       "included": [
         {
           "title": "Descoperire și strategie",
-          "body": "Cercetare audiență, audit competitiv, arhitectură de conținut și specificații scrise — înaintea primei linii de cod."
+          "body": "Petrecem primul sprint înțelegând afacerea, audiența și obiectivele tale — înainte de a alege platforma sau de a scrie o singură linie de cod."
         },
         {
-          "title": "Sistem de design",
-          "body": "Sistem tipografic, token-uri de culoare, componente — aplicate brandului tău, refolosibile ani de zile."
+          "title": "Design",
+          "body": "Design custom de la zero, sau colaborare strânsă cu designerul tău intern. Indiferent, ținta e ceva care arată ca brandul tău, nu ca un șablon."
         },
         {
           "title": "Engineering",
-          "body": "Astro / Next.js / CMS headless. Pregătit pentru multilingv, markup SEO curat, Core Web Vitals 95+."
+          "body": "Pe platforma aleasă împreună — WordPress, Shopify, Astro, Next.js, custom. Cod solid pe care îl poate întreține și altcineva mai târziu."
         },
         {
           "title": "SEO on-page",
-          "body": "Meta, schema, sitemap, hreflang, link-uri interne. Fiecare pagină pregătită pentru Google la lansare."
+          "body": "URL-uri curate, meta tag-uri, schema, sitemap, hreflang pentru multilingv, link-uri interne. Fiecare pagină pregătită pentru Google înaintea lansării."
         },
         {
           "title": "Setare analytics",
-          "body": "GA4, Search Console, Microsoft Clarity, obiective de conversie — instalate înainte de live."
+          "body": "GA4, Search Console, Microsoft Clarity, obiective de conversie — conectate și testate înainte de go-live."
         },
         {
           "title": "Predare și instruire",
-          "body": "Walkthrough Loom de 30 min, documentație scrisă, 14 zile de suport post-lansare."
+          "body": "Video de walkthrough, documentație scrisă, echipa ta instruită pe admin. 14 zile de bug-fix gratuit după lansare."
         }
       ],
       "process": [
         {
-          "title": "Descoperire (săptămâna 1)",
-          "body": "Apeluri cu stakeholderi, audit, sitemap, brief de conținut, KPI-uri."
+          "title": "Descoperire",
+          "body": "Apeluri cu tine și echipa ta pentru a înțelege obiectivele, audiența, conținutul, integrările. Alegem împreună platforma după ce e potrivit — nu după ce-mi convine să facturez."
         },
         {
-          "title": "Design (săptămâna 2)",
-          "body": "Wireframe-uri, apoi high-fidelity. Două runde de revizii incluse."
+          "title": "Design",
+          "body": "Întâi wireframe-uri, apoi high-fidelity. Două runde de revizii incluse. Dacă aduci un designer, lucrez direct cu el la predare."
         },
         {
-          "title": "Build (săptămânile 3–4)",
-          "body": "Bibliotecă de componente, integrare conținut, performance tuning, QA."
+          "title": "Build",
+          "body": "Construcție pe platforma aleasă. Bibliotecă de componente, integrare conținut, performance tuning, QA pe browsere și dispozitive."
         },
         {
           "title": "Lansare și optimizare",
-          "body": "Mers live fără downtime, apoi 14 zile de fine-tuning pe trafic real."
+          "body": "Mers live fără downtime. 14 zile de fine-tuning pe trafic real, date reale din Search Console și feedback real de la utilizatori."
         }
       ],
       "deliverables": [
-        "Codebase de producție pe GitHub",
-        "Lighthouse 95+ pe mobil și desktop",
+        "Codebase de producție / acces admin (al tău pentru totdeauna)",
+        "Lighthouse 95+ pe mobil și desktop, unde platforma permite",
         "SEO on-page complet (meta, schema, sitemap, robots, hreflang)",
-        "Analytics + tracking conversii active",
+        "Analytics + tracking conversii conectate și testate",
         "Documentație + video de instruire de 30 min",
         "14 zile de bug-fix gratuit"
       ],
       "tiers": [
         {
-          "name": "Starter",
-          "price": 4500,
-          "timeline": "3 săptămâni",
+          "name": "Landing page",
+          "price": 800,
+          "timeline": "1–2 săptămâni",
           "highlight": false,
-          "tagline": "Site marketing monolingv, până la 8 pagini.",
+          "tagline": "Site de lansare o pagină, landing pentru eveniment, campanie lead-magnet.",
           "includes": [
-            "Până la 8 pagini, o limbă",
-            "Design la comandă (fără șabloane)",
-            "SEO on-page + schema",
+            "1 pagină, o limbă",
+            "Wix Studio / Elementor / HTML static",
+            "Design custom sau pe șablon",
+            "Bază SEO on-page",
+            "Analytics + tracking de formulare",
+            "14 zile de bug-fix"
+          ]
+        },
+        {
+          "name": "Afacere mică",
+          "price": 2500,
+          "timeline": "2–4 săptămâni",
+          "highlight": false,
+          "tagline": "5–10 pagini: servicii, despre, blog, contact. Cel mai popular tier.",
+          "includes": [
+            "5–10 pagini, o limbă",
+            "WordPress / Wix Studio (la alegere)",
+            "Design custom",
+            "Admin editabil pentru echipa ta",
+            "SEO on-page complet + schema",
             "GA4 + Search Console pregătite",
             "14 zile de bug-fix"
           ]
         },
         {
-          "name": "Growth",
-          "price": 9500,
-          "timeline": "5 săptămâni",
+          "name": "Site corporate multilingv",
+          "price": 6000,
+          "timeline": "4–8 săptămâni",
           "highlight": true,
-          "tagline": "Site marketing multilingv cu CMS, până la 20 de pagini.",
+          "tagline": "20–50 de pagini, 2–8 limbi, flux editorial pentru echipa de marketing.",
           "includes": [
-            "Până la 20 de pagini, 2–3 limbi",
-            "CMS headless (Sanity, Contentful, Storyblok)",
-            "Blog + content collection",
+            "20–50 de pagini, 2–8 limbi",
+            "Astro sau WordPress + CMS headless",
+            "Flux editorial multilingv",
             "SEO avansat + hreflang",
             "Tracking conversii + heatmap",
+            "Contract de performanță (CWV 95+)",
             "30 de zile de bug-fix"
           ]
         },
         {
-          "name": "Scale",
-          "price": null,
+          "name": "E-commerce",
+          "price": 4000,
+          "timeline": "4–10 săptămâni",
+          "highlight": false,
+          "tagline": "Shopify de la 4.000 $, WooCommerce sau custom de la 7.000 $. De la 50 la 5.000+ SKU-uri.",
+          "includes": [
+            "Catalog, coș, checkout, plăți",
+            "Shopify (mai rapid) sau WooCommerce (control total)",
+            "Import produse + primii 50 SKU configurați",
+            "Email + automatizare coș abandonat",
+            "Tracking conversii (Pixel + GA4 + CAPI)",
+            "Pagini produs mobile-first",
+            "30 de zile de bug-fix"
+          ]
+        },
+        {
+          "name": "SaaS / Build custom",
+          "price": 15000,
           "timeline": "8+ săptămâni",
           "highlight": false,
-          "tagline": "Construcție personalizată pentru e-commerce, SaaS sau platforme cu 4+ limbi.",
+          "tagline": "Dashboard-uri, zone membri, integrări custom, funcții în timp real.",
           "includes": [
-            "Scope și integrări la comandă",
-            "4+ limbi cu flux de localizare",
-            "E-commerce sau dashboard SaaS",
-            "Contract de buget de performanță (CWV 95+)",
-            "Migrare din CMS existent",
+            "Scope și integrări custom",
+            "Next.js sau Node.js bespoke",
+            "Auth + facturare + panel admin",
+            "Multilingv complet + flux de localizare",
+            "Contract de performanță (CWV 95+)",
+            "Migrare de pe platformă existentă, dacă e nevoie",
             "60 de zile de suport post-lansare"
           ]
         }
@@ -1037,22 +1158,42 @@
       ],
       "faq": [
         {
-          "question": "Cu ce stack lucrați?",
-          "answer": "Astro pentru site-uri de conținut, Next.js pentru proiecte tip aplicație sau e-commerce, CMS headless (Sanity / Storyblok / Contentful) când echipa de conținut are nevoie de autonomie. Alegem stack-ul cel mai ușor potrivit, niciodată cel mai la modă."
+          "question": "Lucrezi cu WordPress / Shopify / Wix?",
+          "answer": "Da — pe toate trei și pe multe altele. WordPress (cu teme custom, ACF, Elementor când e cazul), Shopify (teme, Liquid, app-uri custom), Wix Studio pentru proiecte no-code premium. Platforma se alege după nevoile tale, nu după preferința mea."
+        },
+        {
+          "question": "Poți migra site-ul meu de pe o platformă pe alta?",
+          "answer": "Da — e chiar unul dintre cele mai frecvente proiecte. WordPress → Shopify, Wix → Astro, custom → CMS headless. Conservare SEO completă cu redirect-uri 301, migrare conținut, redesign sau rebuild 1:1 — alegi tu."
+        },
+        {
+          "question": "Am designer / am nevoie și de designer.",
+          "answer": "Ambele variante merg. Dacă ai designer, mă integrez curat cu predarea lui (Figma, Sketch, orice). Dacă ai nevoie și de design, îl includ în proiect — custom de la zero, fără șabloane."
+        },
+        {
+          "question": "Și dacă nu sunt sigur ce platformă se potrivește?",
+          "answer": "Apelul de descoperire este gratuit. Spune-mi despre afacere, echipă, flux editorial, planuri de creștere — îți voi recomanda platforma care dă cel mai bun rezultat pentru bugetul tău. Dacă nevoile tale încap într-un proiect Wix de 1.500 $, asta voi spune, chiar dacă aș putea construi unul custom de 20.000 $."
+        },
+        {
+          "question": "Faci mentenanță și după lansare?",
+          "answer": "Da — 14 zile de bug-fix sunt incluse gratuit. După aceea, planurile lunare de mentenanță încep de la 190 $/lună — actualizări de securitate, ajustări conținut, monitorizare performanță, revizii analytics. Detalii complete pe pagina Site Support."
         },
         {
           "question": "Site-ul va fi pregătit pentru multilingv?",
-          "answer": "Fiecare site pe care îl construim este gata de multilingv din prima zi — chiar dacă lansezi într-o singură limbă. URL-uri, hreflang, routing local — totul instalat astfel încât adăugarea unei limbi să fie o sarcină de conținut, nu un proiect de engineering."
+          "answer": "Fiecare site pe care îl construiesc e pregătit pentru multilingv din prima zi — chiar dacă lansezi într-o singură limbă. URL-uri, hreflang, routing local — configurate corect ca adăugarea unei limbi să fie o sarcină de conținut, nu un rebuild."
         },
         {
-          "question": "Vă ocupați de hosting?",
-          "answer": "Implicit deplasăm pe Cloudflare Pages — CDN global, SSL gratuit, edge functions. La cerere și Vercel, Netlify sau infrastructura ta."
+          "question": "Te ocupi de hosting?",
+          "answer": "Depinde de platformă. Shopify și Wix se găzduiesc singure. WordPress poate merge pe Cloudflare, SiteGround, Kinsta sau serverul tău. Astro și Next.js se deplasează pe Cloudflare Pages sau Vercel implicit. Configurez ce se potrivește nevoilor tale."
         },
         {
           "question": "Ce se întâmplă după lansare?",
-          "answer": "14 zile de bug-fix gratuit incluse. După aceea oferim un plan lunar de mentenanță de la 190 USD/lună — actualizări de securitate, monitorizare performanță, ajustări de conținut, revizii analytics."
+          "answer": "14 zile de bug-fix gratuit incluse. După aceea, planurile lunare încep de la 190 $/lună — actualizări de securitate, monitorizare performanță, ajustări conținut, revizii analytics."
         }
-      ]
+      ],
+      "_meta": {
+        "status": "draft_ai_translated",
+        "needs_native_review": true
+      }
     },
     "site_design": {
       "hero": {
