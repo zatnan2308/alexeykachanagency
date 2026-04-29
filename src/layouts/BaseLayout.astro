@@ -107,8 +107,14 @@ const alternateLocales = LANGUAGES.filter((l) => l !== lang).map(getOgLocale);
 // Translations (for skip link, etc.)
 const t = useTranslations(lang);
 
-// Robots
-const robotsContent = noindex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large';
+// Robots — preview domains (workers.dev / pages.dev / netlify.app / vercel.app)
+// MUST be noindex,nofollow so they don't compete with the canonical site for SEO.
+const previewHostPatterns = ['.workers.dev', '.pages.dev', '.netlify.app', '.vercel.app'];
+const isPreviewHost = previewHostPatterns.some((p) => Astro.url.host.endsWith(p));
+const robotsContent =
+  noindex || isPreviewHost
+    ? 'noindex,nofollow'
+    : 'index,follow,max-image-preview:large';
 
 // JSON-LD: build array of structured data blocks
 const orgSchema = {

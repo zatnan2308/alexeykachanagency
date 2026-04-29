@@ -6,14 +6,11 @@
  *
  * IMPORTANT: This is a UI suggestion only — NOT an automatic redirect.
  * Auto-redirects break Google's ability to crawl all language versions.
- * Always let users explicitly choose.
  *
- * Behavior:
- *  - Detects browser language on client side
- *  - Shows banner ONLY if browser preference differs from current page language
- *  - Remembers user's choice in localStorage (no banner shown again)
- *  - Banner can be dismissed via "No" or "Later" buttons
- *  - Hidden if user has already made a choice
+ * SSR FOOTPRINT: zero. The server only emits an empty mount node + a
+ * <script type="application/json"> config blob. The full banner DOM is
+ * built on the client by JS. This prevents Google from indexing
+ * placeholder strings like "___" or empty href="#" links.
  *
  * Place this once in BaseLayout.astro (NOT on every page).
  */
@@ -24,62 +21,33 @@ import { LANGUAGE_NAMES } from '@/i18n/slugs';
 const currentLang: Language = getLangFromUrl(Astro.url);
 const t = useTranslations(currentLang);
 
-// Pass all language data to the client for dynamic suggestion building
-const languageData = LANGUAGE_NAMES;
-const currentPath = Astro.url.pathname;
+// Build the i18n config once on the server. Client uses it to populate the
+// banner with the suggested language's native name + flag.
+// {language} is replaced on client after detecting browser preference.
+const bannerConfig = {
+  currentLang,
+  currentPath: Astro.url.pathname,
+  i18n: {
+    titleTpl:    t('languages.suggest_banner.title'),
+    subtitleTpl: t('languages.suggest_banner.subtitle'),
+    yes:         t('languages.suggest_banner.yes'),
+    no:          t('languages.suggest_banner.no'),
+    close:       t('common.close'),
+  },
+  languages: LANGUAGE_NAMES,
+};
 ---
 
-<div
-  class="lang-banner"
-  role="region"
-  aria-label="Language suggestion"
-  data-current-lang={currentLang}
-  data-current-path={currentPath}
-  data-language-data={JSON.stringify(languageData)}
-  hidden
->
-  <div class="lang-banner__inner">
-    <div class="lang-banner__content">
-      <span class="lang-banner__flag" data-flag aria-hidden="true">🌐</span>
-      <div class="lang-banner__text">
-        <p class="lang-banner__title" data-title>
-          {t('languages.suggest_banner.title').replace('{language}', '___')}
-        </p>
-        <p class="lang-banner__subtitle" data-subtitle>
-          {t('languages.suggest_banner.subtitle').replace('{language}', '___')}
-        </p>
-      </div>
-    </div>
-    <div class="lang-banner__actions">
-      <a
-        href="#"
-        class="lang-banner__btn lang-banner__btn--primary"
-        data-action="switch"
-      >
-        {t('languages.suggest_banner.yes')}
-      </a>
-      <button
-        type="button"
-        class="lang-banner__btn lang-banner__btn--secondary"
-        data-action="dismiss"
-      >
-        {t('languages.suggest_banner.no')}
-      </button>
-      <button
-        type="button"
-        class="lang-banner__close"
-        aria-label={t('common.close')}
-        data-action="close"
-      >
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M4 4l8 8M12 4l-8 8" />
-        </svg>
-      </button>
-    </div>
-  </div>
-</div>
+{/* Empty mount + config blob. JS owns rendering. */}
+<div data-lang-banner-mount aria-hidden="true"></div>
+<script
+  type="application/json"
+  data-lang-banner-config
+  is:inline
+  set:html={JSON.stringify(bannerConfig)}
+/>
 
-<style>
+<style is:global>
   .lang-banner {
     position: fixed;
     bottom: 1.5rem;
@@ -96,65 +64,23 @@ const currentPath = Astro.url.pathname;
     animation: lang-banner-in 350ms ease-out;
   }
 
-  .lang-banner[hidden] {
-    display: none;
-  }
-
   .lang-banner__inner {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem 1.25rem;
   }
-
   @media (min-width: 640px) {
-    .lang-banner__inner {
-      flex-direction: row;
-      align-items: center;
-      gap: 1.5rem;
-    }
+    .lang-banner__inner { flex-direction: row; align-items: center; gap: 1.5rem; }
   }
 
-  .lang-banner__content {
-    display: flex;
-    gap: 0.875rem;
-    align-items: center;
-    flex: 1;
-  }
+  .lang-banner__content { display: flex; gap: 0.875rem; align-items: center; flex: 1; }
+  .lang-banner__flag { font-size: 1.75rem; line-height: 1; flex-shrink: 0; }
+  .lang-banner__text { flex: 1; min-width: 0; }
+  .lang-banner__title { margin: 0; font-size: 0.9375rem; font-weight: 500; color: var(--text-primary, #f5f5f7); line-height: 1.4; }
+  .lang-banner__subtitle { margin: 0.125rem 0 0; font-size: 0.8125rem; color: var(--text-muted, #71717a); line-height: 1.4; }
 
-  .lang-banner__flag {
-    font-size: 1.75rem;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .lang-banner__text {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .lang-banner__title {
-    margin: 0;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--text-primary, #f5f5f7);
-    line-height: 1.4;
-  }
-
-  .lang-banner__subtitle {
-    margin: 0.125rem 0 0;
-    font-size: 0.8125rem;
-    color: var(--text-muted, #71717a);
-    line-height: 1.4;
-  }
-
-  .lang-banner__actions {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
+  .lang-banner__actions { display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
   .lang-banner__btn {
     display: inline-flex;
     align-items: center;
@@ -169,29 +95,10 @@ const currentPath = Astro.url.pathname;
     transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
     white-space: nowrap;
   }
-
-  .lang-banner__btn--primary {
-    background-color: var(--accent, #d7ff3d);
-    color: var(--accent-text, #0a0a0b);
-  }
-
-  .lang-banner__btn--primary:hover,
-  .lang-banner__btn--primary:focus-visible {
-    background-color: var(--accent-hover, #c5ff1f);
-  }
-
-  .lang-banner__btn--secondary {
-    background: transparent;
-    color: var(--text-secondary, #a1a1aa);
-    border-color: var(--border, #27272a);
-  }
-
-  .lang-banner__btn--secondary:hover,
-  .lang-banner__btn--secondary:focus-visible {
-    color: var(--text-primary, #f5f5f7);
-    border-color: var(--text-secondary, #a1a1aa);
-  }
-
+  .lang-banner__btn--primary { background-color: var(--accent, #d7ff3d); color: var(--accent-text, #0a0a0b); }
+  .lang-banner__btn--primary:hover, .lang-banner__btn--primary:focus-visible { background-color: var(--accent-hover, #c5ff1f); }
+  .lang-banner__btn--secondary { background: transparent; color: var(--text-secondary, #a1a1aa); border-color: var(--border, #27272a); }
+  .lang-banner__btn--secondary:hover, .lang-banner__btn--secondary:focus-visible { color: var(--text-primary, #f5f5f7); border-color: var(--text-secondary, #a1a1aa); }
   .lang-banner__close {
     display: inline-flex;
     align-items: center;
@@ -206,134 +113,136 @@ const currentPath = Astro.url.pathname;
     border-radius: 0.375rem;
     transition: color 150ms ease, background-color 150ms ease;
   }
-
-  .lang-banner__close:hover,
-  .lang-banner__close:focus-visible {
-    color: var(--text-primary, #f5f5f7);
-    background-color: var(--bg-tertiary, #1c1c20);
-  }
-
-  .lang-banner__close svg {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .lang-banner__btn:focus-visible,
-  .lang-banner__close:focus-visible {
-    outline: 2px solid var(--accent, #d7ff3d);
-    outline-offset: 2px;
-  }
+  .lang-banner__close:hover, .lang-banner__close:focus-visible { color: var(--text-primary, #f5f5f7); background-color: var(--bg-tertiary, #1c1c20); }
+  .lang-banner__close svg { width: 1rem; height: 1rem; }
+  .lang-banner__btn:focus-visible, .lang-banner__close:focus-visible { outline: 2px solid var(--accent, #d7ff3d); outline-offset: 2px; }
 
   @keyframes lang-banner-in {
-    from {
-      opacity: 0;
-      transform: translate(-50%, 1rem);
-    }
-    to {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
+    from { opacity: 0; transform: translate(-50%, 1rem); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
   }
-
   @media (prefers-reduced-motion: reduce) {
-    .lang-banner {
-      animation: none;
-    }
-
-    .lang-banner__btn,
-    .lang-banner__close {
-      transition: none;
-    }
+    .lang-banner { animation: none; }
+    .lang-banner__btn, .lang-banner__close { transition: none; }
   }
 </style>
 
 <script>
   import {
-    LANGUAGES,
     suggestLanguageFromBrowser,
     getEquivalentUrl,
     type Language,
   } from '@/i18n/utils';
 
   const STORAGE_KEY = 'lang-banner-dismissed';
-  const STORAGE_VERSION = '1'; // bump if banner content changes significantly
+  const STORAGE_VERSION = '1';
+
+  interface BannerConfig {
+    currentLang: Language;
+    currentPath: string;
+    i18n: {
+      titleTpl: string;
+      subtitleTpl: string;
+      yes: string;
+      no: string;
+      close: string;
+    };
+    languages: Record<string, { native: string; flag: string }>;
+  }
 
   function initLanguageBanner() {
-    const banner = document.querySelector('.lang-banner') as HTMLElement | null;
-    if (!banner) return;
+    if (document.querySelector('.lang-banner')) return; // already rendered
 
-    // Already dismissed? Don't show again.
-    const dismissed = localStorage.getItem(STORAGE_KEY);
-    if (dismissed === STORAGE_VERSION) return;
+    const mount = document.querySelector<HTMLElement>('[data-lang-banner-mount]');
+    const configEl = document.querySelector<HTMLScriptElement>('[data-lang-banner-config]');
+    if (!mount || !configEl) return;
 
-    const currentLang = banner.dataset.currentLang as Language;
-    const currentPath = banner.dataset.currentPath as string;
+    // Already dismissed? Render nothing.
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === STORAGE_VERSION) return;
+    } catch { /* ignore */ }
 
-    // Check if browser suggests a different language
-    const suggested = suggestLanguageFromBrowser(currentLang);
+    let config: BannerConfig;
+    try {
+      config = JSON.parse(configEl.textContent || '{}');
+    } catch { return; }
+
+    const suggested = suggestLanguageFromBrowser(config.currentLang);
     if (!suggested) return;
 
-    // Get language data
-    let languageData: Record<string, { native: string; flag: string }>;
-    try {
-      languageData = JSON.parse(banner.dataset.languageData || '{}');
-    } catch {
-      return;
-    }
+    const sd = config.languages[suggested];
+    if (!sd) return;
 
-    const suggestedData = languageData[suggested];
-    if (!suggestedData) return;
+    const switchHref = getEquivalentUrl(config.currentPath, suggested);
+    const title    = config.i18n.titleTpl.replace('{language}', sd.native);
+    const subtitle = config.i18n.subtitleTpl.replace('{language}', sd.native);
 
-    // Update banner content with suggested language name
-    const titleEl = banner.querySelector('[data-title]');
-    const subtitleEl = banner.querySelector('[data-subtitle]');
-    const flagEl = banner.querySelector('[data-flag]');
-    const switchLink = banner.querySelector(
-      '[data-action="switch"]'
-    ) as HTMLAnchorElement | null;
+    // Build banner DOM in a detached fragment so we never insert partial state.
+    const banner = document.createElement('div');
+    banner.className = 'lang-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Language suggestion');
 
-    if (titleEl) {
-      titleEl.textContent = titleEl.textContent?.replace(
-        '___',
-        suggestedData.native
-      ) || '';
-    }
-    if (subtitleEl) {
-      subtitleEl.textContent = subtitleEl.textContent?.replace(
-        '___',
-        suggestedData.native
-      ) || '';
-    }
-    if (flagEl) {
-      flagEl.textContent = suggestedData.flag;
-    }
-    if (switchLink) {
-      switchLink.href = getEquivalentUrl(currentPath, suggested);
-      switchLink.setAttribute('hreflang', suggested);
-      switchLink.setAttribute('lang', suggested);
-    }
+    const inner = document.createElement('div');
+    inner.className = 'lang-banner__inner';
 
-    // Show banner
-    banner.removeAttribute('hidden');
+    const content = document.createElement('div');
+    content.className = 'lang-banner__content';
 
-    // Dismiss handler — saves preference, hides banner
+    const flag = document.createElement('span');
+    flag.className = 'lang-banner__flag';
+    flag.setAttribute('aria-hidden', 'true');
+    flag.textContent = sd.flag;
+
+    const textWrap = document.createElement('div');
+    textWrap.className = 'lang-banner__text';
+
+    const titleEl = document.createElement('p');
+    titleEl.className = 'lang-banner__title';
+    titleEl.textContent = title;
+
+    const subtitleEl = document.createElement('p');
+    subtitleEl.className = 'lang-banner__subtitle';
+    subtitleEl.textContent = subtitle;
+
+    textWrap.append(titleEl, subtitleEl);
+    content.append(flag, textWrap);
+
+    const actions = document.createElement('div');
+    actions.className = 'lang-banner__actions';
+
+    const switchBtn = document.createElement('a');
+    switchBtn.className = 'lang-banner__btn lang-banner__btn--primary';
+    switchBtn.href = switchHref;
+    switchBtn.setAttribute('hreflang', suggested);
+    switchBtn.setAttribute('lang', suggested);
+    switchBtn.textContent = config.i18n.yes;
+
+    const noBtn = document.createElement('button');
+    noBtn.type = 'button';
+    noBtn.className = 'lang-banner__btn lang-banner__btn--secondary';
+    noBtn.textContent = config.i18n.no;
+
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'lang-banner__close';
+    closeBtn.setAttribute('aria-label', config.i18n.close);
+    closeBtn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>';
+
+    actions.append(switchBtn, noBtn, closeBtn);
+    inner.append(content, actions);
+    banner.append(inner);
+    mount.replaceWith(banner); // commit complete tree atomically
+
     const dismiss = () => {
-      try {
-        localStorage.setItem(STORAGE_KEY, STORAGE_VERSION);
-      } catch {
-        // localStorage not available (private mode, etc.) — silently ignore
-      }
-      banner.setAttribute('hidden', '');
+      try { localStorage.setItem(STORAGE_KEY, STORAGE_VERSION); } catch {}
+      banner.remove();
     };
 
-    banner.querySelector('[data-action="dismiss"]')?.addEventListener('click', dismiss);
-    banner.querySelector('[data-action="close"]')?.addEventListener('click', dismiss);
-
-    // Switch button — also dismisses, then navigation happens via href
-    switchLink?.addEventListener('click', () => {
-      try {
-        localStorage.setItem(STORAGE_KEY, STORAGE_VERSION);
-      } catch {}
+    noBtn.addEventListener('click', dismiss);
+    closeBtn.addEventListener('click', dismiss);
+    switchBtn.addEventListener('click', () => {
+      try { localStorage.setItem(STORAGE_KEY, STORAGE_VERSION); } catch {}
     });
   }
 

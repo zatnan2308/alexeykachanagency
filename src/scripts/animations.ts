@@ -166,24 +166,28 @@ function initCounters() {
     const prefix = el.dataset.counterPrefix || '';
     const decimals = parseInt(el.dataset.counterDecimals || '0', 10);
 
-    if (reducedMotion()) {
-      el.textContent = `${prefix}${target.toFixed(decimals)}${suffix}`;
-      return;
-    }
+    // CRITICAL: HTML already contains the final value (crawlers / no-JS
+    // visitors must always see real numbers). Animation must NOT pre-zero
+    // the text. It only resets to 0 inside the ScrollTrigger onEnter
+    // callback and animates back up. If the user never scrolls into view,
+    // the original final number stays visible.
+    if (reducedMotion()) return; // leave HTML value intact
 
-    const obj = { val: 0 };
-    el.textContent = `${prefix}0${suffix}`;
-    gsap.to(obj, {
-      val: target,
-      duration: 1.8,
-      ease: 'power2.out',
-      onUpdate: () => {
-        el.textContent = `${prefix}${obj.val.toFixed(decimals)}${suffix}`;
-      },
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 90%',
-        once: true,
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 90%',
+      once: true,
+      onEnter: () => {
+        const obj = { val: 0 };
+        el.textContent = `${prefix}0${suffix}`;
+        gsap.to(obj, {
+          val: target,
+          duration: 1.8,
+          ease: 'power2.out',
+          onUpdate: () => {
+            el.textContent = `${prefix}${obj.val.toFixed(decimals)}${suffix}`;
+          },
+        });
       },
     });
   });

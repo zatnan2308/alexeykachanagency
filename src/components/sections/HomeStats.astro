@@ -7,9 +7,9 @@ const t = useTranslations(lang);
 
 const stats = [
   { value: 12,  suffix: '+', labelKey: 'years_experience'   },
-  { value: 180, suffix: '+', labelKey: 'projects_delivered' },
+  { value: 200, suffix: '+', labelKey: 'projects_delivered' },
   { value: 6,   suffix: '',  labelKey: 'services_offered'   },
-  { value: 12,  suffix: '',  labelKey: 'countries_served'   },
+  { value: 50,  suffix: '+', labelKey: 'countries_served'   },
 ] as const;
 ---
 
@@ -19,7 +19,12 @@ const stats = [
     <ul class="stats__grid" data-reveal-stagger data-stagger-interval="0.1">
       {stats.map((s) => (
         <li class="stats__item">
-          <p class="stats__value" data-counter={s.value} data-counter-suffix={s.suffix}>0{s.suffix}</p>
+          {/*
+            Final number lives in HTML so crawlers and non-JS visitors always
+            see the real value. JS animates from 0 -> final on scroll-into-view
+            via [data-counter]; see initCounters() in animations.ts.
+          */}
+          <p class="stats__value" data-counter={s.value} data-counter-suffix={s.suffix}>{s.value}{s.suffix}</p>
           <p class="stats__label">{t(`stats.${s.labelKey}`)}</p>
         </li>
       ))}
