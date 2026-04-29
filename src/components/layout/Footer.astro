@@ -118,6 +118,7 @@ const telegram = CONTACT.telegram;
           </button>
           <p class="footer__form-status" data-newsletter-status role="status" aria-live="polite"></p>
         </form>
+        <p class="footer__newsletter-note">{t('footer.newsletter_note')}</p>
       </div>
     </div>
 
@@ -400,6 +401,14 @@ const telegram = CONTACT.telegram;
   .footer__link:hover,
   .footer__link:focus-visible {
     color: var(--accent);
+  }
+
+  /* Newsletter unsubscribe-note */
+  .footer__newsletter-note {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    line-height: 1.45;
   }
 
   /* Phone-coming-soon note + office address (in contact column) */
