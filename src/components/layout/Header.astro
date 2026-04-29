@@ -24,12 +24,13 @@ const t = useTranslations(lang);
 
 // Primary navigation: pageKey + translation key (label)
 const navItems = [
-  { key: 'home',                label: t('nav.home')      },
-  { key: 'services',            label: t('nav.services')  },
-  { key: 'cases.web-development', label: t('nav.cases')    },
-  { key: 'about',               label: t('nav.about')     },
-  { key: 'blog',                label: t('nav.blog')      },
-  { key: 'contacts',            label: t('nav.contacts')  },
+  { key: 'home',                  label: t('nav.home')             },
+  { key: 'services',              label: t('nav.services')         },
+  { key: 'cases.web-development', label: t('nav.web_dev_cases')    },
+  { key: 'cases.marketing',       label: t('nav.marketing_cases')  },
+  { key: 'about',                 label: t('nav.about')            },
+  { key: 'blog',                  label: t('nav.blog')             },
+  { key: 'contacts',              label: t('nav.contacts')         },
 ] as const;
 
 const homeHref = getLocalizedPath('home', lang);
