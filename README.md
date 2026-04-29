@@ -105,7 +105,7 @@ For translations, add `de.md`, `fr.md`, etc. in the same folder. Missing transla
 
 ### Case study
 
-Create `src/content/cases/<client-slug>/en.md` (see `bauer-manufaktur` for full example).
+Create `src/content/cases/<client-slug>/en.md` (see any existing case under `src/content/cases/` for the schema).
 
 Required frontmatter: `client`, `year`, `industry`, `country`, `duration`, `services` (array), `category` (`web-development` | `marketing`), `heroMetric`, `results` (array of `{value, label, delta?}`), `stack` (array), optional `testimonial`.
 
