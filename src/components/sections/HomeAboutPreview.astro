@@ -8,9 +8,15 @@ const t = useTranslations(lang);
 
 <section class="about section-y">
   <div class="container-x about__inner">
-    <div class="about__media" aria-hidden="true" data-reveal="fade-left">
+    <div class="about__media" data-reveal="fade-left">
       <div class="about__photo">
-        <span class="about__initials">AK</span>
+        <img
+          src="/about/founder.png"
+          alt="Alexey Kachan — founder of Alexey Kachan Agency"
+          class="about__photo-img"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <span class="about__badge">Founder · 2014</span>
     </div>
@@ -64,21 +70,13 @@ const t = useTranslations(lang);
     position: relative;
     overflow: hidden;
   }
-  .about__photo::after {
-    content: '';
+  .about__photo-img {
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.06;
-    pointer-events: none;
-  }
-  .about__initials {
-    font-family: var(--font-display);
-    font-size: clamp(5rem, 12vw, 9rem);
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.04em;
-    line-height: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
   }
   .about__badge {
     position: absolute;

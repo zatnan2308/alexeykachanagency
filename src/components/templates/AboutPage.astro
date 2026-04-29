@@ -61,8 +61,14 @@ const personSchema = {
 <section class="about-person section-y-sm">
   <div class="container-x">
     <div class="about-person__card" data-reveal>
-      <div class="about-person__avatar" aria-hidden="true">
-        <span>AK</span>
+      <div class="about-person__avatar">
+        <img
+          src="/about/founder.png"
+          alt="Alexey Kachan — founder of Alexey Kachan Agency"
+          class="about-person__avatar-img"
+          loading="eager"
+          decoding="async"
+        />
       </div>
       <div class="about-person__body">
         <p class="about-person__name">{data.person.name}</p>
@@ -233,14 +239,16 @@ const personSchema = {
     width: clamp(8rem, 15vw, 12rem);
     aspect-ratio: 1;
     border-radius: var(--radius-2xl);
-    background: radial-gradient(ellipse at 30% 20%, color-mix(in oklch, var(--accent) 22%, var(--bg-tertiary)) 0%, var(--bg-tertiary) 65%);
     border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.04em;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .about-person__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    display: block;
   }
   .about-person__name { font-family: var(--font-display); font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 0.25rem; }
   .about-person__role { color: var(--accent); font-weight: 500; margin-bottom: 1rem; font-size: 0.9375rem; }

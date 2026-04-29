@@ -113,6 +113,20 @@ const channels = [
 
     {/* Direct column */}
     <aside class="contacts-direct" data-reveal data-reveal-delay="0.1">
+      <figure class="contacts-direct__person">
+        <img
+          src="/about/founder.png"
+          alt="Alexey Kachan — founder of Alexey Kachan Agency"
+          class="contacts-direct__person-img"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption class="contacts-direct__person-cap">
+          <span class="contacts-direct__person-name">Alexey Kachan</span>
+          <span class="contacts-direct__person-role">Founder · replies personally</span>
+        </figcaption>
+      </figure>
+
       <p class="contacts-direct__label">— {data.direct.label}</p>
 
       <div class="contacts-direct__row">
@@ -288,6 +302,11 @@ const channels = [
     gap: 1.5rem;
   }
   @media (min-width: 1024px) { .contacts-direct { position: sticky; top: calc(var(--header-height) + 1rem); } }
+  .contacts-direct__person { display: flex; align-items: center; gap: 0.875rem; margin: 0 0 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+  .contacts-direct__person-img { width: 56px; height: 56px; border-radius: var(--radius-full); object-fit: cover; object-position: center 25%; border: 1px solid var(--border); flex-shrink: 0; }
+  .contacts-direct__person-cap { display: flex; flex-direction: column; gap: 0.125rem; }
+  .contacts-direct__person-name { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+  .contacts-direct__person-role { font-size: 0.8125rem; color: var(--text-muted); }
   .contacts-direct__label { font-size: 0.875rem; color: var(--accent); font-weight: 500; }
   .contacts-direct__row-label {
     font-family: var(--font-mono);
