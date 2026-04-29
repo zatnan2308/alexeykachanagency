@@ -230,7 +230,7 @@
       },
       {
         "question": "What does it cost?",
-        "answer": "Website projects start at $4,500 for a focused single-language site. Ads management is a flat monthly retainer based on spend. SEO engagements run quarterly. Every quote is fixed — no surprise invoices."
+        "answer": "Website projects start at $600 for a focused landing page and $1,495 for a 5–15 page business site. Ads management is a flat monthly retainer (from $295/mo + $395 setup). SEO engagements run quarterly (from $395/mo). Every quote is fixed — no surprise invoices."
       },
       {
         "question": "Do you work in my language?",
@@ -987,17 +987,17 @@
               {
                 "name": "Wix Studio",
                 "when": "Premium no-code builder. Polished result without long timelines. Good for fast launches and design-led pages.",
-                "price": "from $800"
+                "price": "from $600"
               },
               {
                 "name": "Elementor (WordPress)",
                 "when": "When you need WordPress flexibility but don't want to write custom theme code. Visual editor, dynamic content, plugin ecosystem.",
-                "price": "from $1,200"
+                "price": "from $895"
               },
               {
                 "name": "Plain HTML / CSS / JS",
                 "when": "Static one-pagers and microsites where every kilobyte matters. Loads in under a second, hosted free on the edge.",
-                "price": "from $800"
+                "price": "from $600"
               }
             ]
           },
@@ -1009,17 +1009,17 @@
               {
                 "name": "WordPress",
                 "when": "The default for content sites that need a real CMS. Huge plugin ecosystem, easy editing, near-infinite flexibility with custom code.",
-                "price": "from $2,500"
+                "price": "from $1,495"
               },
               {
                 "name": "WooCommerce",
                 "when": "E-commerce on WordPress when you don't want Shopify's transaction fees. Full ownership, custom checkout, integrates with anything.",
-                "price": "from $4,500"
+                "price": "from $3,990"
               },
               {
                 "name": "Shopify",
                 "when": "The best choice for serious e-commerce. Stable, fast, every payment provider integrated, scales without sysadmin work.",
-                "price": "from $4,000"
+                "price": "from $2,495"
               }
             ]
           },
@@ -1031,12 +1031,12 @@
               {
                 "name": "Astro",
                 "when": "Content sites, landing pages, agency sites where Lighthouse 95+ and great SEO are non-negotiable. Static-first, ships almost no JavaScript.",
-                "price": "from $3,500"
+                "price": "from $2,990"
               },
               {
                 "name": "Next.js",
                 "when": "SaaS dashboards, app-like interfaces, sites with heavy interactivity. Best-in-class React framework with full server-side power.",
-                "price": "from $8,000"
+                "price": "from $7,990"
               },
               {
                 "name": "Headless CMS",
@@ -1053,7 +1053,7 @@
               {
                 "name": "Node.js bespoke",
                 "when": "Custom integrations, internal tools, non-standard logic, real-time features. Built from scratch when no platform fits.",
-                "price": "from $15,000"
+                "price": "from $7,990"
               }
             ]
           }

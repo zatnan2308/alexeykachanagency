@@ -22,16 +22,27 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-// Primary navigation: pageKey + translation key (label)
-const navItems = [
-  { key: 'home',                  label: t('nav.home')             },
-  { key: 'services',              label: t('nav.services')         },
-  { key: 'cases.web-development', label: t('nav.web_dev_cases')    },
-  { key: 'cases.marketing',       label: t('nav.marketing_cases')  },
-  { key: 'about',                 label: t('nav.about')            },
-  { key: 'blog',                  label: t('nav.blog')             },
-  { key: 'contacts',              label: t('nav.contacts')         },
-] as const;
+// Primary navigation. 'Cases' is a dropdown with two children
+// (Web development + Marketing). Other items are plain links.
+type NavLeaf = { type: 'link'; key: string; label: string };
+type NavGroup = { type: 'group'; label: string; children: { key: string; label: string }[] };
+type NavItem = NavLeaf | NavGroup;
+
+const navItems: NavItem[] = [
+  { type: 'link',  key: 'home',     label: t('nav.home')     },
+  { type: 'link',  key: 'services', label: t('nav.services') },
+  {
+    type: 'group',
+    label: t('nav.cases'),
+    children: [
+      { key: 'cases.web-development', label: t('nav.web_dev_cases')   },
+      { key: 'cases.marketing',       label: t('nav.marketing_cases') },
+    ],
+  },
+  { type: 'link', key: 'about',    label: t('nav.about')    },
+  { type: 'link', key: 'blog',     label: t('nav.blog')     },
+  { type: 'link', key: 'contacts', label: t('nav.contacts') },
+];
 
 const homeHref = getLocalizedPath('home', lang);
 const ctaHref  = getLocalizedPath('contacts', lang);
@@ -54,11 +65,31 @@ const ctaLabel = t('cta.start_project');
     <nav class="header__nav" aria-label="Primary">
       <ul class="header__nav-list">
         {navItems.map((item) => (
-          <li>
-            <a href={getLocalizedPath(item.key, lang)} class="header__nav-link">
-              {item.label}
-            </a>
-          </li>
+          item.type === 'link' ? (
+            <li>
+              <a href={getLocalizedPath(item.key, lang)} class="header__nav-link">
+                {item.label}
+              </a>
+            </li>
+          ) : (
+            <li class="header__nav-group">
+              <button type="button" class="header__nav-link header__nav-trigger" aria-haspopup="true" aria-expanded="false">
+                {item.label}
+                <svg class="header__nav-chevron" width="10" height="10" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                  <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <ul class="header__nav-submenu" role="menu">
+                {item.children.map((child) => (
+                  <li role="none">
+                    <a href={getLocalizedPath(child.key, lang)} class="header__nav-sublink" role="menuitem">
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )
         ))}
       </ul>
     </nav>
@@ -99,12 +130,22 @@ const ctaLabel = t('cta.start_project');
     hidden
   >
     <ul class="header__mobile-list">
-      {navItems.map((item) => (
-        <li>
-          <a href={getLocalizedPath(item.key, lang)} class="header__mobile-link">
-            {item.label}
-          </a>
-        </li>
+      {navItems.flatMap((item) => (
+        item.type === 'link'
+          ? [
+              <li>
+                <a href={getLocalizedPath(item.key, lang)} class="header__mobile-link">
+                  {item.label}
+                </a>
+              </li>,
+            ]
+          : item.children.map((child) => (
+              <li>
+                <a href={getLocalizedPath(child.key, lang)} class="header__mobile-link">
+                  {child.label}
+                </a>
+              </li>
+            ))
       ))}
     </ul>
 
@@ -232,6 +273,61 @@ const ctaLabel = t('cta.start_project');
   .header__nav-link:hover::after,
   .header__nav-link:focus-visible::after {
     transform: scaleX(1);
+  }
+
+  /* Dropdown group (Cases) */
+  .header__nav-group { position: relative; }
+  .header__nav-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+  }
+  .header__nav-chevron { transition: transform var(--duration-base) var(--ease-out); color: var(--text-muted); }
+  .header__nav-group:hover .header__nav-chevron,
+  .header__nav-group:focus-within .header__nav-chevron { transform: rotate(180deg); color: var(--accent); }
+
+  .header__nav-submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 14rem;
+    margin: 0;
+    padding: 0.5rem;
+    list-style: none;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 48px -16px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out), visibility 0s linear var(--duration-fast);
+    z-index: 20;
+  }
+  .header__nav-group:hover .header__nav-submenu,
+  .header__nav-group:focus-within .header__nav-submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out), visibility 0s linear 0s;
+  }
+  .header__nav-sublink {
+    display: block;
+    padding: 0.625rem 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+  }
+  .header__nav-sublink:hover,
+  .header__nav-sublink:focus-visible {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
   }
 
   /* Right cluster */
