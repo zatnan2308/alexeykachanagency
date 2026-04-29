@@ -59,17 +59,40 @@
     "let_talk": "Let's talk"
   },
   "hero": {
-    "kicker": "Independent digital agency · Since 2014",
-    "title_line_1": "Make your brand",
-    "title_line_2": "impossible to ignore.",
-    "subtitle": "Web development, SEO and paid ads that turn your business into the obvious choice. Built and managed by Alexey Kachan and his agency.",
+    "kicker": "Bucharest · EU · Russian / English / German team",
+    "title_line_1": "Western quality websites.",
+    "title_line_2": "Without western prices.",
+    "subtitle": "Digital agency for Russian-speaking business owners in the US, Canada, and Europe. EU-based business in Bucharest, Romania. Websites, ads, and SEO — built to American standards, priced for real businesses.",
     "primary_cta": "Start a project",
-    "secondary_cta": "See our work"
+    "secondary_cta": "See pricing"
   },
   "trust": {
     "label": "Trusted",
     "title": "Trusted by teams across Europe & North America",
-    "subtitle": "From bootstrapped founders to scale-ups in 12+ countries — same care, same standards."
+    "subtitle": "From bootstrapped founders in Brooklyn to growing businesses in Berlin — same care, same standards in 50+ countries."
+  },
+  "why_us_diaspora": {
+    "label": "Why us",
+    "title": "Built for Russian-speaking entrepreneurs abroad.",
+    "subtitle": "Most agencies charge you for an office you'll never visit and a process designed for Fortune 500. We're a small EU-based team that gets your context.",
+    "items": [
+      {
+        "title": "We speak your language — literally.",
+        "body": "Discuss the brief in Russian or Ukrainian. No nuance lost in translation, no cultural mismatch. Final delivery in any language your customers speak."
+      },
+      {
+        "title": "EU-registered, GDPR-compliant.",
+        "body": "Bucharest-based business in Romania. Legitimate invoices, EU contracts, banking that works with US/Canadian payment systems. No grey-zone freelancer surprises."
+      },
+      {
+        "title": "Time zones that work for you.",
+        "body": "UTC+2 (Romania) overlaps comfortably with European mornings and North American evenings. You'll get same-day replies during your business hours, not three days later."
+      },
+      {
+        "title": "Western quality, ex-USSR pricing.",
+        "body": "Same quality bar as Manhattan or London agencies — without their $5K/month office overhead. Fair, transparent prices that make sense for a real business, not a venture-backed unicorn."
+      }
+    ]
   },
   "services_section": {
     "label": "Services",

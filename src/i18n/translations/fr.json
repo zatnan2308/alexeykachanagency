@@ -59,17 +59,17 @@
     "let_talk": "Discutons"
   },
   "hero": {
-    "kicker": "Agence digitale indépendante · depuis 2014",
-    "title_line_1": "Faites de votre marque",
-    "title_line_2": "une évidence.",
-    "subtitle": "Développement web, SEO et publicité payante qui transforment votre entreprise en choix évident. Conçu et piloté par Alexey Kachan et son agence.",
+    "kicker": "Bucarest · UE · Équipe FR/EN/RU",
+    "title_line_1": "Qualité occidentale.",
+    "title_line_2": "Prix équitables.",
+    "subtitle": "Agence digitale basée dans l'UE, à Bucarest (Roumanie). Sites web, publicité et SEO aux standards occidentaux — à des tarifs pensés pour les vraies entreprises, partout en Europe et Amérique du Nord.",
     "primary_cta": "Démarrer un projet",
-    "secondary_cta": "Voir nos projets"
+    "secondary_cta": "Voir les tarifs"
   },
   "trust": {
     "label": "Confiance",
     "title": "La confiance d'équipes en Europe et Amérique du Nord",
-    "subtitle": "Des fondateurs en bootstrap aux scale-ups dans plus de 12 pays — même soin, mêmes exigences."
+    "subtitle": "Des fondateurs en bootstrap à Brooklyn aux entreprises en croissance à Berlin — même soin, mêmes exigences dans 50+ pays."
   },
   "services_section": {
     "label": "Services",

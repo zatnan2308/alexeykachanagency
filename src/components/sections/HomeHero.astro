@@ -6,7 +6,9 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const ctaPrimary  = getLocalizedPath('contacts', lang);
-const ctaSecondary = getLocalizedPath('cases.web-development', lang);
+// Secondary CTA points at the services hub (which now displays starting prices),
+// matching the new "See pricing" copy.
+const ctaSecondary = getLocalizedPath('services', lang);
 ---
 
 <section class="hero bg-grain" data-hero-entrance>

@@ -16,6 +16,7 @@ import HomeTestimonials from '@/components/sections/HomeTestimonials.astro';
 import HomeBlogTeaser from '@/components/sections/HomeBlogTeaser.astro';
 import HomeFAQ from '@/components/sections/HomeFAQ.astro';
 import HomeFinalCTA from '@/components/sections/HomeFinalCTA.astro';
+import HomeWhyUsDiaspora from '@/components/sections/HomeWhyUsDiaspora.astro';
 
 interface Props { lang: Language }
 const { lang } = Astro.props;
@@ -23,12 +24,18 @@ const { lang } = Astro.props;
 // Feature flag — flip to true once real blog content is in place.
 // Hiding the section avoids showing placeholder cards / 404'd article links.
 const SHOW_BLOG_SECTION = false;
+
+// Diaspora-targeted "Why us" block — only relevant for languages where the
+// audience explicitly includes Russian-speaking entrepreneurs abroad.
+const DIASPORA_LANGS: Language[] = ['en', 'ru', 'uk'];
+const SHOW_DIASPORA_BLOCK = DIASPORA_LANGS.includes(lang);
 ---
 
 <HomeHero            lang={lang} />
 <HomeTrust           lang={lang} />
 <HomeServices        lang={lang} />
 <HomeSelectedWork    lang={lang} />
+{SHOW_DIASPORA_BLOCK && <HomeWhyUsDiaspora lang={lang} />}
 <HomeAboutPreview    lang={lang} />
 <HomeProcess         lang={lang} />
 <HomeStats           lang={lang} />

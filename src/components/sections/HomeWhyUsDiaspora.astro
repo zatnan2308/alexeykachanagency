@@ -1,0 +1,99 @@
+---
+/**
+ * HomeWhyUsDiaspora — diaspora-targeted "Why us" block.
+ * Renders ONLY for EN / RU / UK locales (where the audience explicitly
+ * includes Russian-speaking entrepreneurs abroad).
+ *
+ * For DE / FR / ES / IT / RO the regular HomeDifferentiators section
+ * already covers "why us" with locally-relevant framing.
+ */
+import { useTranslations, getTranslations, type Language } from '@/i18n/utils';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const all = getTranslations(lang) as any;
+const enAll = getTranslations('en') as any;
+
+interface Item { title: string; body: string }
+const items: Item[] = (all?.why_us_diaspora?.items ?? enAll.why_us_diaspora?.items ?? []) as Item[];
+---
+
+<section class="why-us section-y">
+  <div class="container-x">
+    <header class="why-us__head" data-reveal>
+      <p class="why-us__label">— {t('why_us_diaspora.label')}</p>
+      <h2 class="why-us__title text-balance">{t('why_us_diaspora.title')}</h2>
+      <p class="why-us__sub">{t('why_us_diaspora.subtitle')}</p>
+    </header>
+
+    <ul class="why-us__grid" data-reveal-stagger data-stagger-interval="0.08">
+      {items.map((it, i) => (
+        <li class="why-us__item">
+          <span class="why-us__num">/{(i + 1).toString().padStart(2, '0')}</span>
+          <div>
+            <h3 class="why-us__item-title">{it.title}</h3>
+            <p class="why-us__item-body">{it.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .why-us {
+    background: var(--bg-secondary);
+    border-block: 1px solid var(--border);
+  }
+  .why-us__head { max-width: 56rem; margin-bottom: clamp(2.5rem, 4vw, 4rem); }
+  .why-us__label { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .why-us__title { font-size: var(--text-5xl); margin-bottom: 1rem; line-height: 1.05; letter-spacing: -0.025em; }
+  .why-us__sub { color: var(--text-secondary); font-size: 1.0625rem; line-height: 1.55; max-width: 44rem; }
+
+  .why-us__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 768px) { .why-us__grid { grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; } }
+
+  .why-us__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem 1.25rem;
+    padding: 1.5rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    transition: border-color var(--duration-base) var(--ease-out);
+  }
+  .why-us__item:hover { border-color: var(--accent); }
+  @media (min-width: 768px) { .why-us__item { padding: 2rem; gap: 1.25rem 1.75rem; } }
+
+  .why-us__num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    line-height: 1;
+    padding-top: 0.4rem;
+  }
+  .why-us__item-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+    margin-bottom: 0.625rem;
+    line-height: 1.2;
+  }
+  .why-us__item-body {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+</style>

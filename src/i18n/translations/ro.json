@@ -59,17 +59,17 @@
     "let_talk": "Hai să vorbim"
   },
   "hero": {
-    "kicker": "Agenție digitală independentă · din 2014",
-    "title_line_1": "Fă-ți brandul",
-    "title_line_2": "imposibil de ignorat.",
-    "subtitle": "Dezvoltare web, SEO și publicitate plătită care îți transformă afacerea în alegerea evidentă. Construit și gestionat de Alexey Kachan și echipa lui.",
+    "kicker": "București · UE · Echipă RO/EN/RU",
+    "title_line_1": "Calitate occidentală.",
+    "title_line_2": "Prețuri corecte.",
+    "subtitle": "Agenție digitală cu sediul în UE, la București (România). Site-uri, publicitate și SEO la standarde occidentale — la prețuri gândite pentru afaceri reale, din Europa până în America de Nord.",
     "primary_cta": "Începe un proiect",
-    "secondary_cta": "Vezi proiectele"
+    "secondary_cta": "Vezi prețurile"
   },
   "trust": {
     "label": "Încredere",
     "title": "În care au încredere echipe din Europa și America de Nord",
-    "subtitle": "De la fondatori bootstrapped la scale-up-uri din peste 12 țări — aceeași grijă, aceleași standarde."
+    "subtitle": "De la fondatori bootstrapped din Brooklyn la afaceri în creștere din Berlin — aceeași grijă, aceleași standarde în peste 50 de țări."
   },
   "services_section": {
     "label": "Servicii",
