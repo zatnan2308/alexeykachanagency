@@ -899,8 +899,11 @@
         "Service",
         "Best for",
         "Typical timeline",
-        "Starts at"
+        "Starts at",
+        "Action"
       ],
+      "learn_more": "Learn more",
+      "view_action": "View",
       "compare_to": {
         "label": "Why our prices are different",
         "title": "Same quality. Lower overhead.",
@@ -1199,9 +1202,16 @@
         "cta": "Get a custom quote"
       },
       "related": [
+        "site_redesign",
         "site_design",
         "site_analytics"
       ],
+      "cross_link": {
+        "label": "Already have a site?",
+        "title": "If you already have a site, a redesign is usually faster and cheaper than a from-scratch build.",
+        "cta": "See Site Redesign",
+        "target": "site_redesign"
+      },
       "faq": [
         {
           "question": "Do you work with WordPress / Shopify / Wix?",
@@ -1466,6 +1476,12 @@
         "website_development",
         "site_analytics"
       ],
+      "cross_link": {
+        "label": "Need a brand new site?",
+        "title": "If you don't have a site yet (or the existing one is too far gone to refresh), a from-scratch build is the better path.",
+        "cta": "See Website Development",
+        "target": "website_development"
+      },
       "faq": [
         {
           "question": "Will I lose traffic during the redesign?",

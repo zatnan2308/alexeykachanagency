@@ -94,13 +94,30 @@ const ctaContacts = getLocalizedPath('contacts', lang);
           <ul class="svc-hub-cat__card-list">
             {cat.services.map((sk: typeof SERVICES[number]) => {
               const data = servicesPages[sk] ?? enAll.services_pages[sk];
+              const tier1 = data.tiers?.[0];
+              let priceLabel = '';
+              if (typeof tier1?.price === 'number') {
+                const localized = getPriceForLocale(tier1.price, lang);
+                priceLabel = `${t('services_pages.common.tier_from')} ${formatPrice(localized.amount, localized.currency, lang)}`;
+              }
+              const timelineLabel = tier1?.timeline ?? '';
               return (
                 <li>
                   <a href={getLocalizedPath(pageKeyMap[sk], lang)} class="svc-hub-cat__card-link">
-                    <span class="svc-hub-cat__card-link-name">{data.hero.kicker}</span>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                    <span class="svc-hub-cat__card-link-info">
+                      <span class="svc-hub-cat__card-link-name">{data.hero.kicker}</span>
+                      {(priceLabel || timelineLabel) && (
+                        <span class="svc-hub-cat__card-link-meta">
+                          {priceLabel}{priceLabel && timelineLabel ? ' · ' : ''}{timelineLabel}
+                        </span>
+                      )}
+                    </span>
+                    <span class="svc-hub-cat__card-link-cta">
+                      {t('services_pages.hub.learn_more')}
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
                   </a>
                 </li>
               );
@@ -140,7 +157,8 @@ const ctaContacts = getLocalizedPath('contacts', lang);
               <td><strong>{row.startsAt}</strong></td>
               <td class="svc-hub-compare__action-cell">
                 <a href={row.href} class="svc-hub-compare__action" aria-label={`Learn more about ${row.name}`}>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <span>{t('services_pages.hub.view_action')}</span>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
@@ -291,17 +309,38 @@ const ctaContacts = getLocalizedPath('contacts', lang);
     letter-spacing: -0.02em;
   }
   .svc-hub-cat__card-desc { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.5; }
-  .svc-hub-cat__card-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.25rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+  .svc-hub-cat__card-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; border-top: 1px solid var(--border); padding-top: 1rem; }
   .svc-hub-cat__card-link {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.625rem 0;
+    gap: 0.875rem;
+    padding: 0.75rem 0;
     color: var(--text-primary);
-    font-weight: 500;
-    transition: color var(--duration-fast) var(--ease-out), padding-left var(--duration-base) var(--ease-out);
+    transition: color var(--duration-fast) var(--ease-out);
+    border-bottom: 1px solid transparent;
   }
-  .svc-hub-cat__card-link:hover { color: var(--accent); padding-left: 0.5rem; }
+  .svc-hub-cat__card-link:hover { color: var(--accent); border-bottom-color: var(--border); }
+  .svc-hub-cat__card-link-info { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+  .svc-hub-cat__card-link-name { font-weight: 600; font-size: 0.9375rem; }
+  .svc-hub-cat__card-link-meta {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .svc-hub-cat__card-link-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    flex-shrink: 0;
+    transition: color var(--duration-fast) var(--ease-out), gap var(--duration-base) var(--ease-out);
+  }
+  .svc-hub-cat__card-link:hover .svc-hub-cat__card-link-cta { color: var(--accent); gap: 0.5rem; }
 
   /* Compare */
   .svc-hub-compare {
@@ -332,19 +371,24 @@ const ctaContacts = getLocalizedPath('contacts', lang);
   .svc-hub-compare__service:hover { color: var(--accent); }
   .svc-hub-compare__table tbody td { color: var(--text-secondary); }
   .svc-hub-compare__table tbody td strong { color: var(--accent); font-weight: 600; }
-  .svc-hub-compare__action-cell { width: 1%; }
+  .svc-hub-compare__action-cell { width: 1%; white-space: nowrap; }
   .svc-hub-compare__action {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
     border-radius: var(--radius-full);
     border: 1px solid var(--border);
-    color: var(--text-muted);
-    transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out), gap var(--duration-base) var(--ease-out);
   }
-  .svc-hub-compare__action:hover { color: var(--accent); border-color: var(--accent); }
+  .svc-hub-compare__action:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    gap: 0.5rem;
+  }
 
   /* Compare to Western alternatives */
   .svc-hub-compareto__header { max-width: 48rem; margin-bottom: clamp(2rem, 3vw, 3rem); }

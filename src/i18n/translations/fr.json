@@ -924,7 +924,8 @@
         "Service",
         "Idéal pour",
         "Délai type",
-        "À partir de"
+        "À partir de",
+        "Action"
       ],
       "categories_label": "Comment nous aidons",
       "categories": [
@@ -984,7 +985,9 @@
           }
         ],
         "outro": "Même niveau de qualité. Frais plus légers. Nous travaillons à distance depuis l'UE (Bucarest, Roumanie), donc pas 5 000 $/mois de bureau à Manhattan — et cette économie revient à vous."
-      }
+      },
+      "learn_more": "En savoir plus",
+      "view_action": "Voir"
     },
     "common": {
       "whats_included_label": "Périmètre",
@@ -1238,6 +1241,7 @@
         }
       ],
       "related": [
+        "site_redesign",
         "site_design",
         "site_analytics"
       ],
@@ -1279,7 +1283,13 @@
         "status": "draft_ai_translated",
         "needs_native_review": true
       },
-      "tiers_footnote": "Tous les forfaits incluent : multilingue, SEO on-page, configuration GA4, 14 jours de support post-lancement — gratuit."
+      "tiers_footnote": "Tous les forfaits incluent : multilingue, SEO on-page, configuration GA4, 14 jours de support post-lancement — gratuit.",
+      "cross_link": {
+        "label": "Déjà un site ?",
+        "title": "Si vous avez déjà un site, un redesign est souvent plus rapide et moins cher qu'un build from-scratch.",
+        "cta": "Voir Site Redesign",
+        "target": "site_redesign"
+      }
     },
     "site_design": {
       "hero": {
@@ -1523,7 +1533,13 @@
           "question": "Et tous nos contenus existants ?",
           "answer": "Tout est audité page par page. Le contenu performant reste tel quel. Le contenu moyen est réécrit ou fusionné. Le contenu faible ou dupliqué est archivé avec redirections."
         }
-      ]
+      ],
+      "cross_link": {
+        "label": "Besoin d'un site tout neuf ?",
+        "title": "Si vous n'avez pas encore de site (ou si l'existant est trop dégradé pour être rafraîchi), un build from-scratch est le meilleur choix.",
+        "cta": "Voir Développement web",
+        "target": "website_development"
+      }
     },
     "site_analytics": {
       "hero": {

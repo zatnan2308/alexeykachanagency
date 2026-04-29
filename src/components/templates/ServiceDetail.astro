@@ -255,6 +255,30 @@ const breadcrumbSchema = buildBreadcrumb([
   </div>
 </section>
 
+{/* 5.5 Cross-link: Web Dev <-> Site Redesign */}
+{data.cross_link?.target && data.cross_link?.title && (
+  <section class="svc-crosslink section-y-sm">
+    <div class="container-x">
+      <a
+        href={getLocalizedPath(pageKeyMap[data.cross_link.target] ?? '', lang)}
+        class="svc-crosslink__card"
+        data-reveal
+      >
+        <div class="svc-crosslink__text">
+          <p class="svc-crosslink__label">— {data.cross_link.label}</p>
+          <p class="svc-crosslink__title">{data.cross_link.title}</p>
+        </div>
+        <span class="svc-crosslink__cta">
+          {data.cross_link.cta}
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </div>
+  </section>
+)}
+
 {/* 6. Related services */}
 <section class="svc-related section-y">
   <div class="container-x">
@@ -541,6 +565,44 @@ const breadcrumbSchema = buildBreadcrumb([
   .svc-pricing__cta--primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
   .svc-pricing__cta--ghost { background: transparent; color: var(--text-primary); border: 1px solid var(--border-strong); }
   .svc-pricing__cta--ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* 5.5 Cross-link card */
+  .svc-crosslink__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    color: inherit;
+    transition: border-color var(--duration-base) var(--ease-out), background-color var(--duration-base) var(--ease-out);
+  }
+  @media (min-width: 768px) {
+    .svc-crosslink__card { flex-direction: row; align-items: center; justify-content: space-between; padding: 2rem 2.5rem; }
+  }
+  .svc-crosslink__card:hover { border-color: var(--accent); background: var(--bg-tertiary); }
+  .svc-crosslink__label { font-size: 0.8125rem; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+  .svc-crosslink__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
+    max-width: 44rem;
+    margin: 0;
+  }
+  .svc-crosslink__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    flex-shrink: 0;
+    transition: gap var(--duration-base) var(--ease-out);
+  }
+  .svc-crosslink__card:hover .svc-crosslink__cta { gap: 0.75rem; }
 
   /* 6. Related */
   .svc-related { background: var(--bg-secondary); border-block: 1px solid var(--border); }

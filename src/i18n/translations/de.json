@@ -924,7 +924,8 @@
         "Leistung",
         "Geeignet für",
         "Typischer Zeitrahmen",
-        "Ab"
+        "Ab",
+        "Aktion"
       ],
       "categories_label": "So unterstützen wir",
       "categories": [
@@ -984,7 +985,9 @@
           }
         ],
         "outro": "Gleicher Qualitätsanspruch. Geringere Fixkosten. Wir arbeiten remote aus der EU (Bukarest, Rumänien) und zahlen keine 5.000 $/Monat für ein Büro in Manhattan — diese Ersparnis geben wir an Sie weiter."
-      }
+      },
+      "learn_more": "Mehr erfahren",
+      "view_action": "Ansehen"
     },
     "common": {
       "whats_included_label": "Leistungsumfang",
@@ -1238,6 +1241,7 @@
         }
       ],
       "related": [
+        "site_redesign",
         "site_design",
         "site_analytics"
       ],
@@ -1279,7 +1283,13 @@
         "status": "draft_ai_translated",
         "needs_native_review": true
       },
-      "tiers_footnote": "Alle Tarife enthalten: Mehrsprachigkeit, On-Page-SEO, GA4-Setup, 14 Tage Post-Launch-Support — kostenlos."
+      "tiers_footnote": "Alle Tarife enthalten: Mehrsprachigkeit, On-Page-SEO, GA4-Setup, 14 Tage Post-Launch-Support — kostenlos.",
+      "cross_link": {
+        "label": "Bereits eine Website?",
+        "title": "Wenn Sie bereits eine Website haben, ist ein Redesign meist schneller und günstiger als ein Neubau.",
+        "cta": "Site Redesign ansehen",
+        "target": "site_redesign"
+      }
     },
     "site_design": {
       "hero": {
@@ -1523,7 +1533,13 @@
           "question": "Was passiert mit unseren bestehenden Inhalten?",
           "answer": "Alles wird Seite-für-Seite auditiert. Performant Content bleibt. Mittelmäßiger wird umgeschrieben oder zusammengeführt. Schwacher oder duplizierter Content wird mit Redirects archiviert."
         }
-      ]
+      ],
+      "cross_link": {
+        "label": "Brauchen Sie eine neue Website?",
+        "title": "Wenn Sie noch keine Website haben (oder die bestehende nicht mehr zu retten ist), ist ein Neubau der bessere Weg.",
+        "cta": "Webentwicklung ansehen",
+        "target": "website_development"
+      }
     },
     "site_analytics": {
       "hero": {

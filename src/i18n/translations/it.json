@@ -924,7 +924,8 @@
         "Servizio",
         "Ideale per",
         "Tempi tipici",
-        "A partire da"
+        "A partire da",
+        "Azione"
       ],
       "categories_label": "Come ti aiutiamo",
       "categories": [
@@ -984,7 +985,9 @@
           }
         ],
         "outro": "Stessa qualità. Costi fissi più bassi. Lavoriamo da remoto dall'UE (Bucarest, Romania), quindi niente 5.000 $/mese per un ufficio a Manhattan — e questo risparmio va a Lei."
-      }
+      },
+      "learn_more": "Scopri di più",
+      "view_action": "Vedi"
     },
     "common": {
       "whats_included_label": "Scope",
@@ -1238,6 +1241,7 @@
         }
       ],
       "related": [
+        "site_redesign",
         "site_design",
         "site_analytics"
       ],
@@ -1279,7 +1283,13 @@
         "status": "draft_ai_translated",
         "needs_native_review": true
       },
-      "tiers_footnote": "Tutti i tier includono: supporto multilingua, SEO on-page, configurazione GA4, 14 giorni di supporto post-lancio — gratuiti."
+      "tiers_footnote": "Tutti i tier includono: supporto multilingua, SEO on-page, configurazione GA4, 14 giorni di supporto post-lancio — gratuiti.",
+      "cross_link": {
+        "label": "Ha già un sito?",
+        "title": "Se ha già un sito, il restyling è di solito più rapido ed economico di un build da zero.",
+        "cta": "Vedi il Restyling",
+        "target": "site_redesign"
+      }
     },
     "site_design": {
       "hero": {
@@ -1523,7 +1533,13 @@
           "question": "E i contenuti esistenti?",
           "answer": "Tutto è auditato pagina per pagina. I contenuti che rendono restano. Quelli intermedi vengono riscritti o uniti. I deboli o duplicati vengono archiviati con redirect."
         }
-      ]
+      ],
+      "cross_link": {
+        "label": "Le serve un sito nuovo?",
+        "title": "Se non ha ancora un sito (o quello attuale è troppo compromesso per un refresh), un build da zero è la strada migliore.",
+        "cta": "Vedi Sviluppo web",
+        "target": "website_development"
+      }
     },
     "site_analytics": {
       "hero": {

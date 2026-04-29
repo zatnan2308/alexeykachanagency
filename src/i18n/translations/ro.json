@@ -924,7 +924,8 @@
         "Serviciu",
         "Ideal pentru",
         "Termen tipic",
-        "De la"
+        "De la",
+        "Acțiune"
       ],
       "categories_label": "Cum te ajutăm",
       "categories": [
@@ -984,7 +985,9 @@
           }
         ],
         "outro": "Aceeași calitate. Costuri mai mici. Lucrăm remote din UE (București, România), deci nu plătim $5.000/lună pentru un birou în Manhattan — iar economia merge la tine."
-      }
+      },
+      "learn_more": "Află mai mult",
+      "view_action": "Vezi"
     },
     "common": {
       "whats_included_label": "Scop",
@@ -1238,6 +1241,7 @@
         }
       ],
       "related": [
+        "site_redesign",
         "site_design",
         "site_analytics"
       ],
@@ -1279,7 +1283,13 @@
         "status": "draft_ai_translated",
         "needs_native_review": true
       },
-      "tiers_footnote": "Toate tierurile includ: suport multilingv, SEO on-page, configurare GA4, 14 zile de suport post-lansare — gratuit."
+      "tiers_footnote": "Toate tierurile includ: suport multilingv, SEO on-page, configurare GA4, 14 zile de suport post-lansare — gratuit.",
+      "cross_link": {
+        "label": "Ai deja un site?",
+        "title": "Dacă ai deja un site, un redesign e de obicei mai rapid și mai ieftin decât un build de la zero.",
+        "cta": "Vezi Redesign",
+        "target": "site_redesign"
+      }
     },
     "site_design": {
       "hero": {
@@ -1523,7 +1533,13 @@
           "question": "Și conținutul existent?",
           "answer": "Totul este auditat pagină cu pagină. Conținutul performant rămâne. Cel mediu se rescrie sau se unește. Cel slab sau duplicat se arhivează cu redirecturi."
         }
-      ]
+      ],
+      "cross_link": {
+        "label": "Ai nevoie de un site nou?",
+        "title": "Dacă încă nu ai un site (sau cel existent e prea învechit pentru un refresh), un build de la zero e calea mai bună.",
+        "cta": "Vezi Dezvoltare web",
+        "target": "website_development"
+      }
     },
     "site_analytics": {
       "hero": {

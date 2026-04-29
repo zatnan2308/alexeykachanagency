@@ -924,7 +924,8 @@
         "Servicio",
         "Ideal para",
         "Plazo típico",
-        "Desde"
+        "Desde",
+        "Acción"
       ],
       "categories_label": "Cómo ayudamos",
       "categories": [
@@ -984,7 +985,9 @@
           }
         ],
         "outro": "Misma calidad. Menos gastos. Trabajamos en remoto desde la UE (Bucarest, Rumanía), así que no pagamos 5.000 $/mes por una oficina en Manhattan — y ese ahorro se traslada a ti."
-      }
+      },
+      "learn_more": "Saber más",
+      "view_action": "Ver"
     },
     "common": {
       "whats_included_label": "Alcance",
@@ -1238,6 +1241,7 @@
         }
       ],
       "related": [
+        "site_redesign",
         "site_design",
         "site_analytics"
       ],
@@ -1279,7 +1283,13 @@
         "status": "draft_ai_translated",
         "needs_native_review": true
       },
-      "tiers_footnote": "Todos los tiers incluyen: soporte multilingüe, SEO on-page, configuración GA4, 14 días de soporte post-lanzamiento — gratis."
+      "tiers_footnote": "Todos los tiers incluyen: soporte multilingüe, SEO on-page, configuración GA4, 14 días de soporte post-lanzamiento — gratis.",
+      "cross_link": {
+        "label": "¿Ya tienes web?",
+        "title": "Si ya tienes una web, un rediseño suele ser más rápido y barato que construir desde cero.",
+        "cta": "Ver Rediseño",
+        "target": "site_redesign"
+      }
     },
     "site_design": {
       "hero": {
@@ -1523,7 +1533,13 @@
           "question": "¿Y todo nuestro contenido existente?",
           "answer": "Todo se audita página por página. El contenido que rinde se queda. El intermedio se reescribe o fusiona. El de bajo rendimiento o duplicado se archiva con redirecciones."
         }
-      ]
+      ],
+      "cross_link": {
+        "label": "¿Necesitas una web nueva?",
+        "title": "Si aún no tienes web (o la actual está demasiado deteriorada para refrescarla), construir desde cero es la mejor vía.",
+        "cta": "Ver Desarrollo web",
+        "target": "website_development"
+      }
     },
     "site_analytics": {
       "hero": {
