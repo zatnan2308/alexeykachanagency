@@ -15,6 +15,7 @@ category: web-development
 heroMetric: "Full catalogue + cart + bulk pricing"
 
 stack: ["WordPress + WooCommerce", "Faceted catalogue", "B2B pricing tiers", "Nationwide shipping"]
+featured: true
 ---
 
 ## Project overview

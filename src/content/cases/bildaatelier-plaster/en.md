@@ -15,6 +15,7 @@ category: web-development
 heroMetric: "Portfolio-driven gallery site"
 
 stack: ["WordPress", "Filterable gallery", "Project case studies", "Inquiry routing"]
+featured: true
 ---
 
 ## Project overview

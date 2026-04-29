@@ -1,45 +1,43 @@
 ---
+import { getCollection } from 'astro:content';
 import { useTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
+import { slugs } from '@/i18n/slugs';
 
 interface Props { lang: Language }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-// Placeholder cases — replace with content collection later.
-const cases = [
-  {
-    slug: 'bauer-manufaktur',
-    title: 'Bauer Manufaktur',
-    tagline: 'B2B manufacturer site rebuild',
-    metric: '+186% organic traffic',
-    services: ['Web Development', 'SEO'],
-    accent: '#d7ff3d',
-  },
-  {
-    slug: 'olea-studio',
-    title: 'Olea Studio',
-    tagline: 'Lead-gen overhaul for boutique studio',
-    metric: '−38% CPA, 2.4× leads',
-    services: ['Paid Ads', 'Web Design'],
-    accent: '#a3e635',
-  },
-  {
-    slug: 'northwind-ltd',
-    title: 'Northwind Ltd',
-    tagline: 'Multilingual platform for 6 markets',
-    metric: '8 languages · 4× speed',
-    services: ['Development', 'Localization'],
-    accent: '#f59e0b',
-  },
-  {
-    slug: 'helios-capital',
-    title: 'Helios Capital',
-    tagline: 'Investor portal redesign',
-    metric: 'CWV 95+ across all pages',
-    services: ['Redesign', 'Performance'],
-    accent: '#60a5fa',
-  },
-];
+// Pull all web-development cases, group by slug, pick best language match
+const allCases = await getCollection('cases', ({ data }) => !data.draft && data.category === 'web-development');
+
+const bySlug = new Map<string, typeof allCases>();
+for (const c of allCases) {
+  const [s] = c.id.split('/');
+  if (!bySlug.has(s)) bySlug.set(s, []);
+  bySlug.get(s)!.push(c);
+}
+
+// Sort: featured first, then most recent. Take up to 4.
+const cases = Array.from(bySlug.entries())
+  .map(([slug, variants]) => {
+    const match =
+      variants.find((v) => v.data.lang === lang) ??
+      variants.find((v) => v.data.lang === 'en') ??
+      variants[0];
+    return { slug, post: match };
+  })
+  .sort((a, b) => {
+    const af = a.post.data.featured ? 1 : 0;
+    const bf = b.post.data.featured ? 1 : 0;
+    if (af !== bf) return bf - af;
+    return +new Date(b.post.data.published) - +new Date(a.post.data.published);
+  })
+  .slice(0, 4);
+
+// Build per-case detail URL
+const langPrefix = lang === 'en' ? '' : `/${lang}`;
+const detailPrefix = slugs['cases.detail.prefix']?.[lang] ?? 'cases';
+const caseHref = (caseSlug: string) => `${langPrefix}/${detailPrefix}/${caseSlug}/`;
 ---
 
 <section class="work section-y">
@@ -52,24 +50,33 @@ const cases = [
       <p class="work__sub">{t('selected_work.subtitle')}</p>
     </header>
 
-    <ul class="work__grid" data-reveal-stagger data-stagger-interval="0.1">
-      {cases.map((c) => (
-        <li class="work__item">
-          <a href={getLocalizedPath('cases.web-development', lang)} class="work__link">
-            <div class="work__media" style={`--case-accent: ${c.accent}`}>
-              <span class="work__metric">{c.metric}</span>
-              <span class="work__brand">{c.title}</span>
-            </div>
-            <div class="work__meta">
-              <h3 class="work__heading">{c.tagline}</h3>
-              <ul class="work__tags">
-                {c.services.map((s) => <li>{s}</li>)}
-              </ul>
-            </div>
-          </a>
-        </li>
-      ))}
-    </ul>
+    {cases.length > 0 && (
+      <ul class="work__grid" data-reveal-stagger data-stagger-interval="0.1">
+        {cases.map(({ slug, post }) => (
+          <li class="work__item">
+            <a href={caseHref(slug)} class="work__link">
+              <div class="work__media" style={`--case-accent: ${post.data.accent}`}>
+                <img
+                  src={`/cases/${slug}/cover.jpg`}
+                  alt={`${post.data.client} — website screenshot`}
+                  class="work__cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="work__metric">{post.data.heroMetric}</span>
+                <span class="work__brand">{post.data.client}</span>
+              </div>
+              <div class="work__meta">
+                <h3 class="work__heading">{post.data.title}</h3>
+                <ul class="work__tags">
+                  {post.data.services.map((s: string) => <li>{s}</li>)}
+                </ul>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
 
     <div class="work__cta">
       <a href={getLocalizedPath('cases.web-development', lang)} class="work__cta-link" data-magnetic data-magnetic-strength="0.3">
@@ -152,31 +159,53 @@ const cases = [
     padding: 1.75rem;
     overflow: hidden;
   }
+  .work__cover {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+  .work__item:hover .work__cover { transform: scale(1.04); }
+  .work__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 30%, color-mix(in oklch, var(--bg-primary) 85%, transparent) 100%);
+    pointer-events: none;
+  }
   .work__media::before {
     content: '';
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse 60% 80% at 80% 100%, color-mix(in oklch, var(--case-accent, var(--accent)) 18%, transparent) 0%, transparent 70%);
     pointer-events: none;
+    z-index: 1;
   }
   .work__metric {
     position: relative;
+    z-index: 2;
     font-family: var(--font-mono);
     font-size: 0.8125rem;
     color: var(--case-accent, var(--accent));
-    background: color-mix(in oklch, var(--bg-primary) 60%, transparent);
+    background: color-mix(in oklch, var(--bg-primary) 70%, transparent);
     backdrop-filter: blur(8px);
     padding: 0.375rem 0.75rem;
     border-radius: var(--radius-full);
     border: 1px solid color-mix(in oklch, var(--case-accent, var(--accent)) 30%, transparent);
+    align-self: flex-end;
   }
   .work__brand {
     position: relative;
+    z-index: 2;
     font-family: var(--font-display);
     font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
     font-weight: 600;
     color: var(--text-primary);
     letter-spacing: -0.02em;
+    text-shadow: 0 2px 12px color-mix(in oklch, var(--bg-primary) 80%, transparent);
   }
 
   .work__meta {

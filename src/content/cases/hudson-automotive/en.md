@@ -15,6 +15,7 @@ category: web-development
 heroMetric: "20-photo restoration gallery"
 
 stack: ["WordPress", "Filterable gallery", "PPG paint catalog", "Quote request form"]
+featured: true
 ---
 
 ## Project overview

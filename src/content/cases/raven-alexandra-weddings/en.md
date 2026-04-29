@@ -15,6 +15,7 @@ category: web-development
 heroMetric: "Editorial-magazine portfolio"
 
 stack: ["WordPress", "Editorial typography", "Press-mention block", "Inquiry routing"]
+featured: true
 ---
 
 ## Project overview
