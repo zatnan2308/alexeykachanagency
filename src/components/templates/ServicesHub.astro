@@ -3,7 +3,8 @@
  * ServicesHub — /services/ overview page (and its localized equivalents).
  * Used by both [...slug].astro (EN) and [lang]/[...slug].astro (other locales) when pageKey === 'services'.
  */
-import { useTranslations, getTranslations, getLocalizedPath, formatCurrency, type Language } from '@/i18n/utils';
+import { useTranslations, getTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
+import { getPriceForLocale, formatPrice } from '@/data/pricing';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
 
 interface Props { lang: Language }
@@ -28,19 +29,30 @@ const pageKeyMap: Record<typeof SERVICES[number], string> = {
   site_support:        'services.site-support',
 };
 
-// Build comparison rows
+// Build comparison rows. Prices are converted from USD master to EUR for DE/FR/IT/ES/RO.
 const compareRows = SERVICES.map((key) => {
   const data = servicesPages[key] ?? enAll.services_pages[key];
   const tier1 = data.tiers[0];
+  let startsAt = t('services_pages.common.tier_custom');
+  if (typeof tier1?.price === 'number') {
+    const localized = getPriceForLocale(tier1.price, lang);
+    startsAt = formatPrice(localized.amount, localized.currency, lang);
+  }
   return {
     key,
     href: getLocalizedPath(pageKeyMap[key], lang),
     name: data.hero.kicker,
     bestFor: data.hero.lead.split('—')[0]?.trim() ?? data.hero.lead.slice(0, 80),
-    timeline: tier1.timeline,
-    startsAt: tier1.price ? formatCurrency(tier1.price, lang, 'USD') : t('services_pages.common.tier_custom'),
+    timeline: tier1?.timeline ?? '',
+    startsAt,
   };
 });
+
+// Compare-to-Western-alternatives table (optional in JSON; falls back to EN if missing).
+interface CompareToRow { service: string; us_agency: string; uk_agency: string; us: string }
+const compareTo = (all?.services_pages?.hub?.compare_to ?? enAll.services_pages.hub?.compare_to) as
+  | { label?: string; title?: string; intro?: string; columns?: string[]; rows?: CompareToRow[]; outro?: string }
+  | undefined;
 
 const ctaContacts = getLocalizedPath('contacts', lang);
 ---
@@ -140,6 +152,43 @@ const ctaContacts = getLocalizedPath('contacts', lang);
     </div>
   </div>
 </section>
+
+{/* Compare to Western alternatives */}
+{compareTo?.rows && compareTo.rows.length > 0 && (
+  <section class="svc-hub-compareto section-y">
+    <div class="container-x">
+      <header class="svc-hub-compareto__header" data-reveal>
+        {compareTo.label && <p class="svc-hub-compareto__label">— {compareTo.label}</p>}
+        <h2 class="svc-hub-compareto__title text-balance">{compareTo.title}</h2>
+        {compareTo.intro && <p class="svc-hub-compareto__sub">{compareTo.intro}</p>}
+      </header>
+
+      <div class="svc-hub-compareto__table-wrap" data-reveal>
+        <table class="svc-hub-compareto__table">
+          <thead>
+            <tr>
+              {(compareTo.columns ?? ['Service', 'US agency', 'UK agency', 'Us']).map((col) => (
+                <th scope="col">{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {compareTo.rows.map((row) => (
+              <tr>
+                <th scope="row">{row.service}</th>
+                <td>{row.us_agency}</td>
+                <td>{row.uk_agency}</td>
+                <td><strong>{row.us}</strong></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {compareTo.outro && <p class="svc-hub-compareto__outro" data-reveal>{compareTo.outro}</p>}
+    </div>
+  </section>
+)}
 
 {/* Final CTA */}
 <section class="svc-hub-cta section-y">
@@ -296,6 +345,37 @@ const ctaContacts = getLocalizedPath('contacts', lang);
     transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
   }
   .svc-hub-compare__action:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Compare to Western alternatives */
+  .svc-hub-compareto__header { max-width: 48rem; margin-bottom: clamp(2rem, 3vw, 3rem); }
+  .svc-hub-compareto__label { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .svc-hub-compareto__title { font-size: var(--text-4xl); margin-bottom: 0.875rem; }
+  .svc-hub-compareto__sub { color: var(--text-secondary); font-size: 1rem; line-height: 1.55; }
+  .svc-hub-compareto__table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-secondary); }
+  .svc-hub-compareto__table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; min-width: 38rem; }
+  .svc-hub-compareto__table thead th {
+    text-align: left;
+    padding: 1rem 1.25rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+  .svc-hub-compareto__table tbody tr { border-top: 1px solid var(--border); }
+  .svc-hub-compareto__table tbody th,
+  .svc-hub-compareto__table tbody td { padding: 1rem 1.25rem; text-align: left; vertical-align: top; }
+  .svc-hub-compareto__table tbody th { color: var(--text-primary); font-weight: 600; }
+  .svc-hub-compareto__table tbody td { color: var(--text-secondary); }
+  .svc-hub-compareto__table tbody td strong { color: var(--accent); font-weight: 600; }
+  .svc-hub-compareto__outro {
+    margin-top: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    max-width: 56rem;
+  }
 
   /* Final CTA */
   .svc-hub-cta__card {
