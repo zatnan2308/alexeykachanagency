@@ -1,9 +1,7 @@
 ---
 /**
- * Catch-all route for non-default locales (de, fr, es, it, ro, uk, ru).
- * Mirrors src/pages/[...slug].astro for 7 languages with localized slugs and EN fallbacks.
- *
- * Special case: pageKey 'impressum' only generates a path for lang='de' (slug exists only there).
+ * Catch-all route for non-default locales (uk, ru).
+ * Mirrors src/pages/[...slug].astro with localized slugs and EN fallbacks.
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -42,7 +40,7 @@ export async function getStaticPaths() {
 
     for (const pageKey of SUPPORTED_PAGE_KEYS) {
       const slug = slugs[pageKey]?.[lang];
-      if (!slug) continue; // e.g. Impressum exists only for 'de'
+      if (!slug) continue;
       paths.push({ params: { lang, slug }, props: { kind: 'page', pageKey } });
     }
 
@@ -77,7 +75,7 @@ let title = '';
 let description = '';
 let serviceKey: string | null = null;
 let casesHubCategory: 'web-development' | 'marketing' | null = null;
-let legalVariant: 'privacy' | 'cookies' | 'terms' | 'impressum' | null = null;
+let legalVariant: 'privacy' | 'cookies' | 'terms' | null = null;
 let briefVariant: 'website' | 'ads' | null = null;
 let noindex = false;
 
@@ -137,10 +135,6 @@ if (props.kind === 'page') {
     legalVariant = 'terms';
     title = `${t('page_titles.terms')} — Alexey Kachan Agency`;
     description = get(['legal_pages', 'terms', 'lead']);
-  } else if (pageKey === 'impressum') {
-    legalVariant = 'impressum';
-    title = `Impressum — Alexey Kachan Agency`;
-    description = get(['legal_pages', 'impressum', 'lead']);
   } else if (pageKey === 'thank-you') {
     noindex = true;
     title = `${t('page_titles.thank_you')} — Alexey Kachan Agency`;

@@ -1,6 +1,6 @@
 /**
  * URL Slug Map for Multilingual Routing
- * Alexey Kachan Agency — 8 languages
+ * Alexey Kachan Agency — 3 languages (EN / UK / RU)
  *
  * Strategy: localized slugs for better local SEO performance.
  * Source language = English (canonical key).
@@ -17,26 +17,21 @@
  *
  * USAGE:
  *   import { slugs, getLocalizedPath, getAlternates } from '@/i18n/slugs';
- *   const path = getLocalizedPath('services.website-development', 'de');
- *   // Returns: '/de/dienstleistungen/website-entwicklung/'
+ *   const path = getLocalizedPath('services.website-development', 'uk');
+ *   // Returns: '/uk/poslugy/rozrobka-saytiv/'
  */
 
 // =============================================================================
 // SUPPORTED LANGUAGES
 // =============================================================================
 
-export const LANGUAGES = ['en', 'de', 'fr', 'es', 'it', 'ro', 'uk', 'ru'] as const;
+export const LANGUAGES = ['en', 'uk', 'ru'] as const;
 export type Language = typeof LANGUAGES[number];
 
 export const DEFAULT_LANGUAGE: Language = 'en';
 
 export const LANGUAGE_NAMES: Record<Language, { native: string; english: string; flag: string; locale: string; htmlLang: string; ogLocale: string }> = {
   en: { native: 'English',     english: 'English',    flag: '🇬🇧', locale: 'en-US', htmlLang: 'en', ogLocale: 'en_US' },
-  de: { native: 'Deutsch',     english: 'German',     flag: '🇩🇪', locale: 'de-DE', htmlLang: 'de', ogLocale: 'de_DE' },
-  fr: { native: 'Français',    english: 'French',     flag: '🇫🇷', locale: 'fr-FR', htmlLang: 'fr', ogLocale: 'fr_FR' },
-  es: { native: 'Español',     english: 'Spanish',    flag: '🇪🇸', locale: 'es-ES', htmlLang: 'es', ogLocale: 'es_ES' },
-  it: { native: 'Italiano',    english: 'Italian',    flag: '🇮🇹', locale: 'it-IT', htmlLang: 'it', ogLocale: 'it_IT' },
-  ro: { native: 'Română',      english: 'Romanian',   flag: '🇷🇴', locale: 'ro-RO', htmlLang: 'ro', ogLocale: 'ro_RO' },
   uk: { native: 'Українська',  english: 'Ukrainian',  flag: '🇺🇦', locale: 'uk-UA', htmlLang: 'uk', ogLocale: 'uk_UA' },
   ru: { native: 'Русский',     english: 'Russian',    flag: '🌐', locale: 'ru-RU', htmlLang: 'ru', ogLocale: 'ru_RU' },
 };
@@ -50,42 +45,22 @@ export const sectionSlugs: Record<string, Record<Language, string>> = {
   // Top-level sections
   services: {
     en: 'services',
-    de: 'dienstleistungen',
-    fr: 'services',
-    es: 'servicios',
-    it: 'servizi',
-    ro: 'servicii',
     uk: 'poslugy',
     ru: 'uslugi',
   },
   cases: {
     en: 'cases',
-    de: 'projekte',
-    fr: 'projets',
-    es: 'proyectos',
-    it: 'progetti',
-    ro: 'proiecte',
     uk: 'proekty',
     ru: 'proekty',
   },
   blog: {
     en: 'blog',
-    de: 'blog',
-    fr: 'blog',
-    es: 'blog',
-    it: 'blog',
-    ro: 'blog',
     uk: 'blog',
     ru: 'blog',
   },
   blogTag: {
     // Used as: /blog/tag/[tag] — the "tag" segment
     en: 'tag',
-    de: 'thema',
-    fr: 'sujet',
-    es: 'tema',
-    it: 'argomento',
-    ro: 'subiect',
     uk: 'temy',
     ru: 'tema',
   },
@@ -104,11 +79,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'home': {
     en: '',
-    de: '',
-    fr: '',
-    es: '',
-    it: '',
-    ro: '',
     uk: '',
     ru: '',
   },
@@ -118,11 +88,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'services': {
     en: 'services',
-    de: 'dienstleistungen',
-    fr: 'services',
-    es: 'servicios',
-    it: 'servizi',
-    ro: 'servicii',
     uk: 'poslugy',
     ru: 'uslugi',
   },
@@ -133,44 +98,24 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'services.website-development': {
     en: 'services/website-development',
-    de: 'dienstleistungen/webentwicklung',                  // "Webentwicklung" — main DE term
-    fr: 'services/developpement-web',                       // "développement web" — most searched
-    es: 'servicios/desarrollo-web',                         // "desarrollo web" — top query
-    it: 'servizi/sviluppo-web',                             // "sviluppo web"
-    ro: 'servicii/dezvoltare-web',                          // "dezvoltare web"
     uk: 'poslugy/rozrobka-saytiv',                          // "розробка сайтів"
     ru: 'uslugi/razrabotka-saytov',                         // "разработка сайтов"
   },
 
   'services.site-redesign': {
     en: 'services/site-redesign',
-    de: 'dienstleistungen/website-redesign',                // German keeps "Redesign"
-    fr: 'services/refonte-site-web',                        // "refonte de site" — standard FR term
-    es: 'servicios/rediseno-web',                           // "rediseño web"
-    it: 'servizi/restyling-sito-web',                       // "restyling sito"
-    ro: 'servicii/redesign-site',                           // "redesign site"
     uk: 'poslugy/redyzayn-saytu',                           // "редизайн сайту"
     ru: 'uslugi/redizayn-sayta',                            // "редизайн сайта"
   },
 
   'services.site-support': {
     en: 'services/site-support',
-    de: 'dienstleistungen/website-wartung',                 // "Website-Wartung" — top DE term
-    fr: 'services/maintenance-site-web',                    // "maintenance de site"
-    es: 'servicios/mantenimiento-web',                      // "mantenimiento web"
-    it: 'servizi/manutenzione-sito-web',                    // "manutenzione sito"
-    ro: 'servicii/mentenanta-site',                         // "mentenanță site"
     uk: 'poslugy/pidtrymka-saytu',                          // "підтримка сайту"
     ru: 'uslugi/podderzhka-sayta',                          // "поддержка сайта"
   },
 
   'services.setting-up-ads': {
     en: 'services/setting-up-ads',
-    de: 'dienstleistungen/google-ads-meta-ads',             // SEO-friendly: combines top brands
-    fr: 'services/publicite-en-ligne',                      // "publicité en ligne" — generic top term
-    es: 'servicios/publicidad-online',                      // "publicidad online"
-    it: 'servizi/pubblicita-online',                        // "pubblicità online"
-    ro: 'servicii/publicitate-online',                      // "publicitate online"
     uk: 'poslugy/nalashtuvannya-reklamy',                   // "налаштування реклами"
     ru: 'uslugi/nastroyka-reklamy',                         // "настройка рекламы"
   },
@@ -178,22 +123,12 @@ export const slugs: Record<string, Record<Language, string>> = {
   'services.site-analytics': {
     // Note: this is the SEO service (per current site, despite the URL name)
     en: 'services/site-analytics',                          // KEEP for SEO equity from old site
-    de: 'dienstleistungen/seo-optimierung',                 // "SEO-Optimierung" — top DE term
-    fr: 'services/referencement-seo',                       // "référencement SEO" / "référencement naturel"
-    es: 'servicios/posicionamiento-seo',                    // "posicionamiento SEO"
-    it: 'servizi/posizionamento-seo',                       // "posizionamento SEO"
-    ro: 'servicii/optimizare-seo',                          // "optimizare SEO"
     uk: 'poslugy/seo-prosuvannya',                          // "SEO просування"
     ru: 'uslugi/seo-prodvizhenie',                          // "SEO продвижение"
   },
 
   'services.site-design': {
     en: 'services/site-design',
-    de: 'dienstleistungen/webdesign',                       // "Webdesign" — single word, top DE
-    fr: 'services/design-web',                              // "design web" or "création graphique"
-    es: 'servicios/diseno-web',                             // "diseño web"
-    it: 'servizi/web-design',                               // English term widely used in IT
-    ro: 'servicii/design-web',                              // "design web"
     uk: 'poslugy/dyzayn-saytiv',                            // "дизайн сайтів"
     ru: 'uslugi/dizayn-saytov',                             // "дизайн сайтов"
   },
@@ -203,22 +138,12 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'cases.web-development': {
     en: 'web-development-cases',                            // KEEP for SEO equity
-    de: 'projekte/webentwicklung',
-    fr: 'projets/developpement-web',
-    es: 'proyectos/desarrollo-web',
-    it: 'progetti/sviluppo-web',
-    ro: 'proiecte/dezvoltare-web',
     uk: 'proekty/rozrobka-saytiv',
     ru: 'proekty/razrabotka-saytov',
   },
 
   'cases.marketing': {
     en: 'case-studies-marketing',                           // KEEP for SEO equity
-    de: 'projekte/marketing',
-    fr: 'projets/marketing',
-    es: 'proyectos/marketing',
-    it: 'progetti/marketing',
-    ro: 'proiecte/marketing',
     uk: 'proekty/marketing',
     ru: 'proekty/marketing',
   },
@@ -227,11 +152,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // The actual [slug] comes from content collection frontmatter per locale
   'cases.detail.prefix': {
     en: 'cases',
-    de: 'projekte',
-    fr: 'projets',
-    es: 'proyectos',
-    it: 'progetti',
-    ro: 'proiecte',
     uk: 'proekty',
     ru: 'proekty',
   },
@@ -241,11 +161,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'blog': {
     en: 'blog',
-    de: 'blog',
-    fr: 'blog',
-    es: 'blog',
-    it: 'blog',
-    ro: 'blog',
     uk: 'blog',
     ru: 'blog',
   },
@@ -253,11 +168,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // Dynamic blog post: /blog/[slug] — section prefix only
   'blog.detail.prefix': {
     en: 'blog',
-    de: 'blog',
-    fr: 'blog',
-    es: 'blog',
-    it: 'blog',
-    ro: 'blog',
     uk: 'blog',
     ru: 'blog',
   },
@@ -265,11 +175,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // Blog tag pages: /blog/tag/[tag]
   'blog.tag.prefix': {
     en: 'blog/tag',
-    de: 'blog/thema',
-    fr: 'blog/sujet',
-    es: 'blog/tema',
-    it: 'blog/argomento',
-    ro: 'blog/subiect',
     uk: 'blog/temy',
     ru: 'blog/tema',
   },
@@ -279,11 +184,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'about': {
     en: 'about',
-    de: 'ueber-uns',                                         // "über uns" → ASCII "ueber-uns"
-    fr: 'a-propos',                                          // "à propos" → ASCII "a-propos"
-    es: 'sobre-nosotros',                                    // "sobre nosotros"
-    it: 'chi-siamo',                                         // "chi siamo"
-    ro: 'despre-noi',                                        // "despre noi"
     uk: 'pro-nas',                                           // "про нас"
     ru: 'o-nas',                                             // "о нас"
   },
@@ -293,11 +193,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'contacts': {
     en: 'contacts',                                          // KEEP for SEO equity (was /contacts-2/, redirecting)
-    de: 'kontakt',
-    fr: 'contact',
-    es: 'contacto',
-    it: 'contatti',
-    ro: 'contact',
     uk: 'kontakty',
     ru: 'kontakty',
   },
@@ -307,22 +202,12 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'brief.website': {
     en: 'brief-website',                                     // (was /brif-na-razrabotku-sajta/, redirecting)
-    de: 'briefing-website',
-    fr: 'brief-site-web',
-    es: 'brief-sitio-web',
-    it: 'brief-sito-web',
-    ro: 'brief-site-web',
     uk: 'bryf-na-sayt',
     ru: 'brif-na-sayt',
   },
 
   'brief.ads': {
     en: 'brief-ads',                                         // (was /brif-na-reklamu/, redirecting)
-    de: 'briefing-werbung',
-    fr: 'brief-publicite',
-    es: 'brief-publicidad',
-    it: 'brief-pubblicita',
-    ro: 'brief-publicitate',
     uk: 'bryf-na-reklamu',
     ru: 'brif-na-reklamu',
   },
@@ -332,50 +217,20 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'privacy-policy': {
     en: 'privacy-policy',
-    de: 'datenschutz',                                       // "Datenschutz" — standard DE legal term
-    fr: 'politique-confidentialite',                         // "politique de confidentialité"
-    es: 'politica-privacidad',                               // "política de privacidad"
-    it: 'privacy-policy',                                    // English term widely used in IT
-    ro: 'politica-confidentialitate',                        // "politica de confidențialitate"
     uk: 'polityka-konfidentsiynosti',                        // "політика конфіденційності"
     ru: 'politika-konfidentsialnosti',                       // "политика конфиденциальности"
   },
 
   'cookie-policy': {
     en: 'cookie-policy',
-    de: 'cookie-richtlinie',
-    fr: 'politique-cookies',
-    es: 'politica-cookies',
-    it: 'cookie-policy',
-    ro: 'politica-cookies',
     uk: 'polityka-cookies',
     ru: 'politika-cookies',
   },
 
   'terms': {
     en: 'terms',
-    de: 'agb',                                               // "AGB" = Allgemeine Geschäftsbedingungen (standard)
-    fr: 'mentions-legales',                                  // "mentions légales" — FR equivalent
-    es: 'terminos-condiciones',                              // "términos y condiciones"
-    it: 'termini-condizioni',                                // "termini e condizioni"
-    ro: 'termeni-conditii',                                  // "termeni și condiții"
     uk: 'umovy-vykorystannya',                               // "умови використання"
     ru: 'usloviya-ispolzovaniya',                            // "условия использования"
-  },
-
-  // ---------------------------------------------------------------------------
-  // GERMAN-ONLY: IMPRESSUM (legally required in DE/AT)
-  // For other languages, return null (page doesn't exist there)
-  // ---------------------------------------------------------------------------
-  'impressum': {
-    en: '',                                                   // Not applicable
-    de: 'impressum',                                          // Required by Telemediengesetz
-    fr: '',
-    es: '',
-    it: '',
-    ro: '',
-    uk: '',
-    ru: '',
   },
 
   // ---------------------------------------------------------------------------
@@ -383,11 +238,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'sitemap': {
     en: 'sitemap',
-    de: 'sitemap',
-    fr: 'plan-du-site',
-    es: 'mapa-del-sitio',
-    it: 'mappa-del-sito',
-    ro: 'harta-site',
     uk: 'karta-saytu',
     ru: 'karta-sayta',
   },
@@ -397,11 +247,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   '404': {
     en: '404',
-    de: '404',
-    fr: '404',
-    es: '404',
-    it: '404',
-    ro: '404',
     uk: '404',
     ru: '404',
   },
@@ -411,11 +256,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'search': {
     en: 'search',
-    de: 'suche',
-    fr: 'recherche',
-    es: 'buscar',
-    it: 'cerca',
-    ro: 'cautare',
     uk: 'poshuk',
     ru: 'poisk',
   },
@@ -425,11 +265,6 @@ export const slugs: Record<string, Record<Language, string>> = {
   // ---------------------------------------------------------------------------
   'thank-you': {
     en: 'thank-you',
-    de: 'danke',
-    fr: 'merci',
-    es: 'gracias',
-    it: 'grazie',
-    ro: 'multumim',
     uk: 'dyakuemo',
     ru: 'spasibo',
   },

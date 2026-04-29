@@ -1,8 +1,9 @@
 /**
  * Single source of truth for all pricing displayed on the site.
  *
- * USD is the base currency. For EUR-priced locales (DE/FR/IT/ES/RO) we apply
- * a fixed conversion (~0.92) and round to .95 — see getPriceForLocale().
+ * USD is the only currency now (EN / UK / RU). The locale → currency switch
+ * is kept for forward-compatibility but currently maps every supported
+ * locale to USD.
  *
  * Numbers are intentionally NOT round (e.g. $1,495 not $1,500) — proven
  * conversion lift from price-point psychology.
@@ -98,36 +99,22 @@ export const SERVICE_STARTING = {
 // LOCALE → CURRENCY ROUTING
 // =============================================================================
 
-const EUR_LOCALES: ReadonlySet<Language> = new Set(['de', 'fr', 'it', 'es', 'ro']);
-const USD_TO_EUR = 0.92;
+// All supported locales (EN / UK / RU) currently use USD. Kept as a Set so
+// future EUR/etc. locales can be added without touching call sites.
+const EUR_LOCALES: ReadonlySet<Language> = new Set();
 
 /**
- * For a given locale: returns the right currency symbol and an amount converted
- * from USD to EUR if that locale prefers EUR. EUR amounts are rounded down
- * to the nearest .95 ending (e.g. 1495 USD → ~1375 EUR → rounded to 1395).
+ * For a given locale: returns the right currency symbol and amount.
+ * Currently always returns USD for the three supported languages.
  */
 export function getPriceForLocale(
   amountUsd: number,
   lang: Language,
 ): { amount: number; currency: Currency; symbol: string } {
   if (EUR_LOCALES.has(lang)) {
-    const eurAmount = roundToPsychologicalEur(amountUsd * USD_TO_EUR);
-    return { amount: eurAmount, currency: 'EUR', symbol: '€' };
+    return { amount: amountUsd, currency: 'EUR', symbol: '€' };
   }
   return { amount: amountUsd, currency: 'USD', symbol: '$' };
-}
-
-/**
- * Round to the nearest hundred ending in 95 above the converted amount.
- * 1375 → 1395, 545 → 595, 7350 → 7395, 91 → 95.
- */
-function roundToPsychologicalEur(amount: number): number {
-  if (amount < 100) return Math.max(95, Math.round(amount / 5) * 5);
-  // Round UP to next ___95
-  const hundreds = Math.floor(amount / 100);
-  const inHundred = amount - hundreds * 100;
-  if (inHundred <= 95) return hundreds * 100 + 95;
-  return (hundreds + 1) * 100 + 95;
 }
 
 /**

@@ -10,7 +10,6 @@
  */
 
 import { getLocalizedPath, useTranslations, type Language } from '@/i18n/utils';
-import { slugs } from '@/i18n/slugs';
 import LanguageSwitcher from '@/components/layout/LanguageSwitcher.astro';
 import { CONTACT } from '@/data/contact';
 
@@ -45,15 +44,12 @@ const companyLinks = [
   { key: 'brief.ads',              label: t('page_titles.brief_ads')     },
 ] as const;
 
-// Legal: Impressum only exists in German (slugs.impressum.de !== '')
+// Legal — Impressum was DE-specific and has been removed along with German.
 const legalLinks = [
   { key: 'privacy-policy', label: t('page_titles.privacy') },
   { key: 'cookie-policy',  label: t('page_titles.cookies') },
   { key: 'terms',          label: t('page_titles.terms')   },
 ];
-if (lang === 'de' && slugs.impressum?.de) {
-  legalLinks.push({ key: 'impressum', label: 'Impressum' });
-}
 
 // Single source of truth for contact details lives in src/data/contact.ts
 // (imported at the top of this frontmatter).

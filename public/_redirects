@@ -62,31 +62,6 @@
 /en/*                /:splat            301
 
 # Common alternate language codes that visitors might guess
-/deutsch             /de/               301
-/deutsch/            /de/               301
-/german              /de/               301
-/german/             /de/               301
-
-/francais            /fr/               301
-/francais/           /fr/               301
-/french              /fr/               301
-/french/             /fr/               301
-
-/espanol             /es/               301
-/espanol/            /es/               301
-/spanish             /es/               301
-/spanish/            /es/               301
-
-/italiano            /it/               301
-/italiano/           /it/               301
-/italian             /it/               301
-/italian/            /it/               301
-
-/romana              /ro/               301
-/romana/             /ro/               301
-/romanian            /ro/               301
-/romanian/           /ro/               301
-
 /ukrainian           /uk/               301
 /ukrainian/          /uk/               301
 /ua                  /uk/               301

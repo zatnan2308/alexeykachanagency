@@ -22,11 +22,6 @@ import {
 } from './slugs';
 
 import en from './translations/en.json';
-import de from './translations/de.json';
-import fr from './translations/fr.json';
-import es from './translations/es.json';
-import it from './translations/it.json';
-import ro from './translations/ro.json';
 import uk from './translations/uk.json';
 import ru from './translations/ru.json';
 
@@ -49,7 +44,7 @@ export {
 // =============================================================================
 
 const translations: Record<Language, any> = {
-  en, de, fr, es, it, ro, uk, ru,
+  en, uk, ru,
 };
 
 /**
@@ -156,7 +151,7 @@ export function formatCurrency(amount: number, lang: Language, currency = 'USD')
 // =============================================================================
 
 const WORDS_PER_MINUTE: Record<Language, number> = {
-  en: 230, de: 200, fr: 215, es: 220, it: 220, ro: 215, uk: 200, ru: 200,
+  en: 230, uk: 200, ru: 200,
 };
 
 export function calculateReadingTime(content: string, lang: Language): number {

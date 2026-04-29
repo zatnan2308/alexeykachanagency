@@ -1,7 +1,7 @@
 ---
 /**
  * LegalPage — generic template for static legal pages.
- * Variants: 'privacy' | 'cookies' | 'terms' | 'impressum'
+ * Variants: 'privacy' | 'cookies' | 'terms'
  *
  * Pulls content from i18n (with EN fallback). Renders sticky TOC + sections.
  */
@@ -10,7 +10,7 @@ import Breadcrumb from '@/components/layout/Breadcrumb.astro';
 
 interface Props {
   lang: Language;
-  variant: 'privacy' | 'cookies' | 'terms' | 'impressum';
+  variant: 'privacy' | 'cookies' | 'terms';
 }
 const { lang, variant } = Astro.props;
 const all = getTranslations(lang) as any;

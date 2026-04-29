@@ -10,7 +10,7 @@ import tailwindcss from '@tailwindcss/vite';
 // IMPORTANT: keep these in sync with src/i18n/slugs.ts
 const SITE_URL = 'https://alexeykachan.com';
 
-const LOCALES = ['en', 'de', 'fr', 'es', 'it', 'ro', 'uk', 'ru'];
+const LOCALES = ['en', 'uk', 'ru'];
 const DEFAULT_LOCALE = 'en';
 
 // https://astro.build/config
@@ -50,16 +50,11 @@ export default defineConfig({
       gfm: true,
     }),
     sitemap({
-      // Sitemap with hreflang for all 8 languages
+      // Sitemap with hreflang for all supported languages (EN/UK/RU)
       i18n: {
         defaultLocale: DEFAULT_LOCALE,
         locales: {
           en: 'en',
-          de: 'de',
-          fr: 'fr',
-          es: 'es',
-          it: 'it',
-          ro: 'ro',
           uk: 'uk',
           ru: 'ru',
         },
@@ -68,11 +63,6 @@ export default defineConfig({
         // Exclude noindex pages from sitemap
         const excludePatterns = [
           '/thank-you/',
-          '/danke/',
-          '/merci/',
-          '/gracias/',
-          '/grazie/',
-          '/multumim/',
           '/dyakuemo/',
           '/spasibo/',
           '/404/',
@@ -90,7 +80,7 @@ export default defineConfig({
         if (item.url === `${SITE_URL}/`) {
           item.priority = 1.0;
           item.changefreq = EnumChangefreq.DAILY;
-        } else if (item.url.match(/\/(services|dienstleistungen|servicios|servizi|servicii|poslugy|uslugi)\/$/)) {
+        } else if (item.url.match(/\/(services|poslugy|uslugi)\/$/)) {
           item.priority = 0.9;
           item.changefreq = EnumChangefreq.MONTHLY;
         } else if (item.url.includes('/blog/')) {
@@ -98,11 +88,8 @@ export default defineConfig({
           item.changefreq = EnumChangefreq.WEEKLY;
         } else if (
           item.url.includes('/privacy') ||
-          item.url.includes('/datenschutz') ||
           item.url.includes('/terms') ||
-          item.url.includes('/agb') ||
-          item.url.includes('/cookie') ||
-          item.url.includes('/impressum')
+          item.url.includes('/cookie')
         ) {
           item.priority = 0.3;
           item.changefreq = EnumChangefreq.YEARLY;

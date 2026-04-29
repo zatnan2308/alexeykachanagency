@@ -30,7 +30,6 @@ export const SUPPORTED_PAGE_KEYS = [
   'privacy-policy',
   'cookie-policy',
   'terms',
-  'impressum',
   'thank-you',
 ] as const;
 
