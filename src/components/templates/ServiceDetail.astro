@@ -16,6 +16,7 @@
 
 import { useTranslations, getTranslations, getLocalizedPath, formatCurrency, type Language } from '@/i18n/utils';
 import { buildServiceSchema, buildFaqSchema, buildBreadcrumb } from '@/lib/schema';
+import PlatformsStack from '@/components/sections/PlatformsStack.astro';
 
 interface Props {
   lang: Language;
@@ -118,6 +119,11 @@ const breadcrumbSchema = buildBreadcrumb([
     </div>
   </div>
 </section>
+
+{/* 1.5 Platforms & Stack — only for website_development */}
+{serviceKey === 'website_development' && data.platforms && (
+  <PlatformsStack data={data.platforms} />
+)}
 
 {/* 2. What's included */}
 <section class="svc-included section-y">
@@ -447,7 +453,9 @@ const breadcrumbSchema = buildBreadcrumb([
   }
   .svc-delivers__icon { flex-shrink: 0; color: var(--accent); margin-top: 0.125rem; }
 
-  /* 5. Pricing */
+  /* 5. Pricing — 1 col mobile, 2 col tablet, 3 col desktop.
+     For 5 tiers (website-development), the 4th and 5th wrap to a new row.
+     CSS uses auto-fit so rows are balanced regardless of tier count. */
   .svc-pricing__grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -456,7 +464,8 @@ const breadcrumbSchema = buildBreadcrumb([
     padding: 0;
     margin: 0;
   }
-  @media (min-width: 768px) { .svc-pricing__grid { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
+  @media (min-width: 640px) { .svc-pricing__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .svc-pricing__grid { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
   .svc-pricing__tier {
     position: relative;
     display: flex;

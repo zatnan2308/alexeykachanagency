@@ -928,129 +928,271 @@
     "website_development": {
       "hero": {
         "kicker": "Website Development",
-        "h1": "Websites built to ship in weeks and rank in months.",
-        "lead": "Conversion-oriented websites engineered with Astro, Next.js or headless CMS — fast, secure, multilingual, and ranked from day one.",
+        "h1": "Websites on the platform that fits your business — not mine.",
+        "lead": "I build on whatever's right for the job — WordPress, Shopify, Wix Studio, custom Astro or Next.js. My job is helping you pick the right tool, not selling you a trendy one.",
         "primary_cta": "Start a project",
         "secondary_cta": "See web cases"
+      },
+      "platforms": {
+        "label": "Platforms & stack",
+        "title": "I work on every serious platform — and a few less-serious ones, when they fit.",
+        "subtitle": "The platform is a tool, not an ideology. The right one for you depends on your team, content workflow, budget and growth horizon — not on what's hot on Twitter this month.",
+        "cta_helper": "Not sure which platform fits? Tell me about the project — I'll give an honest recommendation, not a pitch for the most expensive option.",
+        "groups": [
+          {
+            "id": "quick_affordable",
+            "title": "Quick & affordable",
+            "subtitle": "When you need something live fast, with light custom work.",
+            "platforms": [
+              {
+                "name": "Wix Studio",
+                "when": "Premium no-code builder. Polished result without long timelines. Good for fast launches and design-led pages.",
+                "price": "from $800"
+              },
+              {
+                "name": "Elementor (WordPress)",
+                "when": "When you need WordPress flexibility but don't want to write custom theme code. Visual editor, dynamic content, plugin ecosystem.",
+                "price": "from $1,200"
+              },
+              {
+                "name": "Plain HTML / CSS / JS",
+                "when": "Static one-pagers and microsites where every kilobyte matters. Loads in under a second, hosted free on the edge.",
+                "price": "from $800"
+              }
+            ]
+          },
+          {
+            "id": "popular_business",
+            "title": "Most popular for business",
+            "subtitle": "Battle-tested platforms that 90% of business sites should be on.",
+            "platforms": [
+              {
+                "name": "WordPress",
+                "when": "The default for content sites that need a real CMS. Huge plugin ecosystem, easy editing, near-infinite flexibility with custom code.",
+                "price": "from $2,500"
+              },
+              {
+                "name": "WooCommerce",
+                "when": "E-commerce on WordPress when you don't want Shopify's transaction fees. Full ownership, custom checkout, integrates with anything.",
+                "price": "from $4,500"
+              },
+              {
+                "name": "Shopify",
+                "when": "The best choice for serious e-commerce. Stable, fast, every payment provider integrated, scales without sysadmin work.",
+                "price": "from $4,000"
+              }
+            ]
+          },
+          {
+            "id": "performance_growth",
+            "title": "Performance & growth",
+            "subtitle": "Modern stacks for sites where speed, SEO and editor autonomy all matter.",
+            "platforms": [
+              {
+                "name": "Astro",
+                "when": "Content sites, landing pages, agency sites where Lighthouse 95+ and great SEO are non-negotiable. Static-first, ships almost no JavaScript.",
+                "price": "from $3,500"
+              },
+              {
+                "name": "Next.js",
+                "when": "SaaS dashboards, app-like interfaces, sites with heavy interactivity. Best-in-class React framework with full server-side power.",
+                "price": "from $8,000"
+              },
+              {
+                "name": "Headless CMS",
+                "when": "Sanity, Storyblok or Contentful. When the content team needs full editing autonomy without being limited by the front-end stack.",
+                "price": "+$1,500 on top"
+              }
+            ]
+          },
+          {
+            "id": "custom_solutions",
+            "title": "Custom solutions",
+            "subtitle": "When your needs go beyond any off-the-shelf platform.",
+            "platforms": [
+              {
+                "name": "Node.js bespoke",
+                "when": "Custom integrations, internal tools, non-standard logic, real-time features. Built from scratch when no platform fits.",
+                "price": "from $15,000"
+              }
+            ]
+          }
+        ]
       },
       "included": [
         {
           "title": "Discovery & strategy",
-          "body": "Audience research, competitor audit, content architecture, and a written project spec — before a single line of code."
+          "body": "We spend the first sprint understanding your business, audience and goals — before deciding on the platform or writing a single line of code."
         },
         {
-          "title": "Design system",
-          "body": "A typographic system, color tokens, components — applied to your brand and reusable for years."
+          "title": "Design",
+          "body": "Custom design from scratch, or close collaboration with your in-house designer. Either way, the goal is something that looks like your brand, not a template."
         },
         {
           "title": "Engineering",
-          "body": "Astro / Next.js / headless CMS. Multilingual-ready, SEO-clean markup, Core Web Vitals 95+."
+          "body": "On the platform we picked together — WordPress, Shopify, Astro, Next.js, custom. Solid code that someone else can also maintain later."
         },
         {
           "title": "On-page SEO",
-          "body": "Meta, schema, sitemap, hreflang, internal linking. Every page is launch-ready for Google."
+          "body": "Clean URLs, meta tags, schema, sitemap, hreflang for multilingual, internal linking. Every page is ready for Google before launch."
         },
         {
           "title": "Analytics setup",
-          "body": "GA4, Search Console, Microsoft Clarity, conversion goals — wired before go-live."
+          "body": "GA4, Search Console, Microsoft Clarity, conversion goals — connected and tested before the site goes live."
         },
         {
-          "title": "Hand-off & training",
-          "body": "30-min Loom walk-through, written docs, 14-day post-launch support."
+          "title": "Handoff & training",
+          "body": "Walk-through video, written docs, your team trained on the admin. 14 days of free bug-fix support after launch."
         }
       ],
       "process": [
         {
-          "title": "Discovery (week 1)",
-          "body": "Stakeholder calls, audit, sitemap, content brief, KPIs."
+          "title": "Discovery",
+          "body": "Calls with you and your team to understand goals, audience, content needs, integrations. We pick the platform together based on what's right — not on what I want to charge for."
         },
         {
-          "title": "Design (week 2)",
-          "body": "Wireframes, then high-fidelity. Two rounds of revisions baked in."
+          "title": "Design",
+          "body": "Wireframes first, then high-fidelity. Two rounds of revisions baked in. If you bring a designer, I work directly with them on hand-off."
         },
         {
-          "title": "Build (weeks 3–4)",
-          "body": "Component library, content integration, performance tuning, QA."
+          "title": "Build",
+          "body": "Building on the platform we picked. Component library, content integration, performance tuning, QA across browsers and devices."
         },
         {
           "title": "Launch & optimize",
-          "body": "Go-live with zero downtime, then 14 days of fine-tuning based on real traffic."
+          "body": "Go-live with no downtime. 14 days of fine-tuning based on real traffic, real Search Console data, real user feedback."
         }
       ],
       "deliverables": [
-        "Production codebase on GitHub",
-        "Lighthouse 95+ across mobile & desktop",
+        "Production codebase / admin access (yours forever)",
+        "Lighthouse 95+ across mobile & desktop, where the platform allows it",
         "On-page SEO complete (meta, schema, sitemap, robots, hreflang)",
-        "Analytics + conversion tracking wired",
+        "Analytics + conversion tracking wired and tested",
         "Documentation + 30-min training video",
         "14-day bug-fix support, free"
       ],
       "tiers": [
         {
-          "name": "Starter",
-          "price": 4500,
-          "timeline": "3 weeks",
+          "name": "Landing page",
+          "price": 800,
+          "timeline": "1–2 weeks",
           "highlight": false,
-          "tagline": "Single-language marketing site, up to 8 pages.",
+          "tagline": "Single-page launch site, event landing, lead-magnet campaign.",
           "includes": [
-            "Up to 8 pages, single language",
-            "Custom design (no templates)",
-            "On-page SEO + schema",
+            "1 page, single language",
+            "Wix Studio / Elementor / static HTML",
+            "Custom design or template-based",
+            "On-page SEO basics",
+            "Analytics + form tracking",
+            "14-day bug-fix support"
+          ]
+        },
+        {
+          "name": "Small business",
+          "price": 2500,
+          "timeline": "2–4 weeks",
+          "highlight": false,
+          "tagline": "5–10 pages: services, about, blog, contact. Most popular tier.",
+          "includes": [
+            "5–10 pages, single language",
+            "WordPress / Wix Studio (your choice)",
+            "Custom design",
+            "Editable admin for your team",
+            "Full on-page SEO + schema",
             "GA4 + Search Console setup",
             "14-day bug-fix support"
           ]
         },
         {
-          "name": "Growth",
-          "price": 9500,
-          "timeline": "5 weeks",
+          "name": "Corporate multilingual",
+          "price": 6000,
+          "timeline": "4–8 weeks",
           "highlight": true,
-          "tagline": "Multilingual marketing site with CMS, up to 20 pages.",
+          "tagline": "20–50 pages, 2–8 languages, content workflow for the marketing team.",
           "includes": [
-            "Up to 20 pages, 2–3 languages",
-            "Headless CMS (Sanity, Contentful, Storyblok)",
-            "Blog + content collections",
+            "20–50 pages, 2–8 languages",
+            "Astro or WordPress + headless CMS",
+            "Multilingual content workflow",
             "Advanced SEO + hreflang",
             "Conversion tracking + heatmaps",
-            "30 days bug-fix support"
+            "Performance contract (CWV 95+)",
+            "30-day bug-fix support"
           ]
         },
         {
-          "name": "Scale",
-          "price": null,
+          "name": "E-commerce",
+          "price": 4000,
+          "timeline": "4–10 weeks",
+          "highlight": false,
+          "tagline": "Shopify from $4K, WooCommerce or custom from $7K. From 50 to 5,000+ SKUs.",
+          "includes": [
+            "Catalogue, cart, checkout, payments",
+            "Shopify (faster) or WooCommerce (full control)",
+            "Product import + initial 50 SKUs configured",
+            "Email + abandoned-cart automation",
+            "Conversion tracking (Pixel + GA4 + CAPI)",
+            "Mobile-first product pages",
+            "30-day bug-fix support"
+          ]
+        },
+        {
+          "name": "SaaS / Custom build",
+          "price": 15000,
           "timeline": "8+ weeks",
           "highlight": false,
-          "tagline": "Custom build for e-commerce, SaaS, or 4+ language platforms.",
+          "tagline": "Dashboards, member areas, custom integrations, real-time features.",
           "includes": [
             "Custom scope & integrations",
-            "4+ languages with localization workflow",
-            "E-commerce or SaaS dashboard",
-            "Performance budget contract (CWV 95+)",
-            "Migration from existing CMS",
-            "60 days post-launch support"
+            "Next.js or Node.js bespoke build",
+            "Auth + billing + admin panel",
+            "Full multilingual + localization workflow",
+            "Performance contract (CWV 95+)",
+            "Migration from existing platform if needed",
+            "60-day post-launch support"
           ]
         }
       ],
+      "tiers_alt_disabled": {
+        "_note": "Variant B — flat range without tiers. Not active. Replace 'tiers' with this if you want range-based pricing instead of project-type tiers.",
+        "intro": "From $800 for a quick landing page to $50K+ for a custom SaaS platform. Every project is fixed-price, agreed before work starts — no scope-creep surprises.",
+        "cta": "Get a custom quote"
+      },
       "related": [
         "site_design",
         "site_analytics"
       ],
       "faq": [
         {
-          "question": "What stack do you build on?",
-          "answer": "Astro for content sites, Next.js for app-like or e-commerce, headless CMS (Sanity / Storyblok / Contentful) when content team needs autonomy. We pick the lightest stack that fits — never the trendiest."
+          "question": "Do you work with WordPress / Shopify / Wix?",
+          "answer": "Yes — all three, and a lot more. WordPress (with custom themes, ACF, Elementor when it fits), Shopify (themes, Liquid, custom apps), Wix Studio for premium no-code projects. The platform is picked based on your needs, not my preference."
+        },
+        {
+          "question": "Can you migrate my site from one platform to another?",
+          "answer": "Yes — that's actually one of the most common projects. WordPress → Shopify, Wix → Astro, custom → headless CMS. Full SEO preservation through 301 redirects, content migration, redesign or 1:1 rebuild — your call."
+        },
+        {
+          "question": "I have a designer / I need a designer too.",
+          "answer": "Both work. If you have a designer, I'll integrate cleanly with their hand-off (Figma, Sketch, anything). If you need design too, I do it as part of the project — custom from scratch, no templates."
+        },
+        {
+          "question": "What if I'm not sure which platform fits?",
+          "answer": "Discovery call is free. Tell me about your business, team, content workflow, growth plans — I'll recommend the platform that gives you the best result for your budget. If your needs fit a $1,500 Wix project, I'll say so, even if I could build a $20K custom one."
+        },
+        {
+          "question": "Do you maintain sites after launch?",
+          "answer": "Yes — 14 days of bug-fix support are included free. After that, monthly maintenance plans start at $190/month — security updates, content edits, performance monitoring, analytics review. See the Site Support page for full details."
         },
         {
           "question": "Will my site be multilingual-ready?",
-          "answer": "Every site we build supports multilingual out of the gate — even if you launch with one language. URLs, hreflang, locale routing — all wired so adding a new language later is a content task, not an engineering project."
+          "answer": "Every site I build supports multilingual out of the gate — even if you launch with one language. URLs, hreflang, locale routing — wired correctly so adding a new language later is a content task, not a rebuild."
         },
         {
           "question": "Do you handle hosting?",
-          "answer": "We deploy to Cloudflare Pages by default — global CDN, free SSL, edge functions. We can also deploy to Vercel, Netlify, or your own infrastructure."
+          "answer": "Depends on the platform. Shopify and Wix host themselves. WordPress can go on Cloudflare, SiteGround, Kinsta or your own server. Astro and Next.js deploy to Cloudflare Pages or Vercel by default. I'll set up whatever fits your needs."
         },
         {
           "question": "What happens after launch?",
-          "answer": "14 days of free bug-fix support included. After that we offer a monthly maintenance plan starting at $190/month — security updates, performance monitoring, content edits, analytics review."
+          "answer": "14 days of free bug-fix support included. After that, monthly maintenance plans start at $190/month — security updates, performance monitoring, content edits, analytics review."
         }
       ]
     },
