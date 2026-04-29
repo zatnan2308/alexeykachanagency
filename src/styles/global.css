@@ -1,0 +1,405 @@
+/* =============================================================================
+   Alexey Kachan Agency — Global Stylesheet
+   Tailwind CSS 4 (CSS-first) + design tokens + reset + utilities
+   ============================================================================= */
+
+@import "tailwindcss";
+
+/* -----------------------------------------------------------------------------
+   Design Tokens — single source of truth
+   Reference these via var(--name) OR via Tailwind utilities (see @theme below)
+----------------------------------------------------------------------------- */
+:root {
+  /* Surfaces */
+  --bg-primary: #0a0a0b;
+  --bg-secondary: #131316;
+  --bg-tertiary: #1c1c20;
+  --bg-elevated: #232328;
+
+  /* Text */
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-disabled: #52525b;
+
+  /* Accent (lime) */
+  --accent: #d7ff3d;
+  --accent-hover: #c5ff1f;
+  --accent-active: #b8f000;
+  --accent-text: #0a0a0b;
+  --accent-soft: color-mix(in oklch, var(--accent) 15%, transparent);
+
+  /* Borders */
+  --border: #27272a;
+  --border-strong: #3f3f46;
+  --border-accent: var(--accent);
+
+  /* Status */
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --error: #f87171;
+
+  /* Typography */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Inter Tight', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
+
+  /* Fluid type scale (clamp(min, fluid, max)) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.25rem);
+  --text-4xl: clamp(2.25rem, 1.7rem + 2.6vw, 3.25rem);
+  --text-5xl: clamp(2.75rem, 1.9rem + 4vw, 4.5rem);
+  --text-6xl: clamp(3.5rem, 2.2rem + 6vw, 6rem);
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+
+  /* Shadows (subtle, dark-mode tuned) */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+  --shadow-md: 0 4px 8px -2px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 16px 32px -8px rgb(0 0 0 / 0.6), 0 4px 8px -4px rgb(0 0 0 / 0.4);
+  --shadow-xl: 0 32px 64px -16px rgb(0 0 0 / 0.7), 0 8px 16px -8px rgb(0 0 0 / 0.5);
+  --shadow-glow: 0 0 0 1px var(--accent), 0 8px 24px -8px color-mix(in oklch, var(--accent) 50%, transparent);
+  --shadow-inset: inset 0 1px 0 0 rgb(255 255 255 / 0.04);
+
+  /* Z-index scale */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-dropdown: 20;
+  --z-sticky: 30;
+  --z-overlay: 40;
+  --z-header: 50;
+  --z-banner: 60;
+  --z-modal: 70;
+  --z-toast: 80;
+  --z-tooltip: 90;
+
+  /* Layout */
+  --container-max: 1280px;
+  --container-padding: clamp(1rem, 4vw, 2rem);
+  --header-height: 72px;
+  --header-height-mobile: 64px;
+
+  /* Easing & duration */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+}
+
+/* -----------------------------------------------------------------------------
+   Tailwind v4 @theme — exposes tokens as utilities
+   e.g. bg-primary, text-accent, font-display, rounded-xl
+----------------------------------------------------------------------------- */
+@theme {
+  /* Colors → bg-*, text-*, border-* */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-elevated: var(--bg-elevated);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-disabled: var(--text-disabled);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-text: var(--accent-text);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  /* Fonts → font-sans, font-display, font-mono */
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  /* Radii → rounded-* */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+
+  /* Container width override */
+  --container-7xl: 1280px;
+}
+
+/* -----------------------------------------------------------------------------
+   Reset (minimal, modern)
+----------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  font-feature-settings: 'cv11', 'ss01', 'ss03';
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  min-height: 100svh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Body lock helper for modals/mobile menu */
+body[data-scroll-locked] {
+  overflow: hidden;
+}
+
+/* -----------------------------------------------------------------------------
+   Reduced motion
+----------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Reveal scaffolding — only applied when JS is available.
+   Without JS (.no-js), all content is visible immediately (graceful degradation).
+   GSAP `from` tweens animate INTO the natural state, so we just need an initial hide.
+----------------------------------------------------------------------------- */
+.js [data-reveal] {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.js [data-reveal-stagger] > * {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal],
+  .js [data-reveal-stagger] > * {
+    opacity: 1 !important;
+  }
+}
+
+/* Lenis smooth scroll housekeeping */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* -----------------------------------------------------------------------------
+   Utilities
+----------------------------------------------------------------------------- */
+
+/* Horizontal container (consistent gutters across breakpoints) */
+.container-x {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* Text wrapping helpers */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Visually hidden but accessible to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link reveal on focus */
+.sr-only.focus\:not-sr-only:focus,
+.sr-only:focus-visible {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1.25rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  z-index: var(--z-modal);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Section padding rhythm */
+.section-y {
+  padding-block: clamp(4rem, 6vw, 8rem);
+}
+
+.section-y-sm {
+  padding-block: clamp(3rem, 4vw, 5rem);
+}
+
+/* Gradient text (for hero headline accents) */
+.text-gradient-accent {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Subtle grain overlay (for hero / heavy sections) — opt-in via class */
+.bg-grain {
+  position: relative;
+  isolation: isolate;
+}
+.bg-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Button reset class (for use as base) */
+.btn-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+.btn-reset:hover {
+  transform: translateY(-1px);
+}
+.btn-reset:active {
+  transform: translateY(0);
+}

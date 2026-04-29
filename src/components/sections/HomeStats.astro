@@ -1,0 +1,76 @@
+---
+import { useTranslations, type Language } from '@/i18n/utils';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const stats = [
+  { value: 12,  suffix: '+', labelKey: 'years_experience'   },
+  { value: 180, suffix: '+', labelKey: 'projects_delivered' },
+  { value: 6,   suffix: '',  labelKey: 'services_offered'   },
+  { value: 12,  suffix: '',  labelKey: 'countries_served'   },
+] as const;
+---
+
+<section class="stats section-y-sm">
+  <div class="container-x">
+    <h2 class="sr-only">{t('stats.title')}</h2>
+    <ul class="stats__grid" data-reveal-stagger data-stagger-interval="0.1">
+      {stats.map((s) => (
+        <li class="stats__item">
+          <p class="stats__value" data-counter={s.value} data-counter-suffix={s.suffix}>0{s.suffix}</p>
+          <p class="stats__label">{t(`stats.${s.labelKey}`)}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .stats__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .stats__item {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stats__item:nth-child(2n) { border-right: none; }
+  .stats__item:nth-last-child(-n+2) { border-bottom: none; }
+  @media (min-width: 768px) {
+    .stats__item {
+      padding: 3rem 1.5rem;
+      border-bottom: none;
+    }
+    .stats__item:nth-child(2n) { border-right: 1px solid var(--border); }
+    .stats__item:last-child { border-right: none; }
+  }
+  .stats__value {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 1.6rem + 4vw, 4.5rem);
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stats__label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+</style>

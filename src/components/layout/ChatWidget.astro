@@ -1,0 +1,175 @@
+---
+/**
+ * ChatWidget — floating "talk to us" cluster (Telegram + WhatsApp + email).
+ * Bottom-right; expands on click to show 3 channels.
+ * Hidden on the contacts page itself (would be redundant).
+ */
+import { useTranslations, getLangFromUrl, type Language } from '@/i18n/utils';
+
+const lang: Language = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Hide on contacts/thank-you pages (already a contact-rich destination)
+const path = Astro.url.pathname;
+const HIDE_ON = ['/contacts/', '/thank-you/', '/danke/', '/merci/', '/gracias/', '/grazie/', '/multumim/', '/dyakuemo/', '/spasibo/'];
+const hidden = HIDE_ON.some((p) => path.includes(p)) || path.endsWith('/kontakt/');
+---
+
+{!hidden && (
+  <aside class="chat" data-chat-widget aria-label={t('cta.let_talk')}>
+    <div class="chat__panel" data-chat-panel hidden>
+      <a href="https://t.me/alexeykachan" target="_blank" rel="noopener noreferrer" class="chat__item">
+        <span class="chat__item-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.75 4.5L2.25 12l5.625 1.875M21.75 4.5L18 19.5l-7.5-3.75M21.75 4.5L7.875 13.875M10.5 15.75v3.75l3-3" stroke="currentColor" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="chat__item-label">Telegram</span>
+        <span class="chat__item-handle">@alexeykachan</span>
+      </a>
+      <a href="https://wa.me/380674618072" target="_blank" rel="noopener noreferrer" class="chat__item">
+        <span class="chat__item-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.31a7.85 7.85 0 0 0-11.13 0 7.85 7.85 0 0 0-1.5 9.18l-1 3.65 3.74-.98a7.85 7.85 0 0 0 3.85 1 7.86 7.86 0 0 0 6.04-13.83zm-1.32 9.04c-.2.56-1.16 1.07-1.62 1.14-.41.06-.94.09-1.51-.1-.35-.11-.8-.26-1.37-.5-2.41-1.04-3.99-3.46-4.1-3.62-.12-.16-.99-1.32-.99-2.51 0-1.2.63-1.78.85-2.03.22-.25.49-.31.65-.31.16 0 .32 0 .47.01.15 0 .35-.06.55.42.2.49.69 1.69.75 1.81.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.32-.35.43-.12.12-.24.25-.1.49.13.24.6.99 1.29 1.6.88.79 1.62 1.04 1.86 1.16.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.58-.13 1.14z"/></svg>
+        </span>
+        <span class="chat__item-label">WhatsApp</span>
+        <span class="chat__item-handle">+380 67 461 80 72</span>
+      </a>
+      <a href="mailto:info@alexeykachan.com" class="chat__item">
+        <span class="chat__item-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        </span>
+        <span class="chat__item-label">Email</span>
+        <span class="chat__item-handle">info@alexeykachan.com</span>
+      </a>
+    </div>
+
+    <button type="button" class="chat__toggle" data-chat-toggle aria-expanded="false" aria-controls="chat-panel">
+      <svg class="chat__toggle-icon chat__toggle-icon--chat" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <svg class="chat__toggle-icon chat__toggle-icon--close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+      <span class="sr-only">{t('cta.let_talk')}</span>
+    </button>
+  </aside>
+)}
+
+<style>
+  .chat {
+    position: fixed;
+    right: clamp(0.875rem, 2vw, 1.5rem);
+    bottom: clamp(0.875rem, 2vw, 1.5rem);
+    z-index: var(--z-overlay);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+  }
+
+  .chat__toggle {
+    width: 56px;
+    height: 56px;
+    background: var(--accent);
+    color: var(--accent-text);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 32px -8px color-mix(in oklch, var(--accent) 50%, transparent);
+    cursor: pointer;
+    transition: transform var(--duration-base) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+    position: relative;
+  }
+  .chat__toggle:hover { transform: scale(1.05); background: var(--accent-hover); }
+  .chat__toggle-icon {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    transition: opacity var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .chat__toggle-icon--close { opacity: 0; transform: rotate(-90deg); }
+  .chat__toggle[aria-expanded='true'] .chat__toggle-icon--chat { opacity: 0; transform: rotate(90deg); }
+  .chat__toggle[aria-expanded='true'] .chat__toggle-icon--close { opacity: 1; transform: rotate(0); }
+
+  .chat__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: color-mix(in oklch, var(--bg-secondary) 96%, transparent);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 0.75rem;
+    box-shadow: var(--shadow-xl);
+    min-width: 16rem;
+    transform-origin: bottom right;
+    animation: chat-pop var(--duration-base) var(--ease-out);
+  }
+  .chat__panel[hidden] { display: none; }
+  @keyframes chat-pop {
+    from { opacity: 0; transform: translateY(8px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .chat__item {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.125rem 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: var(--radius-md);
+    color: inherit;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+  .chat__item:hover { background: var(--bg-tertiary); }
+  .chat__item-icon {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: center;
+    width: 32px;
+    height: 32px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+  }
+  .chat__item:hover .chat__item-icon { color: var(--accent); border-color: var(--accent); }
+  .chat__item-label { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
+  .chat__item-handle { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
+</style>
+
+<script>
+  function initChatWidget() {
+    const widget = document.querySelector<HTMLElement>('[data-chat-widget]');
+    if (!widget || widget.dataset.bound === '1') return;
+    widget.dataset.bound = '1';
+
+    const toggle = widget.querySelector<HTMLButtonElement>('[data-chat-toggle]');
+    const panel  = widget.querySelector<HTMLElement>('[data-chat-panel]');
+    if (!toggle || !panel) return;
+
+    const open  = () => { panel.hidden = false; toggle.setAttribute('aria-expanded', 'true'); };
+    const close = () => { panel.hidden = true;  toggle.setAttribute('aria-expanded', 'false'); };
+
+    toggle.addEventListener('click', () => {
+      panel.hidden ? open() : close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) {
+        close();
+        toggle.focus();
+      }
+    });
+
+    // Click outside to close
+    document.addEventListener('click', (e) => {
+      if (panel.hidden) return;
+      if (!widget.contains(e.target as Node)) close();
+    });
+  }
+  initChatWidget();
+  document.addEventListener('astro:page-load', initChatWidget);
+</script>

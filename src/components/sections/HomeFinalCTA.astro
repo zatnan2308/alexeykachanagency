@@ -1,0 +1,145 @@
+---
+import { useTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const ctaPrimary  = getLocalizedPath('contacts', lang);
+const ctaSecondary = getLocalizedPath('contacts', lang);
+---
+
+<section class="cta section-y">
+  <div class="container-x">
+    <div class="cta__card" data-reveal="scale">
+      <p class="cta__label">— {t('final_cta.label')}</p>
+      <h2 class="cta__title text-balance">{t('final_cta.title')}</h2>
+      <p class="cta__sub">{t('final_cta.subtitle')}</p>
+
+      <div class="cta__actions">
+        <a href={ctaPrimary} class="cta__btn cta__btn--primary" data-magnetic data-magnetic-strength="0.4">
+          <span>{t('final_cta.primary_cta')}</span>
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href={ctaSecondary} class="cta__btn cta__btn--ghost">
+          {t('final_cta.secondary_cta')}
+        </a>
+      </div>
+
+      <p class="cta__response">
+        <span class="cta__pulse" aria-hidden="true"></span>
+        {t('final_cta.response_time')}
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta__card {
+    position: relative;
+    padding: clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 4vw, 3.5rem);
+    border-radius: var(--radius-2xl);
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in oklch, var(--accent) 14%, transparent) 0%, transparent 70%),
+      var(--bg-secondary);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    text-align: center;
+  }
+  .cta__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+  }
+  .cta__label {
+    position: relative;
+    font-size: 0.875rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .cta__title {
+    position: relative;
+    font-size: var(--text-6xl);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    max-width: 22ch;
+    margin-inline: auto;
+    margin-bottom: 1.25rem;
+  }
+  .cta__sub {
+    position: relative;
+    color: var(--text-secondary);
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.125rem);
+    max-width: 36rem;
+    margin: 0 auto 2.5rem;
+    line-height: 1.55;
+  }
+  .cta__actions {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.875rem;
+    margin-bottom: 2rem;
+  }
+  .cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: 600;
+    transition:
+      background-color var(--duration-base) var(--ease-out),
+      color var(--duration-base) var(--ease-out),
+      border-color var(--duration-base) var(--ease-out),
+      transform var(--duration-base) var(--ease-out);
+  }
+  .cta__btn--primary {
+    background: var(--accent);
+    color: var(--accent-text);
+  }
+  .cta__btn--primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -8px color-mix(in oklch, var(--accent) 45%, transparent);
+  }
+  .cta__btn--ghost {
+    border: 1px solid var(--border-strong);
+    color: var(--text-primary);
+    background: transparent;
+  }
+  .cta__btn--ghost:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--text-secondary);
+    transform: translateY(-2px);
+  }
+
+  .cta__response {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+  .cta__pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 12px var(--success);
+    animation: cta-pulse 2s var(--ease-in-out) infinite;
+  }
+  @keyframes cta-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.4; }
+  }
+</style>

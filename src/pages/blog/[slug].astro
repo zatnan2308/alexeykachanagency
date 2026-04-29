@@ -1,0 +1,40 @@
+---
+/**
+ * Blog post detail — EN: /blog/<slug>/
+ *
+ * Generates one page per blog post folder. Always renders EN content.
+ * Non-EN URLs are handled by /pages/[lang]/blog/[slug].astro (with EN fallback).
+ */
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogPost from '@/components/templates/BlogPost.astro';
+
+export async function getStaticPaths() {
+  const all = await getCollection('blog', ({ data }) => !data.draft);
+
+  // Group by post slug — pick EN variant
+  const bySlug = new Map<string, CollectionEntry<'blog'>>();
+  for (const entry of all) {
+    const [slug] = entry.id.split('/');
+    if (entry.data.lang === 'en') bySlug.set(slug, entry);
+    // First variant becomes default if no EN exists
+    else if (!bySlug.has(slug)) bySlug.set(slug, entry);
+  }
+
+  return Array.from(bySlug.entries()).map(([slug, post]) => ({
+    params: { slug },
+    props: { post, slug },
+  }));
+}
+
+const { post, slug } = Astro.props as { post: CollectionEntry<'blog'>; slug: string };
+---
+
+<BaseLayout
+  pageKey="blog"
+  title={post.data.seoTitle ?? `${post.data.title} — Alexey Kachan Agency`}
+  description={post.data.seoDescription ?? post.data.description}
+  ogType="article"
+>
+  <BlogPost lang="en" post={post} isFallback={false} postSlug={slug} />
+</BaseLayout>

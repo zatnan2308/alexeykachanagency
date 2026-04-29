@@ -1,0 +1,170 @@
+---
+/**
+ * Catch-all route for non-default locales (de, fr, es, it, ro, uk, ru).
+ * Mirrors src/pages/[...slug].astro for 7 languages with localized slugs and EN fallbacks.
+ *
+ * Special case: pageKey 'impressum' only generates a path for lang='de' (slug exists only there).
+ */
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServicesHub from '@/components/templates/ServicesHub.astro';
+import ServiceDetail from '@/components/templates/ServiceDetail.astro';
+import BlogHub from '@/components/templates/BlogHub.astro';
+import CasesHub from '@/components/templates/CasesHub.astro';
+import CaseDetail from '@/components/templates/CaseDetail.astro';
+import AboutPage from '@/components/templates/AboutPage.astro';
+import ContactsPage from '@/components/templates/ContactsPage.astro';
+import LegalPage from '@/components/templates/LegalPage.astro';
+import ThankYouPage from '@/components/templates/ThankYouPage.astro';
+import BriefForm from '@/components/templates/BriefForm.astro';
+import { slugs, LANGUAGES, DEFAULT_LANGUAGE } from '@/i18n/slugs';
+import { useTranslations, getTranslations, type Language } from '@/i18n/utils';
+import { SUPPORTED_PAGE_KEYS, serviceKeyMap } from '@/lib/page-keys';
+
+export async function getStaticPaths() {
+  type PathProps =
+    | { kind: 'page'; pageKey: string }
+    | { kind: 'case'; caseSlug: string; post: CollectionEntry<'cases'>; isFallback: boolean };
+
+  const paths: Array<{ params: { lang: Language; slug: string }; props: PathProps }> = [];
+
+  // Pre-load case folders → variants
+  const allCases = await getCollection('cases', ({ data }) => !data.draft);
+  const casesBySlug = new Map<string, CollectionEntry<'cases'>[]>();
+  for (const c of allCases) {
+    const [s] = c.id.split('/');
+    if (!casesBySlug.has(s)) casesBySlug.set(s, []);
+    casesBySlug.get(s)!.push(c);
+  }
+
+  for (const lang of LANGUAGES) {
+    if (lang === DEFAULT_LANGUAGE) continue;
+
+    for (const pageKey of SUPPORTED_PAGE_KEYS) {
+      const slug = slugs[pageKey]?.[lang];
+      if (!slug) continue; // e.g. Impressum exists only for 'de'
+      paths.push({ params: { lang, slug }, props: { kind: 'page', pageKey } });
+    }
+
+    const detailPrefix = slugs['cases.detail.prefix'][lang];
+    for (const [caseSlug, variants] of casesBySlug.entries()) {
+      const exact = variants.find((v) => v.data.lang === lang);
+      const en    = variants.find((v) => v.data.lang === 'en');
+      const post  = exact ?? en ?? variants[0];
+      paths.push({
+        params: { lang, slug: `${detailPrefix}/${caseSlug}` },
+        props: { kind: 'case', caseSlug, post, isFallback: !exact },
+      });
+    }
+  }
+
+  return paths;
+}
+
+type PathProps =
+  | { kind: 'page'; pageKey: string }
+  | { kind: 'case'; caseSlug: string; post: CollectionEntry<'cases'>; isFallback: boolean };
+
+const props = Astro.props as PathProps;
+const { lang } = Astro.params as { lang: Language };
+
+const t = useTranslations(lang);
+const all = getTranslations(lang) as any;
+const enAll = getTranslations('en') as any;
+
+let pageKey = '';
+let title = '';
+let description = '';
+let serviceKey: string | null = null;
+let casesHubCategory: 'web-development' | 'marketing' | null = null;
+let legalVariant: 'privacy' | 'cookies' | 'terms' | 'impressum' | null = null;
+let briefVariant: 'website' | 'ads' | null = null;
+let noindex = false;
+
+const get = (path: string[]) => {
+  let cur: any = all;
+  for (const k of path) cur = cur?.[k];
+  if (cur !== undefined) return cur;
+  cur = enAll;
+  for (const k of path) cur = cur?.[k];
+  return cur;
+};
+
+if (props.kind === 'page') {
+  pageKey = props.pageKey;
+  if (pageKey === 'services') {
+    title = `${t('page_titles.services')} — Alexey Kachan Agency`;
+    description = get(['services_pages', 'hub', 'lead']);
+  } else if (pageKey.startsWith('services.')) {
+    serviceKey = serviceKeyMap[pageKey];
+    const data = get(['services_pages', serviceKey!]);
+    title = `${data.hero.kicker} — Alexey Kachan Agency`;
+    description = data.hero.lead;
+  } else if (pageKey === 'blog') {
+    title = `${t('page_titles.blog')} — Alexey Kachan Agency`;
+    description = get(['blog_pages', 'hub', 'lead']);
+  } else if (pageKey === 'cases.web-development') {
+    casesHubCategory = 'web-development';
+    title = `${t('page_titles.cases_web')} — Alexey Kachan Agency`;
+    description = get(['cases_pages', 'hub', 'web_development', 'lead']);
+  } else if (pageKey === 'cases.marketing') {
+    casesHubCategory = 'marketing';
+    title = `${t('page_titles.cases_marketing')} — Alexey Kachan Agency`;
+    description = get(['cases_pages', 'hub', 'marketing', 'lead']);
+  } else if (pageKey === 'about') {
+    title = `${t('page_titles.about')} — Alexey Kachan Agency`;
+    description = get(['about_page', 'lead']);
+  } else if (pageKey === 'contacts') {
+    title = `${t('page_titles.contacts')} — Alexey Kachan Agency`;
+    description = get(['contacts_page', 'lead']);
+  } else if (pageKey === 'brief.website') {
+    briefVariant = 'website';
+    title = `${t('page_titles.brief_website')} — Alexey Kachan Agency`;
+    description = get(['brief_pages', 'website', 'lead']);
+  } else if (pageKey === 'brief.ads') {
+    briefVariant = 'ads';
+    title = `${t('page_titles.brief_ads')} — Alexey Kachan Agency`;
+    description = get(['brief_pages', 'ads', 'lead']);
+  } else if (pageKey === 'privacy-policy') {
+    legalVariant = 'privacy';
+    title = `${t('page_titles.privacy')} — Alexey Kachan Agency`;
+    description = get(['legal_pages', 'privacy', 'lead']);
+  } else if (pageKey === 'cookie-policy') {
+    legalVariant = 'cookies';
+    title = `${t('page_titles.cookies')} — Alexey Kachan Agency`;
+    description = get(['legal_pages', 'cookies', 'lead']);
+  } else if (pageKey === 'terms') {
+    legalVariant = 'terms';
+    title = `${t('page_titles.terms')} — Alexey Kachan Agency`;
+    description = get(['legal_pages', 'terms', 'lead']);
+  } else if (pageKey === 'impressum') {
+    legalVariant = 'impressum';
+    title = `Impressum — Alexey Kachan Agency`;
+    description = get(['legal_pages', 'impressum', 'lead']);
+  } else if (pageKey === 'thank-you') {
+    noindex = true;
+    title = `${t('page_titles.thank_you')} — Alexey Kachan Agency`;
+    description = get(['thank_you_page', 'lead']);
+  }
+} else {
+  pageKey = `cases.detail.${props.caseSlug}`;
+  // Frontmatter title may already include the client name; don't double-prefix.
+  title = props.post.data.seoTitle ?? `${props.post.data.title} — Alexey Kachan Agency`;
+  description = props.post.data.seoDescription ?? props.post.data.description;
+}
+
+const ogType = props.kind === 'case' ? 'article' : 'website';
+---
+
+<BaseLayout pageKey={pageKey} title={title} description={description} ogType={ogType} noindex={noindex}>
+  {props.kind === 'page' && pageKey === 'services'        && <ServicesHub  lang={lang} />}
+  {props.kind === 'page' && serviceKey                    && <ServiceDetail lang={lang} serviceKey={serviceKey} />}
+  {props.kind === 'page' && pageKey === 'blog'            && <BlogHub      lang={lang} />}
+  {props.kind === 'page' && casesHubCategory              && <CasesHub     lang={lang} category={casesHubCategory} />}
+  {props.kind === 'page' && pageKey === 'about'           && <AboutPage    lang={lang} />}
+  {props.kind === 'page' && pageKey === 'contacts'        && <ContactsPage lang={lang} />}
+  {props.kind === 'page' && briefVariant                  && <BriefForm    lang={lang} variant={briefVariant} />}
+  {props.kind === 'page' && legalVariant                  && <LegalPage    lang={lang} variant={legalVariant} />}
+  {props.kind === 'page' && pageKey === 'thank-you'       && <ThankYouPage lang={lang} />}
+  {props.kind === 'case'                                   && <CaseDetail  lang={lang} post={props.post} isFallback={props.isFallback} caseSlug={props.caseSlug} />}
+</BaseLayout>

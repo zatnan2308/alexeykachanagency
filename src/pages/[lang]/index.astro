@@ -1,0 +1,33 @@
+---
+/**
+ * Homepage — non-default locales (de, fr, es, it, ro, uk, ru).
+ * URLs: /de/, /fr/, /es/, /it/, /ro/, /uk/, /ru/
+ *
+ * EN homepage lives at /pages/index.astro (no /en/ prefix per Astro i18n config).
+ * Draft locales fall back to EN strings via useTranslations() until native review.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HomeContent from '@/components/sections/HomeContent.astro';
+import { LANGUAGES, DEFAULT_LANGUAGE, useTranslations, type Language } from '@/i18n/utils';
+
+export function getStaticPaths() {
+  return LANGUAGES
+    .filter((l) => l !== DEFAULT_LANGUAGE)
+    .map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Language };
+const t = useTranslations(lang);
+
+const title = `${t('page_titles.home')} — Alexey Kachan Agency`;
+const description = t('hero.subtitle');
+---
+
+<BaseLayout
+  pageKey="home"
+  title={title}
+  description={description}
+  ogType="website"
+>
+  <HomeContent lang={lang} />
+</BaseLayout>

@@ -1,0 +1,98 @@
+---
+import { useTranslations, type Language } from '@/i18n/utils';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const items = ['single_owner', 'fast_ship', 'measurable', 'long_term'] as const;
+---
+
+<section class="diff section-y">
+  <div class="container-x">
+    <header class="diff__header" data-reveal>
+      <p class="diff__label">— {t('differentiators.label')}</p>
+      <h2 class="diff__title text-balance">{t('differentiators.title')}</h2>
+      <p class="diff__sub">{t('differentiators.subtitle')}</p>
+    </header>
+
+    <ul class="diff__grid" data-reveal-stagger data-stagger-interval="0.08">
+      {items.map((key, i) => (
+        <li class="diff__item">
+          <span class="diff__num" aria-hidden="true">/{(i + 1).toString().padStart(2, '0')}</span>
+          <h3 class="diff__item-title">{t(`differentiators.items.${key}.title`)}</h3>
+          <p class="diff__item-text">{t(`differentiators.items.${key}.description`)}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .diff__header {
+    max-width: 48rem;
+    margin-bottom: clamp(2.5rem, 4vw, 4rem);
+  }
+  .diff__label {
+    font-size: 0.875rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .diff__title {
+    font-size: var(--text-5xl);
+    margin-bottom: 1rem;
+  }
+  .diff__sub {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    line-height: 1.55;
+  }
+
+  .diff__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  @media (min-width: 768px) {
+    .diff__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .diff__item {
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    position: relative;
+    transition: border-color var(--duration-base) var(--ease-out), background-color var(--duration-base) var(--ease-out);
+  }
+  .diff__item:hover {
+    border-color: var(--accent);
+    background: var(--bg-tertiary);
+  }
+
+  .diff__num {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .diff__item-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.625rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .diff__item-text {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+</style>

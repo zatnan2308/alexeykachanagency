@@ -1,0 +1,111 @@
+---
+import { useTranslations, type Language } from '@/i18n/utils';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const steps = ['discovery', 'strategy', 'design', 'build', 'launch'] as const;
+---
+
+<section class="process section-y">
+  <div class="container-x">
+    <header class="process__header" data-reveal>
+      <p class="process__label">— {t('process.label')}</p>
+      <h2 class="process__title text-balance">{t('process.title')}</h2>
+      <p class="process__sub">{t('process.subtitle')}</p>
+    </header>
+
+    <ol class="process__list" data-reveal-stagger data-stagger-interval="0.1">
+      {steps.map((key, i) => (
+        <li class="process__step">
+          <span class="process__num">0{i + 1}</span>
+          <div class="process__content">
+            <h3 class="process__step-title">{t(`process.steps.${key}.title`)}</h3>
+            <p class="process__step-text">{t(`process.steps.${key}.description`)}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process {
+    background: var(--bg-secondary);
+    border-block: 1px solid var(--border);
+  }
+
+  .process__header {
+    max-width: 48rem;
+    margin-bottom: clamp(2.5rem, 4vw, 4rem);
+  }
+  .process__label {
+    font-size: 0.875rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .process__title {
+    font-size: var(--text-5xl);
+    margin-bottom: 1rem;
+  }
+  .process__sub {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    line-height: 1.55;
+  }
+
+  .process__list {
+    counter-reset: step;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .process__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding: 1.75rem 1.5rem;
+    background: var(--bg-secondary);
+    transition: background-color var(--duration-base) var(--ease-out);
+  }
+  @media (min-width: 768px) {
+    .process__step {
+      padding: 2.25rem 2rem;
+      gap: 2.5rem;
+      grid-template-columns: 6rem 1fr;
+    }
+  }
+  .process__step:hover {
+    background: var(--bg-tertiary);
+  }
+  .process__num {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .process__step-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.015em;
+  }
+  .process__step-text {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: 42rem;
+  }
+</style>

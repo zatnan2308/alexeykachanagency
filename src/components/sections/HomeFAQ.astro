@@ -1,0 +1,145 @@
+---
+import { useTranslations, getTranslations, type Language } from '@/i18n/utils';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const all = getTranslations(lang) as any;
+const items: Array<{ question: string; answer: string }> =
+  all?.faq?.items ?? (getTranslations('en') as any).faq.items;
+
+// FAQPage JSON-LD for rich results
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((it) => ({
+    '@type': 'Question',
+    name: it.question,
+    acceptedAnswer: { '@type': 'Answer', text: it.answer },
+  })),
+};
+---
+
+<section class="faq section-y">
+  <div class="container-x faq__inner">
+    <header class="faq__header" data-reveal>
+      <p class="faq__label">— {t('faq.label')}</p>
+      <h2 class="faq__title text-balance">{t('faq.title')}</h2>
+      <p class="faq__sub">{t('faq.subtitle')}</p>
+    </header>
+
+    <ul class="faq__list" data-reveal-stagger data-stagger-interval="0.05">
+      {items.map((it, i) => (
+        <li class="faq__item">
+          <details class="faq__details" name="faq" {...(i === 0 ? { open: true } : {})}>
+            <summary class="faq__summary">
+              <span class="faq__question">{it.question}</span>
+              <span class="faq__icon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </summary>
+            <p class="faq__answer">{it.answer}</p>
+          </details>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+<style>
+  .faq__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+  @media (min-width: 1024px) {
+    .faq__inner {
+      grid-template-columns: 5fr 7fr;
+      align-items: start;
+    }
+  }
+  .faq__header {
+    position: sticky;
+    top: calc(var(--header-height) + 1rem);
+    align-self: start;
+  }
+  .faq__label {
+    font-size: 0.875rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .faq__title {
+    font-size: var(--text-5xl);
+    margin-bottom: 1rem;
+  }
+  .faq__sub {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .faq__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--border);
+  }
+  .faq__details {
+    width: 100%;
+  }
+  .faq__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    cursor: pointer;
+    list-style: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  .faq__summary::-webkit-details-marker { display: none; }
+  .faq__summary:hover .faq__question {
+    color: var(--accent);
+  }
+  .faq__question {
+    font-family: var(--font-display);
+    font-size: clamp(1.125rem, 1rem + 0.4vw, 1.25rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  .faq__icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    transition: transform var(--duration-base) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+  .faq__details[open] .faq__icon {
+    transform: rotate(45deg);
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .faq__answer {
+    padding: 0 0 1.5rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 38rem;
+  }
+</style>

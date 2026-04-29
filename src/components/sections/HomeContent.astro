@@ -1,0 +1,35 @@
+---
+/**
+ * HomeContent — orchestrates the 12 homepage sections in canonical order.
+ * Reused by both src/pages/index.astro (EN) and src/pages/[lang]/index.astro.
+ */
+import type { Language } from '@/i18n/utils';
+import HomeHero from '@/components/sections/HomeHero.astro';
+import HomeTrust from '@/components/sections/HomeTrust.astro';
+import HomeServices from '@/components/sections/HomeServices.astro';
+import HomeSelectedWork from '@/components/sections/HomeSelectedWork.astro';
+import HomeAboutPreview from '@/components/sections/HomeAboutPreview.astro';
+import HomeProcess from '@/components/sections/HomeProcess.astro';
+import HomeStats from '@/components/sections/HomeStats.astro';
+import HomeDifferentiators from '@/components/sections/HomeDifferentiators.astro';
+import HomeTestimonials from '@/components/sections/HomeTestimonials.astro';
+import HomeBlogTeaser from '@/components/sections/HomeBlogTeaser.astro';
+import HomeFAQ from '@/components/sections/HomeFAQ.astro';
+import HomeFinalCTA from '@/components/sections/HomeFinalCTA.astro';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+---
+
+<HomeHero            lang={lang} />
+<HomeTrust           lang={lang} />
+<HomeServices        lang={lang} />
+<HomeSelectedWork    lang={lang} />
+<HomeAboutPreview    lang={lang} />
+<HomeProcess         lang={lang} />
+<HomeStats           lang={lang} />
+<HomeDifferentiators lang={lang} />
+<HomeTestimonials    lang={lang} />
+<HomeBlogTeaser      lang={lang} />
+<HomeFAQ             lang={lang} />
+<HomeFinalCTA        lang={lang} />

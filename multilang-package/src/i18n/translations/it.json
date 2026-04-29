@@ -1,0 +1,235 @@
+{
+  "_meta": {
+    "lang": "it",
+    "name": "Italiano",
+    "status": "draft_ai_translated",
+    "needs_native_review": true,
+    "last_updated": "2026-04-28"
+  },
+  "common": {
+    "min_read": "min di lettura",
+    "read_more": "Leggi di più",
+    "learn_more": "Scopri di più",
+    "view_all": "Vedi tutto",
+    "loading": "Caricamento…",
+    "back_to_top": "Torna su",
+    "close": "Chiudi",
+    "menu": "Menu",
+    "search": "Cerca",
+    "scroll_down": "Scorri in basso",
+    "page_not_found": "Pagina non trovata",
+    "go_home": "Vai alla home"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Servizi",
+    "cases": "Progetti",
+    "case_studies": "Case study",
+    "web_dev_cases": "Sviluppo web",
+    "marketing_cases": "Marketing",
+    "about": "Chi siamo",
+    "blog": "Blog",
+    "contacts": "Contatti"
+  },
+  "cta": {
+    "start_project": "Avvia un progetto",
+    "get_started": "Inizia",
+    "get_quote": "Richiedi un preventivo",
+    "get_audit": "Audit gratuito",
+    "see_pricing": "Vedi i prezzi",
+    "see_work": "Vedi i nostri progetti",
+    "view_case": "Vedi progetto",
+    "all_projects": "Tutti i progetti",
+    "send_message": "Invia messaggio",
+    "submit": "Invia",
+    "subscribe": "Iscriviti",
+    "download_brief": "Scarica brief",
+    "book_call": "Prenota una call",
+    "let_talk": "Parliamone"
+  },
+  "hero": {
+    "title_line_1": "Rendi il tuo brand",
+    "title_line_2": "impossibile da ignorare.",
+    "subtitle": "Sviluppo web, SEO e advertising che trasformano la tua azienda nella scelta ovvia. Costruito e gestito da Alexey Kachan e la sua agenzia.",
+    "primary_cta": "Avvia un progetto",
+    "secondary_cta": "Vedi i nostri progetti"
+  },
+  "services_section": {
+    "label": "Servizi",
+    "title": "Servizi che fanno la differenza",
+    "subtitle": "Sei discipline, una strategia unificata. Ogni servizio è progettato per fornire risultati misurabili.",
+    "items": {
+      "website_development": {
+        "title": "Sviluppo web",
+        "short": "Siti veloci, sicuri e orientati alla conversione che vendono davvero."
+      },
+      "site_redesign": {
+        "title": "Restyling sito web",
+        "short": "Modernizzazione senza perdita di SEO. Migliore UX, più lead."
+      },
+      "site_support": {
+        "title": "Manutenzione sito web",
+        "short": "Manutenzione, sicurezza, aggiornamenti — senza preoccupazioni."
+      },
+      "setting_up_ads": {
+        "title": "Pubblicità online",
+        "short": "Google Ads, Meta, TikTok, LinkedIn — campagne che generano ROI."
+      },
+      "site_analytics": {
+        "title": "Posizionamento SEO",
+        "short": "Crescita organica prevedibile, controllata e ingegnerizzata."
+      },
+      "site_design": {
+        "title": "Web design",
+        "short": "Design orientato al brand che chiude i deal prima ancora che accadano."
+      }
+    }
+  },
+  "stats": {
+    "title": "Numeri che contano",
+    "years_experience": "Anni di esperienza",
+    "projects_delivered": "Progetti consegnati",
+    "services_offered": "Servizi offerti",
+    "countries_served": "Paesi serviti"
+  },
+  "process": {
+    "label": "Processo",
+    "title": "Come lavoro",
+    "subtitle": "Un framework collaudato che trasforma le idee in risultati di business misurabili.",
+    "steps": {
+      "discovery": {
+        "title": "Analisi",
+        "description": "Approfondimento del tuo business, audience, concorrenza e obiettivi."
+      },
+      "strategy": {
+        "title": "Strategia",
+        "description": "Roadmap chiara con KPI e milestone misurabili."
+      },
+      "design": {
+        "title": "Design",
+        "description": "Design orientato alla conversione che riflette il tuo brand e spinge all'azione."
+      },
+      "build": {
+        "title": "Sviluppo",
+        "description": "Soluzioni veloci, sicure e scalabili con le best practice moderne."
+      },
+      "launch": {
+        "title": "Lancio & Crescita",
+        "description": "Go-live fluido, poi ottimizzazione continua basata su dati reali."
+      }
+    }
+  },
+  "testimonials": {
+    "label": "Testimonianze",
+    "title": "Cosa dicono i clienti",
+    "verified_badge": "Recensione Google verificata"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Domande frequenti",
+    "subtitle": "Risposte rapide alle domande comuni. Non vedi la tua? Chiedimi."
+  },
+  "final_cta": {
+    "title": "Pronto a superare i tuoi concorrenti?",
+    "subtitle": "Parlami del tuo progetto — rispondo entro 4 ore durante l'orario lavorativo.",
+    "form_placeholder_email": "La tua email",
+    "form_placeholder_message": "Parlami del tuo progetto…",
+    "or_reach_via": "Oppure contattami direttamente tramite",
+    "response_time": "Tempo di risposta medio: < 4 ore"
+  },
+  "form": {
+    "name": "Nome",
+    "email": "Email",
+    "phone": "Telefono",
+    "company": "Azienda",
+    "website": "Sito web",
+    "country": "Paese",
+    "service": "Servizio",
+    "services": "Servizi",
+    "service_select": "Scegli servizio/i",
+    "budget": "Budget",
+    "budget_select": "Seleziona fascia di budget",
+    "timeline": "Tempistiche",
+    "message": "Messaggio",
+    "project_details": "Parlami del tuo progetto",
+    "how_heard": "Come ci hai conosciuto?",
+    "consent": "Accetto l'informativa sulla privacy e il trattamento dei miei dati.",
+    "newsletter_consent": "Vorrei ricevere occasionalmente email con consigli e case study.",
+    "required": "Obbligatorio",
+    "errors": {
+      "required": "Questo campo è obbligatorio",
+      "email_invalid": "Non sembra un'email valida",
+      "phone_invalid": "Inserisci un numero di telefono valido",
+      "consent_required": "Accetta l'informativa sulla privacy per continuare"
+    },
+    "success": {
+      "title": "Messaggio ricevuto",
+      "body": "Grazie. Ho ricevuto il tuo messaggio e risponderò entro 4 ore durante l'orario lavorativo.",
+      "next_steps": "Nel frattempo, puoi vedere i miei lavori recenti o leggere il blog."
+    }
+  },
+  "footer": {
+    "tagline": "Sviluppo web, SEO e advertising che trasformano la tua azienda nella scelta ovvia.",
+    "services_heading": "Servizi",
+    "company_heading": "Azienda",
+    "legal_heading": "Legale",
+    "social_heading": "Social",
+    "contact_heading": "Contatti",
+    "rights_reserved": "Tutti i diritti riservati.",
+    "made_with": "Realizzato con Astro su Cloudflare.",
+    "newsletter_title": "Resta aggiornato",
+    "newsletter_subtitle": "Insight mensili su web, SEO e advertising. Senza fronzoli."
+  },
+  "languages": {
+    "switch_to": "Cambia lingua",
+    "current": "Lingua attuale",
+    "suggest_banner": {
+      "title": "Sembra che tu preferisca {language}.",
+      "subtitle": "Passare a {language}?",
+      "yes": "Sì, cambia",
+      "no": "No, mantieni inglese",
+      "later": "Forse più tardi"
+    }
+  },
+  "page_titles": {
+    "home": "Agenzia di Sviluppo Web, SEO & Advertising",
+    "services": "Servizi",
+    "about": "Su Alexey Kachan",
+    "contacts": "Contatti",
+    "cases_web": "Progetti di sviluppo web",
+    "cases_marketing": "Case study marketing",
+    "blog": "Blog",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy",
+    "terms": "Termini e condizioni",
+    "brief_website": "Brief progetto web",
+    "brief_ads": "Brief campagna pubblicitaria",
+    "thank_you": "Grazie",
+    "404": "Pagina non trovata"
+  },
+  "cookies": {
+    "banner_title": "Rispettiamo la tua privacy",
+    "banner_text": "Usiamo cookie per funzioni essenziali del sito e, con il tuo consenso, per analisi e marketing.",
+    "accept_all": "Accetta tutti",
+    "reject_all": "Rifiuta non essenziali",
+    "customize": "Personalizza",
+    "save_choices": "Salva scelte",
+    "categories": {
+      "essential": "Essenziali",
+      "analytics": "Analisi",
+      "marketing": "Marketing"
+    }
+  },
+  "404": {
+    "title": "404",
+    "heading": "Perso nello spazio",
+    "subtitle": "La pagina che cerchi non esiste o è stata spostata.",
+    "suggestions": "Ecco cosa puoi fare invece:",
+    "links": {
+      "home": "Vai alla home",
+      "services": "Vedi servizi",
+      "cases": "Vedi progetti",
+      "contact": "Contattaci"
+    }
+  }
+}

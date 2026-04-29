@@ -1,0 +1,40 @@
+# Cloudflare Pages — security & cache headers
+# Reference: https://developers.cloudflare.com/pages/configuration/headers/
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  X-XSS-Protection: 1; mode=block
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  Cross-Origin-Resource-Policy: cross-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms https://connect.facebook.net https://cdn.web3forms.com; script-src-elem 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms https://connect.facebook.net https://cdn.web3forms.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api.web3forms.com https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://*.facebook.com; frame-src 'self' https://www.google.com https://t.me https://wa.me; media-src 'self' https:; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self' https://api.web3forms.com; frame-ancestors 'self'; upgrade-insecure-requests
+
+# Hashed assets — long-term immutable cache
+/_assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts — long-term cache (if self-hosted later)
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images — moderate cache, allow revalidation
+/images/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+# Sitemaps & feeds — short cache, must revalidate
+/sitemap*.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+/rss.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# robots.txt — short cache
+/robots.txt
+  Cache-Control: public, max-age=3600
+
+# security.txt — RFC 9116
+/.well-known/security.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=86400

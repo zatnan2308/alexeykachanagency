@@ -1,0 +1,137 @@
+---
+/**
+ * Custom 404 page.
+ * Astro auto-uses src/pages/404.astro for missing routes (+ Cloudflare Pages serves it natively).
+ * Always rendered in EN. For language-aware 404, point /<lang>/* missing routes to /404 via _redirects.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, getTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = 'en' as const;
+const t = useTranslations(lang);
+const all = getTranslations(lang) as any;
+const data = all.not_found_page;
+---
+
+<BaseLayout pageKey="404" title={`${t('page_titles.404')} — Alexey Kachan Agency`} description={data.lead} noindex={true}>
+  <section class="nf">
+    <div class="container-x nf__inner">
+      <p class="nf__kicker">{data.kicker}</p>
+      <h1 class="nf__h1 text-balance">{data.h1}</h1>
+      <p class="nf__lead">{data.lead}</p>
+
+      <p class="nf__suggestions-label">— {data.suggestions_title}</p>
+      <ul class="nf__suggestions">
+        {data.suggestions.map((s: any) => (
+          <li>
+            <a href={getLocalizedPath(s.key, lang)} class="nf__suggestion">
+              <span class="nf__suggestion-title">{s.title}</span>
+              <span class="nf__suggestion-sub">{s.subtitle}</span>
+              <svg class="nf__suggestion-arrow" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    min-height: 100svh;
+    padding-top: calc(var(--header-height) + clamp(3rem, 8vw, 6rem));
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .nf::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, color-mix(in oklch, var(--accent) 8%, transparent), transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .nf__inner { max-width: 56rem; }
+  .nf__kicker {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 3rem + 5vw, 8rem);
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    margin-bottom: 1.5rem;
+  }
+  .nf__h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+  .nf__lead {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 3rem;
+    max-width: 42rem;
+  }
+  .nf__suggestions-label {
+    font-size: 0.875rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+  .nf__suggestions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  @media (min-width: 768px) { .nf__suggestions { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .nf__suggestions { grid-template-columns: repeat(5, 1fr); } }
+  .nf__suggestion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 1.5rem;
+    background: var(--bg-primary);
+    color: inherit;
+    height: 100%;
+    position: relative;
+    transition: background-color var(--duration-base) var(--ease-out);
+  }
+  .nf__suggestion:hover { background: var(--bg-secondary); }
+  .nf__suggestion-title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+  }
+  .nf__suggestion-sub {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+  .nf__suggestion-arrow {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    color: var(--text-muted);
+    transition: color var(--duration-fast) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .nf__suggestion:hover .nf__suggestion-arrow { color: var(--accent); transform: translate(2px, -2px); }
+</style>

@@ -1,0 +1,99 @@
+---
+import { useTranslations, type Language } from '@/i18n/utils';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Placeholder client wordmarks — replace with real client logos when available.
+// Using text only (no stock logos) per brand guidelines.
+const clients = [
+  'Bauer Manufaktur',
+  'Olea Studio',
+  'Northwind Ltd',
+  'Helios Capital',
+  'Casa Verde',
+  'Atelier Nord',
+];
+---
+
+<section class="trust">
+  <div class="container-x">
+    <p class="trust__label" data-reveal>{t('trust.title')}</p>
+
+    <div class="trust__marquee" aria-hidden="false">
+      <ul class="trust__list">
+        {clients.map((c) => <li class="trust__item">{c}</li>)}
+        {clients.map((c) => <li class="trust__item" aria-hidden="true">{c}</li>)}
+      </ul>
+    </div>
+
+    <p class="trust__sub" data-reveal data-reveal-delay="0.15">{t('trust.subtitle')}</p>
+  </div>
+</section>
+
+<style>
+  .trust {
+    padding-block: clamp(3rem, 5vw, 5rem);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-secondary);
+  }
+  .trust__label {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.125rem);
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+  .trust__marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+    margin-bottom: 2rem;
+  }
+  .trust__list {
+    display: flex;
+    gap: 4rem;
+    width: max-content;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    animation: trust-scroll 36s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .trust__list {
+      animation: none;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  @keyframes trust-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .trust__item {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    opacity: 0.65;
+    transition: opacity var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out);
+  }
+  .trust__item:hover {
+    opacity: 1;
+    color: var(--text-primary);
+  }
+  .trust__sub {
+    text-align: center;
+    max-width: 36rem;
+    margin: 0 auto;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+</style>

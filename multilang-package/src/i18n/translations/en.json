@@ -1,0 +1,234 @@
+{
+  "_meta": {
+    "lang": "en",
+    "name": "English",
+    "status": "complete",
+    "last_updated": "2026-04-28"
+  },
+  "common": {
+    "min_read": "min read",
+    "read_more": "Read more",
+    "learn_more": "Learn more",
+    "view_all": "View all",
+    "loading": "Loading…",
+    "back_to_top": "Back to top",
+    "close": "Close",
+    "menu": "Menu",
+    "search": "Search",
+    "scroll_down": "Scroll down",
+    "page_not_found": "Page not found",
+    "go_home": "Go to homepage"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "cases": "Cases",
+    "case_studies": "Case studies",
+    "web_dev_cases": "Web development",
+    "marketing_cases": "Marketing",
+    "about": "About",
+    "blog": "Blog",
+    "contacts": "Contact"
+  },
+  "cta": {
+    "start_project": "Start a project",
+    "get_started": "Get started",
+    "get_quote": "Get a quote",
+    "get_audit": "Get a free audit",
+    "see_pricing": "See pricing",
+    "see_work": "See our work",
+    "view_case": "View case",
+    "all_projects": "All projects",
+    "send_message": "Send message",
+    "submit": "Submit",
+    "subscribe": "Subscribe",
+    "download_brief": "Download brief",
+    "book_call": "Book a call",
+    "let_talk": "Let's talk"
+  },
+  "hero": {
+    "title_line_1": "Make your brand",
+    "title_line_2": "impossible to ignore.",
+    "subtitle": "Web development, SEO and paid ads that turn your business into the obvious choice. Built and managed by Alexey Kachan and his agency.",
+    "primary_cta": "Start a project",
+    "secondary_cta": "See our work"
+  },
+  "services_section": {
+    "label": "Services",
+    "title": "Services that move the needle",
+    "subtitle": "Six disciplines, one unified strategy. Every service is built to deliver measurable results.",
+    "items": {
+      "website_development": {
+        "title": "Website Development",
+        "short": "Fast, secure, conversion-oriented websites that actually sell."
+      },
+      "site_redesign": {
+        "title": "Site Redesign",
+        "short": "Modernize without losing SEO. Better UX, more leads."
+      },
+      "site_support": {
+        "title": "Site Support",
+        "short": "Maintenance, security, updates — without the headaches."
+      },
+      "setting_up_ads": {
+        "title": "Paid Advertising",
+        "short": "Google Ads, Meta, TikTok, LinkedIn — campaigns that pay back."
+      },
+      "site_analytics": {
+        "title": "SEO Promotion",
+        "short": "Predictable organic growth, audited and engineered."
+      },
+      "site_design": {
+        "title": "Web Design",
+        "short": "Brand-driven design that closes deals before they happen."
+      }
+    }
+  },
+  "stats": {
+    "title": "Numbers that matter",
+    "years_experience": "Years of experience",
+    "projects_delivered": "Projects delivered",
+    "services_offered": "Services offered",
+    "countries_served": "Countries served"
+  },
+  "process": {
+    "label": "Process",
+    "title": "How I work",
+    "subtitle": "A proven framework that turns ideas into measurable business outcomes.",
+    "steps": {
+      "discovery": {
+        "title": "Discovery",
+        "description": "Deep dive into your business, audience, competitors, and goals."
+      },
+      "strategy": {
+        "title": "Strategy",
+        "description": "Build a clear roadmap with measurable KPIs and milestones."
+      },
+      "design": {
+        "title": "Design",
+        "description": "Conversion-focused design that reflects your brand and drives action."
+      },
+      "build": {
+        "title": "Build",
+        "description": "Engineer fast, secure, scalable solutions with modern best practices."
+      },
+      "launch": {
+        "title": "Launch & Scale",
+        "description": "Smooth go-live, then ongoing optimization based on real data."
+      }
+    }
+  },
+  "testimonials": {
+    "label": "Testimonials",
+    "title": "What clients say",
+    "verified_badge": "Verified Google review"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Frequently asked questions",
+    "subtitle": "Quick answers to common questions. Don't see yours? Just ask."
+  },
+  "final_cta": {
+    "title": "Ready to outgrow your competition?",
+    "subtitle": "Tell me about your project — I respond within 4 hours during business hours.",
+    "form_placeholder_email": "Your email",
+    "form_placeholder_message": "Tell me about your project…",
+    "or_reach_via": "Or reach me directly via",
+    "response_time": "Average response time: < 4 hours"
+  },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company",
+    "website": "Website",
+    "country": "Country",
+    "service": "Service",
+    "services": "Services",
+    "service_select": "Choose service(s)",
+    "budget": "Budget",
+    "budget_select": "Select budget range",
+    "timeline": "Timeline",
+    "message": "Message",
+    "project_details": "Tell me about your project",
+    "how_heard": "How did you hear about us?",
+    "consent": "I agree to the privacy policy and the processing of my data.",
+    "newsletter_consent": "I'd like to receive occasional emails with tips and case studies.",
+    "required": "Required",
+    "errors": {
+      "required": "This field is required",
+      "email_invalid": "Hmm, that doesn't look like a valid email",
+      "phone_invalid": "Please enter a valid phone number",
+      "consent_required": "Please accept the privacy policy to continue"
+    },
+    "success": {
+      "title": "Message received",
+      "body": "Thanks. I've got your message and will reply within 4 hours during business hours.",
+      "next_steps": "Meanwhile, you can browse my recent work or read the blog."
+    }
+  },
+  "footer": {
+    "tagline": "Web development, SEO and paid ads that turn your business into the obvious choice.",
+    "services_heading": "Services",
+    "company_heading": "Company",
+    "legal_heading": "Legal",
+    "social_heading": "Connect",
+    "contact_heading": "Get in touch",
+    "rights_reserved": "All rights reserved.",
+    "made_with": "Built with Astro on Cloudflare.",
+    "newsletter_title": "Stay in the loop",
+    "newsletter_subtitle": "Monthly insights on web, SEO, and ads. No fluff."
+  },
+  "languages": {
+    "switch_to": "Switch language",
+    "current": "Current language",
+    "suggest_banner": {
+      "title": "Looks like you might prefer {language}.",
+      "subtitle": "Switch to {language}?",
+      "yes": "Yes, switch",
+      "no": "No, keep English",
+      "later": "Maybe later"
+    }
+  },
+  "page_titles": {
+    "home": "Web Development, SEO & Ads Agency",
+    "services": "Services",
+    "about": "About Alexey Kachan",
+    "contacts": "Contact",
+    "cases_web": "Web Development Cases",
+    "cases_marketing": "Marketing Case Studies",
+    "blog": "Blog",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy",
+    "terms": "Terms of Service",
+    "brief_website": "Website Project Brief",
+    "brief_ads": "Advertising Project Brief",
+    "thank_you": "Thank You",
+    "404": "Page not found"
+  },
+  "cookies": {
+    "banner_title": "We respect your privacy",
+    "banner_text": "We use cookies for essential site functions and, with your consent, for analytics and marketing.",
+    "accept_all": "Accept all",
+    "reject_all": "Reject non-essential",
+    "customize": "Customize",
+    "save_choices": "Save choices",
+    "categories": {
+      "essential": "Essential",
+      "analytics": "Analytics",
+      "marketing": "Marketing"
+    }
+  },
+  "404": {
+    "title": "404",
+    "heading": "Lost in space",
+    "subtitle": "The page you're looking for doesn't exist or has moved.",
+    "suggestions": "Here's what you can do instead:",
+    "links": {
+      "home": "Go to homepage",
+      "services": "Browse services",
+      "cases": "See our work",
+      "contact": "Get in touch"
+    }
+  }
+}

@@ -1,0 +1,120 @@
+# Cloudflare Pages — _redirects file
+# Place at /public/_redirects → it will be served at the root.
+# Format: from to status
+# 301 = permanent redirect (preserves SEO equity)
+# 302 = temporary redirect
+
+# =============================================================================
+# CRITICAL: PRESERVE SEO FROM EXISTING WORDPRESS SITE
+# Every URL from the old site must redirect cleanly. Zero 404s.
+# =============================================================================
+
+# Old contacts page → new clean URL
+/contacts-2          /contacts/         301
+/contacts-2/         /contacts/         301
+
+# Old Russian-slugged brief forms (had Cyrillic transliteration)
+/brif-na-razrabotku-sajta     /brief-website/    301
+/brif-na-razrabotku-sajta/    /brief-website/    301
+/brif-na-reklamu              /brief-ads/        301
+/brif-na-reklamu/             /brief-ads/        301
+
+# =============================================================================
+# CANONICAL URL ENFORCEMENT
+# All URLs end with trailing slash, all lowercase, no www
+# =============================================================================
+
+# Force trailing slash on top-level pages (Cloudflare Pages adds this by default
+# for directories, but explicit rules help for edge cases)
+# Note: don't add for files like /robots.txt, /sitemap.xml — keep those bare
+
+# www → naked domain (also configure at DNS level)
+https://www.alexeykachan.com/*    https://alexeykachan.com/:splat   301!
+
+# =============================================================================
+# OLD URL PATTERNS (if any from previous WP installs)
+# Uncomment as needed based on Search Console "Coverage" report after migration
+# =============================================================================
+
+# WordPress query-string posts (?p=123) — handled by Cloudflare automatically
+# /index.php* → / (Cloudflare strips by default)
+
+# Common WP feed URLs (if you had a feed) — redirect to RSS
+/feed                /rss.xml           301
+/feed/               /rss.xml           301
+/comments/feed       /rss.xml           301
+/comments/feed/      /rss.xml           301
+
+# WP author archives (we don't have multiple authors)
+/author/*            /about/            301
+
+# WP date archives (if any old links exist)
+/20*/                /blog/             301
+
+# =============================================================================
+# NEW LANGUAGE VERSIONS — Auto-redirects for common typos / alternative paths
+# =============================================================================
+
+# Some users might type /en/ explicitly — redirect to root (English is default, no prefix)
+/en                  /                  301
+/en/                 /                  301
+/en/*                /:splat            301
+
+# Common alternate language codes that visitors might guess
+/deutsch             /de/               301
+/deutsch/            /de/               301
+/german              /de/               301
+/german/             /de/               301
+
+/francais            /fr/               301
+/francais/           /fr/               301
+/french              /fr/               301
+/french/             /fr/               301
+
+/espanol             /es/               301
+/espanol/            /es/               301
+/spanish             /es/               301
+/spanish/            /es/               301
+
+/italiano            /it/               301
+/italiano/           /it/               301
+/italian             /it/               301
+/italian/            /it/               301
+
+/romana              /ro/               301
+/romana/             /ro/               301
+/romanian            /ro/               301
+/romanian/           /ro/               301
+
+/ukrainian           /uk/               301
+/ukrainian/          /uk/               301
+/ua                  /uk/               301
+/ua/                 /uk/               301
+
+/russian             /ru/               301
+/russian/            /ru/               301
+
+# =============================================================================
+# LEGACY SLUGS PER LANGUAGE
+# Add here any old URLs you discover via Search Console after launch
+# Format example:
+# /old-slug/         /de/dienstleistungen/webentwicklung/     301
+# =============================================================================
+
+# Placeholder section — extend as needed during migration
+
+
+# =============================================================================
+# WP-ADMIN AND WP-LOGIN PROTECTION
+# These don't exist on the new site, but bots will keep probing.
+# Send them to home (some hosts use 410 Gone, but 301 is fine).
+# =============================================================================
+
+/wp-admin            /                  301
+/wp-admin/*          /                  301
+/wp-login.php        /                  301
+/wp-content/*        /                  301
+/wp-includes/*       /                  301
+/xmlrpc.php          /                  301
+/wp-json/*           /                  301
+/?author=*           /about/            301

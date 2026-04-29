@@ -1,0 +1,443 @@
+---
+/**
+ * ContactsPage — /contacts/ and localized equivalents.
+ * Sections: hero → form (Web3Forms placeholder) + direct contact card → channels → CTA to briefs
+ */
+import { useTranslations, getTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const all = getTranslations(lang) as any;
+const enAll = getTranslations('en') as any;
+const data = all?.contacts_page ?? enAll.contacts_page;
+
+const WEB3FORMS_KEY = (import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined) || 'REPLACE_WITH_WEB3FORMS_KEY';
+
+const briefWebsite = getLocalizedPath('brief.website', lang);
+const briefAds = getLocalizedPath('brief.ads', lang);
+const thankYouUrl = getLocalizedPath('thank-you', lang) || '/thank-you/';
+
+const channels = [
+  { name: 'Telegram',  href: 'https://t.me/alexeykachan',           handle: '@alexeykachan' },
+  { name: 'WhatsApp',  href: 'https://wa.me/380674618072',          handle: '+380 67 461 80 72' },
+  { name: 'LinkedIn',  href: 'https://www.linkedin.com/in/alexeykachan', handle: '/in/alexeykachan' },
+  { name: 'Email',     href: 'mailto:info@alexeykachan.com',        handle: 'info@alexeykachan.com' },
+];
+---
+
+<Breadcrumb lang={lang} items={[{ name: t('page_titles.contacts') }]} visualHidden={true} />
+
+{/* Hero */}
+<section class="contacts-hero">
+  <div class="container-x contacts-hero__inner">
+    <p class="contacts-hero__kicker" data-reveal>— {data.kicker}</p>
+    <h1 class="contacts-hero__h1 text-balance" data-reveal data-reveal-delay="0.1">{data.h1}</h1>
+    <p class="contacts-hero__lead" data-reveal data-reveal-delay="0.2">{data.lead}</p>
+  </div>
+</section>
+
+{/* Form + Direct */}
+<section class="contacts-main section-y-sm">
+  <div class="container-x contacts-main__grid">
+    {/* Form column */}
+    <div class="contacts-form-wrap" data-reveal>
+      <header class="contacts-form-head">
+        <h2 class="contacts-form-title">{data.form_title}</h2>
+        <p class="contacts-form-sub">{data.form_subtitle}</p>
+      </header>
+
+      <form
+        class="contacts-form"
+        data-contacts-form
+        action="https://api.web3forms.com/submit"
+        method="POST"
+        novalidate
+      >
+        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+        <input type="hidden" name="subject" value="alexeykachan.com — contact form" />
+        <input type="hidden" name="from_name" value="alexeykachan.com contact form" />
+        <input type="hidden" name="redirect" value={thankYouUrl} />
+        <input type="checkbox" name="botcheck" class="contacts-form__honeypot" tabindex="-1" autocomplete="off" />
+
+        <label class="contacts-form__field">
+          <span class="contacts-form__label">{t('form.name')}</span>
+          <input type="text" name="name" required autocomplete="name" class="contacts-form__input" />
+        </label>
+
+        <label class="contacts-form__field">
+          <span class="contacts-form__label">{t('form.email')}</span>
+          <input type="email" name="email" required autocomplete="email" class="contacts-form__input" />
+        </label>
+
+        <label class="contacts-form__field">
+          <span class="contacts-form__label">{t('form.company')}</span>
+          <input type="text" name="company" autocomplete="organization" class="contacts-form__input" />
+        </label>
+
+        <label class="contacts-form__field">
+          <span class="contacts-form__label">{t('form.service')}</span>
+          <select name="service" class="contacts-form__input">
+            <option value="">{t('form.service_select')}</option>
+            <option>Website Development</option>
+            <option>Site Redesign</option>
+            <option>SEO</option>
+            <option>Paid Advertising</option>
+            <option>Web Design</option>
+            <option>Site Support</option>
+            <option>Not sure yet</option>
+          </select>
+        </label>
+
+        <label class="contacts-form__field contacts-form__field--full">
+          <span class="contacts-form__label">{t('form.project_details')}</span>
+          <textarea name="message" rows="6" required class="contacts-form__textarea" placeholder={t('final_cta.form_placeholder_message')}></textarea>
+        </label>
+
+        <label class="contacts-form__consent">
+          <input type="checkbox" name="consent" required />
+          <span>{t('form.consent')}</span>
+        </label>
+
+        <button type="submit" class="contacts-form__submit" data-magnetic data-magnetic-strength="0.25">
+          <span class="contacts-form__submit-label">{data.form_submit}</span>
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <p class="contacts-form__status" data-contacts-status role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    {/* Direct column */}
+    <aside class="contacts-direct" data-reveal data-reveal-delay="0.1">
+      <p class="contacts-direct__label">— {data.direct.label}</p>
+
+      <div class="contacts-direct__row">
+        <p class="contacts-direct__row-label">{data.direct.email_label}</p>
+        <a href="mailto:info@alexeykachan.com" class="contacts-direct__value">info@alexeykachan.com</a>
+      </div>
+
+      <div class="contacts-direct__row">
+        <p class="contacts-direct__row-label">{data.direct.phone_label}</p>
+        <a href="tel:+380674618072" class="contacts-direct__value">+380 67 461 80 72</a>
+        <p class="contacts-direct__hint">{data.direct.phone_note}</p>
+      </div>
+
+      <div class="contacts-direct__row">
+        <p class="contacts-direct__row-label">{data.direct.office_label}</p>
+        <p class="contacts-direct__value contacts-direct__value--static">{data.direct.office_value}</p>
+      </div>
+
+      <div class="contacts-direct__row">
+        <p class="contacts-direct__row-label">{data.direct.hours_label}</p>
+        <p class="contacts-direct__value contacts-direct__value--static">{data.direct.hours_value}</p>
+      </div>
+
+      <div class="contacts-direct__briefs">
+        <p class="contacts-direct__row-label">Detailed brief</p>
+        <a href={briefWebsite} class="contacts-direct__brief-link">Website project brief</a>
+        <a href={briefAds} class="contacts-direct__brief-link">Advertising brief</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+{/* Channels */}
+<section class="contacts-channels section-y">
+  <div class="container-x">
+    <header class="contacts-channels__head" data-reveal>
+      <h2 class="contacts-channels__title text-balance">{data.channels_title}</h2>
+      <p class="contacts-channels__sub">{data.channels_subtitle}</p>
+    </header>
+    <ul class="contacts-channels__grid" data-reveal-stagger data-stagger-interval="0.07">
+      {channels.map((c) => (
+        <li>
+          <a href={c.href} target="_blank" rel="noopener noreferrer" class="contacts-channels__card">
+            <span class="contacts-channels__name">{c.name}</span>
+            <span class="contacts-channels__handle">{c.handle}</span>
+            <svg class="contacts-channels__arrow" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M5 11l6-6M6 5h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contacts-hero {
+    padding-top: calc(var(--header-height) + clamp(3rem, 8vw, 6rem));
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .contacts-hero__inner { max-width: 56rem; }
+  .contacts-hero__kicker { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1.5rem; }
+  .contacts-hero__h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-6xl);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.25rem;
+  }
+  .contacts-hero__lead {
+    font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.375rem);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 44rem;
+  }
+
+  /* Main grid */
+  .contacts-main__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 1024px) { .contacts-main__grid { grid-template-columns: 7fr 5fr; gap: 4rem; align-items: start; } }
+
+  /* Form */
+  .contacts-form-head { margin-bottom: 2rem; }
+  .contacts-form-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  .contacts-form-sub { color: var(--text-secondary); font-size: 1rem; line-height: 1.5; }
+
+  .contacts-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+  }
+  @media (min-width: 768px) { .contacts-form { grid-template-columns: 1fr 1fr; padding: 2.5rem; } }
+  .contacts-form__honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; }
+  .contacts-form__field { display: flex; flex-direction: column; gap: 0.5rem; }
+  .contacts-form__field--full { grid-column: 1 / -1; }
+  .contacts-form__label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+  .contacts-form__input,
+  .contacts-form__textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+  }
+  .contacts-form__textarea { min-height: 8rem; resize: vertical; }
+  .contacts-form__input:focus,
+  .contacts-form__textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--bg-primary);
+  }
+  .contacts-form__consent {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.45;
+    cursor: pointer;
+  }
+  .contacts-form__consent input { margin-top: 0.25rem; flex-shrink: 0; accent-color: var(--accent); }
+  .contacts-form__submit {
+    grid-column: 1 / -1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .contacts-form__submit:hover { background: var(--accent-hover); transform: translateY(-2px); }
+  .contacts-form__submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .contacts-form__status {
+    grid-column: 1 / -1;
+    font-size: 0.875rem;
+    min-height: 1.25rem;
+  }
+  .contacts-form__status[data-state='success'] { color: var(--success); }
+  .contacts-form__status[data-state='error'] { color: var(--error); }
+
+  /* Direct */
+  .contacts-direct {
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  @media (min-width: 1024px) { .contacts-direct { position: sticky; top: calc(var(--header-height) + 1rem); } }
+  .contacts-direct__label { font-size: 0.875rem; color: var(--accent); font-weight: 500; }
+  .contacts-direct__row-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 0.375rem;
+  }
+  .contacts-direct__value {
+    color: var(--text-primary);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  a.contacts-direct__value:hover { color: var(--accent); }
+  .contacts-direct__value--static { font-weight: 400; color: var(--text-secondary); font-size: 0.9375rem; }
+  .contacts-direct__hint { color: var(--text-muted); font-size: 0.8125rem; margin-top: 0.375rem; }
+
+  .contacts-direct__briefs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .contacts-direct__brief-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-bottom: 1px dotted color-mix(in oklch, var(--accent) 40%, transparent);
+    width: fit-content;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+  .contacts-direct__brief-link:hover { border-bottom-color: var(--accent); }
+
+  /* Channels */
+  .contacts-channels__head { max-width: 48rem; margin-bottom: clamp(2rem, 3vw, 3rem); }
+  .contacts-channels__title { font-family: var(--font-display); font-size: var(--text-4xl); margin-bottom: 0.875rem; }
+  .contacts-channels__sub { color: var(--text-secondary); font-size: 1rem; line-height: 1.5; }
+  .contacts-channels__grid {
+    list-style: none; padding: 0; margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  @media (min-width: 640px) { .contacts-channels__grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .contacts-channels__grid { grid-template-columns: repeat(4, 1fr); } }
+  .contacts-channels__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.75rem;
+    background: var(--bg-primary);
+    color: inherit;
+    transition: background-color var(--duration-base) var(--ease-out);
+    position: relative;
+  }
+  .contacts-channels__card:hover { background: var(--bg-secondary); }
+  .contacts-channels__name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+  }
+  .contacts-channels__handle {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+  }
+  .contacts-channels__arrow {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    color: var(--text-muted);
+    transition: color var(--duration-fast) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .contacts-channels__card:hover .contacts-channels__arrow { color: var(--accent); transform: translate(2px, -2px); }
+</style>
+
+<script>
+  // Same pattern as newsletter form: graceful degradation with placeholder access_key
+  function initContactsForm() {
+    const form = document.querySelector<HTMLFormElement>('[data-contacts-form]');
+    if (!form || form.dataset.bound === '1') return;
+    form.dataset.bound = '1';
+
+    const status = form.querySelector('[data-contacts-status]') as HTMLElement | null;
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const submitLabel = submit?.querySelector('.contacts-form__submit-label');
+    const accessKey = (form.elements.namedItem('access_key') as HTMLInputElement | null)?.value;
+    const redirectUrl = (form.elements.namedItem('redirect') as HTMLInputElement | null)?.value;
+
+    form.addEventListener('submit', async (e) => {
+      if (!status || !submit) return;
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      if (formData.get('botcheck')) return;
+
+      submit.disabled = true;
+      const originalLabel = submitLabel?.textContent ?? 'Send';
+      if (submitLabel) submitLabel.textContent = 'Sending…';
+      status.dataset.state = '';
+      status.textContent = '';
+
+      // Placeholder key — pretend success and redirect to thank-you page
+      if (!accessKey || accessKey.includes('REPLACE_WITH')) {
+        await new Promise((r) => setTimeout(r, 400));
+        if (redirectUrl) {
+          window.location.assign(redirectUrl);
+          return;
+        }
+        status.dataset.state = 'success';
+        status.textContent = 'Thanks — we will be in touch.';
+        form.reset();
+        submit.disabled = false;
+        if (submitLabel) submitLabel.textContent = originalLabel;
+        return;
+      }
+
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: formData });
+        if (res.ok) {
+          if (redirectUrl) { window.location.assign(redirectUrl); return; }
+          status.dataset.state = 'success';
+          status.textContent = 'Thanks — we will be in touch.';
+          form.reset();
+        } else {
+          status.dataset.state = 'error';
+          status.textContent = 'Something went wrong. Please try again or email us.';
+        }
+      } catch {
+        status.dataset.state = 'error';
+        status.textContent = 'Network error. Please try again.';
+      } finally {
+        submit.disabled = false;
+        if (submitLabel) submitLabel.textContent = originalLabel;
+      }
+    });
+  }
+  initContactsForm();
+  document.addEventListener('astro:page-load', initContactsForm);
+</script>

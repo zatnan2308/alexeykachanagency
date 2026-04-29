@@ -1,0 +1,358 @@
+---
+/**
+ * BaseLayout — wraps every page with full SEO/i18n head & shell.
+ *
+ * Responsibilities:
+ *  - <html lang> per active language
+ *  - Title / description / canonical / robots
+ *  - 9 hreflang tags (8 langs + x-default) via getHreflangMap()
+ *  - Open Graph + Twitter Card with localized og:locale + alternates
+ *  - JSON-LD: ProfessionalService Organization (always) + WebSite (homepage) + page-specific (props)
+ *  - Google Fonts CDN (Inter + Inter Tight) with preconnect — swap to @fontsource later
+ *  - Layout chrome: skip link → LanguageSuggestionBanner → Header → main → Footer
+ */
+
+import '@/styles/global.css';
+import {
+  LANGUAGES,
+  DEFAULT_LANGUAGE,
+  getLangFromUrl,
+  getHtmlLang,
+  getOgLocale,
+  getHreflangMap,
+  useTranslations,
+  type Language,
+} from '@/i18n/utils';
+import { slugs } from '@/i18n/slugs';
+import LanguageSuggestionBanner from '@/components/layout/LanguageSuggestionBanner.astro';
+import CookieBanner from '@/components/layout/CookieBanner.astro';
+import IntroLoader from '@/components/layout/IntroLoader.astro';
+import CustomCursor from '@/components/layout/CustomCursor.astro';
+import ChatWidget from '@/components/layout/ChatWidget.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
+
+// Analytics IDs (read at build-time from .env). Empty = scripts not injected.
+const GTM_ID     = import.meta.env.PUBLIC_GTM_ID as string | undefined;
+const CLARITY_ID = import.meta.env.PUBLIC_CLARITY_ID as string | undefined;
+
+interface Props {
+  /** Slug map key (e.g. 'home', 'services.website-development') — drives hreflang */
+  pageKey: string;
+  /** 50–60 chars, includes primary keyword */
+  title: string;
+  /** 140–160 chars, descriptive */
+  description: string;
+  /** Absolute URL to OG image (1200×630, ≤300kb). Falls back to default site image. */
+  image?: string;
+  /** Alt text for OG image */
+  imageAlt?: string;
+  /** If true, sends `noindex,nofollow` */
+  noindex?: boolean;
+  /** Page-specific JSON-LD blocks (besides Organization). Single object or array. */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  /** Open Graph type — defaults to 'website' */
+  ogType?: 'website' | 'article' | 'profile';
+}
+
+const {
+  pageKey,
+  title,
+  description,
+  image,
+  imageAlt = title,
+  noindex = false,
+  schema,
+  ogType = 'website',
+} = Astro.props;
+
+// Language detection
+const lang: Language = getLangFromUrl(Astro.url);
+const htmlLang = getHtmlLang(lang);
+const ogLocale = getOgLocale(lang);
+
+// Site origin — Astro.site is the configured site URL (https://alexeykachan.com)
+const siteOrigin = Astro.site ? Astro.site.origin : 'https://alexeykachan.com';
+const siteName = 'Alexey Kachan Agency';
+
+// URLs
+const canonical = new URL(Astro.url.pathname, siteOrigin).toString();
+const defaultOgImage = `${siteOrigin}/og-default.png`;
+const ogImage = image ?? defaultOgImage;
+const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : `${siteOrigin}${ogImage}`;
+
+// hreflang (8 langs + x-default).
+// Special case: case-detail pageKeys ('cases.detail.<slug>') aren't in slugs.ts
+// (we only store the URL prefix per language, not per case). Build the map manually
+// so each case detail emits a correct hreflang chain across all 8 languages.
+let hreflangs: Array<{ hreflang: string; href: string }>;
+if (pageKey.startsWith('cases.detail.')) {
+  const caseSlug = pageKey.slice('cases.detail.'.length);
+  hreflangs = LANGUAGES.map((l) => {
+    const prefix = l === DEFAULT_LANGUAGE ? '' : `/${l}`;
+    const detailPrefix = slugs['cases.detail.prefix'][l];
+    return { hreflang: getHtmlLang(l), href: `${siteOrigin}${prefix}/${detailPrefix}/${caseSlug}/` };
+  });
+  // x-default → English version
+  const enDetail = slugs['cases.detail.prefix'][DEFAULT_LANGUAGE];
+  hreflangs.push({ hreflang: 'x-default', href: `${siteOrigin}/${enDetail}/${caseSlug}/` });
+} else {
+  hreflangs = getHreflangMap(pageKey, siteOrigin);
+}
+
+// og:locale:alternate — all OTHER languages
+const alternateLocales = LANGUAGES.filter((l) => l !== lang).map(getOgLocale);
+
+// Translations (for skip link, etc.)
+const t = useTranslations(lang);
+
+// Robots
+const robotsContent = noindex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large';
+
+// JSON-LD: build array of structured data blocks
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': `${siteOrigin}/#organization`,
+  name: siteName,
+  alternateName: 'Alexey Kachan',
+  url: siteOrigin,
+  logo: `${siteOrigin}/logo-512.png`,
+  image: `${siteOrigin}/og-default.png`,
+  description:
+    'Single-expert digital agency. Web development, SEO, Google Ads, Facebook Ads, web design, and ongoing site maintenance. Worldwide clients since 2014.',
+  founder: {
+    '@type': 'Person',
+    name: 'Alexey Kachan',
+    url: `${siteOrigin}/about/`,
+  },
+  foundingDate: '2014',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'UA',
+  },
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      telephone: '+380674618072',
+      email: 'info@alexeykachan.com',
+      contactType: 'customer service',
+      availableLanguage: ['English', 'German', 'French', 'Spanish', 'Italian', 'Romanian', 'Ukrainian', 'Russian'],
+    },
+  ],
+  sameAs: [
+    'https://www.facebook.com/alexeykachan',
+    'https://www.instagram.com/alexeykachan',
+    'https://t.me/alexeykachan',
+  ],
+  areaServed: 'Worldwide',
+  knowsAbout: [
+    'Web Development',
+    'Search Engine Optimization',
+    'Google Ads',
+    'Facebook Ads',
+    'Web Design',
+    'Website Maintenance',
+  ],
+  priceRange: '$$',
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteOrigin}/#website`,
+  url: siteOrigin,
+  name: siteName,
+  publisher: { '@id': `${siteOrigin}/#organization` },
+  inLanguage: LANGUAGES.map((l) => getHtmlLang(l)),
+  // Note: no SearchAction — site has no /search/ endpoint yet.
+  // Add `potentialAction: { '@type': 'SearchAction', ... }` once Pagefind or similar is wired.
+};
+
+const isHomepage = pageKey === 'home';
+const extraSchema = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const allSchema: Record<string, unknown>[] = [orgSchema, ...(isHomepage ? [websiteSchema] : []), ...extraSchema];
+---
+
+<!doctype html>
+<html lang={htmlLang} dir="ltr" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    {/* JS-availability flag (runs before paint to prevent FOUC on [data-reveal]) */}
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0a0b" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robotsContent} />
+
+    <link rel="canonical" href={canonical} />
+
+    {/* Hreflang tags — 8 languages + x-default */}
+    {
+      hreflangs.map(({ hreflang, href }) => (
+        <link rel="alternate" hreflang={hreflang} href={href} />
+      ))
+    }
+
+    {/* Open Graph */}
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbsolute} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:locale" content={ogLocale} />
+    {alternateLocales.map((loc) => <meta property="og:locale:alternate" content={loc} />)}
+
+    {/* Twitter Card */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@alexeykachan" />
+    <meta name="twitter:creator" content="@alexeykachan" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbsolute} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
+    {/* Favicons */}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    {/* Fonts: Inter + Inter Tight via Google Fonts CDN (swap to @fontsource later) */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&display=swap"
+    />
+
+    {/* JSON-LD structured data */}
+    {
+      allSchema.map((s) => (
+        <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />
+      ))
+    }
+
+    {/* Sitemap link (helps SEO discovery) */}
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    {/* Google Consent Mode v2 — default DENIED before any tag fires.
+        Cookie banner upgrades via gtag('consent','update',...). */}
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500
+      });
+      // Hydrate from previously saved consent (so analytics works on repeat visits).
+      try {
+        const raw = localStorage.getItem('cookie-consent-v1');
+        if (raw) {
+          const c = JSON.parse(raw);
+          if (c && c.version === 1) {
+            gtag('consent', 'update', {
+              ad_storage:         c.marketing ? 'granted' : 'denied',
+              ad_user_data:       c.marketing ? 'granted' : 'denied',
+              ad_personalization: c.marketing ? 'granted' : 'denied',
+              analytics_storage:  c.analytics ? 'granted' : 'denied',
+            });
+          }
+        }
+      } catch {}
+    </script>
+
+    {/* Google Tag Manager — runs in a Web Worker via Partytown */}
+    {GTM_ID && (
+      <script type="text/partytown" is:inline set:html={`
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');
+      `} />
+    )}
+
+    {/* Microsoft Clarity — gated by analytics consent at runtime */}
+    {CLARITY_ID && (
+      <script is:inline set:html={`
+        (function() {
+          function load() {
+            (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "${CLARITY_ID}");
+          }
+          try {
+            var raw = localStorage.getItem('cookie-consent-v1');
+            if (raw && JSON.parse(raw).analytics) load();
+          } catch {}
+          document.addEventListener('consent-changed', function(e){
+            if (e.detail && e.detail.analytics && !window.clarity) load();
+          });
+        })();
+      `} />
+    )}
+
+    {/* Astro view transitions — animations.ts re-inits on astro:page-load */}
+    <ClientRouter />
+
+    <slot name="head" />
+  </head>
+
+  <body>
+    {/* Intro loader — subtle 1s overlay on first visit per session, then removes itself */}
+    <IntroLoader />
+
+    {/* Custom cursor — non-touch only, hidden via media query on touch devices */}
+    <CustomCursor />
+
+    {/* Skip link for keyboard users */}
+    <a href="#main" class="sr-only focus:not-sr-only">
+      {t('common.scroll_down', 'Skip to main content')}
+    </a>
+
+    {/* GTM noscript fallback */}
+    {GTM_ID && (
+      <noscript>
+        <iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe>
+      </noscript>
+    )}
+
+    {/* Browser-language suggestion banner (non-intrusive, dismissible) */}
+    <LanguageSuggestionBanner />
+
+    {/* Cookie consent banner (GDPR / Consent Mode v2) */}
+    <CookieBanner />
+
+    <Header lang={lang} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+
+    {/* Floating chat widget (TG/WA/Email) — auto-hides on /contacts/ + /thank-you/ */}
+    <ChatWidget />
+
+    {/* Site-wide animation system: Lenis smooth scroll + GSAP scroll reveals + magnetic CTAs */}
+    <script>
+      import '@/scripts/animations';
+    </script>
+  </body>
+</html>

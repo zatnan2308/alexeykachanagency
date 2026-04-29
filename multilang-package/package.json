@@ -1,0 +1,48 @@
+{
+  "name": "alexeykachan-agency",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Alexey Kachan Agency — multilingual digital agency website",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check",
+    "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,astro,md,mdx,css,json}\"",
+    "lint": "eslint \"src/**/*.{js,ts,jsx,tsx,astro}\"",
+    "lighthouse": "lhci autorun"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/partytown": "^2.1.4",
+    "@astrojs/react": "^4.1.0",
+    "@astrojs/rss": "^4.0.10",
+    "@astrojs/sitemap": "^3.2.1",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^5.0.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.20",
+    "motion": "^11.15.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sharp": "^0.33.5",
+    "splitting": "^1.1.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/splitting": "^1.0.6",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.9"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

@@ -1,0 +1,169 @@
+---
+/**
+ * HTML sitemap — human-readable index for users + crawl-efficiency boost.
+ * Always rendered in EN. Future: per-language variants if needed.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import { getLocalizedPath } from '@/i18n/utils';
+
+const lang = 'en' as const;
+
+// Pull dynamic content
+const blogPosts = await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft);
+const cases     = await getCollection('cases', ({ data }) => data.lang === 'en' && !data.draft);
+
+const groups = [
+  {
+    title: 'Main',
+    links: [
+      { name: 'Home', href: getLocalizedPath('home', lang) },
+      { name: 'About', href: getLocalizedPath('about', lang) },
+      { name: 'Contact', href: getLocalizedPath('contacts', lang) },
+    ],
+  },
+  {
+    title: 'Services',
+    links: [
+      { name: 'All services', href: getLocalizedPath('services', lang) },
+      { name: 'Website Development', href: getLocalizedPath('services.website-development', lang) },
+      { name: 'Web Design',           href: getLocalizedPath('services.site-design',         lang) },
+      { name: 'Site Redesign',        href: getLocalizedPath('services.site-redesign',       lang) },
+      { name: 'SEO',                  href: getLocalizedPath('services.site-analytics',      lang) },
+      { name: 'Paid Advertising',     href: getLocalizedPath('services.setting-up-ads',      lang) },
+      { name: 'Site Support',         href: getLocalizedPath('services.site-support',        lang) },
+    ],
+  },
+  {
+    title: 'Cases',
+    links: [
+      { name: 'Web development cases', href: getLocalizedPath('cases.web-development', lang) },
+      { name: 'Marketing cases',       href: getLocalizedPath('cases.marketing',       lang) },
+      ...cases.map((c) => {
+        const [slug] = c.id.split('/');
+        return { name: `${c.data.client} — ${c.data.title}`, href: `/cases/${slug}/` };
+      }),
+    ],
+  },
+  {
+    title: 'Journal',
+    links: [
+      { name: 'All articles', href: getLocalizedPath('blog', lang) },
+      { name: 'RSS feed', href: '/rss.xml' },
+      ...blogPosts
+        .sort((a, b) => +new Date(b.data.published) - +new Date(a.data.published))
+        .map((p) => {
+          const [slug] = p.id.split('/');
+          return { name: p.data.title, href: `/blog/${slug}/` };
+        }),
+    ],
+  },
+  {
+    title: 'Briefs',
+    links: [
+      { name: 'Website project brief',   href: getLocalizedPath('brief.website', lang) },
+      { name: 'Advertising brief',       href: getLocalizedPath('brief.ads',     lang) },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { name: 'Privacy policy',  href: getLocalizedPath('privacy-policy', lang) },
+      { name: 'Cookie policy',   href: getLocalizedPath('cookie-policy',  lang) },
+      { name: 'Terms of service',href: getLocalizedPath('terms',          lang) },
+      { name: 'XML sitemap',     href: '/sitemap-index.xml' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  pageKey="sitemap"
+  title="Sitemap — Alexey Kachan Agency"
+  description="A human-readable index of every page on alexeykachan.com — services, cases, journal articles, briefs, legal pages."
+>
+  <Breadcrumb lang={lang} items={[{ name: 'Sitemap' }]} visualHidden={true} />
+
+  <section class="hsm">
+    <div class="container-x hsm__inner">
+      <p class="hsm__kicker" data-reveal>— Sitemap</p>
+      <h1 class="hsm__h1 text-balance" data-reveal data-reveal-delay="0.1">Everything on alexeykachan.com.</h1>
+      <p class="hsm__lead" data-reveal data-reveal-delay="0.2">Looking for the XML version? <a href="/sitemap-index.xml">/sitemap-index.xml</a>.</p>
+    </div>
+  </section>
+
+  <section class="hsm-list section-y-sm">
+    <div class="container-x">
+      <div class="hsm-grid" data-reveal-stagger data-stagger-interval="0.06">
+        {groups.map((g) => (
+          <article class="hsm-group">
+            <h2 class="hsm-group__title">{g.title}</h2>
+            <ul class="hsm-group__list">
+              {g.links.map((l) => <li><a href={l.href}>{l.name}</a></li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hsm {
+    padding-top: calc(var(--header-height) + clamp(2rem, 6vw, 4rem));
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .hsm__inner { max-width: 56rem; }
+  .hsm__kicker { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .hsm__h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+  .hsm__lead { color: var(--text-secondary); font-size: 1rem; }
+  .hsm__lead a {
+    color: var(--accent);
+    border-bottom: 1px dotted color-mix(in oklch, var(--accent) 40%, transparent);
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+  }
+  .hsm__lead a:hover { border-bottom-color: var(--accent); }
+
+  .hsm-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) { .hsm-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .hsm-grid { grid-template-columns: repeat(3, 1fr); } }
+  .hsm-group {
+    padding: 1.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .hsm-group__title {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .hsm-group__list {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .hsm-group__list a {
+    display: block;
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    padding: 0.25rem 0;
+    transition: color var(--duration-fast) var(--ease-out), padding-left var(--duration-base) var(--ease-out);
+  }
+  .hsm-group__list a:hover { color: var(--accent); padding-left: 0.5rem; }
+</style>

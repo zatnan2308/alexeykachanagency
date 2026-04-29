@@ -1,0 +1,505 @@
+---
+/**
+ * CaseDetail — single case-study page.
+ * Sections: hero (client/year/services + headline metric) → results KPIs → markdown body
+ *           → tech stack → testimonial → related cases → CTA.
+ * JSON-LD: CreativeWork (with Article body) + optional Review (testimonial).
+ */
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { useTranslations, getTranslations, type Language } from '@/i18n/utils';
+import { slugs } from '@/i18n/slugs';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+
+interface Props {
+  lang: Language;
+  post: CollectionEntry<'cases'>;
+  isFallback: boolean;
+  caseSlug: string;
+}
+const { lang, post, isFallback, caseSlug } = Astro.props;
+const t = useTranslations(lang);
+const all = getTranslations(lang) as any;
+const enAll = getTranslations('en') as any;
+const ui = all?.cases_pages?.post ?? enAll.cases_pages.post;
+
+const { Content } = await render(post);
+
+const langPrefix = lang === 'en' ? '' : `/${lang}`;
+const detailPrefix = slugs['cases.detail.prefix']?.[lang] ?? 'cases';
+const hubKey = post.data.category === 'web-development' ? 'cases.web-development' : 'cases.marketing';
+const hubSlug = slugs[hubKey]?.[lang] ?? slugs[hubKey].en;
+const hubHref = `${langPrefix}/${hubSlug}/`;
+
+// Related: 2 most recent OTHER cases in the same category
+const allCases = await getCollection('cases', ({ data }) => !data.draft && data.category === post.data.category);
+const bySlug = new Map<string, typeof allCases>();
+for (const c of allCases) {
+  const [s] = c.id.split('/');
+  if (!bySlug.has(s)) bySlug.set(s, []);
+  bySlug.get(s)!.push(c);
+}
+const related = Array.from(bySlug.entries())
+  .filter(([s]) => s !== caseSlug)
+  .map(([s, variants]) => {
+    const match =
+      variants.find((v) => v.data.lang === lang) ??
+      variants.find((v) => v.data.lang === 'en') ??
+      variants[0];
+    return { slug: s, post: match };
+  })
+  .sort((a, b) => +new Date(b.post.data.published) - +new Date(a.post.data.published))
+  .slice(0, 2);
+
+// JSON-LD
+const siteOrigin = Astro.site ? Astro.site.origin : 'https://alexeykachan.com';
+const fullUrl = `${siteOrigin}${langPrefix}/${detailPrefix}/${caseSlug}/`;
+const caseSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.published.toISOString(),
+  author: { '@type': 'Organization', '@id': `${siteOrigin}/#organization` },
+  publisher: { '@id': `${siteOrigin}/#organization` },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': fullUrl },
+  inLanguage: post.data.lang,
+  about: {
+    '@type': 'Thing',
+    name: post.data.client,
+  },
+  keywords: post.data.services.join(', '),
+};
+
+const ctaContacts = `${langPrefix}/${slugs.contacts?.[lang] ?? 'contacts'}/`;
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(caseSchema)} />
+
+<Breadcrumb
+  lang={lang}
+  items={[
+    { name: post.data.category === 'web-development' ? t('page_titles.cases_web') : t('page_titles.cases_marketing'), pageKey: hubKey },
+    { name: post.data.client },
+  ]}
+  visualHidden={true}
+/>
+
+<article class="case" style={`--case-accent: ${post.data.accent}`}>
+  {/* Hero */}
+  <header class="case__hero">
+    <div class="container-x case__hero-inner">
+      <a href={hubHref} class="case__back" data-reveal>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {ui.back_to_cases}
+      </a>
+
+      {isFallback && (
+        <aside class="case__fallback" role="note" data-reveal>
+          <p class="case__fallback-title">{ui.fallback_notice_title}</p>
+          <p class="case__fallback-body">{ui.fallback_notice_body}</p>
+        </aside>
+      )}
+
+      <p class="case__client" data-reveal>{post.data.client}</p>
+      <h1 class="case__h1 text-balance" data-reveal data-reveal-delay="0.1">{post.data.title}</h1>
+      <p class="case__lead" data-reveal data-reveal-delay="0.2">{post.data.description}</p>
+
+      <span class="case__metric" data-reveal data-reveal-delay="0.3">{post.data.heroMetric}</span>
+
+      <dl class="case__facts" data-reveal-stagger data-stagger-interval="0.05">
+        <div><dt>{ui.year_label}</dt><dd>{post.data.year}</dd></div>
+        <div><dt>{ui.duration_label}</dt><dd>{post.data.duration}</dd></div>
+        <div><dt>{ui.industry_label}</dt><dd>{post.data.industry}</dd></div>
+        <div><dt>{ui.country_label}</dt><dd>{post.data.country}</dd></div>
+        <div><dt>{ui.services_label}</dt><dd>{post.data.services.join(', ')}</dd></div>
+      </dl>
+    </div>
+  </header>
+
+  {/* Results KPIs */}
+  {post.data.results.length > 0 && (
+    <section class="case-results section-y-sm">
+      <div class="container-x">
+        <h2 class="case-results__title" data-reveal>{ui.results_title}</h2>
+        <ul class="case-results__grid" data-reveal-stagger data-stagger-interval="0.1">
+          {post.data.results.map((r: { value: string; label: string; delta?: string }) => (
+            <li class="case-results__item">
+              <p class="case-results__value">{r.value}</p>
+              <p class="case-results__label">{r.label}</p>
+              {r.delta && <span class="case-results__delta">{r.delta}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {/* Body (challenge / approach / results narrative) */}
+  <div class="container-x case__body">
+    <div class="case__prose">
+      <Content />
+    </div>
+  </div>
+
+  {/* Tech stack */}
+  {post.data.stack.length > 0 && (
+    <section class="case-stack section-y-sm">
+      <div class="container-x">
+        <h2 class="case-stack__title" data-reveal>{ui.stack_label}</h2>
+        <ul class="case-stack__list" data-reveal-stagger data-stagger-interval="0.05">
+          {post.data.stack.map((tool: string) => <li>{tool}</li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {/* Testimonial */}
+  {post.data.testimonial && (
+    <section class="case-quote section-y">
+      <div class="container-x">
+        <div class="case-quote__card" data-reveal="scale">
+          <svg class="case-quote__mark" width="40" height="32" viewBox="0 0 32 24" fill="none" aria-hidden="true">
+            <path d="M0 24V14C0 9.6 1.067 6.067 3.2 3.4C5.333 0.733 8.4 -0.4 12.4 0L13 4.4C10.6 4.667 8.733 5.6 7.4 7.2C6.067 8.8 5.4 10.933 5.4 13.6H12V24H0ZM18 24V14C18 9.6 19.067 6.067 21.2 3.4C23.333 0.733 26.4 -0.4 30.4 0L31 4.4C28.6 4.667 26.733 5.6 25.4 7.2C24.067 8.8 23.4 10.933 23.4 13.6H30V24H18Z" fill="currentColor"/>
+          </svg>
+          <blockquote class="case-quote__text">{post.data.testimonial.quote}</blockquote>
+          <footer class="case-quote__author">
+            <p class="case-quote__name">{post.data.testimonial.author}</p>
+            <p class="case-quote__role">{post.data.testimonial.role}</p>
+          </footer>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Related cases */}
+  {related.length > 0 && (
+    <section class="case-related section-y">
+      <div class="container-x">
+        <h2 class="case-related__title" data-reveal>{ui.related_title}</h2>
+        <ul class="case-related__grid" data-reveal-stagger data-stagger-interval="0.1">
+          {related.map(({ slug, post: rp }) => (
+            <li>
+              <a href={`${langPrefix}/${detailPrefix}/${slug}/`} class="case-related__card">
+                <span class="case-related__metric">{rp.data.heroMetric}</span>
+                <h3 class="case-related__h3">{rp.data.client} — {rp.data.title}</h3>
+                <p class="case-related__desc">{rp.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {/* CTA */}
+  <section class="case-cta section-y">
+    <div class="container-x">
+      <div class="case-cta__card" data-reveal="scale">
+        <h2 class="case-cta__title text-balance">Ready for results like these?</h2>
+        <p class="case-cta__sub">Tell us about your project — we'll come back with scope, timeline and a fixed price within 4 hours.</p>
+        <a href={ctaContacts} class="case-cta__btn" data-magnetic data-magnetic-strength="0.4">
+          <span>{t('cta.start_project')}</span>
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</article>
+
+<style>
+  /* Hero */
+  .case__hero { padding-top: calc(var(--header-height) + clamp(2rem, 6vw, 4rem)); padding-bottom: clamp(2.5rem, 4vw, 4rem); position: relative; overflow: hidden; }
+  .case__hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 0%, color-mix(in oklch, var(--case-accent) 8%, transparent), transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .case__hero-inner { max-width: 56rem; }
+  .case__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: color var(--duration-fast) var(--ease-out), gap var(--duration-base) var(--ease-out);
+  }
+  .case__back:hover { color: var(--accent); gap: 0.625rem; }
+
+  .case__fallback {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-md);
+  }
+  .case__fallback-title { font-weight: 600; color: var(--text-primary); font-size: 0.875rem; }
+  .case__fallback-body { color: var(--text-secondary); font-size: 0.875rem; }
+
+  .case__client {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--case-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .case__h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.4rem + 2.5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+  }
+  .case__lead {
+    font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.375rem);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 44rem;
+    margin-bottom: 2rem;
+  }
+  .case__metric {
+    display: inline-block;
+    padding: 0.625rem 1.25rem;
+    background: var(--case-accent);
+    color: var(--accent-text);
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    margin-bottom: 2.5rem;
+  }
+  .case__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    border-block: 1px solid var(--border);
+  }
+  .case__facts > div { display: flex; flex-direction: column; gap: 0.25rem; }
+  .case__facts dt { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .case__facts dd { color: var(--text-primary); font-size: 0.9375rem; font-weight: 500; }
+
+  /* Results */
+  .case-results__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+  .case-results__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  @media (min-width: 768px) { .case-results__grid { grid-template-columns: repeat(4, 1fr); } }
+  .case-results__item {
+    padding: 2rem 1.5rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-secondary);
+    position: relative;
+  }
+  .case-results__item:nth-child(2n) { border-right: none; }
+  .case-results__item:nth-last-child(-n+2) { border-bottom: none; }
+  @media (min-width: 768px) {
+    .case-results__item { border-bottom: none; }
+    .case-results__item:nth-child(2n) { border-right: 1px solid var(--border); }
+    .case-results__item:last-child { border-right: none; }
+  }
+  .case-results__value {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.4rem + 2vw, 2.75rem);
+    font-weight: 600;
+    color: var(--case-accent);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .case-results__label { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.4; }
+  .case-results__delta {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--success);
+    background: color-mix(in oklch, var(--success) 12%, transparent);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-full);
+  }
+
+  /* Body prose */
+  .case__body {
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+    padding-bottom: clamp(3rem, 5vw, 5rem);
+  }
+  .case__prose {
+    max-width: 38rem;
+    color: var(--text-primary);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-inline: auto;
+  }
+  .case__prose :global(h2) {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+  .case__prose :global(p) { margin-bottom: 1.25rem; color: var(--text-secondary); }
+  .case__prose :global(strong) { color: var(--text-primary); font-weight: 600; }
+  .case__prose :global(a) {
+    color: var(--accent);
+    border-bottom: 1px solid color-mix(in oklch, var(--accent) 40%, transparent);
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+  .case__prose :global(a:hover) { border-bottom-color: var(--accent); }
+  .case__prose :global(ul) {
+    margin-block: 1.25rem;
+    padding-left: 1.5rem;
+    list-style: revert;
+    color: var(--text-secondary);
+  }
+  .case__prose :global(li) { margin-bottom: 0.625rem; }
+  .case__prose :global(li::marker) { color: var(--accent); }
+
+  /* Tech stack */
+  .case-stack { background: var(--bg-secondary); border-block: 1px solid var(--border); }
+  .case-stack__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1.25rem;
+  }
+  .case-stack__list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.625rem; }
+  .case-stack__list li {
+    padding: 0.5rem 0.875rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+  }
+
+  /* Testimonial */
+  .case-quote__card {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    text-align: center;
+  }
+  .case-quote__mark { color: var(--case-accent); margin-bottom: 1.5rem; }
+  .case-quote__text {
+    font-family: var(--font-display);
+    font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    letter-spacing: -0.015em;
+  }
+  .case-quote__name { font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; }
+  .case-quote__role { color: var(--text-muted); font-size: 0.875rem; }
+
+  /* Related */
+  .case-related__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+  .case-related__grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  @media (min-width: 768px) { .case-related__grid { grid-template-columns: 1fr 1fr; } }
+  .case-related__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    color: inherit;
+    transition: border-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .case-related__card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .case-related__metric {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 12%, transparent);
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-full);
+  }
+  .case-related__h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+  .case-related__desc { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.5; }
+
+  /* CTA */
+  .case-cta__card {
+    padding: clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 4vw, 3.5rem);
+    border-radius: var(--radius-2xl);
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in oklch, var(--case-accent) 14%, transparent), transparent 70%), var(--bg-secondary);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .case-cta__title {
+    font-size: var(--text-5xl);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    max-width: 22ch;
+    margin-inline: auto;
+  }
+  .case-cta__sub { color: var(--text-secondary); font-size: 1.0625rem; max-width: 36rem; margin: 0 auto 2rem; line-height: 1.55; }
+  .case-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    transition: background-color var(--duration-fast) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .case-cta__btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+</style>

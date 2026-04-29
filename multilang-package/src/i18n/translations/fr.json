@@ -1,0 +1,235 @@
+{
+  "_meta": {
+    "lang": "fr",
+    "name": "Français",
+    "status": "draft_ai_translated",
+    "needs_native_review": true,
+    "last_updated": "2026-04-28"
+  },
+  "common": {
+    "min_read": "min de lecture",
+    "read_more": "Lire la suite",
+    "learn_more": "En savoir plus",
+    "view_all": "Voir tout",
+    "loading": "Chargement…",
+    "back_to_top": "Retour en haut",
+    "close": "Fermer",
+    "menu": "Menu",
+    "search": "Rechercher",
+    "scroll_down": "Faire défiler",
+    "page_not_found": "Page introuvable",
+    "go_home": "Retour à l'accueil"
+  },
+  "nav": {
+    "home": "Accueil",
+    "services": "Services",
+    "cases": "Projets",
+    "case_studies": "Études de cas",
+    "web_dev_cases": "Développement web",
+    "marketing_cases": "Marketing",
+    "about": "À propos",
+    "blog": "Blog",
+    "contacts": "Contact"
+  },
+  "cta": {
+    "start_project": "Démarrer un projet",
+    "get_started": "Commencer",
+    "get_quote": "Obtenir un devis",
+    "get_audit": "Audit gratuit",
+    "see_pricing": "Voir les tarifs",
+    "see_work": "Voir nos projets",
+    "view_case": "Voir le projet",
+    "all_projects": "Tous les projets",
+    "send_message": "Envoyer le message",
+    "submit": "Envoyer",
+    "subscribe": "S'abonner",
+    "download_brief": "Télécharger le brief",
+    "book_call": "Réserver un appel",
+    "let_talk": "Discutons-en"
+  },
+  "hero": {
+    "title_line_1": "Faites de votre marque",
+    "title_line_2": "un incontournable.",
+    "subtitle": "Développement web, SEO et publicité payante qui font de votre entreprise le choix évident. Conçu et géré par Alexey Kachan et son agence.",
+    "primary_cta": "Démarrer un projet",
+    "secondary_cta": "Voir nos projets"
+  },
+  "services_section": {
+    "label": "Services",
+    "title": "Des services qui font la différence",
+    "subtitle": "Six disciplines, une stratégie unifiée. Chaque service est conçu pour produire des résultats mesurables.",
+    "items": {
+      "website_development": {
+        "title": "Développement web",
+        "short": "Sites rapides, sécurisés et orientés conversion qui vendent vraiment."
+      },
+      "site_redesign": {
+        "title": "Refonte de site",
+        "short": "Modernisation sans perte de SEO. Meilleure UX, plus de prospects."
+      },
+      "site_support": {
+        "title": "Maintenance de site",
+        "short": "Maintenance, sécurité, mises à jour — sans tracas."
+      },
+      "setting_up_ads": {
+        "title": "Publicité en ligne",
+        "short": "Google Ads, Meta, TikTok, LinkedIn — des campagnes qui rapportent."
+      },
+      "site_analytics": {
+        "title": "Référencement SEO",
+        "short": "Croissance organique prévisible, auditée et structurée."
+      },
+      "site_design": {
+        "title": "Design web",
+        "short": "Design orienté marque qui conclut des ventes avant qu'elles n'arrivent."
+      }
+    }
+  },
+  "stats": {
+    "title": "Des chiffres qui comptent",
+    "years_experience": "Années d'expérience",
+    "projects_delivered": "Projets livrés",
+    "services_offered": "Services proposés",
+    "countries_served": "Pays desservis"
+  },
+  "process": {
+    "label": "Processus",
+    "title": "Comment je travaille",
+    "subtitle": "Un cadre éprouvé qui transforme les idées en résultats commerciaux mesurables.",
+    "steps": {
+      "discovery": {
+        "title": "Découverte",
+        "description": "Analyse approfondie de votre entreprise, audience, concurrence et objectifs."
+      },
+      "strategy": {
+        "title": "Stratégie",
+        "description": "Feuille de route claire avec KPI et jalons mesurables."
+      },
+      "design": {
+        "title": "Design",
+        "description": "Design axé sur la conversion qui reflète votre marque et incite à l'action."
+      },
+      "build": {
+        "title": "Développement",
+        "description": "Solutions rapides, sécurisées et évolutives selon les meilleures pratiques."
+      },
+      "launch": {
+        "title": "Lancement & Croissance",
+        "description": "Mise en ligne fluide, puis optimisation continue basée sur des données réelles."
+      }
+    }
+  },
+  "testimonials": {
+    "label": "Témoignages",
+    "title": "Ce que disent les clients",
+    "verified_badge": "Avis Google vérifié"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Questions fréquentes",
+    "subtitle": "Réponses rapides aux questions courantes. La vôtre n'y est pas ? Demandez-moi."
+  },
+  "final_cta": {
+    "title": "Prêt à dépasser vos concurrents ?",
+    "subtitle": "Parlez-moi de votre projet — je réponds sous 4 heures pendant les heures ouvrables.",
+    "form_placeholder_email": "Votre e-mail",
+    "form_placeholder_message": "Parlez-moi de votre projet…",
+    "or_reach_via": "Ou contactez-moi directement via",
+    "response_time": "Temps de réponse moyen : < 4 heures"
+  },
+  "form": {
+    "name": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "company": "Entreprise",
+    "website": "Site web",
+    "country": "Pays",
+    "service": "Service",
+    "services": "Services",
+    "service_select": "Choisir le(s) service(s)",
+    "budget": "Budget",
+    "budget_select": "Sélectionner une fourchette de budget",
+    "timeline": "Délai",
+    "message": "Message",
+    "project_details": "Parlez-moi de votre projet",
+    "how_heard": "Comment avez-vous entendu parler de nous ?",
+    "consent": "J'accepte la politique de confidentialité et le traitement de mes données.",
+    "newsletter_consent": "Je souhaite recevoir occasionnellement des conseils et études de cas par e-mail.",
+    "required": "Obligatoire",
+    "errors": {
+      "required": "Ce champ est obligatoire",
+      "email_invalid": "Cela ne ressemble pas à un e-mail valide",
+      "phone_invalid": "Veuillez saisir un numéro de téléphone valide",
+      "consent_required": "Veuillez accepter la politique de confidentialité pour continuer"
+    },
+    "success": {
+      "title": "Message reçu",
+      "body": "Merci. J'ai bien reçu votre message et je répondrai sous 4 heures pendant les heures ouvrables.",
+      "next_steps": "En attendant, vous pouvez parcourir mes derniers projets ou lire le blog."
+    }
+  },
+  "footer": {
+    "tagline": "Développement web, SEO et publicité payante qui font de votre entreprise le choix évident.",
+    "services_heading": "Services",
+    "company_heading": "Entreprise",
+    "legal_heading": "Mentions légales",
+    "social_heading": "Réseaux",
+    "contact_heading": "Contact",
+    "rights_reserved": "Tous droits réservés.",
+    "made_with": "Conçu avec Astro sur Cloudflare.",
+    "newsletter_title": "Restez informé",
+    "newsletter_subtitle": "Conseils mensuels sur le web, le SEO et la publicité. Sans blabla."
+  },
+  "languages": {
+    "switch_to": "Changer de langue",
+    "current": "Langue actuelle",
+    "suggest_banner": {
+      "title": "Il semble que vous préfériez le {language}.",
+      "subtitle": "Passer au {language} ?",
+      "yes": "Oui, passer",
+      "no": "Non, garder l'anglais",
+      "later": "Plus tard peut-être"
+    }
+  },
+  "page_titles": {
+    "home": "Agence de Développement Web, SEO & Publicité",
+    "services": "Services",
+    "about": "À propos d'Alexey Kachan",
+    "contacts": "Contact",
+    "cases_web": "Projets de développement web",
+    "cases_marketing": "Études de cas marketing",
+    "blog": "Blog",
+    "privacy": "Politique de confidentialité",
+    "cookies": "Politique des cookies",
+    "terms": "Mentions légales",
+    "brief_website": "Brief projet web",
+    "brief_ads": "Brief campagne publicitaire",
+    "thank_you": "Merci",
+    "404": "Page introuvable"
+  },
+  "cookies": {
+    "banner_title": "Nous respectons votre vie privée",
+    "banner_text": "Nous utilisons des cookies pour les fonctions essentielles du site et, avec votre consentement, pour l'analyse et le marketing.",
+    "accept_all": "Tout accepter",
+    "reject_all": "Refuser le non-essentiel",
+    "customize": "Personnaliser",
+    "save_choices": "Enregistrer mes choix",
+    "categories": {
+      "essential": "Essentiels",
+      "analytics": "Analyse",
+      "marketing": "Marketing"
+    }
+  },
+  "404": {
+    "title": "404",
+    "heading": "Perdu dans l'espace",
+    "subtitle": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "suggestions": "Voici ce que vous pouvez faire à la place :",
+    "links": {
+      "home": "Retour à l'accueil",
+      "services": "Voir les services",
+      "cases": "Voir les projets",
+      "contact": "Nous contacter"
+    }
+  }
+}

@@ -1,0 +1,298 @@
+---
+/**
+ * CasesHub — case-studies overview page.
+ * Two variants:
+ *  - category="web-development" → /web-development-cases/  (and localized)
+ *  - category="marketing"        → /case-studies-marketing/ (and localized)
+ *
+ * Filter cases collection by category, group by slug, pick best language match.
+ */
+import { getCollection } from 'astro:content';
+import { useTranslations, getTranslations, type Language } from '@/i18n/utils';
+import { slugs } from '@/i18n/slugs';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+
+interface Props {
+  lang: Language;
+  category: 'web-development' | 'marketing';
+}
+const { lang, category } = Astro.props;
+const t = useTranslations(lang);
+const all = getTranslations(lang) as any;
+const enAll = getTranslations('en') as any;
+
+const hubKey = category === 'web-development' ? 'web_development' : 'marketing';
+const hub = all?.cases_pages?.hub?.[hubKey] ?? enAll.cases_pages.hub[hubKey];
+
+// Pull all non-draft cases for this category
+const allCases = await getCollection('cases', ({ data }) => !data.draft && data.category === category);
+
+// Group by slug → pick best language variant
+const bySlug = new Map<string, typeof allCases>();
+for (const c of allCases) {
+  const [s] = c.id.split('/');
+  if (!bySlug.has(s)) bySlug.set(s, []);
+  bySlug.get(s)!.push(c);
+}
+
+const cases = Array.from(bySlug.entries())
+  .map(([slug, variants]) => {
+    const match =
+      variants.find((v) => v.data.lang === lang) ??
+      variants.find((v) => v.data.lang === 'en') ??
+      variants[0];
+    return { slug, post: match, isFallback: match.data.lang !== lang };
+  })
+  .sort((a, b) => +new Date(b.post.data.published) - +new Date(a.post.data.published));
+
+// Build URL: <lang-prefix>/<cases.detail.prefix>/<case-slug>/
+const langPrefix = lang === 'en' ? '' : `/${lang}`;
+const detailPrefix = slugs['cases.detail.prefix']?.[lang] ?? 'cases';
+const caseHref = (caseSlug: string) => `${langPrefix}/${detailPrefix}/${caseSlug}/`;
+
+// Unique service tags for filter
+const allServices = Array.from(new Set(cases.flatMap((c) => c.post.data.services))).sort();
+---
+
+<Breadcrumb
+  lang={lang}
+  items={[{ name: category === 'web-development' ? t('page_titles.cases_web') : t('page_titles.cases_marketing') }]}
+  visualHidden={true}
+/>
+
+<section class="cases-hub-hero">
+  <div class="container-x cases-hub-hero__inner">
+    <p class="cases-hub-hero__kicker" data-reveal>— {hub.kicker}</p>
+    <h1 class="cases-hub-hero__h1 text-balance" data-reveal data-reveal-delay="0.1">{hub.h1}</h1>
+    <p class="cases-hub-hero__lead" data-reveal data-reveal-delay="0.2">{hub.lead}</p>
+  </div>
+</section>
+
+<section class="cases-hub-list section-y">
+  <div class="container-x">
+    {allServices.length > 0 && (
+      <nav class="cases-hub-filters" aria-label="Filter by service" data-reveal>
+        <button type="button" class="cases-hub-filter is-active" data-service="all">{hub.filter_all}</button>
+        {allServices.map((s) => (
+          <button type="button" class="cases-hub-filter" data-service={s}>{s}</button>
+        ))}
+      </nav>
+    )}
+
+    {cases.length > 0 ? (
+      <ul class="cases-hub-grid" data-reveal-stagger data-stagger-interval="0.1">
+        {cases.map(({ slug, post, isFallback }) => (
+          <li class="cases-hub-item" data-services={post.data.services.join(',')}>
+            <a href={caseHref(slug)} class="cases-hub-card" style={`--case-accent: ${post.data.accent}`}>
+              <div class="cases-hub-card__media">
+                <span class="cases-hub-card__metric">{post.data.heroMetric}</span>
+                <span class="cases-hub-card__client">{post.data.client}</span>
+              </div>
+              <div class="cases-hub-card__body">
+                <p class="cases-hub-card__meta">
+                  <span>{post.data.year}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{post.data.country}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{post.data.duration}</span>
+                </p>
+                <h3 class="cases-hub-card__title">{post.data.title}</h3>
+                <p class="cases-hub-card__desc">{post.data.description}</p>
+                <ul class="cases-hub-card__services">
+                  {post.data.services.map((svc: string) => <li>{svc}</li>)}
+                </ul>
+                {isFallback && <span class="cases-hub-card__fallback">EN</span>}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="cases-hub-empty">{hub.no_results}</p>
+    )}
+  </div>
+</section>
+
+<style>
+  .cases-hub-hero {
+    padding-top: calc(var(--header-height) + clamp(3rem, 8vw, 6rem));
+    padding-bottom: clamp(2rem, 4vw, 4rem);
+  }
+  .cases-hub-hero__inner { max-width: 56rem; }
+  .cases-hub-hero__kicker { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1.5rem; }
+  .cases-hub-hero__h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-6xl);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.25rem;
+  }
+  .cases-hub-hero__lead {
+    font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.375rem);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 44rem;
+  }
+
+  /* Filters */
+  .cases-hub-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .cases-hub-filter {
+    padding: 0.5rem 0.875rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+  .cases-hub-filter:hover { color: var(--text-primary); border-color: var(--text-secondary); }
+  .cases-hub-filter.is-active { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+
+  /* Grid */
+  .cases-hub-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  @media (min-width: 768px) { .cases-hub-grid { grid-template-columns: 1fr 1fr; } }
+  .cases-hub-item[hidden] { display: none; }
+
+  .cases-hub-card {
+    display: block;
+    color: inherit;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: border-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+    position: relative;
+  }
+  .cases-hub-card:hover { border-color: var(--border-strong); transform: translateY(-4px); }
+
+  .cases-hub-card__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-elevated));
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 1.75rem;
+    overflow: hidden;
+  }
+  .cases-hub-card__media::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 90% at 80% 100%, color-mix(in oklch, var(--case-accent, var(--accent)) 22%, transparent), transparent 70%);
+    pointer-events: none;
+  }
+  .cases-hub-card__metric {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--case-accent, var(--accent));
+    background: color-mix(in oklch, var(--bg-primary) 60%, transparent);
+    backdrop-filter: blur(8px);
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius-full);
+    border: 1px solid color-mix(in oklch, var(--case-accent, var(--accent)) 35%, transparent);
+  }
+  .cases-hub-card__client {
+    position: relative;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .cases-hub-card__body { padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .cases-hub-card__meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .cases-hub-card__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+  .cases-hub-card__desc { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.5; }
+  .cases-hub-card__services {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+  .cases-hub-card__services li {
+    font-size: 0.6875rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+  }
+  .cases-hub-card__fallback {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    padding: 0.125rem 0.5rem;
+    background: color-mix(in oklch, var(--bg-primary) 70%, transparent);
+    backdrop-filter: blur(8px);
+    color: var(--text-muted);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .cases-hub-empty {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 4rem 0;
+    font-style: italic;
+  }
+</style>
+
+<script>
+  function initCasesFilters() {
+    const filters = document.querySelectorAll<HTMLButtonElement>('.cases-hub-filter');
+    const items = document.querySelectorAll<HTMLElement>('.cases-hub-item');
+    if (!filters.length || !items.length) return;
+
+    filters.forEach((btn) => {
+      if (btn.dataset.bound === '1') return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', () => {
+        filters.forEach((b) => b.classList.toggle('is-active', b === btn));
+        const svc = btn.dataset.service || 'all';
+        items.forEach((item) => {
+          const services = (item.dataset.services || '').split(',');
+          item.hidden = !(svc === 'all' || services.includes(svc));
+        });
+      });
+    });
+  }
+  initCasesFilters();
+  document.addEventListener('astro:page-load', initCasesFilters);
+</script>

@@ -1,0 +1,469 @@
+---
+/**
+ * LanguageSwitcher.astro
+ * ----------------------
+ * Premium language switcher for 8 languages.
+ *
+ * Features:
+ *  - Auto-detects current language from URL
+ *  - Switches to the SAME page in another language (not homepage)
+ *  - Falls back to homepage if equivalent doesn't exist (e.g., Impressum only in DE)
+ *  - Two display modes: 'dropdown' (header) and 'list' (footer/mobile)
+ *  - Keyboard accessible (Tab, Enter, Esc)
+ *  - Screen-reader friendly
+ *  - Native names + flag emoji (with text fallback)
+ *  - SEO-safe: real <a> links, work without JS
+ *
+ * Usage:
+ *   <LanguageSwitcher variant="dropdown" />        // Compact for header
+ *   <LanguageSwitcher variant="list" />            // Full list for footer
+ *   <LanguageSwitcher variant="dropdown" align="right" showFlags={false} />
+ */
+
+import {
+  LANGUAGES,
+  LANGUAGE_NAMES,
+  getLangFromUrl,
+  getEquivalentUrl,
+  type Language,
+} from '@/i18n/utils';
+
+interface Props {
+  /** Display variant: 'dropdown' compact, 'list' expanded */
+  variant?: 'dropdown' | 'list';
+  /** Dropdown alignment when variant='dropdown' */
+  align?: 'left' | 'right';
+  /** Show country flags (emoji) — true by default */
+  showFlags?: boolean;
+  /** Show native language names — true by default */
+  showNativeNames?: boolean;
+  /** Show English language names alongside native — false by default */
+  showEnglishNames?: boolean;
+  /** CSS classes to add to the root element */
+  class?: string;
+}
+
+const {
+  variant = 'dropdown',
+  align = 'right',
+  showFlags = true,
+  showNativeNames = true,
+  showEnglishNames = false,
+  class: className = '',
+} = Astro.props;
+
+const currentLang: Language = getLangFromUrl(Astro.url);
+const currentLangData = LANGUAGE_NAMES[currentLang];
+const currentPath = Astro.url.pathname;
+
+// Build alternates with equivalent URLs in each language
+const alternates = LANGUAGES.map((lang) => ({
+  code: lang,
+  ...LANGUAGE_NAMES[lang],
+  href: getEquivalentUrl(currentPath, lang),
+  isCurrent: lang === currentLang,
+}));
+---
+
+{variant === 'dropdown' ? (
+  <div
+    class:list={['language-switcher language-switcher--dropdown', className]}
+    data-align={align}
+  >
+    <button
+      type="button"
+      class="language-switcher__trigger"
+      aria-haspopup="true"
+      aria-expanded="false"
+      aria-label={`Current language: ${currentLangData.native}. Switch language`}
+      data-lang-trigger
+    >
+      {showFlags && (
+        <span class="language-switcher__flag" aria-hidden="true">
+          {currentLangData.flag}
+        </span>
+      )}
+      <span class="language-switcher__code">{currentLang.toUpperCase()}</span>
+      <svg
+        class="language-switcher__chevron"
+        viewBox="0 0 12 8"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M1 1l5 5 5-5" />
+      </svg>
+    </button>
+
+    <ul
+      class="language-switcher__menu"
+      role="menu"
+      aria-label="Language selection"
+      data-lang-menu
+    >
+      {alternates.map((lang) => (
+        <li role="none">
+          <a
+            href={lang.href}
+            role="menuitem"
+            hreflang={lang.htmlLang}
+            lang={lang.htmlLang}
+            class:list={[
+              'language-switcher__option',
+              lang.isCurrent && 'language-switcher__option--current',
+            ]}
+            aria-current={lang.isCurrent ? 'true' : undefined}
+            data-lang={lang.code}
+          >
+            {showFlags && (
+              <span class="language-switcher__flag" aria-hidden="true">
+                {lang.flag}
+              </span>
+            )}
+            {showNativeNames && (
+              <span class="language-switcher__name">{lang.native}</span>
+            )}
+            {showEnglishNames && lang.english !== lang.native && (
+              <span class="language-switcher__name-secondary">
+                ({lang.english})
+              </span>
+            )}
+            {lang.isCurrent && (
+              <svg
+                class="language-switcher__check"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M3 8l4 4 6-8" />
+              </svg>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+) : (
+  <ul
+    class:list={['language-switcher language-switcher--list', className]}
+    aria-label="Available languages"
+  >
+    {alternates.map((lang) => (
+      <li>
+        <a
+          href={lang.href}
+          hreflang={lang.htmlLang}
+          lang={lang.htmlLang}
+          class:list={[
+            'language-switcher__option',
+            lang.isCurrent && 'language-switcher__option--current',
+          ]}
+          aria-current={lang.isCurrent ? 'true' : undefined}
+        >
+          {showFlags && (
+            <span class="language-switcher__flag" aria-hidden="true">
+              {lang.flag}
+            </span>
+          )}
+          <span class="language-switcher__name">{lang.native}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  /* =========================================================================
+     LANGUAGE SWITCHER STYLES
+     CSS uses custom properties from global.css design tokens.
+     ========================================================================= */
+
+  .language-switcher {
+    position: relative;
+    font-family: inherit;
+    font-size: 0.875rem;
+    color: var(--text-secondary, #a1a1aa);
+  }
+
+  /* ─── DROPDOWN VARIANT ─────────────────────────────────────────────────── */
+
+  .language-switcher--dropdown {
+    display: inline-block;
+  }
+
+  .language-switcher__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: 1px solid var(--border, #27272a);
+    border-radius: 0.625rem;
+    color: var(--text-primary, #f5f5f7);
+    cursor: pointer;
+    transition: border-color 200ms ease, background-color 200ms ease;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .language-switcher__trigger:hover,
+  .language-switcher__trigger:focus-visible {
+    border-color: var(--accent, #d7ff3d);
+    background-color: var(--bg-secondary, #131316);
+  }
+
+  .language-switcher__trigger:focus-visible {
+    outline: 2px solid var(--accent, #d7ff3d);
+    outline-offset: 2px;
+  }
+
+  .language-switcher__chevron {
+    width: 0.75rem;
+    height: 0.5rem;
+    transition: transform 200ms ease;
+  }
+
+  .language-switcher__trigger[aria-expanded='true'] .language-switcher__chevron {
+    transform: rotate(180deg);
+  }
+
+  .language-switcher__menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    min-width: 12rem;
+    margin: 0;
+    padding: 0.375rem;
+    list-style: none;
+    background: var(--bg-secondary, #131316);
+    border: 1px solid var(--border, #27272a);
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 50;
+    /* Hidden by default; toggled via [data-open] */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity 200ms ease,
+      transform 200ms ease,
+      visibility 0s linear 200ms;
+  }
+
+  .language-switcher--dropdown[data-align='right'] .language-switcher__menu {
+    right: 0;
+  }
+
+  .language-switcher--dropdown[data-align='left'] .language-switcher__menu {
+    left: 0;
+  }
+
+  .language-switcher--dropdown[data-open='true'] .language-switcher__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition:
+      opacity 200ms ease,
+      transform 200ms ease,
+      visibility 0s linear 0s;
+  }
+
+  /* ─── LIST VARIANT ─────────────────────────────────────────────────────── */
+
+  .language-switcher--list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* ─── COMMON OPTION STYLES ─────────────────────────────────────────────── */
+
+  .language-switcher__option {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: 0.5rem;
+    color: var(--text-secondary, #a1a1aa);
+    text-decoration: none;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+    font-weight: 500;
+  }
+
+  .language-switcher__option:hover,
+  .language-switcher__option:focus-visible {
+    background-color: var(--bg-tertiary, #1c1c20);
+    color: var(--text-primary, #f5f5f7);
+  }
+
+  .language-switcher__option:focus-visible {
+    outline: 2px solid var(--accent, #d7ff3d);
+    outline-offset: -2px;
+  }
+
+  .language-switcher__option--current {
+    color: var(--text-primary, #f5f5f7);
+    background-color: var(--bg-tertiary, #1c1c20);
+  }
+
+  .language-switcher__flag {
+    font-size: 1.125rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .language-switcher__code {
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.8125rem;
+  }
+
+  .language-switcher__name {
+    flex: 1;
+  }
+
+  .language-switcher__name-secondary {
+    font-size: 0.8125rem;
+    color: var(--text-muted, #71717a);
+    margin-left: 0.25rem;
+  }
+
+  .language-switcher__check {
+    width: 1rem;
+    height: 1rem;
+    color: var(--accent, #d7ff3d);
+    flex-shrink: 0;
+  }
+
+  /* ─── REDUCED MOTION ───────────────────────────────────────────────────── */
+
+  @media (prefers-reduced-motion: reduce) {
+    .language-switcher__chevron,
+    .language-switcher__menu,
+    .language-switcher__option,
+    .language-switcher__trigger {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  /**
+   * LanguageSwitcher interactivity
+   * Vanilla JS — no framework needed. Loads only on pages with the dropdown.
+   */
+  function initLanguageSwitcher() {
+    const switchers = document.querySelectorAll('.language-switcher--dropdown');
+
+    switchers.forEach((switcher) => {
+      const trigger = switcher.querySelector('[data-lang-trigger]') as HTMLButtonElement | null;
+      const menu = switcher.querySelector('[data-lang-menu]') as HTMLElement | null;
+
+      if (!trigger || !menu) return;
+
+      const open = () => {
+        switcher.setAttribute('data-open', 'true');
+        trigger.setAttribute('aria-expanded', 'true');
+        // Focus first menu item for keyboard users
+        const firstLink = menu.querySelector('a') as HTMLAnchorElement | null;
+        firstLink?.focus({ preventScroll: true });
+      };
+
+      const close = (returnFocus = false) => {
+        switcher.removeAttribute('data-open');
+        trigger.setAttribute('aria-expanded', 'false');
+        if (returnFocus) trigger.focus();
+      };
+
+      const toggle = () => {
+        const isOpen = switcher.getAttribute('data-open') === 'true';
+        isOpen ? close() : open();
+      };
+
+      // Click trigger toggles
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggle();
+      });
+
+      // Click outside closes
+      document.addEventListener('click', (e) => {
+        if (!switcher.contains(e.target as Node)) {
+          close();
+        }
+      });
+
+      // Keyboard navigation
+      switcher.addEventListener('keydown', (e) => {
+        const event = e as KeyboardEvent;
+        const isOpen = switcher.getAttribute('data-open') === 'true';
+
+        // Esc closes and returns focus to trigger
+        if (event.key === 'Escape' && isOpen) {
+          event.preventDefault();
+          close(true);
+          return;
+        }
+
+        // Open with Enter/Space/ArrowDown when trigger is focused
+        if (
+          document.activeElement === trigger &&
+          ['Enter', ' ', 'ArrowDown'].includes(event.key)
+        ) {
+          event.preventDefault();
+          open();
+          return;
+        }
+
+        // Arrow navigation inside menu
+        if (isOpen && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+          event.preventDefault();
+          const links = Array.from(
+            menu.querySelectorAll('a')
+          ) as HTMLAnchorElement[];
+          const currentIndex = links.indexOf(
+            document.activeElement as HTMLAnchorElement
+          );
+          let nextIndex: number;
+
+          if (event.key === 'ArrowDown') {
+            nextIndex = currentIndex < links.length - 1 ? currentIndex + 1 : 0;
+          } else {
+            nextIndex = currentIndex > 0 ? currentIndex - 1 : links.length - 1;
+          }
+
+          links[nextIndex]?.focus();
+        }
+
+        // Tab closes the dropdown when leaving
+        if (event.key === 'Tab' && isOpen) {
+          // Allow tab navigation but close after a moment
+          setTimeout(() => {
+            if (!switcher.contains(document.activeElement)) {
+              close();
+            }
+          }, 0);
+        }
+      });
+    });
+  }
+
+  // Initialize on page load
+  initLanguageSwitcher();
+
+  // Re-initialize on Astro view transitions
+  document.addEventListener('astro:after-swap', initLanguageSwitcher);
+</script>

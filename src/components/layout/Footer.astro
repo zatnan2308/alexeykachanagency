@@ -1,0 +1,551 @@
+---
+/**
+ * Footer — site-wide bottom navigation, newsletter, socials, language switcher.
+ *
+ * Layout (top → bottom):
+ *  1. Brand block (logo + tagline) + Newsletter form
+ *  2. 4 columns: Services | Company | Legal | Contact
+ *  3. Language switcher (list variant)
+ *  4. Bottom bar: copyright + "Built with Astro"
+ */
+
+import { getLocalizedPath, useTranslations, type Language } from '@/i18n/utils';
+import { slugs } from '@/i18n/slugs';
+import LanguageSwitcher from '@/components/layout/LanguageSwitcher.astro';
+
+const WEB3FORMS_KEY = (import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined) || 'REPLACE_WITH_WEB3FORMS_KEY';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+const homeHref = getLocalizedPath('home', lang);
+
+// Column links — pageKey + label
+const servicesLinks = [
+  { key: 'services.website-development', label: t('services_section.items.website_development.title') },
+  { key: 'services.site-redesign',       label: t('services_section.items.site_redesign.title')       },
+  { key: 'services.site-support',        label: t('services_section.items.site_support.title')        },
+  { key: 'services.setting-up-ads',      label: t('services_section.items.setting_up_ads.title')      },
+  { key: 'services.site-analytics',      label: t('services_section.items.site_analytics.title')      },
+  { key: 'services.site-design',         label: t('services_section.items.site_design.title')         },
+] as const;
+
+const companyLinks = [
+  { key: 'about',                  label: t('nav.about')             },
+  { key: 'cases.web-development',  label: t('nav.web_dev_cases')     },
+  { key: 'cases.marketing',        label: t('nav.marketing_cases')   },
+  { key: 'blog',                   label: t('nav.blog')              },
+  { key: 'contacts',               label: t('nav.contacts')          },
+] as const;
+
+// Legal: Impressum only exists in German (slugs.impressum.de !== '')
+const legalLinks = [
+  { key: 'privacy-policy', label: t('page_titles.privacy') },
+  { key: 'cookie-policy',  label: t('page_titles.cookies') },
+  { key: 'terms',          label: t('page_titles.terms')   },
+];
+if (lang === 'de' && slugs.impressum?.de) {
+  legalLinks.push({ key: 'impressum', label: 'Impressum' });
+}
+
+// Socials
+const socials = [
+  {
+    name: 'Facebook',
+    href: 'https://www.facebook.com/alexeykachan',
+    icon: 'M13.5 9V6.75c0-.621.504-1.125 1.125-1.125H16.5V2.25h-2.25A4.125 4.125 0 0 0 10.125 6.375V9H7.5v3.375h2.625V21.75h3.375V12.375H16.5L17.25 9h-3.75z',
+  },
+  {
+    name: 'Instagram',
+    href: 'https://www.instagram.com/alexeykachan',
+    icon: 'M12 2.25c-2.652 0-2.984.011-4.025.058-1.041.048-1.752.213-2.376.456a4.79 4.79 0 0 0-1.733 1.128A4.79 4.79 0 0 0 2.738 5.6c-.243.624-.408 1.335-.456 2.376C2.235 9.016 2.25 9.348 2.25 12s-.015 2.984.032 4.025c.048 1.041.213 1.752.456 2.376a4.79 4.79 0 0 0 1.128 1.733 4.79 4.79 0 0 0 1.733 1.128c.624.243 1.335.408 2.376.456 1.041.047 1.373.058 4.025.058s2.984-.011 4.025-.058c1.041-.048 1.752-.213 2.376-.456a4.79 4.79 0 0 0 1.733-1.128 4.79 4.79 0 0 0 1.128-1.733c.243-.624.408-1.335.456-2.376.047-1.041.058-1.373.058-4.025s-.011-2.984-.058-4.025c-.048-1.041-.213-1.752-.456-2.376a4.79 4.79 0 0 0-1.128-1.733A4.79 4.79 0 0 0 18.4 2.738c-.624-.243-1.335-.408-2.376-.456C14.984 2.235 14.652 2.25 12 2.25zm0 1.625c2.605 0 2.916.011 3.945.057.951.043 1.467.202 1.811.336.456.177.78.388 1.122.73.342.342.553.666.73 1.122.134.344.293.86.336 1.811.046 1.029.057 1.34.057 3.945s-.011 2.916-.057 3.945c-.043.951-.202 1.467-.336 1.811-.177.456-.388.78-.73 1.122a3.04 3.04 0 0 1-1.122.73c-.344.134-.86.293-1.811.336-1.029.046-1.34.057-3.945.057s-2.916-.011-3.945-.057c-.951-.043-1.467-.202-1.811-.336a3.04 3.04 0 0 1-1.122-.73 3.04 3.04 0 0 1-.73-1.122c-.134-.344-.293-.86-.336-1.811-.046-1.029-.057-1.34-.057-3.945s.011-2.916.057-3.945c.043-.951.202-1.467.336-1.811.177-.456.388-.78.73-1.122a3.04 3.04 0 0 1 1.122-.73c.344-.134.86-.293 1.811-.336 1.029-.046 1.34-.057 3.945-.057zM12 7.378A4.622 4.622 0 1 0 12 16.622 4.622 4.622 0 0 0 12 7.378zm0 7.622a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.884-7.804a1.08 1.08 0 1 1-2.16 0 1.08 1.08 0 0 1 2.16 0z',
+  },
+  {
+    name: 'Telegram',
+    href: 'https://t.me/alexeykachan',
+    icon: 'M21.75 4.5L2.25 12l5.625 1.875M21.75 4.5L18 19.5l-7.5-3.75M21.75 4.5L7.875 13.875M10.5 15.75v3.75l3-3',
+  },
+];
+
+const phone = '+380674618072';
+const email = 'info@alexeykachan.com';
+---
+
+<footer class="footer">
+  <div class="container-x">
+    {/* Top: brand + newsletter */}
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href={homeHref} class="footer__logo" aria-label="Alexey Kachan Agency — home">
+          <span class="footer__logo-text">Alexey Kachan</span><span class="footer__logo-dot">.</span>
+        </a>
+        <p class="footer__tagline">{t('footer.tagline')}</p>
+      </div>
+
+      <div class="footer__newsletter">
+        <h3 class="footer__newsletter-title">{t('footer.newsletter_title')}</h3>
+        <p class="footer__newsletter-sub">{t('footer.newsletter_subtitle')}</p>
+        <form class="footer__form" data-newsletter-form action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+          <input type="hidden" name="subject" value="Newsletter signup — alexeykachan.com" />
+          <input type="hidden" name="from_name" value="alexeykachan.com newsletter" />
+          <input type="checkbox" name="botcheck" class="footer__honeypot" tabindex="-1" autocomplete="off" />
+          <label class="footer__field">
+            <span class="sr-only">{t('form.email')}</span>
+            <input
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder={t('form.email')}
+              class="footer__input"
+            />
+          </label>
+          <button type="submit" class="footer__submit">
+            <span class="footer__submit-label">{t('cta.subscribe')}</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <p class="footer__form-status" data-newsletter-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+    {/* 4 columns of links */}
+    <div class="footer__cols">
+      <div class="footer__col">
+        <h4 class="footer__col-title">{t('footer.services_heading')}</h4>
+        <ul class="footer__col-list">
+          {servicesLinks.map((link) => (
+            <li>
+              <a href={getLocalizedPath(link.key, lang)} class="footer__link">{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">{t('footer.company_heading')}</h4>
+        <ul class="footer__col-list">
+          {companyLinks.map((link) => (
+            <li>
+              <a href={getLocalizedPath(link.key, lang)} class="footer__link">{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">{t('footer.legal_heading')}</h4>
+        <ul class="footer__col-list">
+          {legalLinks.map((link) => (
+            <li>
+              <a href={getLocalizedPath(link.key, lang)} class="footer__link">{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__col-title">{t('footer.contact_heading')}</h4>
+        <ul class="footer__col-list">
+          <li>
+            <a href={`mailto:${email}`} class="footer__link">{email}</a>
+          </li>
+          <li>
+            <a href={`tel:${phone.replace(/\s/g, '')}`} class="footer__link">{phone}</a>
+          </li>
+        </ul>
+
+        <div class="footer__socials" aria-label={t('footer.social_heading')}>
+          {socials.map((s) => (
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer__social"
+              aria-label={s.name}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d={s.icon} />
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* Language switcher */}
+    <div class="footer__lang-block">
+      <h4 class="footer__col-title footer__lang-title">{t('languages.switch_to')}</h4>
+      <LanguageSwitcher variant="list" showFlags={true} showNativeNames={true} class="footer__lang-switcher" />
+    </div>
+
+    {/* Bottom bar */}
+    <div class="footer__bottom">
+      <p class="footer__copyright">
+        © {year} Alexey Kachan Agency. {t('footer.rights_reserved')}
+      </p>
+      <p class="footer__built">
+        <button type="button" class="footer__cookie-btn" data-cookie-reopen>{t('cookies.customize')}</button>
+        <span class="footer__sep" aria-hidden="true">·</span>
+        {t('footer.made_with')} <a href="https://astro.build/" target="_blank" rel="noopener noreferrer">Astro</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: clamp(4rem, 8vw, 8rem);
+    padding-block: clamp(3rem, 6vw, 5rem) 2rem;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+
+  /* Top: brand + newsletter */
+  .footer__top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  @media (min-width: 768px) {
+    .footer__top {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .footer__brand {
+    max-width: 28rem;
+  }
+  .footer__logo {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.375rem;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+  .footer__logo-dot {
+    color: var(--accent);
+    margin-left: 1px;
+  }
+  .footer__tagline {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Newsletter */
+  .footer__newsletter {
+    max-width: 28rem;
+  }
+  .footer__newsletter-title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.015em;
+  }
+  .footer__newsletter-sub {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+  .footer__form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+  .footer__honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+  }
+  .footer__field {
+    display: block;
+  }
+  .footer__input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-size: 0.9375rem;
+    transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+  }
+  .footer__input::placeholder {
+    color: var(--text-muted);
+  }
+  .footer__input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--bg-primary);
+  }
+  .footer__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border-radius: var(--radius-full);
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-base) var(--ease-out);
+    white-space: nowrap;
+  }
+  .footer__submit:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+  .footer__submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .footer__form-status {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    min-height: 1.25rem;
+  }
+  .footer__form-status[data-state='success'] {
+    color: var(--success);
+  }
+  .footer__form-status[data-state='error'] {
+    color: var(--error);
+  }
+
+  /* 4 cols */
+  .footer__cols {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
+    padding-bottom: 3rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  @media (min-width: 768px) {
+    .footer__cols {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+  .footer__col {
+    min-width: 0;
+  }
+  .footer__col-title {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .footer__col-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .footer__link {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  .footer__link:hover,
+  .footer__link:focus-visible {
+    color: var(--accent);
+  }
+
+  /* Socials */
+  .footer__socials {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .footer__social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-base) var(--ease-out);
+  }
+  .footer__social:hover {
+    background: var(--accent);
+    color: var(--accent-text);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* Language block */
+  .footer__lang-block {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .footer__lang-title {
+    margin-bottom: 1rem;
+  }
+
+  /* Bottom bar */
+  .footer__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+  @media (min-width: 640px) {
+    .footer__bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .footer__copyright,
+  .footer__built {
+    margin: 0;
+  }
+  .footer__built a {
+    color: var(--text-secondary);
+    border-bottom: 1px dotted var(--border-strong);
+    transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+  .footer__built a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .footer__cookie-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 0.8125rem;
+    cursor: pointer;
+    border-bottom: 1px dotted var(--border-strong);
+    transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+  .footer__cookie-btn:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .footer__sep {
+    margin-inline: 0.4rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+</style>
+
+<script>
+  // Footer "Cookie settings" → re-opens the consent banner.
+  function bindCookieReopen() {
+    document.querySelectorAll<HTMLButtonElement>('[data-cookie-reopen]').forEach((btn) => {
+      if (btn.dataset.bound === '1') return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', () => {
+        const fn = (window as any).reopenCookieBanner;
+        if (typeof fn === 'function') fn();
+      });
+    });
+  }
+  bindCookieReopen();
+  document.addEventListener('astro:page-load', bindCookieReopen);
+</script>
+
+<script>
+  // Newsletter form: graceful client-side handling.
+  // If access_key is still placeholder → show "thanks" without submitting.
+  // If real key → submit via fetch + show success/error.
+  function initNewsletter() {
+    const forms = document.querySelectorAll<HTMLFormElement>('[data-newsletter-form]');
+    forms.forEach((form) => {
+      if (form.dataset.bound === '1') return;
+      form.dataset.bound = '1';
+
+      const status = form.querySelector('[data-newsletter-status]') as HTMLElement | null;
+      const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const accessKey = (form.elements.namedItem('access_key') as HTMLInputElement | null)?.value;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!status || !submit) return;
+
+        const formData = new FormData(form);
+        // Honeypot — silently bail if filled
+        if (formData.get('botcheck')) return;
+
+        submit.disabled = true;
+        status.dataset.state = '';
+        status.textContent = '';
+
+        // Placeholder key — pretend success without hitting the API
+        if (!accessKey || accessKey.includes('REPLACE_WITH')) {
+          await new Promise((r) => setTimeout(r, 350));
+          status.dataset.state = 'success';
+          status.textContent = 'Thanks — we’ll be in touch.';
+          form.reset();
+          submit.disabled = false;
+          return;
+        }
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+          });
+          if (res.ok) {
+            status.dataset.state = 'success';
+            status.textContent = 'Thanks — we’ll be in touch.';
+            form.reset();
+          } else {
+            status.dataset.state = 'error';
+            status.textContent = 'Something went wrong. Please try again.';
+          }
+        } catch {
+          status.dataset.state = 'error';
+          status.textContent = 'Network error. Please try again.';
+        } finally {
+          submit.disabled = false;
+        }
+      });
+    });
+  }
+
+  initNewsletter();
+  document.addEventListener('astro:page-load', initNewsletter);
+</script>

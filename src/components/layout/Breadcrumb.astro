@@ -1,0 +1,91 @@
+---
+/**
+ * Breadcrumb — visual breadcrumb trail + JSON-LD BreadcrumbList in one component.
+ *
+ * Usage:
+ *   <Breadcrumb lang={lang} items={[
+ *     { name: 'Services', pageKey: 'services' },
+ *     { name: 'Web Development' }, // current page (no pageKey → not a link)
+ *   ]} />
+ *
+ * Home is automatically prepended.
+ */
+import { useTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
+import { buildBreadcrumb } from '@/lib/schema';
+
+interface Item {
+  name: string;
+  pageKey?: string;
+}
+
+interface Props {
+  lang: Language;
+  items: Item[];
+  /** Hide the visual chain but still emit JSON-LD (e.g. on hero-heavy hub pages) */
+  visualHidden?: boolean;
+}
+
+const { lang, items, visualHidden = false } = Astro.props;
+const t = useTranslations(lang);
+
+const siteOrigin = Astro.site ? Astro.site.origin : 'https://alexeykachan.com';
+const homeUrl    = `${siteOrigin}${getLocalizedPath('home', lang)}`;
+
+// Build JSON-LD entries (Home → … → current)
+const ldItems = [
+  { name: t('nav.home'), url: homeUrl },
+  ...items.map((it) => ({
+    name: it.name,
+    url: it.pageKey ? `${siteOrigin}${getLocalizedPath(it.pageKey, lang)}` : '',
+  })),
+].filter((x, i, arr) => i === arr.length - 1 ? true : !!x.url);
+
+const ldSchema = buildBreadcrumb(ldItems);
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ldSchema)} />
+
+{!visualHidden && (
+  <nav class="breadcrumb container-x" aria-label="Breadcrumb">
+    <ol class="breadcrumb__list">
+      <li>
+        <a href={getLocalizedPath('home', lang)}>{t('nav.home')}</a>
+      </li>
+      {items.map((it, i) => (
+        <li>
+          <span class="breadcrumb__sep" aria-hidden="true">/</span>
+          {it.pageKey && i !== items.length - 1 ? (
+            <a href={getLocalizedPath(it.pageKey, lang)}>{it.name}</a>
+          ) : (
+            <span aria-current={i === items.length - 1 ? 'page' : undefined}>{it.name}</span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}
+
+<style>
+  .breadcrumb {
+    padding-top: calc(var(--header-height) + 1rem);
+    padding-bottom: 0.5rem;
+  }
+  .breadcrumb__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+  .breadcrumb__list li { display: inline-flex; align-items: center; gap: 0.375rem; }
+  .breadcrumb__sep { color: var(--text-muted); opacity: 0.6; }
+  .breadcrumb__list a {
+    color: var(--text-secondary);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  .breadcrumb__list a:hover { color: var(--accent); }
+  .breadcrumb__list [aria-current='page'] { color: var(--text-primary); }
+</style>

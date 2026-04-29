@@ -1,0 +1,146 @@
+---
+/**
+ * Blog tag page: /blog/tag/<tag>/ (EN).
+ * Renders posts filtered by a single tag.
+ */
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import { formatDate, formatReadingTime } from '@/i18n/utils';
+
+export async function getStaticPaths() {
+  const all = await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft);
+  const tags = new Set<string>();
+  for (const post of all) post.data.tags.forEach((t) => tags.add(t));
+
+  return Array.from(tags).map((tag) => {
+    const matching = all
+      .filter((p) => p.data.tags.includes(tag))
+      .sort((a, b) => +new Date(b.data.published) - +new Date(a.data.published));
+    return { params: { tag }, props: { tag, posts: matching } };
+  });
+}
+
+const { tag, posts } = Astro.props as { tag: string; posts: CollectionEntry<'blog'>[] };
+---
+
+<BaseLayout
+  pageKey="blog"
+  title={`Articles tagged "${tag}" — Alexey Kachan Agency`}
+  description={`${posts.length} article${posts.length === 1 ? '' : 's'} tagged "${tag}" on web performance, SEO, and growth strategy.`}
+>
+  <Breadcrumb
+    lang="en"
+    items={[
+      { name: 'Journal', pageKey: 'blog' },
+      { name: `#${tag}` },
+    ]}
+    visualHidden={true}
+  />
+
+  <section class="tag-hero">
+    <div class="container-x tag-hero__inner">
+      <a href="/blog/" class="tag-hero__back" data-reveal>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        All articles
+      </a>
+      <p class="tag-hero__kicker" data-reveal>— Tag</p>
+      <h1 class="tag-hero__h1 text-balance" data-reveal data-reveal-delay="0.1">#{tag}</h1>
+      <p class="tag-hero__count" data-reveal data-reveal-delay="0.2">
+        {posts.length} article{posts.length === 1 ? '' : 's'}
+      </p>
+    </div>
+  </section>
+
+  <section class="tag-list section-y-sm">
+    <div class="container-x">
+      <ul class="tag-grid" data-reveal-stagger data-stagger-interval="0.07">
+        {posts.map((post) => {
+          const [slug] = post.id.split('/');
+          return (
+            <li>
+              <a href={`/blog/${slug}/`} class="tag-card">
+                <p class="tag-card__meta">
+                  <time datetime={post.data.published.toISOString()}>{formatDate(post.data.published, 'en')}</time>
+                  <span aria-hidden="true">·</span>
+                  <span>{formatReadingTime(post.body ?? '', 'en')}</span>
+                </p>
+                <h2 class="tag-card__title">{post.data.title}</h2>
+                <p class="tag-card__desc">{post.data.description}</p>
+                <ul class="tag-card__tags">
+                  {post.data.tags.map((t) => <li>{t}</li>)}
+                </ul>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tag-hero {
+    padding-top: calc(var(--header-height) + clamp(2rem, 6vw, 4rem));
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .tag-hero__inner { max-width: 50rem; }
+  .tag-hero__back {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    color: var(--text-muted); font-size: 0.875rem; font-weight: 500;
+    margin-bottom: 1.5rem;
+    transition: color var(--duration-fast) var(--ease-out), gap var(--duration-base) var(--ease-out);
+  }
+  .tag-hero__back:hover { color: var(--accent); gap: 0.625rem; }
+  .tag-hero__kicker { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .tag-hero__h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.875rem;
+  }
+  .tag-hero__count { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.875rem; }
+
+  .tag-grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: 1fr; gap: 1px;
+    background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+  }
+  @media (min-width: 768px) { .tag-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .tag-grid { grid-template-columns: repeat(3, 1fr); } }
+  .tag-card {
+    display: flex; flex-direction: column; gap: 0.625rem;
+    padding: 2rem; height: 100%;
+    background: var(--bg-primary); color: inherit;
+    transition: background-color var(--duration-base) var(--ease-out);
+  }
+  .tag-card:hover { background: var(--bg-secondary); }
+  .tag-card__meta {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    display: flex; gap: 0.5rem;
+  }
+  .tag-card__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem; font-weight: 600;
+    color: var(--text-primary); line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .tag-card__desc { flex: 1; color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.55; }
+  .tag-card__tags {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.5rem;
+  }
+  .tag-card__tags li {
+    font-size: 0.6875rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+  }
+</style>

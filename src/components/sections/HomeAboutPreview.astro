@@ -1,0 +1,132 @@
+---
+import { useTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="about section-y">
+  <div class="container-x about__inner">
+    <div class="about__media" aria-hidden="true" data-reveal="fade-left">
+      <div class="about__photo">
+        <span class="about__initials">AK</span>
+      </div>
+      <span class="about__badge">Founder · 2014</span>
+    </div>
+
+    <div class="about__text" data-reveal="fade-right" data-reveal-delay="0.1">
+      <p class="about__label">— {t('about_preview.label')}</p>
+      <h2 class="about__title text-balance">{t('about_preview.title')}</h2>
+      <p class="about__body">{t('about_preview.body')}</p>
+
+      <a href={getLocalizedPath('about', lang)} class="about__cta">
+        {t('about_preview.cta')}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .about__inner {
+      grid-template-columns: 5fr 7fr;
+    }
+  }
+
+  .about__media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-width: 28rem;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .about__photo {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-2xl);
+    background:
+      radial-gradient(ellipse at 30% 20%, color-mix(in oklch, var(--accent) 25%, var(--bg-tertiary)) 0%, var(--bg-tertiary) 60%),
+      var(--bg-tertiary);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .about__photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    pointer-events: none;
+  }
+  .about__initials {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 12vw, 9rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .about__badge {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.5rem 0.875rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+  }
+
+  .about__text {
+    max-width: 36rem;
+  }
+  .about__label {
+    font-size: 0.875rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .about__title {
+    font-size: var(--text-4xl);
+    margin-bottom: 1.25rem;
+    line-height: 1.1;
+  }
+  .about__body {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  .about__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 1rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid color-mix(in oklch, var(--accent) 40%, transparent);
+    transition: gap var(--duration-base) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+  .about__cta:hover {
+    gap: 0.75rem;
+    border-bottom-color: var(--accent);
+  }
+</style>

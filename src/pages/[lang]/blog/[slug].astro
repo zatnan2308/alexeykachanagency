@@ -1,0 +1,56 @@
+---
+/**
+ * Blog post detail — non-default locales: /<lang>/blog/<slug>/
+ *
+ * For each post slug × each language, generates a page with the best language match
+ * (current lang → EN fallback). Renders BlogPost with isFallback=true if showing EN
+ * content for a non-EN URL — adds a notice in the UI.
+ */
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogPost from '@/components/templates/BlogPost.astro';
+import { LANGUAGES, DEFAULT_LANGUAGE, type Language } from '@/i18n/slugs';
+
+export async function getStaticPaths() {
+  const all = await getCollection('blog', ({ data }) => !data.draft);
+
+  // Group by post slug — collect all language variants
+  const bySlug = new Map<string, CollectionEntry<'blog'>[]>();
+  for (const entry of all) {
+    const [s] = entry.id.split('/');
+    if (!bySlug.has(s)) bySlug.set(s, []);
+    bySlug.get(s)!.push(entry);
+  }
+
+  const paths: Array<{ params: { lang: Language; slug: string }; props: { post: CollectionEntry<'blog'>; slug: string; isFallback: boolean } }> = [];
+
+  for (const lang of LANGUAGES) {
+    if (lang === DEFAULT_LANGUAGE) continue; // EN handled by /pages/blog/[slug].astro
+
+    for (const [slug, variants] of bySlug.entries()) {
+      const exact = variants.find((v) => v.data.lang === lang);
+      const en    = variants.find((v) => v.data.lang === 'en');
+      const post  = exact ?? en ?? variants[0];
+
+      paths.push({
+        params: { lang, slug },
+        props: { post, slug, isFallback: !exact },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { post, slug, isFallback } = Astro.props as { post: CollectionEntry<'blog'>; slug: string; isFallback: boolean };
+const { lang } = Astro.params as { lang: Language };
+---
+
+<BaseLayout
+  pageKey="blog"
+  title={post.data.seoTitle ?? `${post.data.title} — Alexey Kachan Agency`}
+  description={post.data.seoDescription ?? post.data.description}
+  ogType="article"
+>
+  <BlogPost lang={lang} post={post} isFallback={isFallback} postSlug={slug} />
+</BaseLayout>

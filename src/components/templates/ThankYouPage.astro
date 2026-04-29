@@ -1,0 +1,157 @@
+---
+/**
+ * ThankYouPage — /thank-you/ (and localized variants).
+ * Shown after a form submission. noindex via BaseLayout prop.
+ */
+import { getTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const all = getTranslations(lang) as any;
+const enAll = getTranslations('en') as any;
+const data = all?.thank_you_page ?? enAll.thank_you_page;
+const homeHref = getLocalizedPath('home', lang);
+---
+
+<section class="ty">
+  <div class="container-x ty__inner">
+    <span class="ty__icon" aria-hidden="true">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.75"/>
+        <path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <p class="ty__kicker" data-reveal>— {data.kicker}</p>
+    <h1 class="ty__h1 text-balance" data-reveal data-reveal-delay="0.1">{data.h1}</h1>
+    <p class="ty__lead" data-reveal data-reveal-delay="0.2">{data.lead}</p>
+
+    <div class="ty__steps" data-reveal data-reveal-delay="0.3">
+      <p class="ty__steps-label">— {data.next_steps_title}</p>
+      <p class="ty__steps-sub">{data.next_steps_subtitle}</p>
+      <ul class="ty__steps-list" data-reveal-stagger data-stagger-interval="0.08">
+        {data.steps.map((s: any) => (
+          <li>
+            <a href={getLocalizedPath(s.key, lang)} class="ty__step">
+              <span class="ty__step-title">{s.title}</span>
+              <span class="ty__step-body">{s.body}</span>
+              <span class="ty__step-cta">
+                {s.cta}
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <a href={homeHref} class="ty__home">
+      {data.back_home}
+    </a>
+  </div>
+</section>
+
+<style>
+  .ty {
+    min-height: 100svh;
+    padding-top: calc(var(--header-height) + clamp(3rem, 8vw, 6rem));
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .ty::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, color-mix(in oklch, var(--success) 10%, transparent), transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .ty__inner { max-width: 56rem; text-align: center; margin-inline: auto; }
+
+  .ty__icon {
+    display: inline-flex;
+    width: 80px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in oklch, var(--success) 14%, transparent);
+    border: 1px solid color-mix(in oklch, var(--success) 30%, transparent);
+    border-radius: 50%;
+    color: var(--success);
+    margin-bottom: 2rem;
+  }
+  .ty__kicker { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1.25rem; }
+  .ty__h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-5xl);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.5rem;
+  }
+  .ty__lead {
+    font-size: clamp(1.0625rem, 0.95rem + 0.5vw, 1.25rem);
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 4rem;
+    max-width: 42rem;
+    margin-inline: auto;
+  }
+
+  .ty__steps {
+    text-align: left;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: 2.5rem;
+  }
+  .ty__steps-label { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+  .ty__steps-sub { color: var(--text-secondary); font-size: 1rem; margin-bottom: 1.75rem; }
+  .ty__steps-list {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: 1fr; gap: 0.875rem;
+  }
+  @media (min-width: 768px) { .ty__steps-list { grid-template-columns: repeat(3, 1fr); } }
+
+  .ty__step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: inherit;
+    height: 100%;
+    transition: border-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .ty__step:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .ty__step-title { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 600; color: var(--text-primary); letter-spacing: -0.015em; }
+  .ty__step-body { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.45; flex: 1; }
+  .ty__step-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--accent);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+
+  .ty__home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-bottom: 1px dotted var(--border-strong);
+    padding-bottom: 0.25rem;
+    transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+  .ty__home:hover { color: var(--accent); border-bottom-color: var(--accent); }
+</style>

@@ -1,0 +1,335 @@
+---
+/**
+ * ServicesHub — /services/ overview page (and its localized equivalents).
+ * Used by both [...slug].astro (EN) and [lang]/[...slug].astro (other locales) when pageKey === 'services'.
+ */
+import { useTranslations, getTranslations, getLocalizedPath, formatCurrency, type Language } from '@/i18n/utils';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const all = getTranslations(lang) as any;
+const enAll = getTranslations('en') as any;
+const hub = all?.services_pages?.hub ?? enAll.services_pages.hub;
+const servicesPages = all?.services_pages ?? enAll.services_pages;
+
+// Service slug keys — must match en.json keys
+const SERVICES = ['website_development', 'site_design', 'site_redesign', 'site_analytics', 'setting_up_ads', 'site_support'] as const;
+
+// pageKey mapping: en.json key → slugs.ts key
+const pageKeyMap: Record<typeof SERVICES[number], string> = {
+  website_development: 'services.website-development',
+  site_design:         'services.site-design',
+  site_redesign:       'services.site-redesign',
+  site_analytics:      'services.site-analytics',
+  setting_up_ads:      'services.setting-up-ads',
+  site_support:        'services.site-support',
+};
+
+// Build comparison rows
+const compareRows = SERVICES.map((key) => {
+  const data = servicesPages[key] ?? enAll.services_pages[key];
+  const tier1 = data.tiers[0];
+  return {
+    key,
+    href: getLocalizedPath(pageKeyMap[key], lang),
+    name: data.hero.kicker,
+    bestFor: data.hero.lead.split('—')[0]?.trim() ?? data.hero.lead.slice(0, 80),
+    timeline: tier1.timeline,
+    startsAt: tier1.price ? formatCurrency(tier1.price, lang, 'USD') : t('services_pages.common.tier_custom'),
+  };
+});
+
+const ctaContacts = getLocalizedPath('contacts', lang);
+---
+
+<Breadcrumb lang={lang} items={[{ name: t('page_titles.services') }]} visualHidden={true} />
+
+{/* Hero */}
+<section class="svc-hub-hero bg-grain">
+  <div class="container-x svc-hub-hero__inner">
+    <p class="svc-hub-hero__kicker" data-reveal>— {hub.kicker}</p>
+    <h1 class="svc-hub-hero__h1 text-balance" data-reveal data-reveal-delay="0.1">{hub.h1}</h1>
+    <p class="svc-hub-hero__lead" data-reveal data-reveal-delay="0.2">{hub.lead}</p>
+    <div class="svc-hub-hero__ctas" data-reveal data-reveal-delay="0.3">
+      <a href={ctaContacts} class="svc-hub-hero__cta svc-hub-hero__cta--primary" data-magnetic data-magnetic-strength="0.35">
+        <span>{hub.primary_cta}</span>
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href={ctaContacts} class="svc-hub-hero__cta svc-hub-hero__cta--ghost">{hub.secondary_cta}</a>
+    </div>
+  </div>
+</section>
+
+{/* Categories */}
+<section class="svc-hub-cat section-y">
+  <div class="container-x">
+    <header class="svc-hub-cat__header" data-reveal>
+      <p class="svc-hub-cat__label">— {hub.categories_label}</p>
+    </header>
+
+    <div class="svc-hub-cat__grid" data-reveal-stagger data-stagger-interval="0.1">
+      {hub.categories.map((cat: any) => (
+        <article class="svc-hub-cat__card">
+          <header class="svc-hub-cat__card-head">
+            <h2 class="svc-hub-cat__card-name">{cat.name}</h2>
+            <p class="svc-hub-cat__card-desc">{cat.description}</p>
+          </header>
+          <ul class="svc-hub-cat__card-list">
+            {cat.services.map((sk: typeof SERVICES[number]) => {
+              const data = servicesPages[sk] ?? enAll.services_pages[sk];
+              return (
+                <li>
+                  <a href={getLocalizedPath(pageKeyMap[sk], lang)} class="svc-hub-cat__card-link">
+                    <span class="svc-hub-cat__card-link-name">{data.hero.kicker}</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Compare table */}
+<section class="svc-hub-compare section-y">
+  <div class="container-x">
+    <header class="svc-hub-compare__header" data-reveal>
+      <p class="svc-hub-compare__label">— {hub.compare_label}</p>
+      <h2 class="svc-hub-compare__title text-balance">{hub.compare_title}</h2>
+      <p class="svc-hub-compare__sub">{hub.compare_subtitle}</p>
+    </header>
+
+    <div class="svc-hub-compare__table-wrap" data-reveal>
+      <table class="svc-hub-compare__table">
+        <thead>
+          <tr>
+            {hub.compare_columns.map((col: string) => <th scope="col">{col}</th>)}
+            <th scope="col" class="sr-only">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {compareRows.map((row) => (
+            <tr>
+              <th scope="row">
+                <a href={row.href} class="svc-hub-compare__service">{row.name}</a>
+              </th>
+              <td>{row.bestFor}</td>
+              <td>{row.timeline}</td>
+              <td><strong>{row.startsAt}</strong></td>
+              <td class="svc-hub-compare__action-cell">
+                <a href={row.href} class="svc-hub-compare__action" aria-label={`Learn more about ${row.name}`}>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{/* Final CTA */}
+<section class="svc-hub-cta section-y">
+  <div class="container-x">
+    <div class="svc-hub-cta__card" data-reveal="scale">
+      <h2 class="svc-hub-cta__title text-balance">{t('services_pages.common.final_cta_title')}</h2>
+      <p class="svc-hub-cta__sub">{t('services_pages.common.final_cta_subtitle')}</p>
+      <a href={ctaContacts} class="svc-hub-cta__btn" data-magnetic data-magnetic-strength="0.4">
+        <span>{t('cta.start_project')}</span>
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hero */
+  .svc-hub-hero {
+    position: relative;
+    padding-top: calc(var(--header-height) + clamp(3rem, 8vw, 6rem));
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    overflow: hidden;
+  }
+  .svc-hub-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, color-mix(in oklch, var(--accent) 8%, transparent), transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .svc-hub-hero__inner { max-width: 56rem; }
+  .svc-hub-hero__kicker {
+    font-size: 0.875rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .svc-hub-hero__h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-6xl);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.5rem;
+  }
+  .svc-hub-hero__lead {
+    font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.375rem);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
+    max-width: 44rem;
+  }
+  .svc-hub-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+  }
+  .svc-hub-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out);
+  }
+  .svc-hub-hero__cta--primary { background: var(--accent); color: var(--accent-text); }
+  .svc-hub-hero__cta--primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+  .svc-hub-hero__cta--ghost { border: 1px solid var(--border-strong); color: var(--text-primary); }
+  .svc-hub-hero__cta--ghost:hover { background: var(--bg-secondary); border-color: var(--text-secondary); }
+
+  /* Categories */
+  .svc-hub-cat__header { margin-bottom: clamp(2.5rem, 4vw, 4rem); }
+  .svc-hub-cat__label { font-size: 0.875rem; color: var(--accent); font-weight: 500; }
+  .svc-hub-cat__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) { .svc-hub-cat__grid { grid-template-columns: repeat(3, 1fr); } }
+  .svc-hub-cat__card {
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: border-color var(--duration-base) var(--ease-out);
+  }
+  .svc-hub-cat__card:hover { border-color: var(--border-strong); }
+  .svc-hub-cat__card-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .svc-hub-cat__card-desc { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.5; }
+  .svc-hub-cat__card-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.25rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+  .svc-hub-cat__card-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 0;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: color var(--duration-fast) var(--ease-out), padding-left var(--duration-base) var(--ease-out);
+  }
+  .svc-hub-cat__card-link:hover { color: var(--accent); padding-left: 0.5rem; }
+
+  /* Compare */
+  .svc-hub-compare {
+    background: var(--bg-secondary);
+    border-block: 1px solid var(--border);
+  }
+  .svc-hub-compare__header { max-width: 48rem; margin-bottom: clamp(2rem, 3vw, 3rem); }
+  .svc-hub-compare__label { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .svc-hub-compare__title { font-size: var(--text-4xl); margin-bottom: 0.875rem; }
+  .svc-hub-compare__sub { color: var(--text-secondary); font-size: 1rem; line-height: 1.55; }
+  .svc-hub-compare__table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-primary); }
+  .svc-hub-compare__table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; min-width: 36rem; }
+  .svc-hub-compare__table thead th {
+    text-align: left;
+    padding: 1rem 1.25rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+  .svc-hub-compare__table tbody tr { border-top: 1px solid var(--border); transition: background-color var(--duration-fast) var(--ease-out); }
+  .svc-hub-compare__table tbody tr:hover { background: var(--bg-secondary); }
+  .svc-hub-compare__table tbody th,
+  .svc-hub-compare__table tbody td { padding: 1rem 1.25rem; text-align: left; }
+  .svc-hub-compare__service { color: var(--text-primary); font-weight: 600; transition: color var(--duration-fast) var(--ease-out); }
+  .svc-hub-compare__service:hover { color: var(--accent); }
+  .svc-hub-compare__table tbody td { color: var(--text-secondary); }
+  .svc-hub-compare__table tbody td strong { color: var(--accent); font-weight: 600; }
+  .svc-hub-compare__action-cell { width: 1%; }
+  .svc-hub-compare__action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+  .svc-hub-compare__action:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Final CTA */
+  .svc-hub-cta__card {
+    padding: clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 4vw, 3.5rem);
+    border-radius: var(--radius-2xl);
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in oklch, var(--accent) 12%, transparent), transparent 70%), var(--bg-secondary);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .svc-hub-cta__title {
+    font-size: var(--text-5xl);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    max-width: 22ch;
+    margin-inline: auto;
+  }
+  .svc-hub-cta__sub {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    max-width: 36rem;
+    margin: 0 auto 2rem;
+    line-height: 1.55;
+  }
+  .svc-hub-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    transition: background-color var(--duration-fast) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .svc-hub-cta__btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+</style>

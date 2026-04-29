@@ -1,0 +1,10 @@
+# Security policy for alexeykachan.com (RFC 9116)
+# Update Expires before this date.
+
+Contact: mailto:security@alexeykachan.com
+Contact: mailto:info@alexeykachan.com
+Contact: https://alexeykachan.com/contacts/
+Expires: 2027-04-29T00:00:00.000Z
+Preferred-Languages: en, de, ru, uk
+Canonical: https://alexeykachan.com/.well-known/security.txt
+Policy: https://alexeykachan.com/privacy-policy/

@@ -1,0 +1,624 @@
+---
+/**
+ * ServiceDetail — single-service page (e.g. /services/website-development/).
+ * Used by [...slug].astro and [lang]/[...slug].astro when pageKey starts with 'services.'.
+ *
+ * Sections:
+ *  1. Hero (kicker, h1, lead, dual CTA)
+ *  2. What's included (6 buckets)
+ *  3. Process (4 steps)
+ *  4. Deliverables (checklist)
+ *  5. Pricing (3 tiers)
+ *  6. Related services (cross-link)
+ *  7. FAQ (with FAQPage JSON-LD)
+ *  8. Final CTA
+ */
+
+import { useTranslations, getTranslations, getLocalizedPath, formatCurrency, type Language } from '@/i18n/utils';
+import { buildServiceSchema, buildFaqSchema, buildBreadcrumb } from '@/lib/schema';
+
+interface Props {
+  lang: Language;
+  /** Key into en.json services_pages, e.g. 'website_development' */
+  serviceKey: string;
+}
+
+const { lang, serviceKey } = Astro.props;
+const t = useTranslations(lang);
+
+const all = getTranslations(lang) as any;
+const enAll = getTranslations('en') as any;
+const data = all?.services_pages?.[serviceKey] ?? enAll.services_pages[serviceKey];
+
+if (!data) {
+  throw new Error(`[ServiceDetail] Unknown service key: ${serviceKey}`);
+}
+
+// Map en.json service keys → slug pageKeys
+const pageKeyMap: Record<string, string> = {
+  website_development: 'services.website-development',
+  site_design:         'services.site-design',
+  site_redesign:       'services.site-redesign',
+  site_analytics:      'services.site-analytics',
+  setting_up_ads:      'services.setting-up-ads',
+  site_support:        'services.site-support',
+};
+
+const ctaContacts = getLocalizedPath('contacts', lang);
+const cases = getLocalizedPath('cases.web-development', lang);
+
+const tiers = data.tiers as Array<{
+  name: string;
+  price: number | null;
+  timeline: string;
+  highlight: boolean;
+  tagline: string;
+  includes: string[];
+}>;
+
+const related = (data.related as string[]).map((rk) => {
+  const rdata = all?.services_pages?.[rk] ?? enAll.services_pages[rk];
+  return {
+    href: getLocalizedPath(pageKeyMap[rk], lang),
+    title: rdata.hero.kicker,
+    tagline: rdata.hero.lead.split('—')[0]?.trim() ?? rdata.hero.lead.slice(0, 80),
+  };
+});
+
+// JSON-LD: Service + Offer (one per pricing tier) + FAQPage + BreadcrumbList
+const siteOrigin = Astro.site ? Astro.site.origin : 'https://alexeykachan.com';
+const pageUrl    = `${siteOrigin}${getLocalizedPath(pageKeyMap[serviceKey], lang)}`;
+const servicesHubUrl = `${siteOrigin}${getLocalizedPath('services', lang)}`;
+
+const serviceSchema = buildServiceSchema({
+  serviceName: data.hero.kicker,
+  serviceType: data.hero.kicker,
+  description: data.hero.lead,
+  url: pageUrl,
+  siteOrigin,
+  lang,
+  tiers: tiers.map((tier) => ({
+    name: tier.name,
+    price: tier.price,
+    description: tier.tagline,
+    url: pageUrl,
+  })),
+});
+
+const faqSchema = buildFaqSchema(data.faq);
+
+const breadcrumbSchema = buildBreadcrumb([
+  { name: 'Home',                        url: `${siteOrigin}${getLocalizedPath('home', lang)}` },
+  { name: t('page_titles.services'),     url: servicesHubUrl },
+  { name: data.hero.kicker,              url: pageUrl },
+]);
+---
+
+{/* Service + Offer JSON-LD (rich results: pricing carousel) */}
+<script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />
+{/* FAQPage JSON-LD */}
+<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+{/* BreadcrumbList JSON-LD */}
+<script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+
+{/* 1. Hero */}
+<section class="svc-hero bg-grain">
+  <div class="container-x svc-hero__inner">
+    <p class="svc-hero__kicker" data-reveal>— {data.hero.kicker}</p>
+    <h1 class="svc-hero__h1 text-balance" data-reveal data-reveal-delay="0.1">{data.hero.h1}</h1>
+    <p class="svc-hero__lead" data-reveal data-reveal-delay="0.2">{data.hero.lead}</p>
+    <div class="svc-hero__ctas" data-reveal data-reveal-delay="0.3">
+      <a href={ctaContacts} class="svc-hero__cta svc-hero__cta--primary" data-magnetic data-magnetic-strength="0.35">
+        <span>{data.hero.primary_cta}</span>
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href={cases} class="svc-hero__cta svc-hero__cta--ghost">{data.hero.secondary_cta}</a>
+    </div>
+  </div>
+</section>
+
+{/* 2. What's included */}
+<section class="svc-included section-y">
+  <div class="container-x">
+    <header class="svc-section-head" data-reveal>
+      <p class="svc-section-label">— {t('services_pages.common.whats_included_label')}</p>
+      <h2 class="svc-section-title text-balance">{t('services_pages.common.whats_included_title')}</h2>
+    </header>
+
+    <ul class="svc-included__grid" data-reveal-stagger data-stagger-interval="0.06">
+      {data.included.map((item: { title: string; body: string }, i: number) => (
+        <li class="svc-included__item">
+          <span class="svc-included__num">/{(i + 1).toString().padStart(2, '0')}</span>
+          <h3 class="svc-included__title">{item.title}</h3>
+          <p class="svc-included__body">{item.body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* 3. Process */}
+<section class="svc-process section-y">
+  <div class="container-x">
+    <header class="svc-section-head" data-reveal>
+      <p class="svc-section-label">— {t('services_pages.common.process_label')}</p>
+      <h2 class="svc-section-title text-balance">{t('services_pages.common.process_title')}</h2>
+    </header>
+
+    <ol class="svc-process__list" data-reveal-stagger data-stagger-interval="0.1">
+      {data.process.map((step: { title: string; body: string }, i: number) => (
+        <li class="svc-process__step">
+          <span class="svc-process__num">0{i + 1}</span>
+          <div>
+            <h3 class="svc-process__title">{step.title}</h3>
+            <p class="svc-process__body">{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+{/* 4. Deliverables */}
+<section class="svc-delivers section-y-sm">
+  <div class="container-x">
+    <header class="svc-section-head" data-reveal>
+      <p class="svc-section-label">— {t('services_pages.common.deliverables_label')}</p>
+      <h2 class="svc-section-title text-balance">{t('services_pages.common.deliverables_title')}</h2>
+    </header>
+
+    <ul class="svc-delivers__list" data-reveal-stagger data-stagger-interval="0.05">
+      {data.deliverables.map((d: string) => (
+        <li class="svc-delivers__item">
+          <svg class="svc-delivers__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 10l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>{d}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* 5. Pricing */}
+<section class="svc-pricing section-y">
+  <div class="container-x">
+    <header class="svc-section-head" data-reveal>
+      <p class="svc-section-label">— {t('services_pages.common.pricing_label')}</p>
+      <h2 class="svc-section-title text-balance">{t('services_pages.common.pricing_title')}</h2>
+      <p class="svc-section-sub">{t('services_pages.common.pricing_subtitle')}</p>
+    </header>
+
+    <div class="svc-pricing__grid" data-reveal-stagger data-stagger-interval="0.1">
+      {tiers.map((tier) => (
+        <article class={`svc-pricing__tier ${tier.highlight ? 'is-highlight' : ''}`}>
+          {tier.highlight && <span class="svc-pricing__badge">{t('services_pages.common.tier_popular')}</span>}
+          <header class="svc-pricing__head">
+            <h3 class="svc-pricing__name">{tier.name}</h3>
+            <p class="svc-pricing__tagline">{tier.tagline}</p>
+          </header>
+
+          <div class="svc-pricing__price">
+            {tier.price !== null ? (
+              <>
+                <span class="svc-pricing__price-from">{t('services_pages.common.tier_from')}</span>
+                <span class="svc-pricing__price-amount">{formatCurrency(tier.price, lang, 'USD')}</span>
+              </>
+            ) : (
+              <span class="svc-pricing__price-amount svc-pricing__price-amount--custom">{t('services_pages.common.tier_custom')}</span>
+            )}
+            <span class="svc-pricing__timeline">{tier.timeline}</span>
+          </div>
+
+          <p class="svc-pricing__includes-label">{t('services_pages.common.tier_includes')}</p>
+          <ul class="svc-pricing__includes">
+            {tier.includes.map((inc) => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M4 8l3 3 5-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {inc}
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href={ctaContacts}
+            class={`svc-pricing__cta ${tier.highlight ? 'svc-pricing__cta--primary' : 'svc-pricing__cta--ghost'}`}
+            data-magnetic={tier.highlight ? '' : null}
+            data-magnetic-strength="0.25"
+          >
+            <span>{tier.price !== null ? t('services_pages.common.tier_cta_fixed') : t('services_pages.common.tier_cta_custom')}</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* 6. Related services */}
+<section class="svc-related section-y">
+  <div class="container-x">
+    <header class="svc-section-head" data-reveal>
+      <p class="svc-section-label">— {t('services_pages.common.related_label')}</p>
+      <h2 class="svc-section-title text-balance">{t('services_pages.common.related_title')}</h2>
+    </header>
+
+    <ul class="svc-related__grid" data-reveal-stagger data-stagger-interval="0.08">
+      {related.map((r) => (
+        <li>
+          <a href={r.href} class="svc-related__card">
+            <span class="svc-related__name">{r.title}</span>
+            <p class="svc-related__tagline">{r.tagline}</p>
+            <span class="svc-related__arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* 7. FAQ */}
+<section class="svc-faq section-y">
+  <div class="container-x svc-faq__inner">
+    <header class="svc-faq__header" data-reveal>
+      <p class="svc-section-label">— {t('services_pages.common.faq_label')}</p>
+      <h2 class="svc-section-title text-balance">{t('services_pages.common.faq_title')}</h2>
+    </header>
+
+    <ul class="svc-faq__list" data-reveal-stagger data-stagger-interval="0.06">
+      {data.faq.map((it: { question: string; answer: string }, i: number) => (
+        <li>
+          <details class="svc-faq__details" name="svc-faq" {...(i === 0 ? { open: true } : {})}>
+            <summary class="svc-faq__summary">
+              <span class="svc-faq__q">{it.question}</span>
+              <span class="svc-faq__icon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </summary>
+            <p class="svc-faq__a">{it.answer}</p>
+          </details>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* 8. Final CTA */}
+<section class="svc-cta section-y">
+  <div class="container-x">
+    <div class="svc-cta__card" data-reveal="scale">
+      <h2 class="svc-cta__title text-balance">{t('services_pages.common.final_cta_title')}</h2>
+      <p class="svc-cta__sub">{t('services_pages.common.final_cta_subtitle')}</p>
+      <a href={ctaContacts} class="svc-cta__btn" data-magnetic data-magnetic-strength="0.4">
+        <span>{t('cta.start_project')}</span>
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Shared section-head */
+  .svc-section-head { max-width: 48rem; margin-bottom: clamp(2.5rem, 4vw, 4rem); }
+  .svc-section-label { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .svc-section-title { font-size: var(--text-5xl); margin-bottom: 1rem; }
+  .svc-section-sub { color: var(--text-secondary); font-size: 1.0625rem; line-height: 1.55; }
+
+  /* 1. Hero */
+  .svc-hero {
+    position: relative;
+    padding-top: calc(var(--header-height) + clamp(3rem, 8vw, 6rem));
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    overflow: hidden;
+  }
+  .svc-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 0%, color-mix(in oklch, var(--accent) 7%, transparent), transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .svc-hero__inner { max-width: 56rem; }
+  .svc-hero__kicker { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1.5rem; }
+  .svc-hero__h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-6xl);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.5rem;
+  }
+  .svc-hero__lead { font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.375rem); color: var(--text-secondary); line-height: 1.5; margin-bottom: 2.5rem; max-width: 44rem; }
+  .svc-hero__ctas { display: flex; flex-wrap: wrap; gap: 0.875rem; }
+  .svc-hero__cta {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.875rem 1.5rem; border-radius: var(--radius-full);
+    font-weight: 600; font-size: 1rem;
+    transition: background-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out);
+  }
+  .svc-hero__cta--primary { background: var(--accent); color: var(--accent-text); }
+  .svc-hero__cta--primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+  .svc-hero__cta--ghost { border: 1px solid var(--border-strong); color: var(--text-primary); }
+  .svc-hero__cta--ghost:hover { background: var(--bg-secondary); border-color: var(--text-secondary); }
+
+  /* 2. Included */
+  .svc-included__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  @media (min-width: 640px) { .svc-included__grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .svc-included__grid { grid-template-columns: repeat(3, 1fr); } }
+  .svc-included__item {
+    background: var(--bg-primary);
+    padding: 2rem;
+    transition: background-color var(--duration-base) var(--ease-out);
+  }
+  .svc-included__item:hover { background: var(--bg-secondary); }
+  .svc-included__num { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--accent); margin-bottom: 1rem; display: inline-block; }
+  .svc-included__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.625rem;
+    letter-spacing: -0.015em;
+  }
+  .svc-included__body { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.55; }
+
+  /* 3. Process */
+  .svc-process { background: var(--bg-secondary); border-block: 1px solid var(--border); }
+  .svc-process__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .svc-process__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem 1.5rem;
+    background: var(--bg-secondary);
+    transition: background-color var(--duration-base) var(--ease-out);
+  }
+  @media (min-width: 768px) {
+    .svc-process__step { padding: 2.25rem 2rem; gap: 2.5rem; grid-template-columns: 6rem 1fr; }
+  }
+  .svc-process__step:hover { background: var(--bg-tertiary); }
+  .svc-process__num { font-family: var(--font-mono); font-size: 0.875rem; color: var(--accent); letter-spacing: 0.1em; }
+  .svc-process__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+  }
+  .svc-process__body { color: var(--text-secondary); font-size: 1rem; line-height: 1.55; }
+
+  /* 4. Deliverables */
+  .svc-delivers__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    max-width: 48rem;
+  }
+  @media (min-width: 768px) { .svc-delivers__list { grid-template-columns: 1fr 1fr; gap: 1rem 2rem; max-width: none; } }
+  .svc-delivers__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    padding: 0.875rem 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.4;
+    border-bottom: 1px solid var(--border);
+  }
+  .svc-delivers__icon { flex-shrink: 0; color: var(--accent); margin-top: 0.125rem; }
+
+  /* 5. Pricing */
+  .svc-pricing__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  @media (min-width: 768px) { .svc-pricing__grid { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
+  .svc-pricing__tier {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .svc-pricing__tier:hover { border-color: var(--border-strong); }
+  .svc-pricing__tier.is-highlight {
+    background: var(--bg-tertiary);
+    border-color: var(--accent);
+    box-shadow: 0 12px 32px -16px color-mix(in oklch, var(--accent) 25%, transparent);
+  }
+  .svc-pricing__tier.is-highlight:hover { transform: translateY(-4px); }
+  .svc-pricing__badge {
+    position: absolute;
+    top: -0.625rem;
+    left: 1.75rem;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-full);
+  }
+  .svc-pricing__name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+  .svc-pricing__tagline { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.45; min-height: 2.6em; margin-bottom: 1.5rem; }
+
+  .svc-pricing__price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .svc-pricing__price-from { color: var(--text-muted); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .svc-pricing__price-amount { font-family: var(--font-display); font-size: 2.25rem; font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1; }
+  .svc-pricing__price-amount--custom { color: var(--accent); font-size: 1.75rem; }
+  .svc-pricing__timeline { color: var(--text-muted); font-size: 0.8125rem; flex-basis: 100%; }
+
+  .svc-pricing__includes-label { color: var(--text-muted); font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.875rem; }
+  .svc-pricing__includes { list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-direction: column; gap: 0.625rem; flex: 1; }
+  .svc-pricing__includes li { display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-primary); font-size: 0.9375rem; line-height: 1.4; }
+  .svc-pricing__includes svg { color: var(--accent); margin-top: 0.25rem; flex-shrink: 0; }
+
+  .svc-pricing__cta {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.75rem 1.25rem; border-radius: var(--radius-full); font-weight: 600; font-size: 0.9375rem;
+    transition: background-color var(--duration-fast) var(--ease-out), transform var(--duration-base) var(--ease-out), border-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+  }
+  .svc-pricing__cta--primary { background: var(--accent); color: var(--accent-text); }
+  .svc-pricing__cta--primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+  .svc-pricing__cta--ghost { background: transparent; color: var(--text-primary); border: 1px solid var(--border-strong); }
+  .svc-pricing__cta--ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* 6. Related */
+  .svc-related { background: var(--bg-secondary); border-block: 1px solid var(--border); }
+  .svc-related__grid {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: 1fr; gap: 1rem;
+  }
+  @media (min-width: 768px) { .svc-related__grid { grid-template-columns: 1fr 1fr; } }
+  .svc-related__card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 1.5rem;
+    padding: 2rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    color: inherit;
+    transition: border-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .svc-related__card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .svc-related__name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+  }
+  .svc-related__tagline { grid-column: 1; color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.45; }
+  .svc-related__arrow { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--text-muted); transition: color var(--duration-fast) var(--ease-out), transform var(--duration-base) var(--ease-out); }
+  .svc-related__card:hover .svc-related__arrow { color: var(--accent); transform: translate(2px, -2px); }
+
+  /* 7. FAQ */
+  .svc-faq__inner {
+    display: grid; grid-template-columns: 1fr; gap: clamp(2rem, 4vw, 4rem);
+  }
+  @media (min-width: 1024px) {
+    .svc-faq__inner { grid-template-columns: 5fr 7fr; align-items: start; }
+    .svc-faq__header { position: sticky; top: calc(var(--header-height) + 1rem); }
+  }
+  .svc-faq__list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); }
+  .svc-faq__list > li { border-bottom: 1px solid var(--border); }
+  .svc-faq__details { width: 100%; }
+  .svc-faq__summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding: 1.5rem 0; cursor: pointer; list-style: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  .svc-faq__summary::-webkit-details-marker { display: none; }
+  .svc-faq__q {
+    font-family: var(--font-display);
+    font-size: clamp(1.125rem, 1rem + 0.4vw, 1.25rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  .svc-faq__summary:hover .svc-faq__q { color: var(--accent); }
+  .svc-faq__icon {
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    border: 1px solid var(--border); border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    transition: transform var(--duration-base) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+  .svc-faq__details[open] .svc-faq__icon { transform: rotate(45deg); color: var(--accent); border-color: var(--accent); }
+  .svc-faq__a { padding: 0 0 1.5rem; color: var(--text-secondary); font-size: 1rem; line-height: 1.6; max-width: 38rem; }
+
+  /* 8. CTA */
+  .svc-cta__card {
+    padding: clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 4vw, 3.5rem);
+    border-radius: var(--radius-2xl);
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in oklch, var(--accent) 14%, transparent), transparent 70%), var(--bg-secondary);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .svc-cta__title {
+    font-size: var(--text-5xl);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    max-width: 22ch;
+    margin-inline: auto;
+  }
+  .svc-cta__sub {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    max-width: 36rem;
+    margin: 0 auto 2rem;
+    line-height: 1.55;
+  }
+  .svc-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    transition: background-color var(--duration-fast) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .svc-cta__btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+</style>

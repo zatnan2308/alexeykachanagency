@@ -1,0 +1,24 @@
+---
+/**
+ * Homepage — English (default locale, no /en/ prefix).
+ * URL: /
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HomeContent from '@/components/sections/HomeContent.astro';
+import { useTranslations } from '@/i18n/utils';
+
+const lang = 'en' as const;
+const t = useTranslations(lang);
+
+const title = `${t('page_titles.home')} — Alexey Kachan Agency`;
+const description = t('hero.subtitle');
+---
+
+<BaseLayout
+  pageKey="home"
+  title={title}
+  description={description}
+  ogType="website"
+>
+  <HomeContent lang={lang} />
+</BaseLayout>

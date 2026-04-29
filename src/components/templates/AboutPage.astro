@@ -1,0 +1,401 @@
+---
+/**
+ * AboutPage — /about/ and localized equivalents.
+ * Sections: hero → person card → story (3 paragraphs) → credentials (4 metric cards)
+ *           → values (5 anti-patterns) → tools (6 stack groups) → final CTA.
+ * JSON-LD: Person + ProfilePage (extends Organization which is already global).
+ */
+import { useTranslations, getTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+
+interface Props { lang: Language }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const all = getTranslations(lang) as any;
+const enAll = getTranslations('en') as any;
+const data = all?.about_page ?? enAll.about_page;
+
+const ctaContacts = getLocalizedPath('contacts', lang);
+const ctaBlog = getLocalizedPath('blog', lang);
+
+const siteOrigin = Astro.site ? Astro.site.origin : 'https://alexeykachan.com';
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${siteOrigin}/about/#person`,
+  name: data.person.name,
+  jobTitle: data.person.role,
+  description: data.person.bio_short,
+  url: `${siteOrigin}/about/`,
+  image: `${siteOrigin}/alexey-kachan.jpg`,
+  sameAs: [data.person.linkedin, data.person.twitter],
+  worksFor: { '@id': `${siteOrigin}/#organization` },
+  knowsAbout: ['Web Development', 'SEO', 'Paid Advertising', 'Web Design'],
+  knowsLanguage: ['English', 'Ukrainian', 'Russian', 'German'],
+};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)} />
+
+<Breadcrumb lang={lang} items={[{ name: t('page_titles.about') }]} visualHidden={true} />
+
+{/* Hero */}
+<section class="about-hero bg-grain">
+  <div class="container-x about-hero__inner">
+    <p class="about-hero__kicker" data-reveal>— {data.kicker}</p>
+    <h1 class="about-hero__h1 text-balance" data-reveal data-reveal-delay="0.1">{data.h1}</h1>
+    <p class="about-hero__lead" data-reveal data-reveal-delay="0.2">{data.lead}</p>
+    <div class="about-hero__ctas" data-reveal data-reveal-delay="0.3">
+      <a href={ctaContacts} class="about-hero__cta about-hero__cta--primary" data-magnetic data-magnetic-strength="0.35">
+        <span>{data.primary_cta}</span>
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href={ctaBlog} class="about-hero__cta about-hero__cta--ghost">{data.secondary_cta}</a>
+    </div>
+  </div>
+</section>
+
+{/* Person card */}
+<section class="about-person section-y-sm">
+  <div class="container-x">
+    <div class="about-person__card" data-reveal>
+      <div class="about-person__avatar" aria-hidden="true">
+        <span>AK</span>
+      </div>
+      <div class="about-person__body">
+        <p class="about-person__name">{data.person.name}</p>
+        <p class="about-person__role">{data.person.role}</p>
+        <p class="about-person__bio">{data.person.bio_short}</p>
+        <dl class="about-person__facts">
+          <div><dt>Location</dt><dd>{data.person.location}</dd></div>
+          <div><dt>{data.person.languages_label}</dt><dd>{data.person.languages}</dd></div>
+        </dl>
+        <div class="about-person__links">
+          <a href={data.person.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href={data.person.twitter} target="_blank" rel="noopener noreferrer">Twitter</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Story */}
+<section class="about-story section-y">
+  <div class="container-x about-story__inner">
+    <header class="about-story__head" data-reveal>
+      <p class="about-story__label">— {data.story.label}</p>
+      <h2 class="about-story__title text-balance">{data.story.title}</h2>
+    </header>
+    <div class="about-story__body" data-reveal-stagger data-stagger-interval="0.08">
+      <p>{data.story.body_1}</p>
+      <p>{data.story.body_2}</p>
+      <p>{data.story.body_3}</p>
+    </div>
+  </div>
+</section>
+
+{/* Credentials */}
+<section class="about-creds section-y">
+  <div class="container-x">
+    <header class="about-creds__head" data-reveal>
+      <p class="about-creds__label">— {data.credentials.label}</p>
+      <h2 class="about-creds__title text-balance">{data.credentials.title}</h2>
+    </header>
+    <ul class="about-creds__grid" data-reveal-stagger data-stagger-interval="0.08">
+      {data.credentials.items.map((it: any) => (
+        <li class="about-creds__item">
+          <p class="about-creds__metric">{it.metric}</p>
+          <p class="about-creds__metric-label">{it.label}</p>
+          <p class="about-creds__metric-body">{it.body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* Values */}
+<section class="about-vals section-y">
+  <div class="container-x">
+    <header class="about-vals__head" data-reveal>
+      <p class="about-vals__label">— {data.values.label}</p>
+      <h2 class="about-vals__title text-balance">{data.values.title}</h2>
+    </header>
+    <ul class="about-vals__list" data-reveal-stagger data-stagger-interval="0.06">
+      {data.values.items.map((it: any, i: number) => (
+        <li class="about-vals__item">
+          <span class="about-vals__num">/{(i + 1).toString().padStart(2, '0')}</span>
+          <div>
+            <h3 class="about-vals__item-title">{it.title}</h3>
+            <p class="about-vals__item-body">{it.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* Tools */}
+<section class="about-tools section-y">
+  <div class="container-x">
+    <header class="about-tools__head" data-reveal>
+      <p class="about-tools__label">— {data.tools.label}</p>
+      <h2 class="about-tools__title text-balance">{data.tools.title}</h2>
+    </header>
+    <ul class="about-tools__grid" data-reveal-stagger data-stagger-interval="0.06">
+      {data.tools.groups.map((g: any) => (
+        <li class="about-tools__group">
+          <p class="about-tools__group-name">{g.name}</p>
+          <ul class="about-tools__items">
+            {g.items.map((tool: string) => <li>{tool}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* CTA */}
+<section class="about-cta section-y">
+  <div class="container-x">
+    <div class="about-cta__card" data-reveal="scale">
+      <h2 class="about-cta__title text-balance">Want this kind of accountability on your project?</h2>
+      <p class="about-cta__sub">{t('final_cta.subtitle')}</p>
+      <a href={ctaContacts} class="about-cta__btn" data-magnetic data-magnetic-strength="0.4">
+        <span>{t('cta.start_project')}</span>
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hero */
+  .about-hero {
+    position: relative;
+    padding-top: calc(var(--header-height) + clamp(3rem, 8vw, 6rem));
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+    overflow: hidden;
+  }
+  .about-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, color-mix(in oklch, var(--accent) 8%, transparent), transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .about-hero__inner { max-width: 56rem; }
+  .about-hero__kicker { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1.5rem; }
+  .about-hero__h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-6xl);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.5rem;
+  }
+  .about-hero__lead {
+    font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.375rem);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
+    max-width: 48rem;
+  }
+  .about-hero__ctas { display: flex; flex-wrap: wrap; gap: 0.875rem; }
+  .about-hero__cta {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.875rem 1.5rem; border-radius: var(--radius-full);
+    font-weight: 600; font-size: 1rem;
+    transition: background-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out);
+  }
+  .about-hero__cta--primary { background: var(--accent); color: var(--accent-text); }
+  .about-hero__cta--primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+  .about-hero__cta--ghost { border: 1px solid var(--border-strong); color: var(--text-primary); }
+  .about-hero__cta--ghost:hover { background: var(--bg-secondary); border-color: var(--text-secondary); }
+
+  /* Person */
+  .about-person__card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+  }
+  @media (min-width: 768px) {
+    .about-person__card { grid-template-columns: auto 1fr; gap: 3rem; padding: 2.5rem; align-items: center; }
+  }
+  .about-person__avatar {
+    width: clamp(8rem, 15vw, 12rem);
+    aspect-ratio: 1;
+    border-radius: var(--radius-2xl);
+    background: radial-gradient(ellipse at 30% 20%, color-mix(in oklch, var(--accent) 22%, var(--bg-tertiary)) 0%, var(--bg-tertiary) 65%);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.04em;
+  }
+  .about-person__name { font-family: var(--font-display); font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 0.25rem; }
+  .about-person__role { color: var(--accent); font-weight: 500; margin-bottom: 1rem; font-size: 0.9375rem; }
+  .about-person__bio { color: var(--text-secondary); font-size: 1rem; line-height: 1.55; margin-bottom: 1.5rem; max-width: 36rem; }
+  .about-person__facts { display: grid; grid-template-columns: 1fr; gap: 0.75rem; padding: 1rem 0; border-block: 1px solid var(--border); margin-bottom: 1.25rem; }
+  @media (min-width: 540px) { .about-person__facts { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
+  .about-person__facts dt { font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.25rem; }
+  .about-person__facts dd { color: var(--text-primary); font-size: 0.9375rem; }
+  .about-person__links { display: flex; gap: 1.25rem; }
+  .about-person__links a { color: var(--accent); font-size: 0.9375rem; font-weight: 500; border-bottom: 1px dotted color-mix(in oklch, var(--accent) 40%, transparent); transition: border-color var(--duration-fast) var(--ease-out); }
+  .about-person__links a:hover { border-bottom-color: var(--accent); }
+
+  /* Story */
+  .about-story__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+  @media (min-width: 1024px) { .about-story__inner { grid-template-columns: 5fr 7fr; } }
+  .about-story__label { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .about-story__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.875rem, 1.4rem + 1.7vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+  .about-story__body { display: flex; flex-direction: column; gap: 1.5rem; max-width: 38rem; }
+  .about-story__body p { color: var(--text-secondary); font-size: 1.0625rem; line-height: 1.7; }
+
+  /* Credentials */
+  .about-creds { background: var(--bg-secondary); border-block: 1px solid var(--border); }
+  .about-creds__head { max-width: 48rem; margin-bottom: clamp(2.5rem, 4vw, 3rem); }
+  .about-creds__label { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .about-creds__title { font-size: var(--text-4xl); }
+  .about-creds__grid {
+    display: grid; grid-template-columns: 1fr; gap: 0;
+    border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+    list-style: none; padding: 0; margin: 0;
+  }
+  @media (min-width: 768px) { .about-creds__grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .about-creds__grid { grid-template-columns: repeat(4, 1fr); } }
+  .about-creds__item {
+    padding: 2rem;
+    background: var(--bg-primary);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background-color var(--duration-base) var(--ease-out);
+  }
+  .about-creds__item:hover { background: var(--bg-tertiary); }
+  .about-creds__item:last-child { border-right: none; border-bottom: none; }
+  .about-creds__metric {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.4rem + 2vw, 2.75rem);
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.625rem;
+  }
+  .about-creds__metric-label { color: var(--text-primary); font-weight: 500; margin-bottom: 0.5rem; font-size: 0.9375rem; }
+  .about-creds__metric-body { color: var(--text-muted); font-size: 0.875rem; line-height: 1.5; }
+
+  /* Values */
+  .about-vals__head { max-width: 48rem; margin-bottom: clamp(2.5rem, 4vw, 3rem); }
+  .about-vals__label { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .about-vals__title { font-size: var(--text-4xl); }
+  .about-vals__list {
+    list-style: none; padding: 0; margin: 0;
+    border-top: 1px solid var(--border);
+  }
+  .about-vals__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left var(--duration-base) var(--ease-out);
+  }
+  @media (min-width: 768px) { .about-vals__item { grid-template-columns: 6rem 1fr; gap: 2.5rem; padding-block: 2rem; } }
+  .about-vals__item:hover { padding-left: 0.5rem; }
+  .about-vals__num { font-family: var(--font-mono); font-size: 0.875rem; color: var(--accent); letter-spacing: 0.1em; }
+  .about-vals__item-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.015em;
+  }
+  .about-vals__item-body { color: var(--text-secondary); font-size: 1rem; line-height: 1.55; max-width: 42rem; }
+
+  /* Tools */
+  .about-tools { background: var(--bg-secondary); border-block: 1px solid var(--border); }
+  .about-tools__head { max-width: 48rem; margin-bottom: clamp(2rem, 3vw, 3rem); }
+  .about-tools__label { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .about-tools__title { font-size: var(--text-4xl); }
+  .about-tools__grid {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+  }
+  @media (min-width: 768px) { .about-tools__grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .about-tools__grid { grid-template-columns: repeat(3, 1fr); } }
+  .about-tools__group {
+    padding: 1.5rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-base) var(--ease-out);
+  }
+  .about-tools__group:hover { border-color: var(--border-strong); }
+  .about-tools__group-name {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.875rem;
+  }
+  .about-tools__items {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .about-tools__items li {
+    padding: 0.375rem 0.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+  }
+
+  /* CTA */
+  .about-cta__card {
+    padding: clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 4vw, 3.5rem);
+    border-radius: var(--radius-2xl);
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in oklch, var(--accent) 14%, transparent), transparent 70%), var(--bg-secondary);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .about-cta__title {
+    font-size: var(--text-5xl);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    max-width: 22ch;
+    margin-inline: auto;
+  }
+  .about-cta__sub { color: var(--text-secondary); font-size: 1.0625rem; max-width: 36rem; margin: 0 auto 2rem; line-height: 1.55; }
+  .about-cta__btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background: var(--accent); color: var(--accent-text);
+    font-weight: 600; border-radius: var(--radius-full);
+    transition: background-color var(--duration-fast) var(--ease-out), transform var(--duration-base) var(--ease-out);
+  }
+  .about-cta__btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+</style>

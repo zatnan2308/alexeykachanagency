@@ -1,0 +1,708 @@
+{
+  "_meta": {
+    "lang": "fr",
+    "name": "Français",
+    "status": "complete",
+    "last_updated": "2026-04-29"
+  },
+  "common": {
+    "min_read": "min de lecture",
+    "read_more": "Lire la suite",
+    "learn_more": "En savoir plus",
+    "view_all": "Tout voir",
+    "loading": "Chargement…",
+    "back_to_top": "Haut de page",
+    "close": "Fermer",
+    "menu": "Menu",
+    "search": "Rechercher",
+    "scroll_down": "Faire défiler",
+    "page_not_found": "Page introuvable",
+    "go_home": "Retour à l'accueil"
+  },
+  "nav": {
+    "home": "Accueil",
+    "services": "Services",
+    "cases": "Projets",
+    "case_studies": "Études de cas",
+    "web_dev_cases": "Développement web",
+    "marketing_cases": "Marketing",
+    "about": "À propos",
+    "blog": "Journal",
+    "contacts": "Contact"
+  },
+  "cta": {
+    "start_project": "Démarrer un projet",
+    "get_started": "Commencer",
+    "get_quote": "Demander un devis",
+    "get_audit": "Audit gratuit",
+    "see_pricing": "Voir les tarifs",
+    "see_work": "Voir nos projets",
+    "view_case": "Lire l'étude",
+    "all_projects": "Tous les projets",
+    "send_message": "Envoyer le message",
+    "submit": "Envoyer",
+    "subscribe": "S'abonner",
+    "download_brief": "Télécharger le brief",
+    "book_call": "Réserver un échange",
+    "let_talk": "Discutons"
+  },
+  "hero": {
+    "kicker": "Agence digitale indépendante · depuis 2014",
+    "title_line_1": "Faites de votre marque",
+    "title_line_2": "une évidence.",
+    "subtitle": "Développement web, SEO et publicité payante qui transforment votre entreprise en choix évident. Conçu et piloté par Alexey Kachan et son agence.",
+    "primary_cta": "Démarrer un projet",
+    "secondary_cta": "Voir nos projets"
+  },
+  "trust": {
+    "label": "Confiance",
+    "title": "La confiance d'équipes en Europe et Amérique du Nord",
+    "subtitle": "Des fondateurs en bootstrap aux scale-ups dans plus de 12 pays — même soin, mêmes exigences."
+  },
+  "services_section": {
+    "label": "Services",
+    "title": "Des services qui font la différence",
+    "subtitle": "Six disciplines, une stratégie unifiée. Chaque service est pensé pour des résultats mesurables.",
+    "items": {
+      "website_development": { "title": "Développement web", "short": "Sites rapides, sécurisés, orientés conversion — qui vendent vraiment." },
+      "site_redesign": { "title": "Refonte de site", "short": "Moderniser sans perdre le SEO. Une meilleure UX, plus de leads." },
+      "site_support": { "title": "Maintenance", "short": "Maintenance, sécurité, mises à jour — sans tracas." },
+      "setting_up_ads": { "title": "Publicité payante", "short": "Google Ads, Meta, TikTok, LinkedIn — des campagnes qui rapportent." },
+      "site_analytics": { "title": "Référencement SEO", "short": "Une croissance organique prévisible, auditée et conçue avec soin." },
+      "site_design": { "title": "Design web", "short": "Un design fidèle à votre marque qui conclut avant la signature." }
+    }
+  },
+  "selected_work": {
+    "label": "Sélection",
+    "title": "De vrais projets. De vrais chiffres.",
+    "subtitle": "Une courte sélection d'engagements récents. Cliquez sur une étude de cas pour l'histoire complète, les indicateurs et les enseignements.",
+    "view_all": "Toutes les études de cas"
+  },
+  "about_preview": {
+    "label": "À propos",
+    "title": "Un seul propriétaire. Responsabilité directe. Aucun intermédiaire.",
+    "body": "Alexey Kachan a fondé l'agence en 2014, après dix ans en interne dans des entreprises produits. Chaque projet passe encore par son bureau — stratégie, revues de design, revues de code, rapports publicitaires. Vous obtenez un jugement senior sur chaque décision, pas un junior avec un modèle.",
+    "cta": "Lire l'histoire complète"
+  },
+  "stats": {
+    "title": "Les chiffres qui comptent",
+    "years_experience": "Années d'expérience",
+    "projects_delivered": "Projets livrés",
+    "services_offered": "Services proposés",
+    "countries_served": "Pays accompagnés"
+  },
+  "process": {
+    "label": "Méthode",
+    "title": "Notre façon de travailler",
+    "subtitle": "Un cadre éprouvé qui transforme les idées en résultats commerciaux mesurables.",
+    "steps": {
+      "discovery": { "title": "Découverte", "description": "Plongée approfondie dans votre activité, vos audiences, vos concurrents et vos objectifs." },
+      "strategy": { "title": "Stratégie", "description": "Une feuille de route claire avec KPI et jalons mesurables." },
+      "design": { "title": "Design", "description": "Un design centré sur la conversion, fidèle à votre marque et tourné vers l'action." },
+      "build": { "title": "Réalisation", "description": "Des solutions rapides, sécurisées et évolutives, conformes aux meilleures pratiques actuelles." },
+      "launch": { "title": "Lancement & croissance", "description": "Mise en ligne sereine, puis optimisation continue à partir de données réelles." }
+    }
+  },
+  "differentiators": {
+    "label": "Pourquoi nous",
+    "title": "Quatre raisons qui fidélisent nos clients pendant des années",
+    "subtitle": "La plupart des agences vendent des livrables. Nous vendons des résultats — et nous le mettons noir sur blanc.",
+    "items": {
+      "single_owner": { "title": "Un seul interlocuteur responsable", "description": "Un nom sur chaque e-mail, chaque rapport, chaque ligne de code. Pas de téléphone arabe entre trois account managers." },
+      "fast_ship": { "title": "Livrer en semaines, pas en trimestres", "description": "Périmètre serré, spécifications écrites, démos hebdomadaires. La plupart des projets sont en ligne en 4 à 8 semaines." },
+      "measurable": { "title": "Des chiffres, pas des opinions", "description": "Les indicateurs de succès sont définis avant le kickoff. Chaque rapport se rattache à du chiffre d'affaires, des leads ou des positions." },
+      "long_term": { "title": "Partenaire long terme, pas prestataire", "description": "Durée moyenne d'une relation client : plus de 4 ans. Nous investissons dans votre activité parce que nous comptons rester." }
+    }
+  },
+  "testimonials": {
+    "label": "Témoignages",
+    "title": "Ce que disent nos clients",
+    "verified_badge": "Avis Google vérifié",
+    "items": [
+      { "quote": "Alexey a refait notre site en cinq semaines et le trafic SEO a doublé sur les deux trimestres suivants. Direct, rapide, sans baratin. Le meilleur appel d'offres que nous ayons jamais lancé.", "author": "Markus Bauer", "role": "Fondateur, Bauer Manufaktur", "country": "Allemagne" },
+      { "quote": "Nos dépenses Google Ads ont baissé de 38 % pendant que les leads étaient multipliés par 2,4 en six mois. Il explique chaque décision en termes simples et les chiffres tiennent toujours la route.", "author": "Sofia Russo", "role": "Marketing Director, Olea Studio", "country": "Italie" },
+      { "quote": "Nous avons travaillé avec trois agences avant lui — Alexey joue dans une autre cour. Il se soucie du business, pas du livrable. Cela fait quatre ans qu'il nous accompagne.", "author": "Daniel Cohen", "role": "CEO, Northwind Ltd", "country": "Royaume-Uni" }
+    ]
+  },
+  "blog_teaser": {
+    "label": "Journal",
+    "title": "Réflexions récentes",
+    "subtitle": "Notes de travail sur la performance web, le SEO et la stratégie publicitaire — articles courts, sans jargon.",
+    "view_all": "Tous les articles"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Questions fréquentes",
+    "subtitle": "Réponses rapides aux questions courantes. La vôtre n'y est pas ? Écrivez-nous.",
+    "items": [
+      { "question": "Combien de temps dure un projet type ?", "answer": "La plupart des sites marketing sont en ligne en 4 à 6 semaines. Les projets plus ambitieux — multilingues, e-commerce ou intégrations sur mesure — durent généralement 8 à 12 semaines. Avant la signature, vous recevez un planning écrit avec des jalons." },
+      { "question": "Quel est le coût ?", "answer": "Les projets web démarrent à 4 500 USD pour un site monolingue ciblé. La gestion publicitaire est un forfait mensuel fixe basé sur l'investissement média. Les engagements SEO se déroulent par trimestre. Chaque devis est un prix fixe — aucune mauvaise surprise." },
+      { "question": "Travaillez-vous dans ma langue ?", "answer": "Nous livrons en anglais, allemand, français, espagnol, italien, roumain, ukrainien et russe. Tous les contenus sont relus par des locuteurs natifs — jamais une traduction automatique." },
+      { "question": "Qui réalise concrètement le travail ?", "answer": "Alexey pilote la stratégie, le design et les revues de code de chaque projet. Une petite équipe de spécialistes éprouvés gère l'exécution. Aucune chaîne de sous-traitance, aucun sous-traitant caché." },
+      { "question": "Et le support après lancement ?", "answer": "Nous proposons des forfaits de support mensuels à partir de 190 USD/mois — mises à jour de sécurité, supervision performance, ajustements de contenu, revues analytiques. La plupart des clients restent après la mise en ligne." },
+      { "question": "Pouvez-vous reprendre un projet d'une autre agence ?", "answer": "Oui. Nous avons hérité de dizaines de projets inachevés. Nous démarrons par un audit, partageons un plan de récupération et migrons proprement, sans interruption." }
+    ]
+  },
+  "final_cta": {
+    "label": "Discutons",
+    "title": "Prêt à dépasser vos concurrents ?",
+    "subtitle": "Parlez-nous de votre projet — nous répondons sous 4 heures pendant les heures de bureau.",
+    "primary_cta": "Démarrer un projet",
+    "secondary_cta": "Réserver un appel de 30 minutes",
+    "form_placeholder_email": "Votre e-mail",
+    "form_placeholder_message": "Parlez-nous de votre projet…",
+    "or_reach_via": "Ou contactez-nous directement via",
+    "response_time": "Délai de réponse moyen : < 4 heures"
+  },
+  "cases_pages": {
+    "hub": {
+      "web_development": { "kicker": "Projets de développement web", "h1": "Vrais projets. Vrais chiffres.", "lead": "Sélection d'engagements en développement web — ce que nous avons livré, en combien de semaines, et à quoi ressemblaient les indicateurs un trimestre plus tard.", "filter_all": "Tous les services", "no_results": "Aucune étude de cas pour ce filtre — revenez bientôt." },
+      "marketing": { "kicker": "Projets marketing", "h1": "Des campagnes qui rapportent.", "lead": "Engagements SEO et publicité payante où nous pouvons montrer le travail et les chiffres — CAC, ROAS, croissance organique, impact réel sur le chiffre d'affaires.", "filter_all": "Tous les services", "no_results": "Aucune étude de cas pour ce filtre — revenez bientôt." }
+    },
+    "post": {
+      "back_to_cases": "Retour aux projets",
+      "client_label": "Client",
+      "year_label": "Année",
+      "duration_label": "Durée",
+      "industry_label": "Secteur",
+      "country_label": "Pays",
+      "services_label": "Services",
+      "stack_label": "Stack technique",
+      "challenge_title": "Le contexte",
+      "approach_title": "Ce que nous avons fait",
+      "results_title": "Les résultats",
+      "testimonial_title": "Mots du client",
+      "related_title": "Travaux similaires",
+      "fallback_notice_title": "Cette étude de cas n'est pas encore traduite",
+      "fallback_notice_body": "Vous lisez la version anglaise originale. La traduction arrive — ou lisez-la dès maintenant en anglais."
+    }
+  },
+  "blog_pages": {
+    "hub": {
+      "kicker": "Journal",
+      "h1": "Notes de travail sur le web, le SEO et la croissance.",
+      "lead": "Essais courts tirés d'audits clients réels — performance, SEO multilingue, stratégie publicitaire. Sans jargon, sans baratin, sans avis recyclés.",
+      "search_placeholder": "Rechercher un article…",
+      "filter_all": "Tous",
+      "no_results": "Aucun article ne correspond à ce filtre.",
+      "featured_label": "À la une"
+    },
+    "post": {
+      "back_to_blog": "Retour au journal",
+      "published_on": "Publié le",
+      "updated_on": "Mis à jour le",
+      "by_author": "Par",
+      "tagged_with": "Étiqueté",
+      "share_label": "Partager cet article",
+      "share_twitter": "Partager sur Twitter",
+      "share_linkedin": "Partager sur LinkedIn",
+      "share_facebook": "Partager sur Facebook",
+      "share_copy": "Copier le lien",
+      "share_copied": "Lien copié",
+      "fallback_notice_title": "Cet article n'est pas encore traduit",
+      "fallback_notice_body": "Vous lisez la version anglaise originale. Nous le traduisons dès que possible — ou lisez-le maintenant en anglais.",
+      "related_title": "Continuer la lecture",
+      "newsletter_title": "Recevez les prochains articles",
+      "newsletter_subtitle": "Un envoi par mois. Pas de spam. Désinscription en un clic."
+    }
+  },
+  "about_page": {
+    "kicker": "À propos",
+    "h1": "Conduit par un opérateur. Adossé à douze ans d'expérience.",
+    "lead": "Alexey Kachan est une agence digitale dont le propriétaire unique répond personnellement de chaque ligne de code, chaque décision de design et chaque ligne de chaque rapport. Fondée en 2014, elle travaille dans le monde entier depuis l'Ukraine.",
+    "primary_cta": "Démarrer un projet",
+    "secondary_cta": "Lire le journal",
+    "story": {
+      "label": "Histoire",
+      "title": "Pourquoi une agence à un seul opérateur, en 2026",
+      "body_1": "La plupart des agences digitales sont organisées comme des usines — une équipe commerciale, une équipe account, une équipe stratégie, une équipe design, une équipe développement, une équipe média. Le client présente le projet à une équipe, signe avec une autre, est exécuté par une troisième et reçoit ses rapports d'une quatrième. Chaque passation est une traduction, et chaque traduction perd de l'information.",
+      "body_2": "Après dix ans en interne dans des entreprises produits — à diriger des équipes web, piloter de l'acquisition payante, gérer des programmes SEO — j'ai fondé Alexey Kachan Agency en 2014 parce que je voulais l'inverse. Une seule personne responsable. Le stratège est aussi le revieweur senior du code. Le designer est aussi le lead SEO. La personne présente au kickoff est la même qui sera là dix-huit mois plus tard pour le bilan post-lancement.",
+      "body_3": "Cela passe à l'échelle par la sélection. Nous ne prenons pas tous les projets qui atterrissent dans la boîte. Nous nous appuyons sur un petit cercle de spécialistes éprouvés — ingénieurs seniors, rédacteurs natifs, experts plateformes — quand le scope l'exige. Mais chaque relation passe par un seul propriétaire responsable. C'est cela, le produit. Et c'est aussi notre douve."
+    },
+    "credentials": {
+      "label": "Bilan",
+      "title": "Les chiffres derrière le travail",
+      "items": [
+        { "metric": "12+", "label": "Années à construire des produits digitaux", "body": "En interne dans des SaaS depuis 2012. Création de l'agence en 2014." },
+        { "metric": "180+", "label": "Engagements livrés", "body": "Refontes, builds web, retainers SEO, gestion média payante. La plupart de 6 à 24 mois." },
+        { "metric": "12", "label": "Pays accompagnés", "body": "Mandats actifs en DACH, France, Espagne, Italie, Roumanie, Royaume-Uni, États-Unis, Canada, Ukraine." },
+        { "metric": "4+ ans", "label": "Durée moyenne d'une relation client", "body": "La plupart des clients renouvellent. Plusieurs sont avec nous depuis la première année de l'agence." }
+      ]
+    },
+    "values": {
+      "label": "Valeurs",
+      "title": "Cinq choses que nous ne ferons jamais",
+      "items": [
+        { "title": "Surprises de prix", "body": "Chaque devis est figé avant signature. En cas de changement de scope, nous re-chiffrons par écrit — jamais en silence." },
+        { "title": "Métriques de vanité", "body": "Si un graphique ne se rattache pas au chiffre d'affaires, aux leads ou aux positions, il ne va pas dans le rapport." },
+        { "title": "Chaînes de sous-traitance", "body": "Quand nous mobilisons des spécialistes, nous les nommons. Votre projet n'est jamais discrètement passé à une troisième agence." },
+        { "title": "Contenu traduit à la machine", "body": "Chaque mot dans une langue autre que l'anglais est relu par un locuteur natif. Sans exception." },
+        { "title": "Verrouillage fournisseur", "body": "Code sur votre GitHub, contenu sur votre CMS, comptes publicitaires sur vos domaines. Résiliation possible à tout moment." }
+      ]
+    },
+    "person": {
+      "name": "Alexey Kachan",
+      "role": "Fondateur & seul lead engagement",
+      "location": "Kyiv, Ukraine — interventions internationales",
+      "languages_label": "Langues",
+      "languages": "Anglais (C2), ukrainien (langue maternelle), russe (langue maternelle), allemand (B2)",
+      "bio_short": "Douze ans à construire des produits digitaux. Dix en interne, en indépendance depuis 2014. Convictions fortes sur l'hygiène d'ingénierie, le SEO et le fait de dire non aux scopes mal cadrés.",
+      "linkedin": "https://www.linkedin.com/in/alexeykachan",
+      "twitter": "https://twitter.com/alexeykachan"
+    },
+    "tools": {
+      "label": "Stack & outils",
+      "title": "Avec quoi nous construisons",
+      "groups": [
+        { "name": "Frontend", "items": ["Astro", "Next.js", "React", "TypeScript", "Tailwind CSS"] },
+        { "name": "CMS", "items": ["Sanity", "Storyblok", "Contentful", "Strapi"] },
+        { "name": "Hébergement", "items": ["Cloudflare Pages", "Vercel", "Netlify"] },
+        { "name": "SEO", "items": ["Search Console", "Ahrefs", "Screaming Frog", "Sitebulb"] },
+        { "name": "Publicité", "items": ["Google Ads", "Meta Ads", "LinkedIn Ads", "TikTok Ads"] },
+        { "name": "Analytics", "items": ["GA4", "Plausible", "Microsoft Clarity", "Cloudflare Analytics"] }
+      ]
+    }
+  },
+  "contacts_page": {
+    "kicker": "Contact",
+    "h1": "Parlez-nous de votre projet.",
+    "lead": "Nous répondons sous 4 heures pendant les heures ouvrées européennes. La plupart des projets démarrent par un appel découverte de 30 minutes avant tout devis — gratuit, avec une réponse claire à la clé.",
+    "form_title": "Demande de projet",
+    "form_subtitle": "5 champs. Deux minutes. Nous revenons avec un scope et un prix fermes.",
+    "form_submit": "Envoyer le message",
+    "form_submitting": "Envoi…",
+    "form_success_title": "Message reçu",
+    "form_success_body": "Nous avons votre message et reviendrons sous 4 heures pendant les heures ouvrées. En attendant, vous pouvez parcourir nos projets récents ou lire le journal.",
+    "form_error": "Une erreur est survenue lors de l'envoi. Veuillez réessayer ou nous écrire directement.",
+    "direct": {
+      "label": "Ou contactez-nous directement",
+      "email_label": "E-mail",
+      "phone_label": "Téléphone & messagerie",
+      "phone_note": "Disponibles sur Telegram, WhatsApp, Signal — même numéro.",
+      "office_label": "Bureau",
+      "office_value": "Kyiv, Ukraine — interventions internationales",
+      "hours_label": "Horaires",
+      "hours_value": "Lun–Ven, 9h–18h CET. Délai de réponse moyen : < 4 heures."
+    },
+    "channels_title": "Où nous sommes joignables",
+    "channels_subtitle": "Choisissez le canal qui vous convient le mieux."
+  },
+  "brief_pages": {
+    "common": {
+      "step_label": "Étape {current} sur {total}",
+      "next": "Suivant",
+      "back": "Retour",
+      "submit": "Envoyer le brief",
+      "submitting": "Envoi…",
+      "required_label": "Obligatoire",
+      "optional_label": "Facultatif",
+      "success_title": "Brief reçu",
+      "success_body": "Merci. Nous l'examinons et reviendrons sous 4 heures pendant les heures ouvrées avec un scope écrit, un planning et un prix ferme.",
+      "intro_note": "Vos données restent confidentielles. Nous ne les utilisons que pour cadrer la mission."
+    },
+    "website": { "kicker": "Brief projet web", "h1": "Parlez-nous du site.", "lead": "Huit questions, huit minutes. Plus vos réponses sont précises, plus le devis est exact — et plus vite nous arrivons au kickoff." },
+    "ads": { "kicker": "Brief publicité", "h1": "Parlez-nous de la campagne.", "lead": "Six sections, dix minutes. Nous revenons avec un mix de canaux recommandé, un budget de départ et une cible mesurable avant tout contrat." }
+  },
+  "legal_pages": {
+    "common": {
+      "last_updated": "Dernière mise à jour",
+      "back_home": "Retour à l'accueil",
+      "table_of_contents": "Sur cette page"
+    },
+    "privacy": {
+      "kicker": "Mentions légales",
+      "h1": "Politique de confidentialité",
+      "last_updated": "2026-04-28",
+      "lead": "Nous respectons votre vie privée et traitons vos données comme un outil de travail — jamais comme un actif. Cette politique explique ce que nous collectons, pourquoi, et quels sont vos droits.",
+      "sections": [
+        { "title": "Qui nous sommes", "body": "Alexey Kachan Agency (« nous ») est une agence digitale en entreprise individuelle basée en Ukraine, qui exploite le site alexeykachan.com. Le responsable de traitement est Alexey Kachan. Pour toute question relative aux données : info@alexeykachan.com." },
+        { "title": "Ce que nous collectons", "body": "Lorsque vous remplissez un formulaire (contact, brief, newsletter), nous collectons les champs renseignés — nom, e-mail, entreprise, détails du projet. À chaque visite, notre hébergeur (Cloudflare) consigne votre adresse IP à des fins de sécurité et de limitation de débit. Avec votre consentement, nous utilisons des outils analytiques respectueux de la vie privée (Plausible / Microsoft Clarity) qui enregistrent des données de session anonymisées." },
+        { "title": "Pourquoi nous les collectons", "body": "Données de formulaire : pour répondre à votre demande et chiffrer le projet. Sans consentement explicite, nous ne les utilisons pas pour la prospection. Logs serveur : pour détecter les abus et garder le site en ligne. Analytics : pour comprendre quels contenus sont utiles." },
+        { "title": "Avec qui nous les partageons", "body": "Nous ne vendons ni ne louons vos données. Nous les partageons uniquement avec les sous-traitants nécessaires au service : Web3Forms (livraison de formulaires), Cloudflare (hébergement + routage e-mail), Google Workspace (e-mail)." },
+        { "title": "Durées de conservation", "body": "Soumissions de formulaires : 24 mois après la dernière interaction, puis suppression automatique sauf engagement actif. Abonnements newsletter : jusqu'à votre désinscription (un clic dans chaque e-mail). Logs serveur : 30 jours, puis rotation automatique." },
+        { "title": "Vos droits", "body": "Vous pouvez demander une copie de vos données, leur rectification ou leur suppression à tout moment, par e-mail à info@alexeykachan.com. Nous répondons sous 30 jours. Si vous résidez dans l'UE/le Royaume-Uni, vous pouvez également déposer une réclamation auprès de votre autorité de protection des données." },
+        { "title": "Cookies", "body": "Nous utilisons des cookies techniques nécessaires au fonctionnement du site (préférence de langue, session). Les cookies analytiques ne sont chargés qu'avec votre consentement — modifiable à tout moment depuis le bandeau cookies. Liste complète dans la politique cookies." },
+        { "title": "Évolutions de la politique", "body": "Nous pouvons mettre à jour cette politique avec la croissance de l'agence ou les évolutions légales. La date en haut reflète la dernière version. Nous ne réduirons pas rétroactivement vos protections sans en informer les contacts concernés." }
+      ]
+    },
+    "cookies": {
+      "kicker": "Mentions légales",
+      "h1": "Politique cookies",
+      "last_updated": "2026-04-28",
+      "lead": "Nous utilisons des cookies dans trois catégories : essentiels (toujours actifs), analytiques (avec consentement) et marketing (avec consentement). Voici la liste complète et leur fonction.",
+      "sections": [
+        { "title": "Cookies essentiels", "body": "Nécessaires au fonctionnement du site. Ils stockent votre préférence de langue, votre choix de cookies et un identifiant de session pour les formulaires. Aucun suivi inter-sites, non désactivables. Durée : 12 mois. Fournisseur : Alexey Kachan Agency." },
+        { "title": "Analytiques (avec consentement)", "body": "Plausible Analytics ou Microsoft Clarity. Permettent de comprendre quelles pages sont les plus consultées, quels articles sont lus jusqu'au bout et où les visiteurs décrochent. Anonymisé — pas de stockage d'IP, pas de fingerprinting. Désinscription à tout moment depuis le bandeau cookies. Durée : 12 mois." },
+        { "title": "Marketing (avec consentement)", "body": "Chargés uniquement sur les pages où nous menons des tests — généralement un Meta Pixel ou un tag de conversion Google Ads. Servent à mesurer l'efficacité de nos propres campagnes publicitaires. Désactivé par défaut. Durée : 13 mois. Désinscription à tout moment depuis le bandeau cookies." }
+      ]
+    },
+    "terms": {
+      "kicker": "Mentions légales",
+      "h1": "Conditions d'utilisation",
+      "last_updated": "2026-04-28",
+      "lead": "Ces conditions s'appliquent lors de la visite d'alexeykachan.com et lorsque vous nous confiez un projet. Les contrats projet priment toujours sur ces conditions — qui régissent uniquement le site web.",
+      "sections": [
+        { "title": "Utilisation du site", "body": "Vous pouvez consulter, télécharger et partager le contenu de ce site à des fins personnelles ou professionnelles. La republication de portions substantielles requiert notre autorisation. Les exemples de code dans les articles sont sous licence MIT, sauf mention contraire." },
+        { "title": "Engagements", "body": "Si nous convenons de travailler ensemble, la mission est encadrée par un accord écrit signé par les deux parties — généralement un Statement of Work précisant le scope, les livrables, les modalités de paiement et la propriété intellectuelle. Le site n'est pas en lui-même un contrat." },
+        { "title": "Avertissements", "body": "Les articles reflètent notre opinion à la date de publication. Le marketing et le SEO sont des jeux probabilistes — nous partageons ce qui fonctionne pour nos clients, mais aucun résultat n'est garanti sans scope, planning et budget actés par écrit." },
+        { "title": "Responsabilité", "body": "alexeykachan.com est fourni « tel quel ». Nous ne sommes pas responsables des décisions commerciales prises sur la seule base du contenu. Notre responsabilité, dans le cadre d'un engagement signé, est plafonnée selon les conditions de cet accord." },
+        { "title": "Droit applicable", "body": "Ces conditions sont régies par le droit ukrainien. Les contrats d'engagement peuvent prévoir un droit applicable différent à la demande du client ; ce point est négocié contractuellement." }
+      ]
+    },
+    "impressum": {
+      "kicker": "Impressum",
+      "h1": "Anbieterkennzeichnung gemäß § 5 TMG",
+      "last_updated": "2026-04-28",
+      "lead": "Cet impressum est fourni en application des obligations d'information de la loi allemande (§ 5 TMG) pour nos clients de la zone DACH — bien que l'agence soit basée en Ukraine.",
+      "sections": [
+        { "title": "Anbieter", "body": "Alexey Kachan Agency\nFounder: Alexey Kachan\nKyiv, Ukraine\n\nE-Mail: info@alexeykachan.com\nTelefon: +380 67 461 80 72" },
+        { "title": "Verantwortlich für den Inhalt", "body": "Alexey Kachan, Anschrift wie oben." },
+        { "title": "Haftungsausschluss", "body": "Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich." },
+        { "title": "Urheberrecht", "body": "Alle Inhalte dieser Website (Texte, Bilder, Code) sind, sofern nicht anders gekennzeichnet, urheberrechtlich geschützt. Die Vervielfältigung oder Verwendung in anderen elektronischen oder gedruckten Publikationen ist ohne ausdrückliche Zustimmung nicht gestattet." }
+      ]
+    }
+  },
+  "thank_you_page": {
+    "kicker": "Bien reçu",
+    "h1": "Merci — nous reviendrons vers vous.",
+    "lead": "Votre message est bien arrivé. Nous l'examinons et reviendrons sous 4 heures pendant les heures ouvrées européennes — plus tôt si vous nous avez écrit avant la pause déjeuner CET.",
+    "next_steps_title": "En attendant",
+    "next_steps_subtitle": "Trois choses à faire dans les dix prochaines minutes :",
+    "steps": [
+      { "title": "Parcourir nos projets récents", "body": "Vrais projets, vrais chiffres, sans baratin marketing.", "cta": "Voir les projets", "key": "cases.web-development" },
+      { "title": "Lire le journal", "body": "Notes de travail tirées d'audits clients réels.", "cta": "Ouvrir le journal", "key": "blog" },
+      { "title": "Mettre dans l'agenda", "body": "Si vous avez réservé un appel, vous recevez l'invitation séparément sous une heure.", "cta": "Retour à l'accueil", "key": "home" }
+    ],
+    "back_home": "Retour à l'accueil"
+  },
+  "not_found_page": {
+    "kicker": "404",
+    "h1": "Cette page n'existe pas — pas à cette adresse en tout cas.",
+    "lead": "Elle a peut-être été déplacée, ou l'URL est légèrement décalée. Quoi qu'il en soit, voici où aller.",
+    "suggestions_title": "Essayez plutôt l'une de ces pages",
+    "suggestions": [
+      { "title": "Accueil", "subtitle": "Repartir du début.", "key": "home" },
+      { "title": "Services", "subtitle": "Ce que nous proposons et comment c'est tarifé.", "key": "services" },
+      { "title": "Projets", "subtitle": "Vrais projets, vrais chiffres.", "key": "cases.web-development" },
+      { "title": "Journal", "subtitle": "Notes de travail sur le web, le SEO et la pub.", "key": "blog" },
+      { "title": "Contact", "subtitle": "Joignez-nous — réponse sous 4 heures.", "key": "contacts" }
+    ]
+  },
+  "services_pages": {
+    "hub": {
+      "kicker": "Services",
+      "h1": "Six disciplines. Une stratégie unifiée.",
+      "lead": "Développement web, SEO, publicité payante, design, analytics, support continu. Chaque service en mission à prix fixe — ou regroupé dans un partenariat multi-services.",
+      "primary_cta": "Démarrer un projet",
+      "secondary_cta": "Réserver un échange",
+      "compare_label": "Comparer",
+      "compare_title": "Choisir le bon service",
+      "compare_subtitle": "Six services, trois catégories. Ce tableau vous aide à associer la mission à votre objectif.",
+      "compare_columns": ["Service", "Idéal pour", "Délai type", "À partir de"],
+      "categories_label": "Comment nous aidons",
+      "categories": [
+        { "name": "Construire", "description": "Concevoir ou refondre votre présence digitale.", "services": ["website_development", "site_redesign", "site_design"] },
+        { "name": "Faire croître", "description": "Apporter du trafic qualifié et le convertir.", "services": ["site_analytics", "setting_up_ads"] },
+        { "name": "Maintenir", "description": "Garder ce que vous avez construit rapide et sûr.", "services": ["site_support"] }
+      ]
+    },
+    "common": {
+      "whats_included_label": "Périmètre",
+      "whats_included_title": "Ce qui est inclus",
+      "process_label": "Méthode",
+      "process_title": "Notre façon de travailler",
+      "deliverables_label": "Résultats",
+      "deliverables_title": "Ce que vous obtenez",
+      "pricing_label": "Investissement",
+      "pricing_title": "Périmètre fixe. Prix fixe.",
+      "pricing_subtitle": "Trois niveaux transparents. Choisissez celui qui convient, ou demandez un devis sur mesure — chaque devis est ferme avant signature.",
+      "tier_popular": "Le plus choisi",
+      "tier_from": "À partir de",
+      "tier_custom": "Sur mesure",
+      "tier_includes": "Inclus",
+      "tier_timeline": "Délai",
+      "tier_cta_fixed": "Démarrer ce niveau",
+      "tier_cta_custom": "Demander un devis sur mesure",
+      "related_label": "À combiner avec",
+      "related_title": "Souvent associé à",
+      "faq_label": "Questions",
+      "faq_title": "Ce qu'on nous demande",
+      "final_cta_title": "Prêt à livrer ?",
+      "final_cta_subtitle": "Parlez-nous du projet — nous revenons sous 4 heures avec un scope, un planning et un prix fixe."
+    },
+    "website_development": {
+      "hero": { "kicker": "Développement web", "h1": "Des sites livrés en semaines, classés en mois.", "lead": "Sites orientés conversion, conçus avec Astro, Next.js ou un CMS headless — rapides, sûrs, multilingues, prêts pour le SEO dès le premier jour.", "primary_cta": "Démarrer un projet", "secondary_cta": "Voir les projets web" },
+      "included": [
+        { "title": "Découverte & stratégie", "body": "Étude de l'audience, audit concurrentiel, architecture de contenu et spécifications écrites — avant la première ligne de code." },
+        { "title": "Système de design", "body": "Système typographique, tokens couleur, composants — déclinés à votre marque, réutilisables pendant des années." },
+        { "title": "Développement", "body": "Astro / Next.js / CMS headless. Multilingue prêt à l'emploi, balisage SEO propre, Core Web Vitals 95+." },
+        { "title": "SEO on-page", "body": "Meta, schéma, sitemap, hreflang, maillage interne. Chaque page est prête pour Google le jour du lancement." },
+        { "title": "Mise en place analytics", "body": "GA4, Search Console, Microsoft Clarity, objectifs de conversion — câblés avant la mise en ligne." },
+        { "title": "Passation & formation", "body": "Walkthrough Loom de 30 min, documentation écrite, 14 jours de support post-lancement." }
+      ],
+      "process": [
+        { "title": "Découverte (semaine 1)", "body": "Calls parties prenantes, audit, sitemap, brief de contenu, KPI." },
+        { "title": "Design (semaine 2)", "body": "Wireframes puis maquettes haute fidélité. Deux séries de retours incluses." },
+        { "title": "Build (semaines 3–4)", "body": "Bibliothèque de composants, intégration de contenu, optimisation performance, QA." },
+        { "title": "Lancement & optimisation", "body": "Mise en ligne sans interruption, puis 14 jours d'ajustements basés sur le trafic réel." }
+      ],
+      "deliverables": [
+        "Codebase production sur GitHub",
+        "Lighthouse 95+ mobile et desktop",
+        "SEO on-page complet (meta, schéma, sitemap, robots, hreflang)",
+        "Analytics + tracking conversion en place",
+        "Documentation + vidéo de formation de 30 min",
+        "14 jours de support correctif gratuits"
+      ],
+      "tiers": [
+        { "name": "Starter", "price": 4500, "timeline": "3 semaines", "highlight": false, "tagline": "Site marketing monolingue, jusqu'à 8 pages.", "includes": ["Jusqu'à 8 pages, une langue", "Design sur mesure (pas de templates)", "SEO on-page + schéma", "GA4 + Search Console en place", "14 jours de support correctif"] },
+        { "name": "Growth", "price": 9500, "timeline": "5 semaines", "highlight": true, "tagline": "Site marketing multilingue avec CMS, jusqu'à 20 pages.", "includes": ["Jusqu'à 20 pages, 2 à 3 langues", "CMS headless (Sanity, Contentful, Storyblok)", "Blog + content collections", "SEO avancé + hreflang", "Tracking conversion + heatmaps", "30 jours de support correctif"] },
+        { "name": "Scale", "price": null, "timeline": "8+ semaines", "highlight": false, "tagline": "Construction sur mesure pour e-commerce, SaaS ou plateformes 4+ langues.", "includes": ["Périmètre & intégrations sur mesure", "4+ langues avec workflow de localisation", "E-commerce ou dashboard SaaS", "Contrat performance (CWV 95+)", "Migration depuis CMS existant", "60 jours de support post-lancement"] }
+      ],
+      "related": ["site_design", "site_analytics"],
+      "faq": [
+        { "question": "Avec quel stack travaillez-vous ?", "answer": "Astro pour les sites de contenu, Next.js pour les projets app-like ou e-commerce, CMS headless (Sanity / Storyblok / Contentful) quand l'équipe contenu a besoin d'autonomie. Nous choisissons le stack le plus léger qui convient — jamais le plus à la mode." },
+        { "question": "Mon site sera-t-il prêt pour le multilingue ?", "answer": "Chaque site que nous construisons est prêt pour le multilingue dès le départ — même si vous lancez en une seule langue. URLs, hreflang, routage local — tout est en place pour qu'ajouter une langue soit un travail de contenu, pas un projet d'ingénierie." },
+        { "question": "Gérez-vous l'hébergement ?", "answer": "Par défaut, nous déployons sur Cloudflare Pages — CDN global, SSL gratuit, edge functions. Sur demande : Vercel, Netlify ou votre propre infrastructure." },
+        { "question": "Que se passe-t-il après le lancement ?", "answer": "14 jours de support correctif gratuits inclus. Ensuite, nous proposons des forfaits de maintenance à partir de 190 USD/mois — mises à jour de sécurité, supervision performance, ajustements de contenu, revues analytiques." }
+      ]
+    },
+    "site_design": {
+      "hero": { "kicker": "Design web", "h1": "Un design fidèle à votre marque qui conclut avant la signature.", "lead": "Systèmes de design et interfaces orientées conversion pour sites marketing, dashboards SaaS et e-commerce — toujours testés contre des objectifs réels.", "primary_cta": "Démarrer un projet", "secondary_cta": "Voir les projets de design" },
+      "included": [
+        { "title": "Recherche UX", "body": "Entretiens, démontages concurrentiels, audit de l'existant. Nous concevons pour le client, pas pour le brief." },
+        { "title": "Architecture de l'information", "body": "Sitemap, hiérarchie de contenu, schémas de navigation. Le design d'information précède le design visuel." },
+        { "title": "Système de design", "body": "Tokens (couleurs, typo, espacement), composants, patterns — documentés dans Figma, prêts pour la passation." },
+        { "title": "Maquettes haute fidélité", "body": "Maquettes pixel-perfect pour chaque page clé. Deux séries de retours stakeholders." },
+        { "title": "Prototype", "body": "Prototype Figma interactif pour tests utilisateurs avant le code." },
+        { "title": "Passation à l'ingénierie", "body": "Specs annotées, doc des composants, design tokens exportés en formats orientés code." }
+      ],
+      "process": [
+        { "title": "Brief & recherche", "body": "Calls découverte, entretiens audience, démontage concurrentiel, audit contenu." },
+        { "title": "Architecture & wireframes", "body": "Sitemap, wireframes basse fidélité, modèles de contenu. Validés avant les pixels." },
+        { "title": "Design visuel", "body": "Design tokens, bibliothèque de composants, maquettes haute fidélité de chaque écran." },
+        { "title": "Prototype & test", "body": "Prototype interactif, test utilisateurs (5 personnes), ajustements, passation finale." }
+      ],
+      "deliverables": ["Fichier Figma avec système de design + bibliothèque de tokens", "Maquettes haute fidélité desktop, tablette, mobile", "Prototype interactif", "Rapport de test utilisateurs (5 personnes)", "Specs prêtes pour le dev + doc composants"],
+      "tiers": [
+        { "name": "Starter", "price": 3500, "timeline": "2 semaines", "highlight": false, "tagline": "Refonte d'une page ou landing page.", "includes": ["1 page, 3 tailles d'écran", "Design tokens", "1 série de retours", "Passation à l'ingénierie"] },
+        { "name": "Growth", "price": 7500, "timeline": "4 semaines", "highlight": true, "tagline": "Jusqu'à 8 pages avec système de design complet.", "includes": ["Jusqu'à 8 pages", "Système de design complet dans Figma", "Prototype interactif", "Test utilisateurs (5 personnes)", "2 séries de retours"] },
+        { "name": "Scale", "price": null, "timeline": "6+ semaines", "highlight": false, "tagline": "Refonte plateforme ou produit SaaS.", "includes": ["Périmètre sur mesure", "Configuration design ops complète", "Plusieurs personas", "Plusieurs vagues de tests utilisateurs", "Doc au niveau composant"] }
+      ],
+      "related": ["website_development", "site_redesign"],
+      "faq": [
+        { "question": "Vous travaillez sur Figma ou Sketch ?", "answer": "Exclusivement Figma. C'est la norme du secteur pour la collaboration, la passation et les systèmes de design." },
+        { "question": "Vous livrez le design seul ou aussi le code ?", "answer": "Les deux. Design seul (passation à votre équipe dev) ou design + code en package — généralement 20–30 % plus rapide bout à bout que de séparer les prestataires." },
+        { "question": "Vous travaillez avec notre marque existante ?", "answer": "Oui. Nous partons de vos guidelines et les étendons au contexte digital. Si elles sont datées, nous identifions les manques et proposons des extensions." }
+      ]
+    },
+    "site_redesign": {
+      "hero": { "kicker": "Refonte de site", "h1": "Modernisez votre site sans perdre le SEO acquis.", "lead": "Refontes qui préservent chaque backlink, chaque position et chaque tunnel de conversion — tout en rendant le site plus rapide, plus clair, prêt pour les 5 prochaines années.", "primary_cta": "Démarrer un projet", "secondary_cta": "Voir les projets de refonte" },
+      "included": [
+        { "title": "Audit SEO & plan de migration", "body": "Crawl complet, export des positions, plan de redirections. Zéro perte de trafic est la base, pas l'objectif." },
+        { "title": "Audit UX", "body": "Heatmaps, enregistrements de session, analyse du tunnel de conversion — ce qui marche reste, ce qui casse est réparé." },
+        { "title": "Audit de contenu", "body": "Analyse page par page. Quel contenu reste, est réécrit, archivé ou fusionné." },
+        { "title": "Nouveau système de design", "body": "Système typographique moderne, palette couleur accessible, bibliothèque de composants." },
+        { "title": "Mise en œuvre", "body": "Stack moderne (Astro / Next.js), migration à parité, bascule sans interruption." },
+        { "title": "Surveillance post-lancement", "body": "Monitoring trafic quotidien pendant 30 jours. Toute anomalie est analysée et corrigée." }
+      ],
+      "process": [
+        { "title": "Audit (semaine 1)", "body": "Crawl SEO, heatmaps UX, inventaire de contenu, plan de redirections." },
+        { "title": "Stratégie (semaine 2)", "body": "Plan de migration, décisions contenu, IA, nouvelle direction de design validée." },
+        { "title": "Design & build (semaines 3–5)", "body": "Nouveau système de design, build à parité, migration de contenu, QA complète." },
+        { "title": "Lancement & monitoring", "body": "Bascule avec vérification des redirections, puis 30 jours de monitoring trafic." }
+      ],
+      "deliverables": ["Rapport d'audit SEO pré-lancement", "Plan de redirections 301 (chaque ancienne URL → nouvelle URL)", "Codebase production sur stack moderne", "Lighthouse 95+ mobile et desktop", "Rapport de monitoring trafic 30 jours", "Documentation + vidéo de formation"],
+      "tiers": [
+        { "name": "Starter", "price": 5500, "timeline": "4 semaines", "highlight": false, "tagline": "Jusqu'à 15 pages, une langue.", "includes": ["Audit SEO pré-lancement", "Plan de redirections", "Jusqu'à 15 pages migrées", "Système de design moderne", "30 jours de monitoring"] },
+        { "name": "Growth", "price": 12000, "timeline": "6 semaines", "highlight": true, "tagline": "Jusqu'à 50 pages, 2–3 langues, migration complète.", "includes": ["Audit SEO complet + benchmark concurrentiel", "Jusqu'à 50 pages migrées", "2–3 langues conservées", "Refonte UX guidée par heatmaps", "60 jours de monitoring"] },
+        { "name": "Scale", "price": null, "timeline": "10+ semaines", "highlight": false, "tagline": "Migration enterprise, 100+ pages, multilingue.", "includes": ["Audit enterprise complet", "100+ pages avec réécriture de contenu", "4+ langues", "Migration CMS sur mesure", "90 jours de monitoring + garanties de positions"] }
+      ],
+      "related": ["website_development", "site_analytics"],
+      "faq": [
+        { "question": "Vais-je perdre du trafic pendant la refonte ?", "answer": "Non. Nous figeons les positions avant lancement, construisons un plan de redirections 301 complet, testons sur une URL de staging et surveillons le trafic chaque jour pendant 30 jours. En 12 ans de refontes, nous n'avons jamais perdu de positions." },
+        { "question": "Vous pouvez garder notre CMS actuel ?", "answer": "Le plus souvent oui. Sur un CMS moderne (Sanity, Contentful, Strapi, WordPress bien structuré), nous redessinons par-dessus. Sur un legacy fragile, nous proposons une migration." },
+        { "question": "Et tous nos contenus existants ?", "answer": "Tout est audité page par page. Le contenu performant reste tel quel. Le contenu moyen est réécrit ou fusionné. Le contenu faible ou dupliqué est archivé avec redirections." }
+      ]
+    },
+    "site_analytics": {
+      "hero": { "kicker": "Référencement SEO", "h1": "Une croissance organique prévisible — auditée et conçue.", "lead": "SEO technique, stratégie de contenu et netlinking réunis dans un engagement trimestriel. Chaque recommandation est reliée au chiffre d'affaires.", "primary_cta": "Audit gratuit", "secondary_cta": "Voir les projets SEO" },
+      "included": [
+        { "title": "Audit technique", "body": "Crawl 200+ points : indexation, schéma, Core Web Vitals, hreflang, maillage interne, chaînes de redirections, rendu JS." },
+        { "title": "Stratégie de mots-clés", "body": "Mots-clés primaires + cluster par page, intentions de recherche, analyse des écarts vs top 3 concurrents." },
+        { "title": "Optimisation on-page", "body": "Meta, schéma, réécritures, blocs FAQ, maillage interne — page par page, priorisé selon le potentiel de trafic." },
+        { "title": "Production de contenu", "body": "Briefs par un stratège SEO, drafts par des rédacteurs seniors, relecture par locuteurs natifs. 4 à 8 articles par mois." },
+        { "title": "Netlinking", "body": "Digital PR + guest posts de niche. Qualité avant quantité — 4 à 8 domaines référents par mois, DR 40+." },
+        { "title": "Reporting", "body": "Mensuel : positions, trafic, conversions, coût par lead organique. Trimestriel : revue stratégique et re-priorisation." }
+      ],
+      "process": [
+        { "title": "Audit (mois 0)", "body": "Audit technique + contenu complet. Positions de référence exportées. Plan 90 jours." },
+        { "title": "Quick wins (mois 1)", "body": "Corrections techniques, optimisation on-page des 20 pages prioritaires. La plupart des clients voient des gains de positions sous 30 jours." },
+        { "title": "Moteur de contenu (à partir du mois 2)", "body": "4 à 8 articles par mois, chacun adossé à un cluster de mots-clés à forte intention." },
+        { "title": "Netlinking & passage à l'échelle", "body": "Campagne d'outreach à partir du mois 2, montée à 4–8 domaines référents/mois d'ici le mois 3." }
+      ],
+      "deliverables": ["Audit SEO technique 200 points", "Document stratégique mots-clés avec priorités mensuelles", "Optimisation on-page des 20 à 50 pages prioritaires", "4 à 8 articles SEO par mois", "4 à 8 domaines référents par mois (DR 40+)", "Reportings mensuels + trimestriels"],
+      "tiers": [
+        { "name": "Audit", "price": 1500, "timeline": "2 semaines", "highlight": false, "tagline": "Audit SEO unique + plan 90 jours.", "includes": ["Audit technique 200 points", "Recherche mots-clés (50 mots-clés)", "Benchmark concurrentiel", "Roadmap priorisée 90 jours", "Walkthrough Loom"] },
+        { "name": "Growth", "price": 2900, "timeline": "Retainer mensuel", "highlight": true, "tagline": "Engagement SEO mensuel full-service.", "includes": ["Audit inclus le mois 1", "Top 20 pages optimisées", "4 articles/mois", "4 domaines référents/mois", "Reportings mensuels + trimestriels"] },
+        { "name": "Scale", "price": null, "timeline": "Retainer mensuel", "highlight": false, "tagline": "Croissance agressive sur secteurs concurrentiels.", "includes": ["Audit & analyse concurrentielle sur mesure", "Top 50 pages optimisées", "8 articles/mois", "8 domaines référents/mois (DR 50+)", "Points hebdomadaires + dashboard"] }
+      ],
+      "related": ["website_development", "setting_up_ads"],
+      "faq": [
+        { "question": "Quand verrai-je des résultats ?", "answer": "Les corrections techniques apparaissent dans la Search Console sous 2 à 4 semaines. Le nouveau contenu commence à se positionner aux mois 3–4. L'autorité issue du netlinking se compose sur les mois 6–12." },
+        { "question": "Vous garantissez la première position ?", "answer": "Non — et fuyez quiconque la garantit. Ce que nous garantissons : un plan mesurable, des rapports mensuels et une transparence totale." },
+        { "question": "En quoi êtes-vous différents des retainers SEO low-cost ?", "answer": "Les retainers low-cost vendent du volume — 50 backlinks spam, contenu de masse. Nous vendons des résultats — gains de positions précis, cibles de trafic précises, avec les analytics qui le prouvent." }
+      ]
+    },
+    "setting_up_ads": {
+      "hero": { "kicker": "Publicité payante", "h1": "Google Ads, Meta, TikTok, LinkedIn — des campagnes qui rapportent.", "lead": "Gestion média payant full-funnel. Chaque campagne adossée à un objectif de CAC, chaque euro suivi de l'impression au chiffre d'affaires.", "primary_cta": "Audit gratuit", "secondary_cta": "Voir les projets pub" },
+      "included": [
+        { "title": "Audit du compte", "body": "Revue du compte existant : dépenses gaspillées, stratégie d'enchères, recouvrements d'audiences, fatigue créative, lacunes d'attribution." },
+        { "title": "Stratégie & funnel", "body": "Cartographie funnel haut/milieu/bas, allocation par canal, pacing budgétaire, objectifs KPI." },
+        { "title": "Production créative", "body": "Texte + statique + motion. Testé par plateforme, natif à chaque format." },
+        { "title": "Infrastructure de tracking", "body": "GA4, Meta Pixel, server-side tagging (CAPI), uploads conversions offline, modèle d'attribution." },
+        { "title": "Pilotage quotidien", "body": "Ajustements d'enchères, rotation créative, affinage d'audience, A/B tests — au quotidien, pas à la semaine." },
+        { "title": "Reporting", "body": "Dashboard live + walkthrough Loom hebdomadaire. CAC, ROAS, LTV — visibles à tout moment." }
+      ],
+      "process": [
+        { "title": "Audit (semaine 1)", "body": "Audit compte, vérification d'attribution, métriques de référence, plan 30 jours." },
+        { "title": "Mise en place (semaine 2)", "body": "Infrastructure de tracking, structure des campagnes, production créative, checklist de lancement." },
+        { "title": "Lancement & optimisation (en continu)", "body": "Pilotage quotidien, reporting hebdomadaire, revue stratégique mensuelle." }
+      ],
+      "deliverables": ["Rapport d'audit du compte", "Structure de campagnes full-funnel", "Infrastructure de tracking (GA4, Pixel, CAPI)", "Bibliothèque créative (textes + visuels)", "Dashboard performance live", "Reporting hebdomadaire + mensuel"],
+      "tiers": [
+        { "name": "Audit", "price": 1200, "timeline": "1 semaine", "highlight": false, "tagline": "Audit compte unique + plan de redressement.", "includes": ["Audit complet du compte", "Analyse des dépenses gaspillées", "Diagnostic tracking", "Plan de redressement 30 jours", "Walkthrough Loom"] },
+        { "name": "Growth", "price": 2500, "timeline": "Mensuel + 8 % du spend", "highlight": true, "tagline": "Gestion plateforme unique (jusqu'à 30k USD/mois de spend).", "includes": ["Audit inclus le mois 1", "Plateforme unique (Google ou Meta)", "Jusqu'à 30k USD/mois gérés", "Production créative (4 ads/mois)", "Reporting hebdomadaire"] },
+        { "name": "Scale", "price": null, "timeline": "Mensuel + 6 % du spend", "highlight": false, "tagline": "Multi-plateformes, 50k+ USD/mois de spend.", "includes": ["Multi-plateformes (Google + Meta + LinkedIn ou TikTok)", "50k+ USD/mois gérés", "Tracking server-side (CAPI)", "Production créative hebdomadaire", "Points quotidiens + dashboard sur mesure"] }
+      ],
+      "related": ["site_analytics", "site_design"],
+      "faq": [
+        { "question": "Quel est le budget publicitaire minimum ?", "answer": "5 000 USD/mois sur Google ou Meta. En deçà, le forfait de gestion ronge trop le budget. Pour le SaaS ou les business à fort LTV, nous sommes parfois plus flexibles — parlons-en." },
+        { "question": "Vous facturez un pourcentage du budget pub ?", "answer": "Oui — un retainer fixe couvre la stratégie, le tracking et le reporting ; un petit pourcentage du spend géré (6 à 8 %) couvre la créativité et l'optimisation continue. Cela aligne nos intérêts." },
+        { "question": "Vous pouvez reprendre un compte existant ?", "answer": "Toujours. La plupart des comptes que nous auditons gaspillent 20 à 40 % du budget par tracking mal configuré, attribution cassée ou stratégies d'enchères vieilles de 18 mois. La reprise fait partie du kickoff sans surcoût." }
+      ]
+    },
+    "site_support": {
+      "hero": { "kicker": "Maintenance", "h1": "Maintenance, sécurité, mises à jour — sans tracas.", "lead": "Forfaits mensuels pour les sites qui comptent. Sécurité, performance, ajustements de contenu, revues analytiques — pris en charge, avec un seul interlocuteur.", "primary_cta": "Démarrer un forfait", "secondary_cta": "Voir les tarifs" },
+      "included": [
+        { "title": "Sécurité & mises à jour", "body": "Mises à jour CMS, plugins, dépendances, scans de vulnérabilités. Patches critiques sous 24 heures." },
+        { "title": "Sauvegardes quotidiennes", "body": "Hors site, chiffrées, conservées 30 jours. Restauration en moins d'une heure." },
+        { "title": "Surveillance uptime", "body": "Vérifications toutes les 60 secondes depuis 8 régions. Réponse incident sous 30 minutes en heures ouvrées." },
+        { "title": "Monitoring performance", "body": "Real User Monitoring (Cloudflare ou Vercel Analytics). Rapport Core Web Vitals mensuel." },
+        { "title": "Ajustements de contenu", "body": "Jusqu'à N heures/mois pour de petits ajustements — textes, images, publications blog, formulaires." },
+        { "title": "Revue analytics", "body": "Revue mensuelle de GA4, Search Console, Clarity. Repérer les opportunités avant qu'elles ne deviennent des problèmes." }
+      ],
+      "process": [
+        { "title": "Onboarding (semaine 1)", "body": "Transfert d'accès, mise en place du monitoring, audit de référence, runbook documenté." },
+        { "title": "En continu", "body": "Fenêtre de maintenance mensuelle, health check hebdomadaire, demandes à la volée via Slack/e-mail dédié." }
+      ],
+      "deliverables": ["Rapport de maintenance mensuel", "Dashboard uptime en temps réel", "Sauvegardes quotidiennes hors site", "Revue performance trimestrielle", "Canal Slack ou e-mail pour les demandes"],
+      "tiers": [
+        { "name": "Essentials", "price": 190, "timeline": "Mensuel", "highlight": false, "tagline": "Sites monolingues de moins de 30 pages.", "includes": ["Mises à jour + patches sécurité", "Sauvegardes quotidiennes", "Surveillance uptime", "1 h d'ajustements/mois", "Rapport mensuel"] },
+        { "name": "Growth", "price": 490, "timeline": "Mensuel", "highlight": true, "tagline": "Sites multilingues ou e-commerce jusqu'à 100 pages.", "includes": ["Tout Essentials", "Réponse prioritaire (4 h)", "4 h d'ajustements/mois", "Revue performance trimestrielle", "Revue Search Console + GA4"] },
+        { "name": "Scale", "price": null, "timeline": "Mensuel", "highlight": false, "tagline": "Plateformes critiques avec SLA.", "includes": ["Tout Growth", "SLA 1 h, 24/7", "Canal Slack dédié", "Heures sur mesure par mois", "Revue d'architecture trimestrielle"] }
+      ],
+      "related": ["website_development", "site_analytics"],
+      "faq": [
+        { "question": "Quels sites maintenez-vous ?", "answer": "Tout ce qui est moderne (Astro, Next.js, CMS headless) et la plupart des installations WordPress sous 200 plugins. Nous ne maintenons pas les builders drag-and-drop (Wix, Squarespace) — déjà gérés par leurs plateformes." },
+        { "question": "Que se passe-t-il si mon site tombe ?", "answer": "Notre monitoring détecte les indisponibilités sous 60 secondes. Heures ouvrées : réponse sous 30 minutes. Tier Scale : SLA 1 heure, 24/7." },
+        { "question": "Je peux résilier mensuellement ?", "answer": "Oui. Pas d'engagement de durée. Nous gagnons le mois suivant, chaque mois." }
+      ]
+    }
+  },
+  "form": {
+    "name": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "company": "Entreprise",
+    "website": "Site web",
+    "country": "Pays",
+    "service": "Service",
+    "services": "Services",
+    "service_select": "Choisir le(s) service(s)",
+    "budget": "Budget",
+    "budget_select": "Choisir une fourchette de budget",
+    "timeline": "Délai",
+    "message": "Message",
+    "project_details": "Parlez-nous de votre projet",
+    "how_heard": "Comment nous avez-vous connus ?",
+    "consent": "J'accepte la politique de confidentialité et le traitement de mes données.",
+    "newsletter_consent": "Je souhaite recevoir occasionnellement des e-mails avec conseils et études de cas.",
+    "required": "Obligatoire",
+    "errors": {
+      "required": "Ce champ est obligatoire",
+      "email_invalid": "Cela ne ressemble pas à un e-mail valide",
+      "phone_invalid": "Veuillez saisir un numéro de téléphone valide",
+      "consent_required": "Veuillez accepter la politique de confidentialité pour continuer"
+    },
+    "success": {
+      "title": "Message reçu",
+      "body": "Merci. Nous avons votre message et reviendrons sous 4 heures pendant les heures ouvrées.",
+      "next_steps": "En attendant, vous pouvez parcourir nos projets récents ou lire le journal."
+    }
+  },
+  "footer": {
+    "tagline": "Développement web, SEO et publicité payante qui transforment votre entreprise en choix évident.",
+    "services_heading": "Services",
+    "company_heading": "Agence",
+    "legal_heading": "Mentions légales",
+    "social_heading": "Nous suivre",
+    "contact_heading": "Nous joindre",
+    "rights_reserved": "Tous droits réservés.",
+    "made_with": "Construit avec Astro sur Cloudflare.",
+    "newsletter_title": "Restez informé",
+    "newsletter_subtitle": "Insights mensuels sur le web, le SEO et la pub. Sans baratin."
+  },
+  "languages": {
+    "switch_to": "Changer de langue",
+    "current": "Langue actuelle",
+    "suggest_banner": {
+      "title": "Vous préférez peut-être {language}.",
+      "subtitle": "Passer à {language} ?",
+      "yes": "Oui, changer",
+      "no": "Non, garder le français",
+      "later": "Peut-être plus tard"
+    }
+  },
+  "page_titles": {
+    "home": "Agence de développement web, SEO & publicité",
+    "services": "Services",
+    "about": "À propos d'Alexey Kachan",
+    "contacts": "Contact",
+    "cases_web": "Études de cas — Développement web",
+    "cases_marketing": "Études de cas — Marketing",
+    "blog": "Journal",
+    "privacy": "Politique de confidentialité",
+    "cookies": "Politique cookies",
+    "terms": "Conditions d'utilisation",
+    "brief_website": "Brief projet web",
+    "brief_ads": "Brief publicité",
+    "thank_you": "Merci",
+    "404": "Page introuvable"
+  },
+  "cookies": {
+    "banner_title": "Nous respectons votre vie privée",
+    "banner_text": "Nous utilisons des cookies pour les fonctions essentielles du site et — avec votre consentement — pour les analytics et le marketing.",
+    "accept_all": "Tout accepter",
+    "reject_all": "Refuser le non essentiel",
+    "customize": "Personnaliser",
+    "save_choices": "Enregistrer mes choix",
+    "categories": {
+      "essential": "Essentiels",
+      "analytics": "Analytics",
+      "marketing": "Marketing"
+    }
+  },
+  "404": {
+    "title": "404",
+    "heading": "Perdu dans l'espace",
+    "subtitle": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "suggestions": "Voici ce que vous pouvez faire :",
+    "links": {
+      "home": "Retour à l'accueil",
+      "services": "Voir les services",
+      "cases": "Voir les projets",
+      "contact": "Nous joindre"
+    }
+  }
+}

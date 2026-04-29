@@ -1,0 +1,235 @@
+{
+  "_meta": {
+    "lang": "ro",
+    "name": "Română",
+    "status": "draft_ai_translated",
+    "needs_native_review": true,
+    "last_updated": "2026-04-28"
+  },
+  "common": {
+    "min_read": "min citire",
+    "read_more": "Citește mai mult",
+    "learn_more": "Află mai multe",
+    "view_all": "Vezi toate",
+    "loading": "Se încarcă…",
+    "back_to_top": "Sus",
+    "close": "Închide",
+    "menu": "Meniu",
+    "search": "Caută",
+    "scroll_down": "Derulează în jos",
+    "page_not_found": "Pagina nu a fost găsită",
+    "go_home": "Mergi la pagina principală"
+  },
+  "nav": {
+    "home": "Acasă",
+    "services": "Servicii",
+    "cases": "Proiecte",
+    "case_studies": "Studii de caz",
+    "web_dev_cases": "Dezvoltare web",
+    "marketing_cases": "Marketing",
+    "about": "Despre noi",
+    "blog": "Blog",
+    "contacts": "Contact"
+  },
+  "cta": {
+    "start_project": "Începe un proiect",
+    "get_started": "Începe acum",
+    "get_quote": "Solicită ofertă",
+    "get_audit": "Audit gratuit",
+    "see_pricing": "Vezi prețurile",
+    "see_work": "Vezi proiectele noastre",
+    "view_case": "Vezi proiectul",
+    "all_projects": "Toate proiectele",
+    "send_message": "Trimite mesaj",
+    "submit": "Trimite",
+    "subscribe": "Abonează-te",
+    "download_brief": "Descarcă brief",
+    "book_call": "Rezervă o discuție",
+    "let_talk": "Să vorbim"
+  },
+  "hero": {
+    "title_line_1": "Fă-ți brandul",
+    "title_line_2": "imposibil de ignorat.",
+    "subtitle": "Dezvoltare web, SEO și publicitate plătită care transformă afacerea ta în alegerea evidentă. Construit și gestionat de Alexey Kachan și agenția sa.",
+    "primary_cta": "Începe un proiect",
+    "secondary_cta": "Vezi proiectele noastre"
+  },
+  "services_section": {
+    "label": "Servicii",
+    "title": "Servicii care fac diferența",
+    "subtitle": "Șase discipline, o strategie unificată. Fiecare serviciu este construit pentru rezultate măsurabile.",
+    "items": {
+      "website_development": {
+        "title": "Dezvoltare web",
+        "short": "Site-uri rapide, sigure și orientate spre conversie care chiar vând."
+      },
+      "site_redesign": {
+        "title": "Redesign site",
+        "short": "Modernizare fără pierdere de SEO. UX mai bun, mai multe lead-uri."
+      },
+      "site_support": {
+        "title": "Mentenanță site",
+        "short": "Mentenanță, securitate, actualizări — fără bătăi de cap."
+      },
+      "setting_up_ads": {
+        "title": "Publicitate online",
+        "short": "Google Ads, Meta, TikTok, LinkedIn — campanii care aduc profit."
+      },
+      "site_analytics": {
+        "title": "Optimizare SEO",
+        "short": "Creștere organică predictibilă, auditată și inginerie."
+      },
+      "site_design": {
+        "title": "Design web",
+        "short": "Design orientat pe brand care închide vânzări înainte să se întâmple."
+      }
+    }
+  },
+  "stats": {
+    "title": "Cifre care contează",
+    "years_experience": "Ani de experiență",
+    "projects_delivered": "Proiecte livrate",
+    "services_offered": "Servicii oferite",
+    "countries_served": "Țări deservite"
+  },
+  "process": {
+    "label": "Proces",
+    "title": "Cum lucrez",
+    "subtitle": "Un cadru testat care transformă ideile în rezultate de afaceri măsurabile.",
+    "steps": {
+      "discovery": {
+        "title": "Descoperire",
+        "description": "Analiză profundă a afacerii, audienței, concurenței și obiectivelor tale."
+      },
+      "strategy": {
+        "title": "Strategie",
+        "description": "Foaie de parcurs clară cu KPI-uri și etape măsurabile."
+      },
+      "design": {
+        "title": "Design",
+        "description": "Design orientat spre conversie care reflectă brandul tău și incită la acțiune."
+      },
+      "build": {
+        "title": "Dezvoltare",
+        "description": "Soluții rapide, sigure și scalabile cu cele mai bune practici moderne."
+      },
+      "launch": {
+        "title": "Lansare & Scalare",
+        "description": "Go-live fluid, apoi optimizare continuă bazată pe date reale."
+      }
+    }
+  },
+  "testimonials": {
+    "label": "Testimoniale",
+    "title": "Ce spun clienții",
+    "verified_badge": "Recenzie Google verificată"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Întrebări frecvente",
+    "subtitle": "Răspunsuri rapide la întrebări comune. Nu o vezi pe a ta? Întreabă-mă."
+  },
+  "final_cta": {
+    "title": "Gata să-ți depășești concurența?",
+    "subtitle": "Spune-mi despre proiectul tău — răspund în mai puțin de 4 ore în timpul programului de lucru.",
+    "form_placeholder_email": "Email-ul tău",
+    "form_placeholder_message": "Spune-mi despre proiectul tău…",
+    "or_reach_via": "Sau contactează-mă direct prin",
+    "response_time": "Timp mediu de răspuns: < 4 ore"
+  },
+  "form": {
+    "name": "Nume",
+    "email": "Email",
+    "phone": "Telefon",
+    "company": "Companie",
+    "website": "Site web",
+    "country": "Țară",
+    "service": "Serviciu",
+    "services": "Servicii",
+    "service_select": "Alege serviciul/serviciile",
+    "budget": "Buget",
+    "budget_select": "Selectează intervalul de buget",
+    "timeline": "Termen",
+    "message": "Mesaj",
+    "project_details": "Spune-mi despre proiectul tău",
+    "how_heard": "Cum ai auzit despre noi?",
+    "consent": "Sunt de acord cu politica de confidențialitate și prelucrarea datelor mele.",
+    "newsletter_consent": "Doresc să primesc ocazional emailuri cu sfaturi și studii de caz.",
+    "required": "Obligatoriu",
+    "errors": {
+      "required": "Acest câmp este obligatoriu",
+      "email_invalid": "Acesta nu pare un email valid",
+      "phone_invalid": "Te rog introdu un număr de telefon valid",
+      "consent_required": "Te rog acceptă politica de confidențialitate pentru a continua"
+    },
+    "success": {
+      "title": "Mesaj primit",
+      "body": "Mulțumesc. Am primit mesajul tău și voi răspunde în mai puțin de 4 ore în timpul programului de lucru.",
+      "next_steps": "Între timp, poți să-mi vezi proiectele recente sau să citești blogul."
+    }
+  },
+  "footer": {
+    "tagline": "Dezvoltare web, SEO și publicitate plătită care transformă afacerea ta în alegerea evidentă.",
+    "services_heading": "Servicii",
+    "company_heading": "Companie",
+    "legal_heading": "Legal",
+    "social_heading": "Social",
+    "contact_heading": "Contact",
+    "rights_reserved": "Toate drepturile rezervate.",
+    "made_with": "Construit cu Astro pe Cloudflare.",
+    "newsletter_title": "Rămâi la curent",
+    "newsletter_subtitle": "Sfaturi lunare despre web, SEO și publicitate. Fără umplutură."
+  },
+  "languages": {
+    "switch_to": "Schimbă limba",
+    "current": "Limba curentă",
+    "suggest_banner": {
+      "title": "Se pare că preferi {language}.",
+      "subtitle": "Trec la {language}?",
+      "yes": "Da, schimbă",
+      "no": "Nu, păstrează engleza",
+      "later": "Poate mai târziu"
+    }
+  },
+  "page_titles": {
+    "home": "Agenție de Dezvoltare Web, SEO & Publicitate",
+    "services": "Servicii",
+    "about": "Despre Alexey Kachan",
+    "contacts": "Contact",
+    "cases_web": "Proiecte de dezvoltare web",
+    "cases_marketing": "Studii de caz marketing",
+    "blog": "Blog",
+    "privacy": "Politica de confidențialitate",
+    "cookies": "Politica cookies",
+    "terms": "Termeni și condiții",
+    "brief_website": "Brief proiect web",
+    "brief_ads": "Brief campanie publicitară",
+    "thank_you": "Mulțumim",
+    "404": "Pagina nu a fost găsită"
+  },
+  "cookies": {
+    "banner_title": "Îți respectăm confidențialitatea",
+    "banner_text": "Folosim cookies pentru funcții esențiale și, cu acordul tău, pentru analiză și marketing.",
+    "accept_all": "Acceptă toate",
+    "reject_all": "Refuză cele neesențiale",
+    "customize": "Personalizează",
+    "save_choices": "Salvează alegerile",
+    "categories": {
+      "essential": "Esențiale",
+      "analytics": "Analiză",
+      "marketing": "Marketing"
+    }
+  },
+  "404": {
+    "title": "404",
+    "heading": "Pierdut în spațiu",
+    "subtitle": "Pagina pe care o cauți nu există sau a fost mutată.",
+    "suggestions": "Iată ce poți face în schimb:",
+    "links": {
+      "home": "Mergi la pagina principală",
+      "services": "Vezi serviciile",
+      "cases": "Vezi proiectele",
+      "contact": "Contactează-ne"
+    }
+  }
+}

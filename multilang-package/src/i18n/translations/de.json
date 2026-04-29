@@ -1,0 +1,236 @@
+{
+  "_meta": {
+    "lang": "de",
+    "name": "Deutsch",
+    "status": "draft_ai_translated",
+    "needs_native_review": true,
+    "last_updated": "2026-04-28"
+  },
+  "common": {
+    "min_read": "Min. Lesezeit",
+    "read_more": "Mehr lesen",
+    "learn_more": "Mehr erfahren",
+    "view_all": "Alle ansehen",
+    "loading": "Wird geladen…",
+    "back_to_top": "Nach oben",
+    "close": "Schließen",
+    "menu": "Menü",
+    "search": "Suche",
+    "scroll_down": "Nach unten scrollen",
+    "page_not_found": "Seite nicht gefunden",
+    "go_home": "Zur Startseite"
+  },
+  "nav": {
+    "home": "Startseite",
+    "services": "Dienstleistungen",
+    "cases": "Projekte",
+    "case_studies": "Fallstudien",
+    "web_dev_cases": "Webentwicklung",
+    "marketing_cases": "Marketing",
+    "about": "Über uns",
+    "blog": "Blog",
+    "contacts": "Kontakt"
+  },
+  "cta": {
+    "start_project": "Projekt starten",
+    "get_started": "Jetzt starten",
+    "get_quote": "Angebot erhalten",
+    "get_audit": "Kostenloses Audit",
+    "see_pricing": "Preise ansehen",
+    "see_work": "Projekte ansehen",
+    "view_case": "Projekt ansehen",
+    "all_projects": "Alle Projekte",
+    "send_message": "Nachricht senden",
+    "submit": "Absenden",
+    "subscribe": "Abonnieren",
+    "download_brief": "Briefing herunterladen",
+    "book_call": "Gespräch buchen",
+    "let_talk": "Sprechen wir"
+  },
+  "hero": {
+    "title_line_1": "Machen Sie Ihre Marke",
+    "title_line_2": "unübersehbar.",
+    "subtitle": "Webentwicklung, SEO und bezahlte Werbung, die Ihr Unternehmen zur naheliegenden Wahl machen. Entwickelt und betreut von Alexey Kachan und seiner Agentur.",
+    "primary_cta": "Projekt starten",
+    "secondary_cta": "Projekte ansehen"
+  },
+  "services_section": {
+    "label": "Dienstleistungen",
+    "title": "Dienstleistungen, die Wirkung zeigen",
+    "subtitle": "Sechs Disziplinen, eine einheitliche Strategie. Jede Leistung ist auf messbare Ergebnisse ausgerichtet.",
+    "items": {
+      "website_development": {
+        "title": "Webentwicklung",
+        "short": "Schnelle, sichere und konversionsstarke Webseiten, die wirklich verkaufen."
+      },
+      "site_redesign": {
+        "title": "Website-Redesign",
+        "short": "Modernisierung ohne SEO-Verlust. Bessere UX, mehr Anfragen."
+      },
+      "site_support": {
+        "title": "Website-Wartung",
+        "short": "Wartung, Sicherheit, Updates — ohne Kopfschmerzen."
+      },
+      "setting_up_ads": {
+        "title": "Bezahlte Werbung",
+        "short": "Google Ads, Meta, TikTok, LinkedIn — Kampagnen mit Return on Investment."
+      },
+      "site_analytics": {
+        "title": "SEO-Optimierung",
+        "short": "Planbares organisches Wachstum, geprüft und entwickelt."
+      },
+      "site_design": {
+        "title": "Webdesign",
+        "short": "Markenorientiertes Design, das Geschäfte abschließt, bevor sie passieren."
+      }
+    }
+  },
+  "stats": {
+    "title": "Zahlen, die zählen",
+    "years_experience": "Jahre Erfahrung",
+    "projects_delivered": "Realisierte Projekte",
+    "services_offered": "Angebotene Dienstleistungen",
+    "countries_served": "Betreute Länder"
+  },
+  "process": {
+    "label": "Prozess",
+    "title": "So arbeite ich",
+    "subtitle": "Ein bewährtes Framework, das Ideen in messbare Geschäftsergebnisse verwandelt.",
+    "steps": {
+      "discovery": {
+        "title": "Analyse",
+        "description": "Tiefer Einblick in Ihr Unternehmen, Ihre Zielgruppe, den Wettbewerb und Ihre Ziele."
+      },
+      "strategy": {
+        "title": "Strategie",
+        "description": "Klare Roadmap mit messbaren KPIs und Meilensteinen."
+      },
+      "design": {
+        "title": "Design",
+        "description": "Konversionsorientiertes Design, das Ihre Marke widerspiegelt und zum Handeln animiert."
+      },
+      "build": {
+        "title": "Entwicklung",
+        "description": "Schnelle, sichere und skalierbare Lösungen nach modernsten Standards."
+      },
+      "launch": {
+        "title": "Launch & Skalierung",
+        "description": "Reibungsloser Go-Live und kontinuierliche Optimierung auf Basis echter Daten."
+      }
+    }
+  },
+  "testimonials": {
+    "label": "Kundenstimmen",
+    "title": "Was Kunden sagen",
+    "verified_badge": "Verifizierte Google-Bewertung"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Schnelle Antworten auf häufige Fragen. Ihre Frage nicht dabei? Fragen Sie einfach."
+  },
+  "final_cta": {
+    "title": "Bereit, der Konkurrenz davonzuziehen?",
+    "subtitle": "Erzählen Sie mir von Ihrem Projekt — ich antworte innerhalb von 4 Stunden während der Geschäftszeiten.",
+    "form_placeholder_email": "Ihre E-Mail",
+    "form_placeholder_message": "Erzählen Sie mir von Ihrem Projekt…",
+    "or_reach_via": "Oder kontaktieren Sie mich direkt über",
+    "response_time": "Durchschnittliche Antwortzeit: < 4 Stunden"
+  },
+  "form": {
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "company": "Unternehmen",
+    "website": "Website",
+    "country": "Land",
+    "service": "Dienstleistung",
+    "services": "Dienstleistungen",
+    "service_select": "Dienstleistung(en) wählen",
+    "budget": "Budget",
+    "budget_select": "Budget wählen",
+    "timeline": "Zeitrahmen",
+    "message": "Nachricht",
+    "project_details": "Erzählen Sie mir von Ihrem Projekt",
+    "how_heard": "Wie haben Sie von uns erfahren?",
+    "consent": "Ich stimme der Datenschutzerklärung und der Verarbeitung meiner Daten zu.",
+    "newsletter_consent": "Ich möchte gelegentlich E-Mails mit Tipps und Fallstudien erhalten.",
+    "required": "Erforderlich",
+    "errors": {
+      "required": "Dieses Feld ist erforderlich",
+      "email_invalid": "Das sieht nicht nach einer gültigen E-Mail aus",
+      "phone_invalid": "Bitte geben Sie eine gültige Telefonnummer ein",
+      "consent_required": "Bitte akzeptieren Sie die Datenschutzerklärung, um fortzufahren"
+    },
+    "success": {
+      "title": "Nachricht erhalten",
+      "body": "Vielen Dank. Ich habe Ihre Nachricht erhalten und antworte innerhalb von 4 Stunden während der Geschäftszeiten.",
+      "next_steps": "In der Zwischenzeit können Sie meine aktuellen Arbeiten ansehen oder den Blog lesen."
+    }
+  },
+  "footer": {
+    "tagline": "Webentwicklung, SEO und bezahlte Werbung, die Ihr Unternehmen zur naheliegenden Wahl machen.",
+    "services_heading": "Dienstleistungen",
+    "company_heading": "Unternehmen",
+    "legal_heading": "Rechtliches",
+    "social_heading": "Vernetzen",
+    "contact_heading": "Kontakt",
+    "rights_reserved": "Alle Rechte vorbehalten.",
+    "made_with": "Erstellt mit Astro auf Cloudflare.",
+    "newsletter_title": "Bleiben Sie auf dem Laufenden",
+    "newsletter_subtitle": "Monatliche Einblicke zu Web, SEO und Werbung. Ohne Geschwafel."
+  },
+  "languages": {
+    "switch_to": "Sprache wechseln",
+    "current": "Aktuelle Sprache",
+    "suggest_banner": {
+      "title": "Sieht so aus, als würden Sie {language} bevorzugen.",
+      "subtitle": "Zu {language} wechseln?",
+      "yes": "Ja, wechseln",
+      "no": "Nein, bei Deutsch bleiben",
+      "later": "Vielleicht später"
+    }
+  },
+  "page_titles": {
+    "home": "Agentur für Webentwicklung, SEO & Werbung",
+    "services": "Dienstleistungen",
+    "about": "Über Alexey Kachan",
+    "contacts": "Kontakt",
+    "cases_web": "Webentwicklungs-Projekte",
+    "cases_marketing": "Marketing-Fallstudien",
+    "blog": "Blog",
+    "privacy": "Datenschutzerklärung",
+    "cookies": "Cookie-Richtlinie",
+    "terms": "AGB",
+    "brief_website": "Briefing für Webprojekt",
+    "brief_ads": "Briefing für Werbekampagne",
+    "thank_you": "Vielen Dank",
+    "404": "Seite nicht gefunden",
+    "impressum": "Impressum"
+  },
+  "cookies": {
+    "banner_title": "Wir respektieren Ihre Privatsphäre",
+    "banner_text": "Wir verwenden Cookies für wesentliche Funktionen und, mit Ihrer Einwilligung, für Analyse und Marketing.",
+    "accept_all": "Alle akzeptieren",
+    "reject_all": "Nicht-essentielle ablehnen",
+    "customize": "Anpassen",
+    "save_choices": "Auswahl speichern",
+    "categories": {
+      "essential": "Essentiell",
+      "analytics": "Analyse",
+      "marketing": "Marketing"
+    }
+  },
+  "404": {
+    "title": "404",
+    "heading": "Verirrt im Weltraum",
+    "subtitle": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "suggestions": "Folgendes können Sie stattdessen tun:",
+    "links": {
+      "home": "Zur Startseite",
+      "services": "Dienstleistungen ansehen",
+      "cases": "Projekte ansehen",
+      "contact": "Kontakt aufnehmen"
+    }
+  }
+}
