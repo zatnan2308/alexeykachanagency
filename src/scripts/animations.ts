@@ -91,18 +91,28 @@ function initScrollReveals() {
     const from = revealVariants[variant] ?? revealVariants['fade-up'];
     const delay = parseFloat(el.dataset.revealDelay || '0');
 
-    gsap.from(el, {
-      ...from,
-      duration: 0.95,
-      delay,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 88%',
-        toggleActions: 'play none none none',
-        once: true,
-      },
-    });
+    // Use fromTo (not from) — CSS sets opacity:0 on .js [data-reveal] to prevent
+    // FOUC, so gsap.from() would read current opacity (0) as the destination
+    // value, animating from 0 to 0. fromTo is explicit about both endpoints.
+    gsap.fromTo(
+      el,
+      from,
+      {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scale: 1,
+        duration: 0.95,
+        delay,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+          once: true,
+        },
+      }
+    );
   });
 }
 
@@ -121,20 +131,25 @@ function initStaggerReveals() {
     const delay = parseFloat(parent.dataset.staggerDelay || '0');
     const stagger = parseFloat(parent.dataset.staggerInterval || '0.08');
 
-    gsap.from(children, {
-      opacity: 0,
-      y: 32,
-      duration: 0.8,
-      delay,
-      stagger,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: parent,
-        start: 'top 88%',
-        toggleActions: 'play none none none',
-        once: true,
-      },
-    });
+    // fromTo so it works against CSS-pre-hidden children (see initScrollReveals).
+    gsap.fromTo(
+      children,
+      { opacity: 0, y: 32 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay,
+        stagger,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: parent,
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+          once: true,
+        },
+      }
+    );
   });
 }
 
@@ -287,11 +302,11 @@ function initHeroEntrance() {
   }
 
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-  tl.from(hero.querySelector('.hero__kicker'),       { opacity: 0, y: 12, duration: 0.6 })
-    .from(hero.querySelectorAll('.hero__title-line'), { opacity: 0, y: 60, duration: 0.95, stagger: 0.12 }, '-=0.3')
-    .from(hero.querySelector('.hero__subtitle'),      { opacity: 0, y: 20, duration: 0.7 }, '-=0.5')
-    .from(hero.querySelectorAll('.hero__ctas > *'),   { opacity: 0, y: 16, duration: 0.6, stagger: 0.08 }, '-=0.4')
-    .from(hero.querySelector('.hero__scroll'),        { opacity: 0, duration: 0.5 }, '-=0.2');
+  tl.fromTo(hero.querySelector('.hero__kicker'),        { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6 })
+    .fromTo(hero.querySelectorAll('.hero__title-line'), { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.95, stagger: 0.12 }, '-=0.3')
+    .fromTo(hero.querySelector('.hero__subtitle'),      { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
+    .fromTo(hero.querySelectorAll('.hero__ctas > *'),   { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, '-=0.4')
+    .fromTo(hero.querySelector('.hero__scroll'),        { opacity: 0 },        { opacity: 1, duration: 0.5 }, '-=0.2');
 }
 
 // =============================================================================
