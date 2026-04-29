@@ -173,6 +173,18 @@ body {
   min-height: 100svh;
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
+  /* Sticky-footer flex column: pushes <footer> to the viewport bottom
+     when page content is shorter than the viewport. */
+  display: flex;
+  flex-direction: column;
+}
+
+/* main grows to fill remaining vertical space so the footer hugs the bottom */
+body > main {
+  flex: 1 0 auto;
+}
+body > footer {
+  flex-shrink: 0;
 }
 
 img,
