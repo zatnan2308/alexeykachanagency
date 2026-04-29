@@ -504,10 +504,34 @@
       "h1": "Расскажите о сайте.",
       "lead": "Чем конкретнее ответы — тем точнее оценка. Пропустите разделы, которые не относятся — заполним их на kickoff-звонке.",
       "contact_fields": [
-        { "name": "company_name", "label": "Название компании", "type": "text", "required": true, "placeholder": "Бренд или юр. название" },
-        { "name": "contact_person", "label": "Ваше имя и должность", "type": "text", "required": true, "placeholder": "напр. Анна Иванова, Marketing Director" },
-        { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "you@company.com" },
-        { "name": "phone_messenger", "label": "Телефон или мессенджер", "type": "tel", "required": false, "placeholder": "+ код страны, или @telegram" }
+        {
+          "name": "company_name",
+          "label": "Название компании",
+          "type": "text",
+          "required": true,
+          "placeholder": "Бренд или юр. название"
+        },
+        {
+          "name": "contact_person",
+          "label": "Ваше имя и должность",
+          "type": "text",
+          "required": true,
+          "placeholder": "напр. Анна Иванова, Marketing Director"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true,
+          "placeholder": "you@company.com"
+        },
+        {
+          "name": "phone_messenger",
+          "label": "Телефон или мессенджер",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+ код страны, или @telegram"
+        }
       ],
       "sections": [
         {
@@ -601,10 +625,34 @@
       "h1": "Расскажите о кампании.",
       "lead": "Пропускайте то, что не относится — черновики сохраняются в браузере. Возвращаемся с рекомендованным микс-каналов, стартовым бюджетом и измеримой целью — до любого контракта.",
       "contact_fields": [
-        { "name": "company_name", "label": "Название компании", "type": "text", "required": true, "placeholder": "Бренд или юр. название" },
-        { "name": "contact_person", "label": "Ваше имя и должность", "type": "text", "required": true, "placeholder": "напр. Анна Иванова, Marketing Director" },
-        { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "you@company.com" },
-        { "name": "phone_messenger", "label": "Телефон или мессенджер", "type": "tel", "required": false, "placeholder": "+ код страны, или @telegram" }
+        {
+          "name": "company_name",
+          "label": "Название компании",
+          "type": "text",
+          "required": true,
+          "placeholder": "Бренд или юр. название"
+        },
+        {
+          "name": "contact_person",
+          "label": "Ваше имя и должность",
+          "type": "text",
+          "required": true,
+          "placeholder": "напр. Анна Иванова, Marketing Director"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true,
+          "placeholder": "you@company.com"
+        },
+        {
+          "name": "phone_messenger",
+          "label": "Телефон или мессенджер",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+ код страны, или @telegram"
+        }
       ],
       "sections": [
         {
@@ -1096,29 +1144,29 @@
       ],
       "tiers": [
         {
-          "name": "Лендинг",
-          "price": 800,
+          "name": "Лендинг и one-pager",
+          "price": 600,
           "timeline": "1–2 недели",
           "highlight": false,
-          "tagline": "Одностраничный лендинг под запуск, событие, lead-magnet кампанию.",
+          "tagline": "Для: соло-предпринимателей, lead-gen страниц, MVP.",
           "includes": [
-            "1 страница, один язык",
+            "Один лендинг или one-pager",
+            "Готовность к мультиязычности",
             "Wix Studio / Elementor / статический HTML",
-            "Custom-дизайн или шаблон",
             "Базовое on-page SEO",
-            "Аналитика + tracking форм",
+            "GA4 + tracking форм",
             "14 дней bug-fix поддержки"
           ]
         },
         {
-          "name": "Малый бизнес",
-          "price": 2500,
+          "name": "Сайт для бизнеса",
+          "price": 1495,
           "timeline": "2–4 недели",
-          "highlight": false,
-          "tagline": "5–10 страниц: услуги, о нас, блог, контакты. Самый популярный тариф.",
+          "highlight": true,
+          "tagline": "Для: сайтов малого бизнеса, профессиональных услуг, портфолио.",
           "includes": [
-            "5–10 страниц, один язык",
-            "WordPress / Wix Studio (на ваш выбор)",
+            "5–15 страниц, 2–3 языка включено",
+            "WordPress или Astro",
             "Custom-дизайн",
             "Редактируемая админка для вашей команды",
             "Полное on-page SEO + schema",
@@ -1128,14 +1176,14 @@
         },
         {
           "name": "Корпоративный мультиязычный",
-          "price": 6000,
-          "timeline": "4–8 недель",
-          "highlight": true,
-          "tagline": "20–50 страниц, 2–8 языков, контент-процесс для маркетинг-команды.",
+          "price": 2990,
+          "timeline": "4–6 недель",
+          "highlight": false,
+          "tagline": "Для: устоявшегося бизнеса, выходящего на новые рынки.",
           "includes": [
-            "20–50 страниц, 2–8 языков",
-            "Astro или WordPress + headless CMS",
-            "Мультиязычный контент-процесс",
+            "15+ страниц, 4–8 языков",
+            "WordPress + WPML или Astro",
+            "Custom design system",
             "Расширенный SEO + hreflang",
             "Tracking конверсий + heatmap",
             "Контракт на performance (CWV 95+)",
@@ -1144,10 +1192,10 @@
         },
         {
           "name": "E-commerce",
-          "price": 4000,
-          "timeline": "4–10 недель",
+          "price": 2495,
+          "timeline": "4–8 недель",
           "highlight": false,
-          "tagline": "Shopify от 4.000 $, WooCommerce или custom от 7.000 $. От 50 до 5.000+ SKU.",
+          "tagline": "Shopify от 2 495 $ / WooCommerce от 3 990 $. Для: онлайн-магазинов, продуктовых бизнесов.",
           "includes": [
             "Каталог, корзина, чекаут, оплаты",
             "Shopify (быстрее) или WooCommerce (полный контроль)",
@@ -1159,11 +1207,11 @@
           ]
         },
         {
-          "name": "SaaS / Custom build",
-          "price": 15000,
+          "name": "Custom и SaaS",
+          "price": 7990,
           "timeline": "8+ недель",
           "highlight": false,
-          "tagline": "Дашборды, member-зоны, кастомные интеграции, real-time функции.",
+          "tagline": "Для: SaaS-стартапов, custom-приложений, дашбордов, real-time функций.",
           "includes": [
             "Индивидуальный скоп и интеграции",
             "Next.js или Node.js bespoke",
@@ -1216,7 +1264,8 @@
       "_meta": {
         "status": "draft_ai_translated",
         "needs_native_review": true
-      }
+      },
+      "tiers_footnote": "Все тарифы включают: мультиязычность, on-page SEO, настройку GA4, 14 дней пост-launch поддержки — бесплатно."
     },
     "site_design": {
       "hero": {

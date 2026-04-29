@@ -481,10 +481,34 @@
       "h1": "Parlez-nous du site.",
       "lead": "Plus vos réponses sont précises, plus le devis sera exact. Sautez les sections qui ne s'appliquent pas — nous comblerons les vides au call de kickoff.",
       "contact_fields": [
-        { "name": "company_name", "label": "Nom de l'entreprise", "type": "text", "required": true, "placeholder": "Nom de marque ou raison sociale" },
-        { "name": "contact_person", "label": "Votre nom & fonction", "type": "text", "required": true, "placeholder": "ex. Anna Müller, Directrice Marketing" },
-        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "vous@entreprise.com" },
-        { "name": "phone_messenger", "label": "Téléphone ou messagerie", "type": "tel", "required": false, "placeholder": "+ indicatif pays, ou @telegram" }
+        {
+          "name": "company_name",
+          "label": "Nom de l'entreprise",
+          "type": "text",
+          "required": true,
+          "placeholder": "Nom de marque ou raison sociale"
+        },
+        {
+          "name": "contact_person",
+          "label": "Votre nom & fonction",
+          "type": "text",
+          "required": true,
+          "placeholder": "ex. Anna Müller, Directrice Marketing"
+        },
+        {
+          "name": "email",
+          "label": "E-mail",
+          "type": "email",
+          "required": true,
+          "placeholder": "vous@entreprise.com"
+        },
+        {
+          "name": "phone_messenger",
+          "label": "Téléphone ou messagerie",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+ indicatif pays, ou @telegram"
+        }
       ],
       "sections": [
         {
@@ -578,10 +602,34 @@
       "h1": "Parlez-nous de la campagne.",
       "lead": "Sautez ce qui ne s'applique pas — les brouillons sont sauvegardés dans le navigateur. Nous revenons avec un mix de canaux recommandé, un budget de départ et une cible mesurable — avant tout contrat.",
       "contact_fields": [
-        { "name": "company_name", "label": "Nom de l'entreprise", "type": "text", "required": true, "placeholder": "Nom de marque ou raison sociale" },
-        { "name": "contact_person", "label": "Votre nom & fonction", "type": "text", "required": true, "placeholder": "ex. Anna Müller, Directrice Marketing" },
-        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "vous@entreprise.com" },
-        { "name": "phone_messenger", "label": "Téléphone ou messagerie", "type": "tel", "required": false, "placeholder": "+ indicatif pays, ou @telegram" }
+        {
+          "name": "company_name",
+          "label": "Nom de l'entreprise",
+          "type": "text",
+          "required": true,
+          "placeholder": "Nom de marque ou raison sociale"
+        },
+        {
+          "name": "contact_person",
+          "label": "Votre nom & fonction",
+          "type": "text",
+          "required": true,
+          "placeholder": "ex. Anna Müller, Directrice Marketing"
+        },
+        {
+          "name": "email",
+          "label": "E-mail",
+          "type": "email",
+          "required": true,
+          "placeholder": "vous@entreprise.com"
+        },
+        {
+          "name": "phone_messenger",
+          "label": "Téléphone ou messagerie",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+ indicatif pays, ou @telegram"
+        }
       ],
       "sections": [
         {
@@ -1073,29 +1121,29 @@
       ],
       "tiers": [
         {
-          "name": "Landing page",
-          "price": 800,
+          "name": "Landing & one-pager",
+          "price": 600,
           "timeline": "1–2 semaines",
           "highlight": false,
-          "tagline": "Site de lancement une page, landing événement, campagne lead-magnet.",
+          "tagline": "Pour : entrepreneurs solo, pages lead-gen, MVPs.",
           "includes": [
-            "1 page, une langue",
+            "Landing unique ou one-pager",
+            "Prêt pour le multilingue",
             "Wix Studio / Elementor / HTML statique",
-            "Design sur mesure ou template",
             "Bases SEO on-page",
-            "Analytics + tracking de formulaire",
+            "GA4 + tracking de formulaire",
             "14 jours de support correctif"
           ]
         },
         {
-          "name": "Petite entreprise",
-          "price": 2500,
+          "name": "Site business",
+          "price": 1495,
           "timeline": "2–4 semaines",
-          "highlight": false,
-          "tagline": "5–10 pages : services, à propos, blog, contact. Tier le plus populaire.",
+          "highlight": true,
+          "tagline": "Pour : petits sites business, services pros, portfolios.",
           "includes": [
-            "5–10 pages, une langue",
-            "WordPress / Wix Studio (au choix)",
+            "5–15 pages, 2–3 langues incluses",
+            "WordPress ou Astro",
             "Design sur mesure",
             "Admin éditable pour votre équipe",
             "SEO on-page complet + schema",
@@ -1104,15 +1152,15 @@
           ]
         },
         {
-          "name": "Site multilingue corporate",
-          "price": 6000,
-          "timeline": "4–8 semaines",
-          "highlight": true,
-          "tagline": "20–50 pages, 2–8 langues, workflow de contenu pour l'équipe marketing.",
+          "name": "Corporate multilingue",
+          "price": 2990,
+          "timeline": "4–6 semaines",
+          "highlight": false,
+          "tagline": "Pour : entreprises établies qui s'ouvrent à de nouveaux marchés.",
           "includes": [
-            "20–50 pages, 2–8 langues",
-            "Astro ou WordPress + CMS headless",
-            "Workflow de contenu multilingue",
+            "15+ pages, 4–8 langues",
+            "WordPress + WPML ou Astro",
+            "Système de design sur mesure",
             "SEO avancé + hreflang",
             "Tracking conversion + heatmaps",
             "Contrat performance (CWV 95+)",
@@ -1121,10 +1169,10 @@
         },
         {
           "name": "E-commerce",
-          "price": 4000,
-          "timeline": "4–10 semaines",
+          "price": 2495,
+          "timeline": "4–8 semaines",
           "highlight": false,
-          "tagline": "Shopify à partir de 4 000 $, WooCommerce ou sur mesure à partir de 7 000 $. De 50 à 5 000+ SKUs.",
+          "tagline": "Shopify à partir de 2 495 $ / WooCommerce à partir de 3 990 $. Pour : boutiques en ligne, businesses produits.",
           "includes": [
             "Catalogue, panier, checkout, paiements",
             "Shopify (plus rapide) ou WooCommerce (contrôle total)",
@@ -1136,11 +1184,11 @@
           ]
         },
         {
-          "name": "SaaS / Build sur mesure",
-          "price": 15000,
+          "name": "Sur mesure & SaaS",
+          "price": 7990,
           "timeline": "8+ semaines",
           "highlight": false,
-          "tagline": "Dashboards, espaces membres, intégrations sur mesure, fonctions temps réel.",
+          "tagline": "Pour : startups SaaS, apps sur mesure, dashboards, fonctions temps réel.",
           "includes": [
             "Périmètre & intégrations sur mesure",
             "Next.js ou Node.js bespoke",
@@ -1193,7 +1241,8 @@
       "_meta": {
         "status": "draft_ai_translated",
         "needs_native_review": true
-      }
+      },
+      "tiers_footnote": "Tous les forfaits incluent : multilingue, SEO on-page, configuration GA4, 14 jours de support post-lancement — gratuit."
     },
     "site_design": {
       "hero": {

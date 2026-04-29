@@ -481,10 +481,34 @@
       "h1": "Spune-ne despre site.",
       "lead": "Cu cât răspunsurile sunt mai precise, cu atât oferta este mai exactă. Sari peste secțiunile care nu se aplică — completăm golurile la apelul de kickoff.",
       "contact_fields": [
-        { "name": "company_name", "label": "Numele companiei", "type": "text", "required": true, "placeholder": "Numele de brand sau juridic" },
-        { "name": "contact_person", "label": "Numele tău și funcția", "type": "text", "required": true, "placeholder": "ex. Ana Popescu, Director Marketing" },
-        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "tu@companie.ro" },
-        { "name": "phone_messenger", "label": "Telefon sau messenger", "type": "tel", "required": false, "placeholder": "+ prefix țară, sau @telegram" }
+        {
+          "name": "company_name",
+          "label": "Numele companiei",
+          "type": "text",
+          "required": true,
+          "placeholder": "Numele de brand sau juridic"
+        },
+        {
+          "name": "contact_person",
+          "label": "Numele tău și funcția",
+          "type": "text",
+          "required": true,
+          "placeholder": "ex. Ana Popescu, Director Marketing"
+        },
+        {
+          "name": "email",
+          "label": "E-mail",
+          "type": "email",
+          "required": true,
+          "placeholder": "tu@companie.ro"
+        },
+        {
+          "name": "phone_messenger",
+          "label": "Telefon sau messenger",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+ prefix țară, sau @telegram"
+        }
       ],
       "sections": [
         {
@@ -578,10 +602,34 @@
       "h1": "Spune-ne despre campanie.",
       "lead": "Sari peste ce nu se aplică — schițele se salvează în browser. Revenim cu un mix recomandat de canale, un buget de pornire și o țintă măsurabilă — înainte de orice contract.",
       "contact_fields": [
-        { "name": "company_name", "label": "Numele companiei", "type": "text", "required": true, "placeholder": "Numele de brand sau juridic" },
-        { "name": "contact_person", "label": "Numele tău și funcția", "type": "text", "required": true, "placeholder": "ex. Ana Popescu, Director Marketing" },
-        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "tu@companie.ro" },
-        { "name": "phone_messenger", "label": "Telefon sau messenger", "type": "tel", "required": false, "placeholder": "+ prefix țară, sau @telegram" }
+        {
+          "name": "company_name",
+          "label": "Numele companiei",
+          "type": "text",
+          "required": true,
+          "placeholder": "Numele de brand sau juridic"
+        },
+        {
+          "name": "contact_person",
+          "label": "Numele tău și funcția",
+          "type": "text",
+          "required": true,
+          "placeholder": "ex. Ana Popescu, Director Marketing"
+        },
+        {
+          "name": "email",
+          "label": "E-mail",
+          "type": "email",
+          "required": true,
+          "placeholder": "tu@companie.ro"
+        },
+        {
+          "name": "phone_messenger",
+          "label": "Telefon sau messenger",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+ prefix țară, sau @telegram"
+        }
       ],
       "sections": [
         {
@@ -1073,29 +1121,29 @@
       ],
       "tiers": [
         {
-          "name": "Landing page",
-          "price": 800,
+          "name": "Landing & one-pager",
+          "price": 600,
           "timeline": "1–2 săptămâni",
           "highlight": false,
-          "tagline": "Site de lansare o pagină, landing pentru eveniment, campanie lead-magnet.",
+          "tagline": "Pentru: antreprenori solo, pagini lead-gen, MVP-uri.",
           "includes": [
-            "1 pagină, o limbă",
+            "Landing simplă sau one-pager",
+            "Pregătit pentru multilingv",
             "Wix Studio / Elementor / HTML static",
-            "Design custom sau pe șablon",
             "Bază SEO on-page",
-            "Analytics + tracking de formulare",
+            "GA4 + tracking formulare",
             "14 zile de bug-fix"
           ]
         },
         {
-          "name": "Afacere mică",
-          "price": 2500,
+          "name": "Site de business",
+          "price": 1495,
           "timeline": "2–4 săptămâni",
-          "highlight": false,
-          "tagline": "5–10 pagini: servicii, despre, blog, contact. Cel mai popular tier.",
+          "highlight": true,
+          "tagline": "Pentru: site-uri pentru afaceri mici, servicii profesionale, portofolii.",
           "includes": [
-            "5–10 pagini, o limbă",
-            "WordPress / Wix Studio (la alegere)",
+            "5–15 pagini, 2–3 limbi incluse",
+            "WordPress sau Astro",
             "Design custom",
             "Admin editabil pentru echipa ta",
             "SEO on-page complet + schema",
@@ -1104,15 +1152,15 @@
           ]
         },
         {
-          "name": "Site corporate multilingv",
-          "price": 6000,
-          "timeline": "4–8 săptămâni",
-          "highlight": true,
-          "tagline": "20–50 de pagini, 2–8 limbi, flux editorial pentru echipa de marketing.",
+          "name": "Corporate multilingv",
+          "price": 2990,
+          "timeline": "4–6 săptămâni",
+          "highlight": false,
+          "tagline": "Pentru: companii consacrate care intră pe piețe noi.",
           "includes": [
-            "20–50 de pagini, 2–8 limbi",
-            "Astro sau WordPress + CMS headless",
-            "Flux editorial multilingv",
+            "15+ pagini, 4–8 limbi",
+            "WordPress + WPML sau Astro",
+            "Design system custom",
             "SEO avansat + hreflang",
             "Tracking conversii + heatmap",
             "Contract de performanță (CWV 95+)",
@@ -1121,10 +1169,10 @@
         },
         {
           "name": "E-commerce",
-          "price": 4000,
-          "timeline": "4–10 săptămâni",
+          "price": 2495,
+          "timeline": "4–8 săptămâni",
           "highlight": false,
-          "tagline": "Shopify de la 4.000 $, WooCommerce sau custom de la 7.000 $. De la 50 la 5.000+ SKU-uri.",
+          "tagline": "Shopify de la 2.495 $ / WooCommerce de la 3.990 $. Pentru: magazine online, afaceri de produs.",
           "includes": [
             "Catalog, coș, checkout, plăți",
             "Shopify (mai rapid) sau WooCommerce (control total)",
@@ -1136,11 +1184,11 @@
           ]
         },
         {
-          "name": "SaaS / Build custom",
-          "price": 15000,
+          "name": "Custom & SaaS",
+          "price": 7990,
           "timeline": "8+ săptămâni",
           "highlight": false,
-          "tagline": "Dashboard-uri, zone membri, integrări custom, funcții în timp real.",
+          "tagline": "Pentru: startup-uri SaaS, app-uri custom, dashboard-uri, funcții în timp real.",
           "includes": [
             "Scope și integrări custom",
             "Next.js sau Node.js bespoke",
@@ -1193,7 +1241,8 @@
       "_meta": {
         "status": "draft_ai_translated",
         "needs_native_review": true
-      }
+      },
+      "tiers_footnote": "Toate tierurile includ: suport multilingv, SEO on-page, configurare GA4, 14 zile de suport post-lansare — gratuit."
     },
     "site_design": {
       "hero": {

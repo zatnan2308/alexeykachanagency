@@ -481,10 +481,34 @@
       "h1": "Raccontaci del sito.",
       "lead": "Più precise sono le tue risposte, più accurato sarà il preventivo. Salta le sezioni che non si applicano — colmiamo i vuoti nel call di kickoff.",
       "contact_fields": [
-        { "name": "company_name", "label": "Nome dell'azienda", "type": "text", "required": true, "placeholder": "Marchio o ragione sociale" },
-        { "name": "contact_person", "label": "Il tuo nome e ruolo", "type": "text", "required": true, "placeholder": "es. Anna Rossi, Direttrice Marketing" },
-        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "tu@azienda.com" },
-        { "name": "phone_messenger", "label": "Telefono o messaggistica", "type": "tel", "required": false, "placeholder": "+ prefisso paese, o @telegram" }
+        {
+          "name": "company_name",
+          "label": "Nome dell'azienda",
+          "type": "text",
+          "required": true,
+          "placeholder": "Marchio o ragione sociale"
+        },
+        {
+          "name": "contact_person",
+          "label": "Il tuo nome e ruolo",
+          "type": "text",
+          "required": true,
+          "placeholder": "es. Anna Rossi, Direttrice Marketing"
+        },
+        {
+          "name": "email",
+          "label": "E-mail",
+          "type": "email",
+          "required": true,
+          "placeholder": "tu@azienda.com"
+        },
+        {
+          "name": "phone_messenger",
+          "label": "Telefono o messaggistica",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+ prefisso paese, o @telegram"
+        }
       ],
       "sections": [
         {
@@ -578,10 +602,34 @@
       "h1": "Raccontaci della campagna.",
       "lead": "Salta ciò che non si applica — le bozze si salvano nel browser. Torniamo con un mix di canali consigliato, un budget di partenza e un obiettivo misurabile — prima di qualsiasi contratto.",
       "contact_fields": [
-        { "name": "company_name", "label": "Nome dell'azienda", "type": "text", "required": true, "placeholder": "Marchio o ragione sociale" },
-        { "name": "contact_person", "label": "Il tuo nome e ruolo", "type": "text", "required": true, "placeholder": "es. Anna Rossi, Direttrice Marketing" },
-        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "tu@azienda.com" },
-        { "name": "phone_messenger", "label": "Telefono o messaggistica", "type": "tel", "required": false, "placeholder": "+ prefisso paese, o @telegram" }
+        {
+          "name": "company_name",
+          "label": "Nome dell'azienda",
+          "type": "text",
+          "required": true,
+          "placeholder": "Marchio o ragione sociale"
+        },
+        {
+          "name": "contact_person",
+          "label": "Il tuo nome e ruolo",
+          "type": "text",
+          "required": true,
+          "placeholder": "es. Anna Rossi, Direttrice Marketing"
+        },
+        {
+          "name": "email",
+          "label": "E-mail",
+          "type": "email",
+          "required": true,
+          "placeholder": "tu@azienda.com"
+        },
+        {
+          "name": "phone_messenger",
+          "label": "Telefono o messaggistica",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+ prefisso paese, o @telegram"
+        }
       ],
       "sections": [
         {
@@ -1073,29 +1121,29 @@
       ],
       "tiers": [
         {
-          "name": "Landing page",
-          "price": 800,
+          "name": "Landing & one-pager",
+          "price": 600,
           "timeline": "1–2 settimane",
           "highlight": false,
-          "tagline": "Sito di lancio mono-pagina, landing per evento, campagna lead-magnet.",
+          "tagline": "Per: imprenditori singoli, pagine lead-gen, MVP.",
           "includes": [
-            "1 pagina, una lingua",
+            "Landing singola o one-pager",
+            "Pronto per il multilingua",
             "Wix Studio / Elementor / HTML statico",
-            "Design custom o basato su template",
             "Basi SEO on-page",
-            "Analytics + tracking dei form",
+            "GA4 + tracking dei form",
             "14 giorni di bug-fix"
           ]
         },
         {
-          "name": "Piccola impresa",
-          "price": 2500,
+          "name": "Sito business",
+          "price": 1495,
           "timeline": "2–4 settimane",
-          "highlight": false,
-          "tagline": "5–10 pagine: servizi, chi siamo, blog, contatti. Tier più popolare.",
+          "highlight": true,
+          "tagline": "Per: siti di piccole aziende, servizi professionali, portfolio.",
           "includes": [
-            "5–10 pagine, una lingua",
-            "WordPress / Wix Studio (a Sua scelta)",
+            "5–15 pagine, 2–3 lingue incluse",
+            "WordPress o Astro",
             "Design custom",
             "Admin editabile per il Suo team",
             "SEO on-page completo + schema",
@@ -1104,15 +1152,15 @@
           ]
         },
         {
-          "name": "Sito corporate multilingua",
-          "price": 6000,
-          "timeline": "4–8 settimane",
-          "highlight": true,
-          "tagline": "20–50 pagine, 2–8 lingue, flusso editoriale per il team marketing.",
+          "name": "Corporate multilingua",
+          "price": 2990,
+          "timeline": "4–6 settimane",
+          "highlight": false,
+          "tagline": "Per: aziende affermate che entrano in nuovi mercati.",
           "includes": [
-            "20–50 pagine, 2–8 lingue",
-            "Astro o WordPress + CMS headless",
-            "Flusso editoriale multilingua",
+            "15+ pagine, 4–8 lingue",
+            "WordPress + WPML o Astro",
+            "Design system custom",
             "SEO avanzato + hreflang",
             "Tracking conversioni + heatmap",
             "Contratto sulla performance (CWV 95+)",
@@ -1121,10 +1169,10 @@
         },
         {
           "name": "E-commerce",
-          "price": 4000,
-          "timeline": "4–10 settimane",
+          "price": 2495,
+          "timeline": "4–8 settimane",
           "highlight": false,
-          "tagline": "Shopify da 4.000 $, WooCommerce o custom da 7.000 $. Da 50 a 5.000+ SKU.",
+          "tagline": "Shopify da 2.495 $ / WooCommerce da 3.990 $. Per: negozi online, attività di prodotto.",
           "includes": [
             "Catalogo, carrello, checkout, pagamenti",
             "Shopify (più rapido) o WooCommerce (controllo totale)",
@@ -1136,11 +1184,11 @@
           ]
         },
         {
-          "name": "SaaS / Build custom",
-          "price": 15000,
+          "name": "Custom & SaaS",
+          "price": 7990,
           "timeline": "8+ settimane",
           "highlight": false,
-          "tagline": "Dashboard, aree riservate, integrazioni custom, funzioni in tempo reale.",
+          "tagline": "Per: SaaS startup, app custom, dashboard, funzioni in tempo reale.",
           "includes": [
             "Scope e integrazioni custom",
             "Next.js o Node.js bespoke",
@@ -1193,7 +1241,8 @@
       "_meta": {
         "status": "draft_ai_translated",
         "needs_native_review": true
-      }
+      },
+      "tiers_footnote": "Tutti i tier includono: supporto multilingua, SEO on-page, configurazione GA4, 14 giorni di supporto post-lancio — gratuiti."
     },
     "site_design": {
       "hero": {

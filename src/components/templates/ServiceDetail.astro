@@ -14,9 +14,10 @@
  *  8. Final CTA
  */
 
-import { useTranslations, getTranslations, getLocalizedPath, formatCurrency, type Language } from '@/i18n/utils';
+import { useTranslations, getTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
 import { buildServiceSchema, buildFaqSchema, buildBreadcrumb } from '@/lib/schema';
 import PlatformsStack from '@/components/sections/PlatformsStack.astro';
+import { getPriceForLocale, formatPrice } from '@/data/pricing';
 
 interface Props {
   lang: Language;
@@ -197,6 +198,10 @@ const breadcrumbSchema = buildBreadcrumb([
       <p class="svc-section-sub">{t('services_pages.common.pricing_subtitle')}</p>
     </header>
 
+    {data.tiers_footnote && (
+      <p class="svc-pricing__footnote" data-reveal>{data.tiers_footnote}</p>
+    )}
+
     <div class="svc-pricing__grid" data-reveal-stagger data-stagger-interval="0.1">
       {tiers.map((tier) => (
         <article class={`svc-pricing__tier ${tier.highlight ? 'is-highlight' : ''}`}>
@@ -210,7 +215,10 @@ const breadcrumbSchema = buildBreadcrumb([
             {tier.price !== null ? (
               <>
                 <span class="svc-pricing__price-from">{t('services_pages.common.tier_from')}</span>
-                <span class="svc-pricing__price-amount">{formatCurrency(tier.price, lang, 'USD')}</span>
+                {(() => {
+                  const localized = getPriceForLocale(tier.price as number, lang);
+                  return <span class="svc-pricing__price-amount">{formatPrice(localized.amount, localized.currency, lang)}</span>;
+                })()}
               </>
             ) : (
               <span class="svc-pricing__price-amount svc-pricing__price-amount--custom">{t('services_pages.common.tier_custom')}</span>
@@ -456,6 +464,13 @@ const breadcrumbSchema = buildBreadcrumb([
   /* 5. Pricing — 1 col mobile, 2 col tablet, 3 col desktop.
      For 5 tiers (website-development), the 4th and 5th wrap to a new row.
      CSS uses auto-fit so rows are balanced regardless of tier count. */
+  .svc-pricing__footnote {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    margin-bottom: 1.75rem;
+    max-width: 44rem;
+  }
   .svc-pricing__grid {
     display: grid;
     grid-template-columns: 1fr;

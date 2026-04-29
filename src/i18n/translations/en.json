@@ -1096,29 +1096,29 @@
       ],
       "tiers": [
         {
-          "name": "Landing page",
-          "price": 800,
+          "name": "Landing & one-pager",
+          "price": 600,
           "timeline": "1–2 weeks",
           "highlight": false,
-          "tagline": "Single-page launch site, event landing, lead-magnet campaign.",
+          "tagline": "Best for: solo entrepreneurs, lead-gen pages, MVPs.",
           "includes": [
-            "1 page, single language",
-            "Wix Studio / Elementor / static HTML",
-            "Custom design or template-based",
+            "Single landing or one-pager",
+            "Multilingual ready",
+            "Wix Studio / Elementor / plain HTML",
             "On-page SEO basics",
-            "Analytics + form tracking",
+            "GA4 + form tracking",
             "14-day bug-fix support"
           ]
         },
         {
-          "name": "Small business",
-          "price": 2500,
+          "name": "Business website",
+          "price": 1495,
           "timeline": "2–4 weeks",
-          "highlight": false,
-          "tagline": "5–10 pages: services, about, blog, contact. Most popular tier.",
+          "highlight": true,
+          "tagline": "Best for: small business sites, professional services, portfolios.",
           "includes": [
-            "5–10 pages, single language",
-            "WordPress / Wix Studio (your choice)",
+            "5–15 pages, 2–3 languages included",
+            "WordPress or Astro",
             "Custom design",
             "Editable admin for your team",
             "Full on-page SEO + schema",
@@ -1127,15 +1127,15 @@
           ]
         },
         {
-          "name": "Corporate multilingual",
-          "price": 6000,
-          "timeline": "4–8 weeks",
-          "highlight": true,
-          "tagline": "20–50 pages, 2–8 languages, content workflow for the marketing team.",
+          "name": "Multilingual corporate",
+          "price": 2990,
+          "timeline": "4–6 weeks",
+          "highlight": false,
+          "tagline": "Best for: established businesses entering new markets.",
           "includes": [
-            "20–50 pages, 2–8 languages",
-            "Astro or WordPress + headless CMS",
-            "Multilingual content workflow",
+            "15+ pages, 4–8 languages",
+            "WordPress + WPML or Astro",
+            "Custom design system",
             "Advanced SEO + hreflang",
             "Conversion tracking + heatmaps",
             "Performance contract (CWV 95+)",
@@ -1144,10 +1144,10 @@
         },
         {
           "name": "E-commerce",
-          "price": 4000,
-          "timeline": "4–10 weeks",
+          "price": 2495,
+          "timeline": "4–8 weeks",
           "highlight": false,
-          "tagline": "Shopify from $4K, WooCommerce or custom from $7K. From 50 to 5,000+ SKUs.",
+          "tagline": "Shopify from $2,495 / WooCommerce from $3,990. Best for: online stores, product businesses.",
           "includes": [
             "Catalogue, cart, checkout, payments",
             "Shopify (faster) or WooCommerce (full control)",
@@ -1159,11 +1159,11 @@
           ]
         },
         {
-          "name": "SaaS / Custom build",
-          "price": 15000,
+          "name": "Custom & SaaS",
+          "price": 7990,
           "timeline": "8+ weeks",
           "highlight": false,
-          "tagline": "Dashboards, member areas, custom integrations, real-time features.",
+          "tagline": "Best for: SaaS startups, custom apps, dashboards, real-time features.",
           "includes": [
             "Custom scope & integrations",
             "Next.js or Node.js bespoke build",
@@ -1175,6 +1175,7 @@
           ]
         }
       ],
+      "tiers_footnote": "All tiers include: multilingual support, on-page SEO, GA4 setup, 14-day post-launch support — free.",
       "tiers_alt_disabled": {
         "_note": "Variant B — flat range without tiers. Not active. Replace 'tiers' with this if you want range-based pricing instead of project-type tiers.",
         "intro": "From $800 for a quick landing page to $50K+ for a custom SaaS platform. Every project is fixed-price, agreed before work starts — no scope-creep surprises.",
