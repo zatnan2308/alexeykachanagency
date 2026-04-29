@@ -118,4 +118,6 @@
 /wp-includes/*       /                  301
 /xmlrpc.php          /                  301
 /wp-json/*           /                  301
-/?author=*           /about/            301
+# NOTE: removed `/?author=*` rule — Cloudflare Workers Static Assets
+# parses `?` as a glob character and the rule incorrectly matched the root `/`,
+# redirecting the homepage to /about/. WP author probing is rare; bots get a 404.
