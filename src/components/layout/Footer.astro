@@ -12,6 +12,7 @@
 import { getLocalizedPath, useTranslations, type Language } from '@/i18n/utils';
 import { slugs } from '@/i18n/slugs';
 import LanguageSwitcher from '@/components/layout/LanguageSwitcher.astro';
+import { CONTACT } from '@/data/contact';
 
 const WEB3FORMS_KEY = (import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined) || 'REPLACE_WITH_WEB3FORMS_KEY';
 
@@ -54,8 +55,8 @@ if (lang === 'de' && slugs.impressum?.de) {
   legalLinks.push({ key: 'impressum', label: 'Impressum' });
 }
 
-// Single source of truth for contact details (src/data/contact.ts).
-import { CONTACT } from '@/data/contact';
+// Single source of truth for contact details lives in src/data/contact.ts
+// (imported at the top of this frontmatter).
 
 const socials = [
   {

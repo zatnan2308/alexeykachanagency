@@ -32,6 +32,7 @@ import ChatWidget from '@/components/layout/ChatWidget.astro';
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
 import { ClientRouter } from 'astro:transitions';
+import { CONTACT } from '@/data/contact';
 
 // Analytics IDs (read at build-time from .env). Empty = scripts not injected.
 const GTM_ID     = import.meta.env.PUBLIC_GTM_ID as string | undefined;
@@ -115,9 +116,6 @@ const robotsContent =
   noindex || isPreviewHost
     ? 'noindex,nofollow'
     : 'index,follow,max-image-preview:large';
-
-// Contact details — single source of truth
-import { CONTACT } from '@/data/contact';
 
 // JSON-LD: build array of structured data blocks
 // Phone is intentionally omitted from contactPoint until the Romanian line is set up.

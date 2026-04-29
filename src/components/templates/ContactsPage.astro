@@ -5,6 +5,7 @@
  */
 import { useTranslations, getTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+import { CONTACT } from '@/data/contact';
 
 interface Props { lang: Language }
 const { lang } = Astro.props;
@@ -19,8 +20,7 @@ const briefWebsite = getLocalizedPath('brief.website', lang);
 const briefAds = getLocalizedPath('brief.ads', lang);
 const thankYouUrl = getLocalizedPath('thank-you', lang) || '/thank-you/';
 
-// Single source of truth for contact details.
-import { CONTACT } from '@/data/contact';
+// CONTACT (single source of truth) is imported at the top of this frontmatter.
 
 const channels = [
   { name: 'Email',    href: `mailto:${CONTACT.email}`, handle: CONTACT.email,             note: t('contacts_page.channel_notes.email') },
