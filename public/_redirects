@@ -28,8 +28,9 @@
 # for directories, but explicit rules help for edge cases)
 # Note: don't add for files like /robots.txt, /sitemap.xml — keep those bare
 
-# www → naked domain (also configure at DNS level)
-https://www.alexeykachan.com/*    https://alexeykachan.com/:splat   301!
+# www → naked domain redirect is configured at the Cloudflare DNS / Page Rules
+# level (not in _redirects). Workers Static Assets only allows relative paths
+# in this file. See: https://developers.cloudflare.com/rules/url-forwarding/
 
 # =============================================================================
 # OLD URL PATTERNS (if any from previous WP installs)
