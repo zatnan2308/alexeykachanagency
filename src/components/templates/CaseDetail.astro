@@ -118,6 +118,16 @@ const ctaContacts = `${langPrefix}/${slugs.contacts?.[lang] ?? 'contacts'}/`;
     </div>
   </header>
 
+  {/* Project cover screenshot */}
+  <figure class="case__cover" data-reveal>
+    <img
+      src={`/cases/${caseSlug}/cover.jpg`}
+      alt={`${post.data.client} — full-page website screenshot`}
+      loading="lazy"
+      decoding="async"
+    />
+  </figure>
+
   {/* Results KPIs */}
   {post.data.results.length > 0 && (
     <section class="case-results section-y-sm">
@@ -347,6 +357,22 @@ const ctaContacts = `${langPrefix}/${slugs.contacts?.[lang] ?? 'contacts'}/`;
     background: color-mix(in oklch, var(--success) 12%, transparent);
     padding: 0.2rem 0.5rem;
     border-radius: var(--radius-full);
+  }
+
+  /* Cover screenshot */
+  .case__cover {
+    margin: 0;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 2rem);
+  }
+  .case__cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    box-shadow: 0 24px 80px -20px color-mix(in oklch, var(--bg-primary) 90%, black);
   }
 
   /* Body prose */
