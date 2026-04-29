@@ -453,14 +453,19 @@
       "label": "Ou contactez-nous directement",
       "email_label": "E-mail",
       "phone_label": "Téléphone & messagerie",
-      "phone_note": "Disponibles sur Telegram, WhatsApp, Signal — même numéro.",
+      "phone_note": "Bureau en Roumanie — téléphone bientôt. E-mail et messageries pour une réponse rapide.",
       "office_label": "Bureau",
-      "office_value": "Kyiv, Ukraine — interventions internationales",
+      "office_value": "Bucarest, Roumanie (entreprise basée dans l'UE)",
       "hours_label": "Horaires",
-      "hours_value": "Lun–Ven, 9h–18h CET. Délai de réponse moyen : < 4 heures."
+      "hours_value": "Lun–Ven, 9h–18h EET (UTC+2). Réponse moyenne : < 4 heures."
     },
-    "channels_title": "Où nous sommes joignables",
-    "channels_subtitle": "Choisissez le canal qui vous convient le mieux."
+    "channels_title": "Meilleurs canaux pour nous joindre",
+    "channels_subtitle": "Choisissez le canal qui convient à votre question.",
+    "channel_notes": {
+      "email": "Pour briefs détaillés et propositions.",
+      "whatsapp": "Pour les questions rapides. Réponse < 1 h en heures ouvrées.",
+      "telegram": "Comme WhatsApp."
+    }
   },
   "brief_pages": {
     "common": {
@@ -1909,7 +1914,7 @@
     }
   },
   "footer": {
-    "tagline": "Développement web, SEO et publicité payante qui transforment votre entreprise en choix évident.",
+    "tagline": "Sites, publicité et SEO de qualité occidentale — sans les tarifs occidentaux. Basés dans l'UE, à Bucarest.",
     "services_heading": "Services",
     "company_heading": "Agence",
     "legal_heading": "Mentions légales",
@@ -1918,7 +1923,11 @@
     "rights_reserved": "Tous droits réservés.",
     "made_with": "Construit avec Astro sur Cloudflare.",
     "newsletter_title": "Restez informé",
-    "newsletter_subtitle": "Insights mensuels sur le web, le SEO et la pub. Sans baratin."
+    "newsletter_subtitle": "Insights mensuels sur le web, le SEO et la pub. Sans baratin.",
+    "newsletter_note": "Newsletter mensuelle gratuite. Pas de spam. Désabonnement à tout moment.",
+    "phone_coming_soon": "Bureau en Roumanie — téléphone bientôt. E-mail et messageries pour une réponse rapide.",
+    "office_address": "Bucarest, Roumanie (entreprise basée dans l'UE)",
+    "about_team": "Équipe basée à Bucarest. Entreprise basée dans l'UE, en Roumanie. Clients dans plus de 50 pays. Nous parlons anglais, russe, ukrainien et allemand."
   },
   "languages": {
     "switch_to": "Changer de langue",

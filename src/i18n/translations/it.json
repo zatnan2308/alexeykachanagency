@@ -453,14 +453,19 @@
       "label": "Oppure contattaci direttamente",
       "email_label": "E-mail",
       "phone_label": "Telefono e messaggistica",
-      "phone_note": "Siamo su Telegram, WhatsApp, Signal — stesso numero.",
+      "phone_note": "Ufficio in Romania — numero in arrivo. E-mail o messaggistica per risposte rapide.",
       "office_label": "Ufficio",
-      "office_value": "Kyiv, Ucraina — interventi internazionali",
+      "office_value": "Bucarest, Romania (azienda con sede UE)",
       "hours_label": "Orari",
-      "hours_value": "Lun–Ven, 9:00–18:00 CET. Tempo medio di risposta: < 4 ore."
+      "hours_value": "Lun–Ven, 9:00–18:00 EET (UTC+2). Risposta media: < 4 ore."
     },
-    "channels_title": "Dove siamo attivi",
-    "channels_subtitle": "Scegli il canale che preferisci."
+    "channels_title": "I modi migliori per raggiungerci",
+    "channels_subtitle": "Scelga il canale adatto alla Sua domanda.",
+    "channel_notes": {
+      "email": "Per brief dettagliati e proposte.",
+      "whatsapp": "Per domande rapide. Risposta < 1 ora in orario di lavoro.",
+      "telegram": "Come WhatsApp."
+    }
   },
   "brief_pages": {
     "common": {
@@ -1909,7 +1914,7 @@
     }
   },
   "footer": {
-    "tagline": "Sviluppo web, SEO e advertising che trasformano la tua azienda nella scelta più ovvia.",
+    "tagline": "Siti, advertising e SEO di qualità occidentale — senza prezzi occidentali. Sede UE a Bucarest.",
     "services_heading": "Servizi",
     "company_heading": "Agenzia",
     "legal_heading": "Note legali",
@@ -1918,7 +1923,11 @@
     "rights_reserved": "Tutti i diritti riservati.",
     "made_with": "Costruito con Astro su Cloudflare.",
     "newsletter_title": "Resta aggiornato",
-    "newsletter_subtitle": "Insight mensili su web, SEO e advertising. Senza fronzoli."
+    "newsletter_subtitle": "Insight mensili su web, SEO e advertising. Senza fronzoli.",
+    "newsletter_note": "Newsletter mensile gratuita. Niente spam. Disiscrizione in qualsiasi momento.",
+    "phone_coming_soon": "Ufficio in Romania — numero in arrivo. E-mail o messaggistica per risposte rapide.",
+    "office_address": "Bucarest, Romania (azienda con sede UE)",
+    "about_team": "Team con sede a Bucarest. Azienda con sede UE in Romania. Clienti in oltre 50 paesi. Parliamo inglese, russo, ucraino e tedesco."
   },
   "languages": {
     "switch_to": "Cambia lingua",

@@ -453,14 +453,19 @@
       "label": "Sau contactează-ne direct",
       "email_label": "E-mail",
       "phone_label": "Telefon și mesagerie",
-      "phone_note": "Suntem pe Telegram, WhatsApp și Signal — același număr.",
+      "phone_note": "Birou în România — telefon în curând. E-mail sau messenger pentru răspunsuri rapide.",
       "office_label": "Birou",
-      "office_value": "Kiev, Ucraina — colaborări internaționale",
+      "office_value": "București, România (afacere cu sediul în UE)",
       "hours_label": "Program",
-      "hours_value": "Lun–Vin, 9:00–18:00 CET. Timp mediu de răspuns: < 4 ore."
+      "hours_value": "Lun–Vin, 9:00–18:00 EET (UTC+2). Răspuns mediu: < 4 ore."
     },
-    "channels_title": "Unde suntem activi",
-    "channels_subtitle": "Alege canalul care îți convine."
+    "channels_title": "Cele mai bune moduri de a ne contacta",
+    "channels_subtitle": "Alege canalul potrivit pentru întrebarea ta.",
+    "channel_notes": {
+      "email": "Pentru briefuri detaliate și oferte.",
+      "whatsapp": "Pentru întrebări rapide. Răspuns < 1 oră în program.",
+      "telegram": "La fel ca WhatsApp."
+    }
   },
   "brief_pages": {
     "common": {
@@ -1909,7 +1914,7 @@
     }
   },
   "footer": {
-    "tagline": "Dezvoltare web, SEO și publicitate plătită care îți transformă afacerea în alegerea evidentă.",
+    "tagline": "Site-uri, publicitate și SEO la calitate occidentală — fără prețuri occidentale. Cu sediul în UE, la București.",
     "services_heading": "Servicii",
     "company_heading": "Agenție",
     "legal_heading": "Legal",
@@ -1918,7 +1923,11 @@
     "rights_reserved": "Toate drepturile rezervate.",
     "made_with": "Construit cu Astro pe Cloudflare.",
     "newsletter_title": "Rămâi la curent",
-    "newsletter_subtitle": "Insight-uri lunare despre web, SEO și publicitate. Fără vorbe goale."
+    "newsletter_subtitle": "Insight-uri lunare despre web, SEO și publicitate. Fără vorbe goale.",
+    "newsletter_note": "Newsletter lunar gratuit. Fără spam. Te dezabonezi oricând.",
+    "phone_coming_soon": "Birou în România — telefon în curând. E-mail sau messenger pentru răspunsuri rapide.",
+    "office_address": "București, România (afacere cu sediul în UE)",
+    "about_team": "Echipă cu sediul în București. Afacere în UE (România). Clienți în peste 50 de țări. Vorbim engleză, rusă, ucraineană și germană."
   },
   "languages": {
     "switch_to": "Schimbă limba",

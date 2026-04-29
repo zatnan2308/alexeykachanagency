@@ -411,15 +411,20 @@
     "direct": {
       "label": "Or reach us directly",
       "email_label": "Email",
-      "phone_label": "Phone & messaging",
-      "phone_note": "We're on Telegram, WhatsApp, Signal — same number.",
+      "phone_label": "Phone",
+      "phone_note": "Romania office — phone coming soon. Use email or messengers for fastest response.",
       "office_label": "Office",
-      "office_value": "Kyiv, Ukraine — working worldwide",
+      "office_value": "Bucharest, Romania (EU-based business)",
       "hours_label": "Hours",
-      "hours_value": "Mon–Fri, 9:00–18:00 CET. Average response: < 4 hours."
+      "hours_value": "Mon–Fri, 9:00–18:00 EET (UTC+2). Average response: < 4 hours."
     },
-    "channels_title": "Where we're active",
-    "channels_subtitle": "Pick the channel you prefer."
+    "channels_title": "Best ways to reach us",
+    "channels_subtitle": "Pick the channel that fits your question.",
+    "channel_notes": {
+      "email": "For detailed briefs and proposals.",
+      "whatsapp": "For quick questions. < 1hr response in business hours.",
+      "telegram": "Same as WhatsApp."
+    }
   },
   "brief_pages": {
     "common": {
@@ -1865,7 +1870,7 @@
     }
   },
   "footer": {
-    "tagline": "Web development, SEO and paid ads that turn your business into the obvious choice.",
+    "tagline": "Western quality websites, ads and SEO — without western prices. EU-based in Bucharest.",
     "services_heading": "Services",
     "company_heading": "Company",
     "legal_heading": "Legal",
@@ -1874,7 +1879,11 @@
     "rights_reserved": "All rights reserved.",
     "made_with": "Built with Astro on Cloudflare.",
     "newsletter_title": "Stay in the loop",
-    "newsletter_subtitle": "Monthly insights on web, SEO, and ads. No fluff."
+    "newsletter_subtitle": "Monthly insights on web, SEO, and ads. No fluff.",
+    "newsletter_note": "Free monthly newsletter. No spam. Unsubscribe anytime.",
+    "phone_coming_soon": "Romania office — phone coming soon. Use email or messengers for fastest response.",
+    "office_address": "Bucharest, Romania (EU-based business)",
+    "about_team": "Bucharest-based team. EU-based business in Romania. Working with clients in 50+ countries. We speak English, Russian, Ukrainian, German."
   },
   "languages": {
     "switch_to": "Switch language",

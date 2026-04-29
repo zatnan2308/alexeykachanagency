@@ -116,7 +116,11 @@ const robotsContent =
     ? 'noindex,nofollow'
     : 'index,follow,max-image-preview:large';
 
+// Contact details — single source of truth
+import { CONTACT } from '@/data/contact';
+
 // JSON-LD: build array of structured data blocks
+// Phone is intentionally omitted from contactPoint until the Romanian line is set up.
 const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
@@ -127,7 +131,7 @@ const orgSchema = {
   logo: `${siteOrigin}/logo-512.png`,
   image: `${siteOrigin}/og-default.png`,
   description:
-    'Single-expert digital agency. Web development, SEO, Google Ads, Facebook Ads, web design, and ongoing site maintenance. Worldwide clients since 2014.',
+    'Digital agency for Russian-speaking business owners and SMEs across Europe and North America. EU-based in Bucharest, Romania. Web development, SEO, Google Ads, Meta Ads, web design, ongoing maintenance.',
   founder: {
     '@type': 'Person',
     name: 'Alexey Kachan',
@@ -139,21 +143,21 @@ const orgSchema = {
   foundingDate: '2014',
   address: {
     '@type': 'PostalAddress',
-    addressCountry: 'UA',
+    addressLocality: CONTACT.address.city,
+    addressCountry: CONTACT.address.countryCode,
   },
   contactPoint: [
     {
       '@type': 'ContactPoint',
-      telephone: '+380674618072',
-      email: 'info@alexeykachan.com',
+      email: CONTACT.email,
       contactType: 'customer service',
       availableLanguage: ['English', 'German', 'French', 'Spanish', 'Italian', 'Romanian', 'Ukrainian', 'Russian'],
     },
   ],
   sameAs: [
-    'https://www.facebook.com/alexeykachan',
-    'https://www.instagram.com/alexeykachan',
-    'https://t.me/alexeykachan',
+    CONTACT.social.facebook,
+    CONTACT.social.instagram,
+    CONTACT.social.telegram,
   ],
   areaServed: 'Worldwide',
   knowsAbout: [

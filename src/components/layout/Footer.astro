@@ -54,27 +54,30 @@ if (lang === 'de' && slugs.impressum?.de) {
   legalLinks.push({ key: 'impressum', label: 'Impressum' });
 }
 
-// Socials
+// Single source of truth for contact details (src/data/contact.ts).
+import { CONTACT } from '@/data/contact';
+
 const socials = [
   {
     name: 'Facebook',
-    href: 'https://www.facebook.com/alexeykachan',
+    href: CONTACT.social.facebook,
     icon: 'M13.5 9V6.75c0-.621.504-1.125 1.125-1.125H16.5V2.25h-2.25A4.125 4.125 0 0 0 10.125 6.375V9H7.5v3.375h2.625V21.75h3.375V12.375H16.5L17.25 9h-3.75z',
   },
   {
     name: 'Instagram',
-    href: 'https://www.instagram.com/alexeykachan',
+    href: CONTACT.social.instagram,
     icon: 'M12 2.25c-2.652 0-2.984.011-4.025.058-1.041.048-1.752.213-2.376.456a4.79 4.79 0 0 0-1.733 1.128A4.79 4.79 0 0 0 2.738 5.6c-.243.624-.408 1.335-.456 2.376C2.235 9.016 2.25 9.348 2.25 12s-.015 2.984.032 4.025c.048 1.041.213 1.752.456 2.376a4.79 4.79 0 0 0 1.128 1.733 4.79 4.79 0 0 0 1.733 1.128c.624.243 1.335.408 2.376.456 1.041.047 1.373.058 4.025.058s2.984-.011 4.025-.058c1.041-.048 1.752-.213 2.376-.456a4.79 4.79 0 0 0 1.733-1.128 4.79 4.79 0 0 0 1.128-1.733c.243-.624.408-1.335.456-2.376.047-1.041.058-1.373.058-4.025s-.011-2.984-.058-4.025c-.048-1.041-.213-1.752-.456-2.376a4.79 4.79 0 0 0-1.128-1.733A4.79 4.79 0 0 0 18.4 2.738c-.624-.243-1.335-.408-2.376-.456C14.984 2.235 14.652 2.25 12 2.25zm0 1.625c2.605 0 2.916.011 3.945.057.951.043 1.467.202 1.811.336.456.177.78.388 1.122.73.342.342.553.666.73 1.122.134.344.293.86.336 1.811.046 1.029.057 1.34.057 3.945s-.011 2.916-.057 3.945c-.043.951-.202 1.467-.336 1.811-.177.456-.388.78-.73 1.122a3.04 3.04 0 0 1-1.122.73c-.344.134-.86.293-1.811.336-1.029.046-1.34.057-3.945.057s-2.916-.011-3.945-.057c-.951-.043-1.467-.202-1.811-.336a3.04 3.04 0 0 1-1.122-.73 3.04 3.04 0 0 1-.73-1.122c-.134-.344-.293-.86-.336-1.811-.046-1.029-.057-1.34-.057-3.945s.011-2.916.057-3.945c.043-.951.202-1.467.336-1.811.177-.456.388-.78.73-1.122a3.04 3.04 0 0 1 1.122-.73c.344-.134.86-.293 1.811-.336 1.029-.046 1.34-.057 3.945-.057zM12 7.378A4.622 4.622 0 1 0 12 16.622 4.622 4.622 0 0 0 12 7.378zm0 7.622a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.884-7.804a1.08 1.08 0 1 1-2.16 0 1.08 1.08 0 0 1 2.16 0z',
   },
   {
     name: 'Telegram',
-    href: 'https://t.me/alexeykachan',
+    href: CONTACT.social.telegram,
     icon: 'M21.75 4.5L2.25 12l5.625 1.875M21.75 4.5L18 19.5l-7.5-3.75M21.75 4.5L7.875 13.875M10.5 15.75v3.75l3-3',
   },
 ];
 
-const phone = '+380674618072';
-const email = 'info@alexeykachan.com';
+const email = CONTACT.email;
+const whatsapp = CONTACT.whatsapp;
+const telegram = CONTACT.telegram;
 ---
 
 <footer class="footer">
@@ -160,7 +163,20 @@ const email = 'info@alexeykachan.com';
             <a href={`mailto:${email}`} class="footer__link">{email}</a>
           </li>
           <li>
-            <a href={`tel:${phone.replace(/\s/g, '')}`} class="footer__link">{phone}</a>
+            <a href={whatsapp.href} target="_blank" rel="noopener noreferrer" class="footer__link">
+              WhatsApp · {whatsapp.display}
+            </a>
+          </li>
+          <li>
+            <a href={telegram.href} target="_blank" rel="noopener noreferrer" class="footer__link">
+              Telegram · {telegram.handle}
+            </a>
+          </li>
+          <li class="footer__phone-note">
+            {t('footer.phone_coming_soon')}
+          </li>
+          <li class="footer__address">
+            {t('footer.office_address')}
           </li>
         </ul>
 
@@ -180,6 +196,11 @@ const email = 'info@alexeykachan.com';
           ))}
         </div>
       </div>
+    </div>
+
+    {/* About the team — Bucharest team card */}
+    <div class="footer__team-card" data-reveal>
+      <p class="footer__team-card-text">{t('footer.about_team')}</p>
     </div>
 
     {/* Language switcher */}
@@ -379,6 +400,30 @@ const email = 'info@alexeykachan.com';
   .footer__link:hover,
   .footer__link:focus-visible {
     color: var(--accent);
+  }
+
+  /* Phone-coming-soon note + office address (in contact column) */
+  .footer__phone-note,
+  .footer__address {
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    padding-top: 0.25rem;
+  }
+
+  /* About the team card — full-width row above the lang switcher */
+  .footer__team-card {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .footer__team-card-text {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    margin: 0;
   }
 
   /* Socials */
