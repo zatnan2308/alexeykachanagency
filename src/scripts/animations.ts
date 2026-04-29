@@ -263,7 +263,12 @@ function initIntroLoader() {
   tl.to(loader.querySelector('[data-intro-bar]'), { width: '100%', duration: 1.0 })
     .to(loader.querySelector('[data-intro-text]'), { opacity: 0, y: -8, duration: 0.4 }, '-=0.2')
     .to(loader, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, '-=0.1')
-    .add(() => loader.remove());
+    .add(() => {
+      loader.remove();
+      // Layout may have shifted now that the loader is gone — refresh
+      // ScrollTrigger so reveal elements use correct positions.
+      ScrollTrigger.refresh();
+    });
 }
 
 // =============================================================================
@@ -302,6 +307,20 @@ function initAll() {
   initStaggerReveals();
   initCounters();
   initMagnetic();
+
+  // Fix race condition: ScrollTrigger caches element positions at registration
+  // time, but fonts/images can shift the layout afterward, leaving reveal
+  // elements stuck at opacity:0 because their cached Y positions are now wrong.
+  // Recalculate after fonts and after full window.load.
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(() => ScrollTrigger.refresh());
+  }
+  if (document.readyState !== 'complete') {
+    window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+  } else {
+    // Already loaded — refresh on next frame to catch late layout shifts.
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  }
 }
 
 function teardown() {
