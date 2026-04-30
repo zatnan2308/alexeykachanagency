@@ -8,7 +8,7 @@
  *  - 9 hreflang tags (8 langs + x-default) via getHreflangMap()
  *  - Open Graph + Twitter Card with localized og:locale + alternates
  *  - JSON-LD: ProfessionalService Organization (always) + WebSite (homepage) + page-specific (props)
- *  - Google Fonts CDN (Inter + Inter Tight) with preconnect — swap to @fontsource later
+ *  - Self-hosted Inter + Inter Tight via @fontsource-variable (no external CDN)
  *  - Layout chrome: skip link → LanguageSuggestionBanner → Header → main → Footer
  */
 
@@ -268,13 +268,8 @@ const allSchema: Record<string, unknown>[] = [
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    {/* Fonts: Inter + Inter Tight via Google Fonts CDN (swap to @fontsource later) */}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&display=swap"
-    />
+    {/* Fonts are self-hosted via @fontsource-variable/inter[-tight] —
+        @import lines live in src/styles/global.css. No external font CDN. */}
 
     {/* JSON-LD structured data */}
     {
