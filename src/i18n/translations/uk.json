@@ -2189,7 +2189,8 @@
             "description": "Фітнес-додаток із бібліотекою тренувань, системою курсів, чатом тренер-клієнт та трекінгом прогресу. Зроблено для персонального тренера, що виходить за межі SaaS-обмежень.",
             "stack": "Kotlin Multiplatform · Compose Multiplatform · Supabase · Stripe · Next.js адмін",
             "platforms": "iOS · Android",
-            "status": "Production"
+            "status": "Production",
+            "cover": "/cases/qbody-app/cover.png"
           },
           {
             "name": "Premium Transportation",
@@ -2197,7 +2198,8 @@
             "description": "Додаток бронювання, синхронізований із веб-платформою — оренда авто, доступність у реальному часі, платежі Stripe, управління замовленнями власника.",
             "stack": "Kotlin Multiplatform · Compose Multiplatform · Supabase · Stripe · Next.js адмін",
             "platforms": "iOS · Android",
-            "status": "Production"
+            "status": "Production",
+            "cover": "/cases/premium-transportation/cover.png"
           }
         ]
       },

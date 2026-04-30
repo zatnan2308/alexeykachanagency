@@ -308,11 +308,21 @@ const monthSuffix = lang === 'uk' ? '/місяць' : lang === 'ru' ? '/мес' 
     <ul class="map-grid map-grid--2" data-reveal-stagger data-stagger-interval="0.08">
       {data.cases.items.map((c: any) => (
         <li class="map-case">
-          <div class="map-case__cover" aria-hidden="true">
-            <div class="map-case__placeholder">
-              <span class="map-case__placeholder-name">{c.name}</span>
-              <span class="map-case__placeholder-type">{c.type}</span>
-            </div>
+          <div class="map-case__cover">
+            {c.cover ? (
+              <img
+                src={c.cover}
+                alt={`${c.name} — ${c.type}`}
+                class="map-case__cover-img"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <div class="map-case__placeholder" aria-hidden="true">
+                <span class="map-case__placeholder-name">{c.name}</span>
+                <span class="map-case__placeholder-type">{c.type}</span>
+              </div>
+            )}
           </div>
           <div class="map-case__body">
             <header class="map-case__head">
@@ -725,12 +735,21 @@ const monthSuffix = lang === 'uk' ? '/місяць' : lang === 'ru' ? '/мес' 
     grid-template-rows: auto 1fr;
   }
   .map-case__cover {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 5;
     background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-elevated));
     display: flex;
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .map-case__cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, color-mix(in oklch, var(--accent) 6%, var(--bg-tertiary)), var(--bg-elevated));
   }
   .map-case__placeholder {
     display: flex;

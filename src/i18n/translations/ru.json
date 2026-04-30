@@ -2189,7 +2189,8 @@
             "description": "Фитнес-приложение с библиотекой тренировок, системой курсов, чатом тренер-клиент и трекингом прогресса. Сделано для персонального тренера, выходящего за рамки SaaS-ограничений.",
             "stack": "Kotlin Multiplatform · Compose Multiplatform · Supabase · Stripe · Next.js админ",
             "platforms": "iOS · Android",
-            "status": "Production"
+            "status": "Production",
+            "cover": "/cases/qbody-app/cover.png"
           },
           {
             "name": "Premium Transportation",
@@ -2197,7 +2198,8 @@
             "description": "Приложение бронирования, синхронизированное с веб-платформой — аренда авто, доступность в реальном времени, платежи Stripe, управление заказами владельца.",
             "stack": "Kotlin Multiplatform · Compose Multiplatform · Supabase · Stripe · Next.js админ",
             "platforms": "iOS · Android",
-            "status": "Production"
+            "status": "Production",
+            "cover": "/cases/premium-transportation/cover.png"
           }
         ]
       },
