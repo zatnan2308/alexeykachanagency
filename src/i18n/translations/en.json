@@ -230,7 +230,7 @@
       },
       {
         "question": "What does it cost?",
-        "answer": "Website projects start at $600 for a focused landing page and $1,495 for a 5–15 page business site. Ads management is a flat monthly retainer (from $295/mo + $395 setup). SEO engagements run quarterly (from $395/mo). Every quote is fixed — no surprise invoices."
+        "answer": "Website projects start at $395 for a focused landing page and $1,195 for a 5–15 page business site. Ads management is a flat monthly retainer (from $1,195/month). SEO engagements start at $395 for an audit, $715/month for ongoing work. Every quote is fixed — no surprise invoices."
       },
       {
         "question": "Do you work in my language?",
@@ -242,7 +242,7 @@
       },
       {
         "question": "What about ongoing support?",
-        "answer": "We offer monthly support plans starting at $190/month — security updates, performance monitoring, content edits, and analytics reviews. Most clients stay on after launch."
+        "answer": "We offer monthly support plans starting at $79/month — security updates, performance monitoring, content edits, and analytics reviews. Most clients stay on after launch."
       },
       {
         "question": "Can you take over a project from another agency?",
@@ -976,19 +976,19 @@
             "service": "Small business website",
             "us_agency": "$5,000–15,000",
             "uk_agency": "£3,500–10,000",
-            "us": "from $1,495"
+            "us": "from $1,195"
           },
           {
             "service": "Monthly SEO",
             "us_agency": "$1,500–3,500/mo",
             "uk_agency": "£1,200–2,800/mo",
-            "us": "from $395/mo"
+            "us": "from $715/mo"
           },
           {
             "service": "Google Ads management",
             "us_agency": "$1,200–3,000/mo",
             "uk_agency": "£900–2,200/mo",
-            "us": "from $295/mo + $395 setup"
+            "us": "from $1,195/mo"
           }
         ],
         "outro": "Same quality bar. Lower overhead. We work remotely from the EU (Bucharest, Romania), so we don't pay $5,000/month for a Manhattan office — and we pass that saving on to you."
@@ -1067,17 +1067,17 @@
               {
                 "name": "Wix Studio",
                 "when": "Premium no-code builder. Polished result without long timelines. Good for fast launches and design-led pages.",
-                "price": "from $600"
+                "price": "from $555"
               },
               {
                 "name": "Elementor (WordPress)",
                 "when": "When you need WordPress flexibility but don't want to write custom theme code. Visual editor, dynamic content, plugin ecosystem.",
-                "price": "from $895"
+                "price": "from $715"
               },
               {
                 "name": "Plain HTML / CSS / JS",
                 "when": "Static one-pagers and microsites where every kilobyte matters. Loads in under a second, hosted free on the edge.",
-                "price": "from $600"
+                "price": "from $395"
               }
             ]
           },
@@ -1089,17 +1089,17 @@
               {
                 "name": "WordPress",
                 "when": "The default for content sites that need a real CMS. Huge plugin ecosystem, easy editing, near-infinite flexibility with custom code.",
-                "price": "from $1,495"
+                "price": "from $1,195"
               },
               {
                 "name": "WooCommerce",
                 "when": "E-commerce on WordPress when you don't want Shopify's transaction fees. Full ownership, custom checkout, integrates with anything.",
-                "price": "from $3,990"
+                "price": "from $4,795"
               },
               {
                 "name": "Shopify",
                 "when": "The best choice for serious e-commerce. Stable, fast, every payment provider integrated, scales without sysadmin work.",
-                "price": "from $2,495"
+                "price": "from $1,995"
               }
             ]
           },
@@ -1111,17 +1111,17 @@
               {
                 "name": "Astro",
                 "when": "Content sites, landing pages, agency sites where Lighthouse 95+ and great SEO are non-negotiable. Static-first, ships almost no JavaScript.",
-                "price": "from $2,990"
+                "price": "from $1,515"
               },
               {
                 "name": "Next.js",
                 "when": "SaaS dashboards, app-like interfaces, sites with heavy interactivity. Best-in-class React framework with full server-side power.",
-                "price": "from $7,990"
+                "price": "from $11,995"
               },
               {
                 "name": "Headless CMS",
                 "when": "Sanity, Storyblok or Contentful. When the content team needs full editing autonomy without being limited by the front-end stack.",
-                "price": "+$1,500 on top"
+                "price": "from $3,995"
               }
             ]
           },
@@ -1133,7 +1133,7 @@
               {
                 "name": "Node.js bespoke",
                 "when": "Custom integrations, internal tools, non-standard logic, real-time features. Built from scratch when no platform fits.",
-                "price": "from $7,990"
+                "price": "from $11,995"
               }
             ]
           }
@@ -1194,7 +1194,7 @@
       "tiers": [
         {
           "name": "Landing & one-pager",
-          "price": 600,
+          "price": 395,
           "timeline": "1–2 weeks",
           "highlight": false,
           "tagline": "Best for: solo entrepreneurs, lead-gen pages, MVPs.",
@@ -1209,7 +1209,7 @@
         },
         {
           "name": "Business website",
-          "price": 1495,
+          "price": 1195,
           "timeline": "2–4 weeks",
           "highlight": true,
           "tagline": "Best for: small business sites, professional services, portfolios.",
@@ -1225,10 +1225,10 @@
         },
         {
           "name": "Multilingual corporate",
-          "price": 2990,
+          "price": 2795,
           "timeline": "4–6 weeks",
           "highlight": false,
-          "tagline": "Best for: established businesses entering new markets.",
+          "tagline": "Best for: established businesses launching in 2–3 languages.",
           "includes": [
             "15+ pages, 4–8 languages",
             "WordPress + WPML or Astro",
@@ -1240,11 +1240,11 @@
           ]
         },
         {
-          "name": "E-commerce",
-          "price": 2495,
+          "name": "E-commerce (Shopify)",
+          "price": 1995,
           "timeline": "4–8 weeks",
           "highlight": false,
-          "tagline": "Shopify from $2,495 / WooCommerce from $3,990. Best for: online stores, product businesses.",
+          "tagline": "Best for: stores that need a fast launch on a managed platform.",
           "includes": [
             "Catalogue, cart, checkout, payments",
             "Shopify (faster) or WooCommerce (full control)",
@@ -1256,8 +1256,24 @@
           ]
         },
         {
-          "name": "Custom & SaaS",
-          "price": 7990,
+          "name": "E-commerce (WooCommerce)",
+          "price": 4795,
+          "timeline": "4–8 weeks",
+          "highlight": false,
+          "tagline": "Best for: stores that need full ownership and a custom checkout.",
+          "includes": [
+            "Catalogue, cart, checkout, payments",
+            "Self-hosted WordPress + WooCommerce",
+            "Product import + initial 50 SKUs configured",
+            "Email + abandoned-cart automation",
+            "Conversion tracking (Pixel + GA4 + CAPI)",
+            "Mobile-first product pages",
+            "30-day bug-fix support"
+          ]
+        },
+        {
+          "name": "Custom / SaaS",
+          "price": 11995,
           "timeline": "8+ weeks",
           "highlight": false,
           "tagline": "Best for: SaaS startups, custom apps, dashboards, real-time features.",
@@ -1275,7 +1291,7 @@
       "tiers_footnote": "All tiers include: multilingual support, on-page SEO, GA4 setup, 14-day post-launch support — free.",
       "tiers_alt_disabled": {
         "_note": "Variant B — flat range without tiers. Not active. Replace 'tiers' with this if you want range-based pricing instead of project-type tiers.",
-        "intro": "From $800 for a quick landing page to $50K+ for a custom SaaS platform. Every project is fixed-price, agreed before work starts — no scope-creep surprises.",
+        "intro": "From $395 for a focused landing page to $11,995+ for a custom SaaS platform. Every project is fixed-price, agreed before work starts — no scope-creep surprises.",
         "cta": "Get a custom quote"
       },
       "related": [
@@ -1304,11 +1320,11 @@
         },
         {
           "question": "What if I'm not sure which platform fits?",
-          "answer": "Discovery call is free. Tell me about your business, team, content workflow, growth plans — I'll recommend the platform that gives you the best result for your budget. If your needs fit a $1,500 Wix project, I'll say so, even if I could build a $20K custom one."
+          "answer": "Discovery call is free. Tell me about your business, team, content workflow, growth plans — I'll recommend the platform that gives you the best result for your budget. If your needs fit a $555 Wix project, I'll say so, even if I could build a $11,995 custom one."
         },
         {
           "question": "Do you maintain sites after launch?",
-          "answer": "Yes — 14 days of bug-fix support are included free. After that, monthly maintenance plans start at $190/month — security updates, content edits, performance monitoring, analytics review. See the Site Support page for full details."
+          "answer": "Yes — 14 days of bug-fix support are included free. After that, monthly maintenance plans start at $79/month — security updates, content edits, performance monitoring, analytics review. See the Site Support page for full details."
         },
         {
           "question": "Will my site be multilingual-ready?",
@@ -1320,9 +1336,29 @@
         },
         {
           "question": "What happens after launch?",
-          "answer": "14 days of free bug-fix support included. After that, monthly maintenance plans start at $190/month — security updates, performance monitoring, content edits, analytics review."
+          "answer": "14 days of free bug-fix support included. After that, monthly maintenance plans start at $79/month — security updates, performance monitoring, content edits, analytics review."
         }
-      ]
+      ],
+      "multilingual": {
+        "label": "Multilingual",
+        "title": "Multilingual ready in every tier",
+        "items": [
+          "Launch with one language by default — add more whenever you need",
+          "Adding a language later is a content task, not a rebuild",
+          "Need 2–3 languages from day one? The Multilingual corporate tier is built for it",
+          "EN / UK / RU mastered in-house — for other languages we manage native review"
+        ]
+      },
+      "why_prices": {
+        "label": "Why these prices",
+        "title": "Western quality, fair prices",
+        "items": [
+          "Remote EU team in Bucharest — no NYC office overhead",
+          "Direct work with the founder — no PM/sales chain",
+          "Same Astro / WordPress / Shopify stack you would get from a US agency",
+          "You pay for the work, not for a brand premium"
+        ]
+      }
     },
     "site_design": {
       "hero": {
@@ -1386,7 +1422,7 @@
       "tiers": [
         {
           "name": "Starter",
-          "price": 3500,
+          "price": 555,
           "timeline": "2 weeks",
           "highlight": false,
           "tagline": "Single-page redesign or landing page.",
@@ -1399,7 +1435,7 @@
         },
         {
           "name": "Growth",
-          "price": 7500,
+          "price": 1515,
           "timeline": "4 weeks",
           "highlight": true,
           "tagline": "Up to 8 pages with full design system.",
@@ -1508,7 +1544,7 @@
       "tiers": [
         {
           "name": "Starter",
-          "price": 5500,
+          "price": 1195,
           "timeline": "4 weeks",
           "highlight": false,
           "tagline": "Up to 15 pages, single language.",
@@ -1522,7 +1558,7 @@
         },
         {
           "name": "Growth",
-          "price": 12000,
+          "price": 2795,
           "timeline": "6 weeks",
           "highlight": true,
           "tagline": "Up to 50 pages, 2–3 languages, full migration.",
@@ -1637,7 +1673,7 @@
       "tiers": [
         {
           "name": "Audit",
-          "price": 1500,
+          "price": 395,
           "timeline": "2 weeks",
           "highlight": false,
           "tagline": "One-off SEO audit + 90-day plan.",
@@ -1651,7 +1687,7 @@
         },
         {
           "name": "Growth",
-          "price": 2900,
+          "price": 715,
           "timeline": "Monthly retainer",
           "highlight": true,
           "tagline": "Full-service monthly SEO engagement.",
@@ -1756,7 +1792,7 @@
       "tiers": [
         {
           "name": "Audit",
-          "price": 1200,
+          "price": 945,
           "timeline": "1 week",
           "highlight": false,
           "tagline": "One-off account audit + recovery plan.",
@@ -1770,7 +1806,7 @@
         },
         {
           "name": "Growth",
-          "price": 2500,
+          "price": 1195,
           "timeline": "Monthly + 8% spend",
           "highlight": true,
           "tagline": "Single-platform full management (up to $30k/month spend).",
@@ -1787,7 +1823,7 @@
           "price": null,
           "timeline": "Monthly + 6% spend",
           "highlight": false,
-          "tagline": "Multi-platform, $50k+/month spend.",
+          "tagline": "Multi-platform, $50k+/month spend. Custom + 10% of spend.",
           "includes": [
             "Multi-platform (Google + Meta + LinkedIn or TikTok)",
             "$50k+/month managed spend",
@@ -1870,7 +1906,7 @@
       "tiers": [
         {
           "name": "Essentials",
-          "price": 190,
+          "price": 79,
           "timeline": "Monthly",
           "highlight": false,
           "tagline": "Single-language sites under 30 pages.",
@@ -1884,7 +1920,7 @@
         },
         {
           "name": "Growth",
-          "price": 490,
+          "price": 199,
           "timeline": "Monthly",
           "highlight": true,
           "tagline": "Multilingual sites or e-commerce up to 100 pages.",
@@ -1898,7 +1934,7 @@
         },
         {
           "name": "Scale",
-          "price": null,
+          "price": 399,
           "timeline": "Monthly",
           "highlight": false,
           "tagline": "Mission-critical platforms with SLAs.",
