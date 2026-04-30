@@ -62,7 +62,7 @@
     "kicker": "Bucharest · EU · Russian / English team",
     "title_line_1": "Western quality websites.",
     "title_line_2": "Without western prices.",
-    "subtitle": "Digital agency for Russian-speaking business owners in the US, Canada, and Europe. EU-based business in Bucharest, Romania. Websites, ads, and SEO — built to American standards, priced for real businesses.",
+    "subtitle": "Digital agency for Russian-speaking business owners in the US, Canada, and Europe. EU-based business in Bucharest, Romania. Websites, mobile apps, ads, and SEO — built to American standards, priced for real businesses.",
     "primary_cta": "Start a project",
     "secondary_cta": "See pricing"
   },
@@ -122,6 +122,10 @@
       "site_design": {
         "title": "Web Design",
         "short": "Brand-driven design that closes deals before they happen."
+      },
+      "mobile_app_development": {
+        "title": "Mobile Apps",
+        "short": "Native iOS & Android apps for trainers, courses, and booking businesses."
       }
     }
   },
@@ -230,7 +234,7 @@
       },
       {
         "question": "What does it cost?",
-        "answer": "Website projects start at $395 for a focused landing page and $1,195 for a 5–15 page business site. Ads management is a flat monthly retainer (from $1,195/month). SEO engagements start at $395 for an audit, $715/month for ongoing work. Every quote is fixed — no surprise invoices."
+        "answer": "Website projects start at $395 for a focused landing page and $1,195 for a 5–15 page business site. Mobile apps from $2,495 for trainer, course, or booking apps. Ads management is a flat monthly retainer (from $1,195/month). SEO engagements start at $395 for an audit, $715/month for ongoing work. Every quote is fixed — no surprise invoices."
       },
       {
         "question": "Do you work in my language?",
@@ -946,7 +950,7 @@
     "hub": {
       "kicker": "Services",
       "h1": "Six disciplines. One unified strategy.",
-      "lead": "Web development, SEO, paid ads, design, analytics, ongoing support. Each delivered as a fixed-scope, fixed-price engagement — or rolled into a single multi-service partnership.",
+      "lead": "Web development, mobile apps, SEO, paid ads, design, analytics, ongoing support. Each delivered as a fixed-scope, fixed-price engagement.",
       "primary_cta": "Start a project",
       "secondary_cta": "Book a call",
       "compare_label": "Compare",
@@ -989,6 +993,12 @@
             "us_agency": "$1,200–3,000/mo",
             "uk_agency": "£900–2,200/mo",
             "us": "from $1,195/mo"
+          },
+          {
+            "service": "Mobile Apps",
+            "us_agency": "$25,000–60,000",
+            "uk_agency": "£18,000–45,000",
+            "us": "from $2,495"
           }
         ],
         "outro": "Same quality bar. Lower overhead. We work remotely from the EU (Bucharest, Romania), so we don't pay $5,000/month for a Manhattan office — and we pass that saving on to you."
@@ -1000,6 +1010,7 @@
           "description": "Engineer or rebuild your digital footprint.",
           "services": [
             "website_development",
+            "mobile_app_development",
             "site_redesign",
             "site_design"
           ]
@@ -1965,6 +1976,303 @@
           "answer": "Yes. No long-term contracts. We earn the next month every month."
         }
       ]
+    },
+    "mobile_app_development": {
+      "hero": {
+        "kicker": "Mobile App Development",
+        "h1": "Production-grade mobile apps. Without the production-grade price tag.",
+        "lead": "Native iOS and Android apps for trainers, course creators, and booking businesses. Built on the same Kotlin Multiplatform stack as Cash App — but priced for service businesses, not enterprise.",
+        "primary_cta": "Start a project",
+        "secondary_cta": "See app cases"
+      },
+      "industries": {
+        "label": "Industries we serve",
+        "title": "Built for four niches we know cold",
+        "items": [
+          {
+            "title": "Fitness & Sport Trainers",
+            "body": "Gyms, yoga studios, personal trainers, nutritionists."
+          },
+          {
+            "title": "Online Courses & LMS",
+            "body": "Course creators, infobusiness, certification programs."
+          },
+          {
+            "title": "Booking & Reservations",
+            "body": "Car rentals, limousines, studios, services by appointment."
+          },
+          {
+            "title": "Custom Service Apps",
+            "body": "Projects close to our niches with unique requirements."
+          }
+        ],
+        "footnote": "Not sure if your project fits? The discovery call is free — tell us what you need."
+      },
+      "why_stack": {
+        "label": "Why this stack",
+        "title": "Why Kotlin Multiplatform?",
+        "items": [
+          {
+            "title": "One codebase, two native apps",
+            "body": "Single Kotlin codebase compiled to iOS and Android with native UI on both. No WebView, no PWA wrapper, no Cordova compromises."
+          },
+          {
+            "title": "Same architecture as Cash App, Netflix, Square",
+            "body": "Production-proven stack used by Tier-1 products. Predictable, debuggable, and easy to hire for if you ever bring development in-house."
+          },
+          {
+            "title": "Owned by you, no platform lock-in",
+            "body": "You get the full source code on GitHub. No $30/month payments to FlutterFlow or Adalo to keep your app alive when their pricing changes."
+          }
+        ]
+      },
+      "included": [
+        {
+          "title": "Discovery & strategy",
+          "body": "Niche fit, feature scope, monetization model, fixed timeline — agreed before any code is written."
+        },
+        {
+          "title": "Native UI design",
+          "body": "Material 3 base, customized to your brand. Both iOS and Android polish, no platform-specific compromises."
+        },
+        {
+          "title": "KMM development",
+          "body": "Compose Multiplatform shared UI, with native APIs where needed (camera, notifications, biometrics)."
+        },
+        {
+          "title": "Backend setup",
+          "body": "Supabase (auth, database, storage, realtime), Stripe for payments, Resend for transactional email."
+        },
+        {
+          "title": "App Store & Google Play",
+          "body": "Publishing setup, screenshots, store descriptions, review handling, first production submission."
+        },
+        {
+          "title": "Hand-off & training",
+          "body": "Admin panel walkthrough, written documentation, 30-day post-launch bug-fix support — free."
+        }
+      ],
+      "process": [
+        {
+          "title": "Discovery",
+          "body": "Week 1 — feature spec, target users, monetization model. The output is a fixed scope and a fixed price."
+        },
+        {
+          "title": "Design & architecture",
+          "body": "Week 2 — wireframes, brand integration, backend schema. Backend setup starts in parallel."
+        },
+        {
+          "title": "Development",
+          "body": "Weeks 2-4 — KMM build with weekly demos. You see and test the app every seven days."
+        },
+        {
+          "title": "Launch & store submission",
+          "body": "Week 4-5 — TestFlight + Internal Testing on Google Play, then production submission to both stores."
+        }
+      ],
+      "outcomes": {
+        "label": "Outcomes",
+        "title": "What you walk away with",
+        "items": [
+          "Production codebase on GitHub — full ownership",
+          "Native iOS + Android apps published to App Store and Google Play",
+          "Supabase backend with admin panel",
+          "30-day post-launch bug-fix support, free",
+          "Written documentation and a training video"
+        ]
+      },
+      "tiers": [
+        {
+          "id": "trainerApp",
+          "name": "Trainer & Sport App",
+          "price": 2495,
+          "timeline": "3-4 weeks",
+          "highlight": false,
+          "tagline": "Best for: gyms, yoga studios, personal trainers, nutritionists.",
+          "includes": [
+            "Workout & video library",
+            "Client–trainer chat",
+            "Scheduling & bookings",
+            "In-app payments (Stripe)",
+            "Trainer dashboard (web)",
+            "30-day post-launch bug-fixes"
+          ]
+        },
+        {
+          "id": "courseApp",
+          "name": "Online Course / LMS App",
+          "price": 2795,
+          "timeline": "4 weeks",
+          "highlight": true,
+          "tagline": "Best for: course creators, infobusiness, certification programs.",
+          "includes": [
+            "Modular lessons & sections",
+            "Progress tracking",
+            "Tests & certificates",
+            "Paid access tiers",
+            "Push notifications",
+            "30-day post-launch bug-fixes"
+          ]
+        },
+        {
+          "id": "bookingApp",
+          "name": "Booking & Reservation App",
+          "price": 2995,
+          "timeline": "4-5 weeks",
+          "highlight": false,
+          "tagline": "Best for: car rentals, studios, services by appointment.",
+          "includes": [
+            "Catalog & search",
+            "Calendar & availability",
+            "Stripe payments",
+            "Two-way web sync",
+            "Order management",
+            "30-day post-launch bug-fixes"
+          ]
+        },
+        {
+          "id": "customApp",
+          "name": "Custom App",
+          "price": 3495,
+          "timeline": "5-6 weeks",
+          "highlight": false,
+          "tagline": "Best for: projects close to our niches with unique requirements.",
+          "includes": [
+            "Custom feature set",
+            "Backend tailored to flow",
+            "Native integrations as needed",
+            "Admin panel",
+            "Phased delivery",
+            "30-day post-launch bug-fixes"
+          ]
+        }
+      ],
+      "addons": {
+        "label": "Add-ons",
+        "title": "Add-ons (mix and match)",
+        "items": [
+          {
+            "name": "App Store + Google Play publishing setup",
+            "price": 295
+          },
+          {
+            "name": "Push notifications setup",
+            "price": 195
+          },
+          {
+            "name": "Additional language",
+            "price": 295
+          },
+          {
+            "name": "Third-party API integration (per integration)",
+            "price": 395
+          },
+          {
+            "name": "Web admin panel for owner",
+            "price": 995
+          }
+        ]
+      },
+      "support_required": {
+        "title": "Required: App Support Plan",
+        "body": "Apps need ongoing maintenance — iOS / Android update compatibility, new OS version support, crash monitoring, store policy compliance. From $149/month. First 30 days included free.",
+        "cta": "See Site Support",
+        "target": "site_support"
+      },
+      "cases": {
+        "label": "Cases",
+        "title": "Production apps we've shipped",
+        "footnote": "Real screenshots coming soon — placeholder covers shown for now.",
+        "items": [
+          {
+            "name": "QBody",
+            "type": "Fitness app",
+            "description": "Fitness app with workout library, course system, client-trainer chat, and progress tracking. Built for a personal trainer scaling beyond SaaS limits.",
+            "stack": "Kotlin Multiplatform · Compose Multiplatform · Supabase · Stripe · Next.js admin",
+            "platforms": "iOS · Android",
+            "status": "Production"
+          },
+          {
+            "name": "Premium Transportation",
+            "type": "Booking app",
+            "description": "Booking app synchronized with web platform — car rental, real-time availability, Stripe payments, owner order management.",
+            "stack": "Kotlin Multiplatform · Compose Multiplatform · Supabase · Stripe · Next.js admin",
+            "platforms": "iOS · Android",
+            "status": "Production"
+          }
+        ]
+      },
+      "related": [
+        "website_development",
+        "site_support"
+      ],
+      "faq": [
+        {
+          "question": "Why Kotlin Multiplatform and not React Native or FlutterFlow?",
+          "answer": "KMM gives native UI on both iOS and Android from a single Kotlin codebase. React Native ships JavaScript through a bridge — fine, but laggier on complex UIs. FlutterFlow is a no-code builder where you pay monthly to keep your app alive and don't own the source. KMM gives you ownership, performance, and the same architecture used by Cash App and Square."
+        },
+        {
+          "question": "How long does an app actually take?",
+          "answer": "Trainer/course apps are 3-4 weeks. Booking apps 4-5 weeks. Custom 5-6 weeks. The clock starts after Discovery (week 1), once we have a fixed scope. We demo weekly, so you always know where we are."
+        },
+        {
+          "question": "What's required from me as a client?",
+          "answer": "Brand assets (logo, colors), final product / service list, store accounts (Apple Developer + Google Play Console — yours, not ours), and decisions on monetization. Roughly 4-6 hours of your time across the project."
+        },
+        {
+          "question": "Will my app be in the App Store and Google Play?",
+          "answer": "Yes. We handle screenshots, descriptions, store metadata, review responses, and the first production submission to both stores. You keep ownership of both store accounts."
+        },
+        {
+          "question": "Who owns the code?",
+          "answer": "You do. Source code lives on a GitHub repo we transfer to your account at handoff. No license restrictions, no platform lock-in. If you fire us tomorrow, another developer can pick the code up immediately."
+        },
+        {
+          "question": "What about Apple Developer Account fees?",
+          "answer": "$99/year (Apple) + $25 one-time (Google). These are paid by you directly to Apple/Google — they belong on accounts you own. We help you set both up if you don't already have them."
+        },
+        {
+          "question": "Can I add features later?",
+          "answer": "Absolutely. The whole architecture is built around adding features without rewriting. Most clients ship a v1, gather feedback for 2-3 months, then come back for a v2 update."
+        },
+        {
+          "question": "What if Apple rejects my app?",
+          "answer": "We handle the back-and-forth with the App Review team and resubmit. Common rejections (subscription wording, privacy declarations, missing screenshots) are anticipated and avoided up front. Resubmission is included in the project."
+        },
+        {
+          "question": "Do you handle iOS/Android updates after launch?",
+          "answer": "That's what the App Support Plan ($149/month) is for — OS compatibility checks, store policy updates, crash monitoring, dependency upgrades. The first 30 days are free; after that, the plan is required because abandoned apps get pulled from the stores."
+        },
+        {
+          "question": "Can the app integrate with my existing website?",
+          "answer": "Yes. The Supabase backend can connect to a WordPress, Astro, or Next.js front-end, so customers see the same data on web and mobile. Two-way sync is part of every Booking tier."
+        },
+        {
+          "question": "What about user data and privacy?",
+          "answer": "Supabase is hosted in the EU (Frankfurt by default, Ireland on request). GDPR-compliant by configuration. We add privacy policy text, App Tracking Transparency prompts, and Data Safety declarations as part of every launch."
+        },
+        {
+          "question": "Do you build the backend or use an existing one?",
+          "answer": "By default we set up a fresh Supabase project — auth, database, storage, realtime, all configured. If you already have a Supabase / Firebase / custom REST backend, we connect to it."
+        },
+        {
+          "question": "Can I see the code before paying full price?",
+          "answer": "Yes — projects are split into milestones (Discovery, Design+Architecture, Build, Launch). After each milestone we transfer the corresponding code into your GitHub. You never pay for code you haven't seen."
+        },
+        {
+          "question": "What happens if I want to migrate to another developer later?",
+          "answer": "Hand off the GitHub repo + Supabase project + store accounts (already yours) and any KMM-experienced developer can take over. The stack is mainstream, the code is documented, and there's nothing proprietary holding you to us."
+        },
+        {
+          "question": "How do you handle multilingual apps?",
+          "answer": "EN / UK / RU is included as a single language at launch (your choice). Additional languages are an add-on at $295 each — translation memory, locale-aware formatting, and store listings localized."
+        }
+      ],
+      "final_cta": {
+        "title": "Ready to ship your app?",
+        "subtitle": "Tell me about your project — I respond within 4 hours. The discovery call is free, even if we don't end up working together.",
+        "cta": "Start a project"
+      }
     }
   },
   "form": {
@@ -2047,7 +2355,8 @@
     "terms": "Terms of Service",
     "brief_website": "Website Project Brief",
     "brief_ads": "Advertising Project Brief",
-    "thank_you": "Thank You"
+    "thank_you": "Thank You",
+    "services_mobile": "Mobile App Development"
   },
   "cookies": {
     "banner_title": "We respect your privacy",

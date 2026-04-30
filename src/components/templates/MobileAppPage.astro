@@ -1,0 +1,869 @@
+---
+/**
+ * MobileAppPage — dedicated template for /services/mobile-app-development/.
+ *
+ * Same visual language as ServiceDetail, plus four sections that don't
+ * exist for the other six services:
+ *   - Industries we serve
+ *   - Why this stack (Kotlin Multiplatform)
+ *   - Outcomes (what you walk away with)
+ *   - Add-ons + required App Support Plan
+ *   - Cases showcase (inline; not from the cases collection)
+ *
+ * Content is read entirely from `services_pages.mobile_app_development`
+ * in the i18n JSON files; this file holds layout + styles only.
+ */
+
+import { useTranslations, getTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
+import { buildServiceSchema, buildFaqSchema, buildBreadcrumb } from '@/lib/schema';
+import { getPriceForLocale, formatPrice, PRICING } from '@/data/pricing';
+import Breadcrumb from '@/components/layout/Breadcrumb.astro';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const all = getTranslations(lang) as any;
+const enAll = getTranslations('en') as any;
+
+const data = all?.services_pages?.mobile_app_development ?? enAll.services_pages.mobile_app_development;
+const common = all?.services_pages?.common ?? enAll.services_pages.common;
+const sectionItems = all?.services_section?.items ?? enAll.services_section.items;
+
+const ctaContacts = getLocalizedPath('contacts', lang);
+const ctaCases = getLocalizedPath('cases.web-development', lang);
+const supportHref = getLocalizedPath('services.site-support', lang);
+const websiteDevHref = getLocalizedPath('services.website-development', lang);
+
+// Schema.org Service + FAQ — reuses the shared helpers
+const siteOrigin = Astro.site ? Astro.site.origin : 'https://alexeykachan.com';
+const pageUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+
+const tiersForSchema = data.tiers.map((tier: any) => ({
+  name: tier.name,
+  price: tier.price as number | null,
+  currency: 'USD',
+  description: tier.tagline,
+  url: pageUrl,
+}));
+
+const serviceSchema = buildServiceSchema({
+  serviceName: data.hero.kicker,
+  serviceType: 'Mobile Application Development',
+  description: data.hero.lead,
+  url: pageUrl,
+  siteOrigin,
+  lang,
+  tiers: tiersForSchema,
+});
+
+const faqSchema = buildFaqSchema(data.faq);
+
+const breadcrumb = buildBreadcrumb([
+  { name: 'Home', url: `${siteOrigin}${getLocalizedPath('home', lang)}` },
+  { name: t('page_titles.services'), url: `${siteOrigin}${getLocalizedPath('services', lang)}` },
+  { name: data.hero.kicker, url: pageUrl },
+]);
+
+const allSchema = [serviceSchema, faqSchema, breadcrumb];
+
+// Helpers for tier rendering
+const renderTierPrice = (tier: any) => {
+  if (tier.price === null || tier.price === undefined) {
+    return common.tier_custom;
+  }
+  const localized = getPriceForLocale(tier.price as number, lang);
+  return formatPrice(localized.amount, localized.currency, lang);
+};
+
+// Required-support price (from PRICING source of truth)
+const supportEntry = PRICING.mobileAppDevelopment.support;
+const supportPrice = formatPrice(
+  getPriceForLocale(supportEntry.fromUSD as number, lang).amount,
+  'USD',
+  lang,
+);
+
+// Localized "/month" suffix (mirrors renderPrice without the "from" prefix)
+const monthSuffix = lang === 'uk' ? '/місяць' : lang === 'ru' ? '/мес' : '/month';
+---
+
+{allSchema.map((s) => (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />
+))}
+
+<Breadcrumb lang={lang} items={[
+  { name: t('page_titles.services'), pageKey: 'services' },
+  { name: data.hero.kicker },
+]} visualHidden={true} />
+
+{/* ─────────────────────────── HERO ─────────────────────────── */}
+<section class="map-hero">
+  <div class="container-x map-hero__inner">
+    <p class="map-hero__kicker" data-reveal>— {data.hero.kicker}</p>
+    <h1 class="map-hero__h1 text-balance" data-reveal data-reveal-delay="0.1">{data.hero.h1}</h1>
+    <p class="map-hero__lead" data-reveal data-reveal-delay="0.2">{data.hero.lead}</p>
+    <div class="map-hero__ctas" data-reveal data-reveal-delay="0.3">
+      <a href={ctaContacts} class="map-cta map-cta--primary" data-magnetic data-magnetic-strength="0.35">
+        <span>{data.hero.primary_cta}</span>
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href={ctaCases} class="map-cta map-cta--ghost">{data.hero.secondary_cta}</a>
+    </div>
+  </div>
+</section>
+
+{/* ────────────────────── INDUSTRIES WE SERVE ────────────────────── */}
+<section class="map-section section-y">
+  <div class="container-x">
+    <header class="map-section__head" data-reveal>
+      <p class="map-section__label">— {data.industries.label}</p>
+      <h2 class="map-section__title text-balance">{data.industries.title}</h2>
+    </header>
+    <ul class="map-grid map-grid--4" data-reveal-stagger data-stagger-interval="0.06">
+      {data.industries.items.map((it: any) => (
+        <li class="map-card">
+          <h3 class="map-card__title">{it.title}</h3>
+          <p class="map-card__body">{it.body}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="map-section__footnote" data-reveal>{data.industries.footnote}</p>
+  </div>
+</section>
+
+{/* ────────────────────── WHY THIS STACK ────────────────────── */}
+<section class="map-section map-section--alt section-y">
+  <div class="container-x">
+    <header class="map-section__head" data-reveal>
+      <p class="map-section__label">— {data.why_stack.label}</p>
+      <h2 class="map-section__title text-balance">{data.why_stack.title}</h2>
+    </header>
+    <ul class="map-grid map-grid--3" data-reveal-stagger data-stagger-interval="0.06">
+      {data.why_stack.items.map((it: any) => (
+        <li class="map-card map-card--accent">
+          <h3 class="map-card__title">{it.title}</h3>
+          <p class="map-card__body">{it.body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* ────────────────────── INCLUDED ────────────────────── */}
+<section class="map-section section-y">
+  <div class="container-x">
+    <header class="map-section__head" data-reveal>
+      <p class="map-section__label">— {common.whats_included_label}</p>
+      <h2 class="map-section__title text-balance">{common.whats_included_title}</h2>
+    </header>
+    <ul class="map-checklist" data-reveal-stagger data-stagger-interval="0.05">
+      {data.included.map((it: any, i: number) => (
+        <li class="map-checklist__item">
+          <span class="map-checklist__num">/{(i + 1).toString().padStart(2, '0')}</span>
+          <div>
+            <h3 class="map-checklist__title">{it.title}</h3>
+            <p class="map-checklist__body">{it.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* ────────────────────── PROCESS ────────────────────── */}
+<section class="map-section section-y">
+  <div class="container-x">
+    <header class="map-section__head" data-reveal>
+      <p class="map-section__label">— {common.process_label}</p>
+      <h2 class="map-section__title text-balance">{common.process_title}</h2>
+    </header>
+    <ol class="map-process" data-reveal-stagger data-stagger-interval="0.06">
+      {data.process.map((step: any, i: number) => (
+        <li class="map-process__step">
+          <span class="map-process__num">{(i + 1).toString().padStart(2, '0')}</span>
+          <h3 class="map-process__title">{step.title}</h3>
+          <p class="map-process__body">{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+{/* ────────────────────── OUTCOMES ────────────────────── */}
+<section class="map-section section-y">
+  <div class="container-x map-outcomes">
+    <header class="map-section__head" data-reveal>
+      <p class="map-section__label">— {data.outcomes.label}</p>
+      <h2 class="map-section__title text-balance">{data.outcomes.title}</h2>
+    </header>
+    <ul class="map-outcomes__list" data-reveal-stagger data-stagger-interval="0.04">
+      {data.outcomes.items.map((it: string) => (
+        <li class="map-outcomes__item">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>{it}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* ────────────────────── PRICING / TIERS ────────────────────── */}
+<section class="map-section section-y" id="pricing">
+  <div class="container-x">
+    <header class="map-section__head" data-reveal>
+      <p class="map-section__label">— {common.pricing_label}</p>
+      <h2 class="map-section__title text-balance">{common.pricing_title}</h2>
+      <p class="map-section__sub">{common.pricing_subtitle}</p>
+    </header>
+
+    <ul class="map-tiers" data-reveal-stagger data-stagger-interval="0.06">
+      {data.tiers.map((tier: any) => (
+        <li class={`map-tier ${tier.highlight ? 'map-tier--popular' : ''}`}>
+          {tier.highlight && <span class="map-tier__badge">{common.tier_popular}</span>}
+          <h3 class="map-tier__name">{tier.name}</h3>
+          <p class="map-tier__tagline">{tier.tagline}</p>
+
+          <div class="map-tier__price">
+            {tier.price !== null && tier.price !== undefined ? (
+              <>
+                <span class="map-tier__price-from">{common.tier_from}</span>
+                <span class="map-tier__price-amount">{renderTierPrice(tier)}</span>
+              </>
+            ) : (
+              <span class="map-tier__price-amount map-tier__price-amount--custom">{common.tier_custom}</span>
+            )}
+          </div>
+
+          <p class="map-tier__timeline">{common.tier_timeline}: {tier.timeline}</p>
+
+          <p class="map-tier__includes-label">{common.tier_includes}:</p>
+          <ul class="map-tier__includes">
+            {tier.includes.map((inc: string) => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>{inc}</span>
+              </li>
+            ))}
+          </ul>
+
+          <a href={ctaContacts} class="map-tier__cta">
+            <span>{tier.price !== null && tier.price !== undefined ? common.tier_cta_fixed : common.tier_cta_custom}</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    {/* ADDONS */}
+    <div class="map-addons" data-reveal>
+      <h3 class="map-addons__title">{data.addons.title}</h3>
+      <ul class="map-addons__list">
+        {data.addons.items.map((a: any) => {
+          const localized = getPriceForLocale(a.price, lang);
+          return (
+            <li class="map-addons__row">
+              <span class="map-addons__name">{a.name}</span>
+              <span class="map-addons__price">{common.tier_from} {formatPrice(localized.amount, localized.currency, lang)}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+
+    {/* REQUIRED SUPPORT */}
+    <aside class="map-support" data-reveal>
+      <p class="map-support__label">— {data.support_required.title}</p>
+      <p class="map-support__body">{data.support_required.body}</p>
+      <p class="map-support__price">
+        {common.tier_from} <strong>{supportPrice}{monthSuffix}</strong>
+      </p>
+      <a href={supportHref} class="map-support__link">
+        {data.support_required.cta}
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </aside>
+  </div>
+</section>
+
+{/* ────────────────────── CASES (inline) ────────────────────── */}
+<section class="map-section map-section--alt section-y">
+  <div class="container-x">
+    <header class="map-section__head" data-reveal>
+      <p class="map-section__label">— {data.cases.label}</p>
+      <h2 class="map-section__title text-balance">{data.cases.title}</h2>
+    </header>
+    <ul class="map-grid map-grid--2" data-reveal-stagger data-stagger-interval="0.08">
+      {data.cases.items.map((c: any) => (
+        <li class="map-case">
+          <div class="map-case__cover" aria-hidden="true">
+            <div class="map-case__placeholder">
+              <span class="map-case__placeholder-name">{c.name}</span>
+              <span class="map-case__placeholder-type">{c.type}</span>
+            </div>
+          </div>
+          <div class="map-case__body">
+            <header class="map-case__head">
+              <h3 class="map-case__name">{c.name}</h3>
+              <span class="map-case__status">{c.status}</span>
+            </header>
+            <p class="map-case__desc">{c.description}</p>
+            <dl class="map-case__meta">
+              <div><dt>Stack</dt><dd>{c.stack}</dd></div>
+              <div><dt>Platforms</dt><dd>{c.platforms}</dd></div>
+            </dl>
+          </div>
+        </li>
+      ))}
+    </ul>
+    <p class="map-section__footnote" data-reveal>{data.cases.footnote}</p>
+  </div>
+</section>
+
+{/* ────────────────────── PAIR IT WITH ────────────────────── */}
+<section class="map-section section-y">
+  <div class="container-x">
+    <header class="map-section__head" data-reveal>
+      <p class="map-section__label">— {common.related_label}</p>
+      <h2 class="map-section__title text-balance">{common.related_title}</h2>
+    </header>
+    <ul class="map-grid map-grid--2" data-reveal-stagger data-stagger-interval="0.08">
+      {data.related.map((rel: string) => {
+        const item = sectionItems[rel];
+        const href = rel === 'site_support' ? supportHref : websiteDevHref;
+        if (!item) return null;
+        return (
+          <li>
+            <a href={href} class="map-related">
+              <h3 class="map-related__title">{item.title}</h3>
+              <p class="map-related__body">{item.short}</p>
+              <span class="map-related__cta">
+                {t('common.learn_more')}
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>
+
+{/* ────────────────────── FAQ ────────────────────── */}
+<section class="map-section section-y">
+  <div class="container-x">
+    <header class="map-section__head" data-reveal>
+      <p class="map-section__label">— {common.faq_label}</p>
+      <h2 class="map-section__title text-balance">{common.faq_title}</h2>
+    </header>
+    <ul class="map-faq" data-reveal-stagger data-stagger-interval="0.04">
+      {data.faq.map((f: any) => (
+        <li class="map-faq__item">
+          <details class="map-faq__details">
+            <summary class="map-faq__summary">
+              <span>{f.question}</span>
+              <span class="map-faq__icon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </summary>
+            <p class="map-faq__answer">{f.answer}</p>
+          </details>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* ────────────────────── FINAL CTA ────────────────────── */}
+<section class="map-final-cta section-y">
+  <div class="container-x">
+    <div class="map-final-cta__card" data-reveal="scale">
+      <h2 class="map-final-cta__title text-balance">{data.final_cta.title}</h2>
+      <p class="map-final-cta__sub">{data.final_cta.subtitle}</p>
+      <a href={ctaContacts} class="map-cta map-cta--primary" data-magnetic data-magnetic-strength="0.4">
+        <span>{data.final_cta.cta}</span>
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ─── Hero ─── */
+  .map-hero {
+    padding-top: calc(var(--header-height) + clamp(2rem, 6vw, 4rem));
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .map-hero__inner { max-width: 56rem; }
+  .map-hero__kicker { font-size: 0.875rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .map-hero__h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.4rem + 2.5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+  }
+  .map-hero__lead {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 2rem;
+    max-width: 42rem;
+  }
+  .map-hero__ctas { display: flex; gap: 0.875rem; flex-wrap: wrap; }
+
+  .map-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: transform var(--duration-base) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
+  }
+  .map-cta--primary {
+    background: var(--accent);
+    color: var(--accent-text);
+  }
+  .map-cta--primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .map-cta--ghost {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+  }
+  .map-cta--ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ─── Section primitives ─── */
+  .map-section { position: relative; }
+  .map-section--alt { background: var(--bg-secondary); }
+  .map-section__head { margin-bottom: clamp(2rem, 4vw, 3rem); max-width: 50rem; }
+  .map-section__label {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .map-section__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+  .map-section__sub {
+    margin-top: 0.875rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  .map-section__footnote {
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    text-align: center;
+  }
+
+  /* ─── Grid + cards ─── */
+  .map-grid { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+  .map-grid--2 { grid-template-columns: 1fr; }
+  .map-grid--3 { grid-template-columns: 1fr; }
+  .map-grid--4 { grid-template-columns: 1fr; }
+  @media (min-width: 640px) {
+    .map-grid--2 { grid-template-columns: repeat(2, 1fr); }
+    .map-grid--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .map-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .map-grid--4 { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .map-card {
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+  .map-card:hover { border-color: var(--border-strong); }
+  .map-card--accent { border-color: color-mix(in oklch, var(--accent) 25%, var(--border)); }
+  .map-card__title {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.015em;
+  }
+  .map-card__body { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.55; }
+
+  /* ─── Checklist (Included) ─── */
+  .map-checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.25rem; }
+  @media (min-width: 768px) { .map-checklist { grid-template-columns: repeat(2, 1fr); gap: 2rem; } }
+  .map-checklist__item { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; }
+  .map-checklist__num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); padding-top: 0.2rem; }
+  .map-checklist__title {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.015em;
+  }
+  .map-checklist__body { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.55; }
+
+  /* ─── Process ─── */
+  .map-process {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1.25rem;
+    counter-reset: map-process;
+  }
+  @media (min-width: 768px) { .map-process { grid-template-columns: repeat(4, 1fr); } }
+  .map-process__step {
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .map-process__num {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .map-process__title {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+    margin-bottom: 0.5rem;
+  }
+  .map-process__body { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.55; }
+
+  /* ─── Outcomes ─── */
+  .map-outcomes { max-width: 56rem; }
+  .map-outcomes__list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; }
+  .map-outcomes__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  .map-outcomes__item svg { color: var(--accent); margin-top: 0.3rem; }
+
+  /* ─── Tiers ─── */
+  .map-tiers {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 768px) { .map-tiers { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1280px) { .map-tiers { grid-template-columns: repeat(4, 1fr); } }
+
+  .map-tier {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    padding: 1.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+  }
+  .map-tier--popular {
+    border-color: color-mix(in oklch, var(--accent) 45%, var(--border-strong));
+    box-shadow: 0 0 0 1px color-mix(in oklch, var(--accent) 20%, transparent);
+  }
+  .map-tier__badge {
+    position: absolute;
+    top: -10px;
+    left: 1.5rem;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-full);
+  }
+  .map-tier__name {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+  }
+  .map-tier__tagline { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; }
+  .map-tier__price { display: flex; align-items: baseline; gap: 0.4rem; }
+  .map-tier__price-from { font-size: 0.8125rem; color: var(--text-muted); }
+  .map-tier__price-amount {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+  }
+  .map-tier__price-amount--custom { font-size: 1.25rem; color: var(--accent); }
+  .map-tier__timeline { font-size: 0.8125rem; color: var(--text-muted); }
+  .map-tier__includes-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+  .map-tier__includes { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.5rem; }
+  .map-tier__includes li { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem; align-items: start; font-size: 0.875rem; color: var(--text-secondary); line-height: 1.45; }
+  .map-tier__includes svg { color: var(--accent); margin-top: 0.2rem; }
+  .map-tier__cta {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+  }
+  .map-tier__cta:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ─── Add-ons ─── */
+  .map-addons {
+    margin-top: 2.5rem;
+    padding: 1.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+  }
+  .map-addons__title {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+  .map-addons__list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.625rem; }
+  .map-addons__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+  }
+  .map-addons__row:last-child { border-bottom: none; padding-bottom: 0; }
+  .map-addons__name { line-height: 1.45; }
+  .map-addons__price { color: var(--text-primary); font-weight: 500; white-space: nowrap; }
+
+  /* ─── Required support ─── */
+  .map-support {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: color-mix(in oklch, var(--accent) 8%, var(--bg-secondary));
+    border: 1px solid color-mix(in oklch, var(--accent) 30%, var(--border));
+    border-radius: var(--radius-lg);
+  }
+  .map-support__label { font-size: 0.75rem; color: var(--accent); font-weight: 600; margin-bottom: 0.5rem; }
+  .map-support__body { color: var(--text-primary); font-size: 0.9375rem; line-height: 1.55; margin-bottom: 0.75rem; }
+  .map-support__price { font-size: 0.9375rem; color: var(--text-secondary); margin-bottom: 0.75rem; }
+  .map-support__price strong { color: var(--text-primary); font-weight: 600; }
+  .map-support__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .map-support__link:hover { text-decoration: underline; }
+
+  /* ─── Cases (inline) ─── */
+  .map-case {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+  .map-case__cover {
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-elevated));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .map-case__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-muted);
+  }
+  .map-case__placeholder-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: -0.015em;
+  }
+  .map-case__placeholder-type { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .map-case__body { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.875rem; }
+  .map-case__head { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; flex-wrap: wrap; }
+  .map-case__name {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+  }
+  .map-case__status {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border-strong);
+    color: var(--text-muted);
+    border-radius: var(--radius-full);
+  }
+  .map-case__desc { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.55; }
+  .map-case__meta {
+    display: grid;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .map-case__meta dt {
+    display: inline;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.6875rem;
+    margin-right: 0.5rem;
+  }
+  .map-case__meta dd { display: inline; color: var(--text-secondary); margin: 0; }
+  .map-case__meta div { line-height: 1.5; }
+
+  /* ─── Pair it with ─── */
+  .map-related {
+    display: block;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+  .map-related:hover { border-color: var(--accent); }
+  .map-related__title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.015em;
+  }
+  .map-related__body { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.55; margin-bottom: 1rem; }
+  .map-related__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  /* ─── FAQ ─── */
+  .map-faq { list-style: none; padding: 0; margin: 0; max-width: 50rem; }
+  .map-faq__item { border-bottom: 1px solid var(--border); }
+  .map-faq__details { padding: 1.25rem 0; }
+  .map-faq__summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  .map-faq__summary::-webkit-details-marker { display: none; }
+  .map-faq__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    transition: transform var(--duration-base) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+    flex-shrink: 0;
+  }
+  .map-faq__details[open] .map-faq__icon { transform: rotate(45deg); background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+  .map-faq__answer { margin-top: 0.875rem; color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.6; }
+
+  /* ─── Final CTA ─── */
+  .map-final-cta__card {
+    padding: clamp(2rem, 5vw, 3.5rem);
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+  .map-final-cta__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+  .map-final-cta__sub { color: var(--text-secondary); font-size: 1.0625rem; line-height: 1.55; margin-bottom: 1.75rem; max-width: 38rem; margin-inline: auto; }
+</style>

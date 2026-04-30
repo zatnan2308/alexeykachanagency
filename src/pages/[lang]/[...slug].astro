@@ -7,6 +7,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ServicesHub from '@/components/templates/ServicesHub.astro';
 import ServiceDetail from '@/components/templates/ServiceDetail.astro';
+import MobileAppPage from '@/components/templates/MobileAppPage.astro';
 import BlogHub from '@/components/templates/BlogHub.astro';
 import CasesHub from '@/components/templates/CasesHub.astro';
 import CaseDetail from '@/components/templates/CaseDetail.astro';
@@ -151,8 +152,9 @@ const ogType = props.kind === 'case' ? 'article' : 'website';
 ---
 
 <BaseLayout pageKey={pageKey} title={title} description={description} ogType={ogType} noindex={noindex}>
-  {props.kind === 'page' && pageKey === 'services'        && <ServicesHub  lang={lang} />}
-  {props.kind === 'page' && serviceKey                    && <ServiceDetail lang={lang} serviceKey={serviceKey} />}
+  {props.kind === 'page' && pageKey === 'services'                          && <ServicesHub  lang={lang} />}
+  {props.kind === 'page' && pageKey === 'services.mobile-app-development'   && <MobileAppPage lang={lang} />}
+  {props.kind === 'page' && serviceKey && pageKey !== 'services.mobile-app-development' && <ServiceDetail lang={lang} serviceKey={serviceKey} />}
   {props.kind === 'page' && pageKey === 'blog'            && <BlogHub      lang={lang} />}
   {props.kind === 'page' && casesHubCategory              && <CasesHub     lang={lang} category={casesHubCategory} />}
   {props.kind === 'page' && pageKey === 'about'           && <AboutPage    lang={lang} />}

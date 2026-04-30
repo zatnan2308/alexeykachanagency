@@ -29,8 +29,21 @@ type NavGroup = { type: 'group'; label: string; children: { key: string; label: 
 type NavItem = NavLeaf | NavGroup;
 
 const navItems: NavItem[] = [
-  { type: 'link',  key: 'home',     label: t('nav.home')     },
-  { type: 'link',  key: 'services', label: t('nav.services') },
+  { type: 'link',  key: 'home', label: t('nav.home') },
+  {
+    type: 'group',
+    label: t('nav.services'),
+    children: [
+      { key: 'services',                          label: t('nav.services') + ' — ' + t('common.view_all') },
+      { key: 'services.website-development',      label: t('services_section.items.website_development.title') },
+      { key: 'services.mobile-app-development',   label: t('services_section.items.mobile_app_development.title') },
+      { key: 'services.site-redesign',            label: t('services_section.items.site_redesign.title') },
+      { key: 'services.site-design',              label: t('services_section.items.site_design.title') },
+      { key: 'services.site-analytics',           label: t('services_section.items.site_analytics.title') },
+      { key: 'services.setting-up-ads',           label: t('services_section.items.setting_up_ads.title') },
+      { key: 'services.site-support',             label: t('services_section.items.site_support.title') },
+    ],
+  },
   {
     type: 'group',
     label: t('nav.cases'),

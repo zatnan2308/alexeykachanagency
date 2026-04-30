@@ -15,6 +15,7 @@
 export const SUPPORTED_PAGE_KEYS = [
   'services',
   'services.website-development',
+  'services.mobile-app-development',
   'services.site-design',
   'services.site-redesign',
   'services.site-analytics',
@@ -39,10 +40,11 @@ export type SupportedPageKey = typeof SUPPORTED_PAGE_KEYS[number];
  * Map from slug pageKey → en.json `services_pages` key (used by ServiceDetail).
  */
 export const serviceKeyMap: Record<string, string> = {
-  'services.website-development': 'website_development',
-  'services.site-design':         'site_design',
-  'services.site-redesign':       'site_redesign',
-  'services.site-analytics':      'site_analytics',
-  'services.setting-up-ads':      'setting_up_ads',
-  'services.site-support':        'site_support',
+  'services.website-development':     'website_development',
+  'services.mobile-app-development':  'mobile_app_development',
+  'services.site-design':             'site_design',
+  'services.site-redesign':           'site_redesign',
+  'services.site-analytics':          'site_analytics',
+  'services.setting-up-ads':          'setting_up_ads',
+  'services.site-support':            'site_support',
 };

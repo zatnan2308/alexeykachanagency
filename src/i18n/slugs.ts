@@ -93,13 +93,19 @@ export const slugs: Record<string, Record<Language, string>> = {
   },
 
   // ---------------------------------------------------------------------------
-  // INDIVIDUAL SERVICES (6 services)
+  // INDIVIDUAL SERVICES (7 services)
   // Each slug uses the most-searched local term per Google Keyword Planner
   // ---------------------------------------------------------------------------
   'services.website-development': {
     en: 'services/website-development',
     uk: 'poslugy/rozrobka-saytiv',                          // "розробка сайтів"
     ru: 'uslugi/razrabotka-saytov',                         // "разработка сайтов"
+  },
+
+  'services.mobile-app-development': {
+    en: 'services/mobile-app-development',
+    uk: 'poslugy/rozrobka-mobilnyh-zastosunkiv',            // "розробка мобільних застосунків"
+    ru: 'uslugi/razrabotka-mobilnyh-prilozheniy',           // "разработка мобильных приложений"
   },
 
   'services.site-redesign': {

@@ -73,6 +73,33 @@ export const PRICING = {
   },
 
   // ---------------------------------------------------------------------------
+  // MOBILE APP DEVELOPMENT — Kotlin Multiplatform (iOS + Android)
+  // ---------------------------------------------------------------------------
+  mobileAppDevelopment: {
+    tiers: {
+      trainerApp: { fromUSD: 2495, weeks: '3-4', label: 'Trainer & Sport App',
+        description: 'Branded mobile app for fitness trainers, gyms, yoga studios. Workouts, video library, client chat, scheduling, payments.' },
+      courseApp:  { fromUSD: 2795, weeks: '4',   label: 'Online Course / LMS App', mostPopular: true,
+        description: 'Course-based app for educators and infobusiness. Modular lessons, progress tracking, tests, certificates, paid access.' },
+      bookingApp: { fromUSD: 2995, weeks: '4-5', label: 'Booking & Reservation App',
+        description: 'Reservation app for car rentals, services, studios. Catalog, calendar, payments, web sync, order management.' },
+      customApp:  { fromUSD: 3495, weeks: '5-6', label: 'Custom App',
+        description: 'Tailored solution for projects close to our core niches but with non-standard requirements.' },
+    } satisfies Record<string, PriceEntry>,
+
+    addons: {
+      appStorePublishing: { fromUSD: 295, label: 'App Store + Google Play publishing setup' },
+      pushNotifications:  { fromUSD: 195, label: 'Push notifications setup' },
+      extraLanguage:      { fromUSD: 295, label: 'Additional language' },
+      customIntegration:  { fromUSD: 395, label: 'Third-party API integration (per integration)' },
+      webAdminPanel:      { fromUSD: 995, label: 'Web admin panel for owner' },
+    } satisfies Record<string, PriceEntry>,
+
+    support: { fromUSD: 149, recurring: 'month', label: 'App Support Plan',
+      description: 'Required for app maintenance — iOS/Android updates, OS compatibility, crash monitoring, store policy compliance.' } satisfies PriceEntry,
+  },
+
+  // ---------------------------------------------------------------------------
   // SITE REDESIGN — must be ≤ Website Development of the same tier.
   // ---------------------------------------------------------------------------
   siteRedesign: {
@@ -139,12 +166,13 @@ export const PRICING = {
 // =============================================================================
 
 export const SERVICE_STARTING = {
-  website_development: PRICING.websiteDevelopment.tiers.landing.fromUSD,    // 395
-  site_design:         PRICING.webDesign.starter.fromUSD,                    // 555
-  site_redesign:       PRICING.siteRedesign.starter.fromUSD,                 // 1195
-  site_analytics:      PRICING.seo.audit.fromUSD,                            // 395
-  setting_up_ads:      PRICING.paidAdvertising.growth.fromUSD,               // 1195 /mo
-  site_support:        PRICING.siteSupport.essentials.fromUSD,               //   79 /mo
+  website_development:     PRICING.websiteDevelopment.tiers.landing.fromUSD,        //  395
+  mobile_app_development:  PRICING.mobileAppDevelopment.tiers.trainerApp.fromUSD,   // 2495
+  site_design:             PRICING.webDesign.starter.fromUSD,                       //  555
+  site_redesign:           PRICING.siteRedesign.starter.fromUSD,                    // 1195
+  site_analytics:          PRICING.seo.audit.fromUSD,                               //  395
+  setting_up_ads:          PRICING.paidAdvertising.growth.fromUSD,                  // 1195 /mo
+  site_support:            PRICING.siteSupport.essentials.fromUSD,                  //   79 /mo
 } as const;
 
 // =============================================================================

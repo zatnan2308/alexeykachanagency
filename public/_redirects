@@ -61,6 +61,20 @@
 /en/                 /                  301
 /en/*                /:splat            301
 
+# Mobile app development — alternative URL guesses
+/services/mobile-apps                  /services/mobile-app-development/             301
+/services/mobile-apps/                 /services/mobile-app-development/             301
+/services/app-development              /services/mobile-app-development/             301
+/services/app-development/             /services/mobile-app-development/             301
+/services/ios-app                      /services/mobile-app-development/             301
+/services/ios-app/                     /services/mobile-app-development/             301
+/services/android-app                  /services/mobile-app-development/             301
+/services/android-app/                 /services/mobile-app-development/             301
+/ru/uslugi/mobilnye-prilozheniya       /ru/uslugi/razrabotka-mobilnyh-prilozheniy/   301
+/ru/uslugi/mobilnye-prilozheniya/      /ru/uslugi/razrabotka-mobilnyh-prilozheniy/   301
+/uk/poslugy/mobilni-dodatky            /uk/poslugy/rozrobka-mobilnyh-zastosunkiv/    301
+/uk/poslugy/mobilni-dodatky/           /uk/poslugy/rozrobka-mobilnyh-zastosunkiv/    301
+
 # Common alternate language codes that visitors might guess
 /ukrainian           /uk/               301
 /ukrainian/          /uk/               301
