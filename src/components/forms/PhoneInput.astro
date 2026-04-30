@@ -1,0 +1,258 @@
+---
+/**
+ * PhoneInput — country-code dropdown + masked national number input.
+ *
+ * Renders three controls:
+ *   1. <select> country picker (flag + dial code + name)
+ *   2. <input type="tel"> national number, formatted with a per-country mask
+ *   3. <input type="hidden" name=…> the final E.164 string sent on submit
+ *
+ * The hidden field carries the actual form value (e.g. "+40735972434").
+ * Keep the hidden field's `name` aligned with the form schema.
+ */
+import type { Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+  name: string;          // form field name on the hidden submit-value
+  required?: boolean;
+  /** Default selected country ISO code (e.g. "US"). Falls back to lang-aware default. */
+  defaultCountry?: string;
+  className?: string;
+}
+
+const { lang, name, required = false, defaultCountry, className = '' } = Astro.props;
+
+// Curated list — diaspora targets first, then EU, then EE/Asia/Pacific.
+// Mask uses '#' for digits, every other char is a literal separator.
+const COUNTRIES = [
+  { code: 'US', name: 'United States',   dial: '+1',   flag: '🇺🇸', mask: '(###) ###-####' },
+  { code: 'CA', name: 'Canada',          dial: '+1',   flag: '🇨🇦', mask: '(###) ###-####' },
+  { code: 'GB', name: 'United Kingdom',  dial: '+44',  flag: '🇬🇧', mask: '#### ######' },
+  { code: 'IE', name: 'Ireland',         dial: '+353', flag: '🇮🇪', mask: '## ### ####' },
+  { code: 'DE', name: 'Germany',         dial: '+49',  flag: '🇩🇪', mask: '### #######' },
+  { code: 'FR', name: 'France',          dial: '+33',  flag: '🇫🇷', mask: '# ## ## ## ##' },
+  { code: 'IT', name: 'Italy',           dial: '+39',  flag: '🇮🇹', mask: '### ### ####' },
+  { code: 'ES', name: 'Spain',           dial: '+34',  flag: '🇪🇸', mask: '### ### ###' },
+  { code: 'PT', name: 'Portugal',        dial: '+351', flag: '🇵🇹', mask: '### ### ###' },
+  { code: 'NL', name: 'Netherlands',     dial: '+31',  flag: '🇳🇱', mask: '## #######' },
+  { code: 'BE', name: 'Belgium',         dial: '+32',  flag: '🇧🇪', mask: '### ## ## ##' },
+  { code: 'CH', name: 'Switzerland',     dial: '+41',  flag: '🇨🇭', mask: '## ### ## ##' },
+  { code: 'AT', name: 'Austria',         dial: '+43',  flag: '🇦🇹', mask: '### #######' },
+  { code: 'SE', name: 'Sweden',          dial: '+46',  flag: '🇸🇪', mask: '## ### ####' },
+  { code: 'NO', name: 'Norway',          dial: '+47',  flag: '🇳🇴', mask: '### ## ###' },
+  { code: 'DK', name: 'Denmark',         dial: '+45',  flag: '🇩🇰', mask: '## ## ## ##' },
+  { code: 'FI', name: 'Finland',         dial: '+358', flag: '🇫🇮', mask: '## ### ####' },
+  { code: 'PL', name: 'Poland',          dial: '+48',  flag: '🇵🇱', mask: '### ### ###' },
+  { code: 'CZ', name: 'Czech Republic',  dial: '+420', flag: '🇨🇿', mask: '### ### ###' },
+  { code: 'SK', name: 'Slovakia',        dial: '+421', flag: '🇸🇰', mask: '### ### ###' },
+  { code: 'HU', name: 'Hungary',         dial: '+36',  flag: '🇭🇺', mask: '## ### ####' },
+  { code: 'RO', name: 'Romania',         dial: '+40',  flag: '🇷🇴', mask: '### ### ###' },
+  { code: 'BG', name: 'Bulgaria',        dial: '+359', flag: '🇧🇬', mask: '## ### ####' },
+  { code: 'GR', name: 'Greece',          dial: '+30',  flag: '🇬🇷', mask: '### ### ####' },
+  { code: 'EE', name: 'Estonia',         dial: '+372', flag: '🇪🇪', mask: '#### ####' },
+  { code: 'LV', name: 'Latvia',          dial: '+371', flag: '🇱🇻', mask: '## ### ###' },
+  { code: 'LT', name: 'Lithuania',       dial: '+370', flag: '🇱🇹', mask: '### #####' },
+  { code: 'UA', name: 'Ukraine',         dial: '+380', flag: '🇺🇦', mask: '## ### ## ##' },
+  { code: 'RU', name: 'Russia',          dial: '+7',   flag: '🇷🇺', mask: '### ### ## ##' },
+  { code: 'BY', name: 'Belarus',         dial: '+375', flag: '🇧🇾', mask: '## ### ## ##' },
+  { code: 'KZ', name: 'Kazakhstan',      dial: '+7',   flag: '🇰🇿', mask: '### ### ## ##' },
+  { code: 'GE', name: 'Georgia',         dial: '+995', flag: '🇬🇪', mask: '### ## ## ##' },
+  { code: 'AM', name: 'Armenia',         dial: '+374', flag: '🇦🇲', mask: '## ### ###' },
+  { code: 'AZ', name: 'Azerbaijan',      dial: '+994', flag: '🇦🇿', mask: '## ### ## ##' },
+  { code: 'IL', name: 'Israel',          dial: '+972', flag: '🇮🇱', mask: '## ### ####' },
+  { code: 'AE', name: 'UAE',             dial: '+971', flag: '🇦🇪', mask: '## ### ####' },
+  { code: 'TR', name: 'Turkey',          dial: '+90',  flag: '🇹🇷', mask: '### ### ## ##' },
+  { code: 'AU', name: 'Australia',       dial: '+61',  flag: '🇦🇺', mask: '### ### ###' },
+  { code: 'NZ', name: 'New Zealand',     dial: '+64',  flag: '🇳🇿', mask: '## ### ####' },
+];
+
+const DEFAULT_BY_LANG: Record<Language, string> = {
+  en: 'US',
+  uk: 'UA',
+  ru: 'US',
+};
+
+const initialCode = defaultCountry ?? DEFAULT_BY_LANG[lang] ?? 'US';
+---
+<div class={`phone-input ${className}`} data-phone-input>
+  <label class="phone-input__cc-wrap">
+    <span class="sr-only">Country code</span>
+    <select class="phone-input__cc" data-phone-cc aria-label="Country code">
+      {COUNTRIES.map((c) => (
+        <option
+          value={c.code}
+          data-dial={c.dial}
+          data-mask={c.mask}
+          selected={c.code === initialCode}
+        >
+          {c.flag} {c.dial} · {c.name}
+        </option>
+      ))}
+    </select>
+    <span class="phone-input__cc-display" data-phone-cc-display aria-hidden="true">
+      🇺🇸 +1
+    </span>
+    <svg class="phone-input__cc-chevron" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </label>
+  <input
+    type="tel"
+    class="phone-input__num"
+    data-phone-num
+    inputmode="numeric"
+    autocomplete="tel-national"
+    required={required}
+  />
+  <input type="hidden" name={name} data-phone-output />
+</div>
+
+<style>
+  .phone-input {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+  .phone-input__cc-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  .phone-input__cc {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    z-index: 1;
+  }
+  .phone-input__cc-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 0.875rem 0.75rem 0.875rem;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono, var(--font-sans));
+    font-size: 0.9375rem;
+    line-height: 1;
+    white-space: nowrap;
+    pointer-events: none;
+    min-height: 100%;
+  }
+  .phone-input__cc-chevron {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  .phone-input__cc-display { padding-right: 1.75rem; }
+  .phone-input__cc:focus-visible + .phone-input__cc-display {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .phone-input__num {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+    transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+  }
+  .phone-input__num::placeholder {
+    color: var(--text-muted);
+    font-family: var(--font-mono, var(--font-sans));
+  }
+  .phone-input__num:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--bg-secondary);
+  }
+</style>
+
+<script>
+  function initPhoneInputs() {
+    const widgets = document.querySelectorAll<HTMLElement>('[data-phone-input]');
+    widgets.forEach((w) => {
+      if (w.dataset.bound === '1') return;
+      w.dataset.bound = '1';
+
+      const cc = w.querySelector<HTMLSelectElement>('[data-phone-cc]');
+      const num = w.querySelector<HTMLInputElement>('[data-phone-num]');
+      const out = w.querySelector<HTMLInputElement>('[data-phone-output]');
+      const display = w.querySelector<HTMLElement>('[data-phone-cc-display]');
+      if (!cc || !num || !out) return;
+
+      const form = w.closest('form');
+
+      const applyMask = (raw: string, mask: string): string => {
+        const digits = raw.replace(/\D/g, '');
+        if (!mask) return digits;
+        let result = '';
+        let di = 0;
+        for (const ch of mask) {
+          if (di >= digits.length) break;
+          if (ch === '#') { result += digits[di++]; } else { result += ch; }
+        }
+        return result;
+      };
+
+      const currentOption = () => cc.options[cc.selectedIndex];
+
+      const updateDisplay = () => {
+        const opt = currentOption();
+        if (!opt) return;
+        const flag = (opt.text || '').split(' ')[0];
+        const dial = opt.dataset.dial || '';
+        if (display) display.textContent = `${flag} ${dial}`;
+        const mask = opt.dataset.mask || '';
+        num.placeholder = mask.replace(/#/g, '0');
+      };
+
+      const buildE164 = () => {
+        const opt = currentOption();
+        const dial = opt?.dataset.dial || '';
+        const digits = num.value.replace(/\D/g, '');
+        return digits ? dial + digits : '';
+      };
+
+      cc.addEventListener('change', () => {
+        updateDisplay();
+        const opt = currentOption();
+        num.value = applyMask(num.value, opt?.dataset.mask || '');
+        out.value = buildE164();
+      });
+
+      num.addEventListener('input', () => {
+        const opt = currentOption();
+        const mask = opt?.dataset.mask || '';
+        const formatted = applyMask(num.value, mask);
+        if (formatted !== num.value) num.value = formatted;
+        out.value = buildE164();
+      });
+
+      // Final sync just before submit, in case the input event was missed.
+      form?.addEventListener(
+        'submit',
+        () => { out.value = buildE164(); },
+        { capture: true },
+      );
+
+      updateDisplay();
+    });
+  }
+
+  initPhoneInputs();
+  document.addEventListener('astro:page-load', initPhoneInputs);
+</script>

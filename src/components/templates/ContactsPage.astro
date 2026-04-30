@@ -6,6 +6,7 @@
 import { useTranslations, getTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
 import { CONTACT } from '@/data/contact';
+import PhoneInput from '@/components/forms/PhoneInput.astro';
 
 interface Props { lang: Language }
 const { lang } = Astro.props;
@@ -81,6 +82,11 @@ const channels = [
           <span class="contacts-form__label">{t('form.company')}</span>
           <input type="text" name="company" autocomplete="organization" class="contacts-form__input" />
         </label>
+
+        <div class="contacts-form__field">
+          <span class="contacts-form__label">{t('form.phone')}</span>
+          <PhoneInput lang={lang} name="phone" />
+        </div>
 
         <label class="contacts-form__field">
           <span class="contacts-form__label">{t('form.service')}</span>
