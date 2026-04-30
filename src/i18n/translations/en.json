@@ -59,7 +59,7 @@
     "let_talk": "Let's talk"
   },
   "hero": {
-    "kicker": "Bucharest · EU · Russian / English / German team",
+    "kicker": "Bucharest · EU · Russian / English team",
     "title_line_1": "Western quality websites.",
     "title_line_2": "Without western prices.",
     "subtitle": "Digital agency for Russian-speaking business owners in the US, Canada, and Europe. EU-based business in Bucharest, Romania. Websites, ads, and SEO — built to American standards, priced for real businesses.",
@@ -234,7 +234,7 @@
       },
       {
         "question": "Do you work in my language?",
-        "answer": "We deliver in English, German, French, Spanish, Italian, Romanian, Ukrainian, and Russian. All copy is reviewed by native speakers, not machine-translated."
+        "answer": "We deliver in English, Ukrainian, and Russian. All copy is reviewed by native speakers, not machine-translated."
       },
       {
         "question": "Who actually does the work?",
@@ -331,10 +331,9 @@
       "role": "Founder & sole engagement lead",
       "location": "Kyiv, Ukraine — working worldwide",
       "languages_label": "Languages",
-      "languages": "English (C2), Ukrainian (native), Russian (native), German (B2)",
+      "languages": "English (C2), Ukrainian (native), Russian (native)",
       "bio_short": "Twelve years building digital products. Ten in-house, then independent since 2014. Strong opinions about engineering hygiene, SEO, and saying no to bad scope.",
-      "linkedin": "https://www.linkedin.com/in/alexeykachan",
-      "twitter": "https://twitter.com/alexeykachan"
+      "linkedin": "https://www.linkedin.com/in/alexeykachanro/"
     },
     "tools": {
       "label": "Stack & tools",
@@ -1985,7 +1984,7 @@
     "newsletter_note": "Free monthly newsletter. No spam. Unsubscribe anytime.",
     "phone_coming_soon": "Romania office — phone coming soon. Use email or messengers for fastest response.",
     "office_address": "Bucharest, Romania (EU-based business)",
-    "about_team": "Bucharest-based team. EU-based business in Romania. Working with clients in 50+ countries. We speak English, Russian, Ukrainian, German."
+    "about_team": "Bucharest-based team. EU-based business in Romania. Working with clients in 50+ countries. We speak English, Russian, and Ukrainian."
   },
   "languages": {
     "switch_to": "Switch language",

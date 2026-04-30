@@ -44,10 +44,11 @@ export const CONTACT = {
     facebook:  'https://www.facebook.com/alexeykachan',
     instagram: 'https://www.instagram.com/alexeykachan',
     telegram:  'https://t.me/alexeykachanro',
+    linkedin:  'https://www.linkedin.com/in/alexeykachanro/',
   },
 
   // Languages spoken by the team — surfaced in About card / footer
-  languages: ['English', 'Russian', 'Ukrainian', 'German'] as const,
+  languages: ['English', 'Russian', 'Ukrainian'] as const,
 } as const;
 
 export type ContactConfig = typeof CONTACT;

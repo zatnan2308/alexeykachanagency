@@ -149,13 +149,14 @@ const orgSchema = {
       '@type': 'ContactPoint',
       email: CONTACT.email,
       contactType: 'customer service',
-      availableLanguage: ['English', 'German', 'French', 'Spanish', 'Italian', 'Romanian', 'Ukrainian', 'Russian'],
+      availableLanguage: ['English', 'Ukrainian', 'Russian'],
     },
   ],
   sameAs: [
     CONTACT.social.facebook,
     CONTACT.social.instagram,
     CONTACT.social.telegram,
+    CONTACT.social.linkedin,
   ],
   areaServed: 'Worldwide',
   knowsAbout: [
@@ -254,10 +255,8 @@ const allSchema: Record<string, unknown>[] = [
     <meta property="og:locale" content={ogLocale} />
     {alternateLocales.map((loc) => <meta property="og:locale:alternate" content={loc} />)}
 
-    {/* Twitter Card */}
+    {/* Twitter / X Card — kept (no @handle, since we don't run an account) */}
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@alexeykachan" />
-    <meta name="twitter:creator" content="@alexeykachan" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageAbsolute} />

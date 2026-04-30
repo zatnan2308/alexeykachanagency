@@ -28,10 +28,10 @@ const personSchema = {
   description: data.person.bio_short,
   url: `${siteOrigin}/about/`,
   image: `${siteOrigin}/alexey-kachan.jpg`,
-  sameAs: [data.person.linkedin, data.person.twitter],
+  sameAs: [data.person.linkedin].filter(Boolean),
   worksFor: { '@id': `${siteOrigin}/#organization` },
   knowsAbout: ['Web Development', 'SEO', 'Paid Advertising', 'Web Design'],
-  knowsLanguage: ['English', 'Ukrainian', 'Russian', 'German'],
+  knowsLanguage: ['English', 'Ukrainian', 'Russian'],
 };
 ---
 
@@ -80,7 +80,6 @@ const personSchema = {
         </dl>
         <div class="about-person__links">
           <a href={data.person.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href={data.person.twitter} target="_blank" rel="noopener noreferrer">Twitter</a>
         </div>
       </div>
     </div>
