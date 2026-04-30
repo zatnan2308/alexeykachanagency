@@ -185,7 +185,9 @@ const caseHref = (caseSlug: string) => `${langPrefix}/${detailPrefix}/${caseSlug
     z-index: 1;
   }
   .work__metric {
-    position: relative;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
     z-index: 2;
     font-family: var(--font-mono);
     font-size: 0.8125rem;
@@ -195,7 +197,7 @@ const caseHref = (caseSlug: string) => `${langPrefix}/${detailPrefix}/${caseSlug
     padding: 0.375rem 0.75rem;
     border-radius: var(--radius-full);
     border: 1px solid color-mix(in oklch, var(--case-accent, var(--accent)) 30%, transparent);
-    align-self: flex-end;
+    max-width: calc(100% - 2rem);
   }
   .work__brand {
     position: relative;
