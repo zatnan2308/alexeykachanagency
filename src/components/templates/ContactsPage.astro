@@ -53,6 +53,10 @@ const channels = [
       <form
         class="contacts-form"
         data-contacts-form
+        data-i18n-sending={t('form.status.sending')}
+        data-i18n-success={t('form.status.success_short')}
+        data-i18n-error-generic={t('form.status.error_generic')}
+        data-i18n-error-network={t('form.status.error_network')}
         action="https://api.web3forms.com/submit"
         method="POST"
         novalidate
@@ -82,13 +86,13 @@ const channels = [
           <span class="contacts-form__label">{t('form.service')}</span>
           <select name="service" class="contacts-form__input">
             <option value="">{t('form.service_select')}</option>
-            <option>Website Development</option>
-            <option>Site Redesign</option>
-            <option>SEO</option>
-            <option>Paid Advertising</option>
-            <option>Web Design</option>
-            <option>Site Support</option>
-            <option>Not sure yet</option>
+            <option>{t('services_section.items.website_development.title')}</option>
+            <option>{t('services_section.items.site_redesign.title')}</option>
+            <option>{t('services_section.items.site_analytics.title')}</option>
+            <option>{t('services_section.items.setting_up_ads.title')}</option>
+            <option>{t('services_section.items.site_design.title')}</option>
+            <option>{t('services_section.items.site_support.title')}</option>
+            <option>{t('contacts_page.direct.unsure')}</option>
           </select>
         </label>
 
@@ -125,7 +129,7 @@ const channels = [
         />
         <figcaption class="contacts-direct__person-cap">
           <span class="contacts-direct__person-name">Alexey Kachan</span>
-          <span class="contacts-direct__person-role">Founder · replies personally</span>
+          <span class="contacts-direct__person-role">{t('contacts_page.direct.founder_role')}</span>
         </figcaption>
       </figure>
 
@@ -150,10 +154,12 @@ const channels = [
         </a>
       </div>
 
-      <div class="contacts-direct__row">
-        <p class="contacts-direct__row-label">{data.direct.phone_label}</p>
-        <p class="contacts-direct__value contacts-direct__value--static">{t('footer.phone_coming_soon')}</p>
-      </div>
+      {CONTACT.phone && (
+        <div class="contacts-direct__row">
+          <p class="contacts-direct__row-label">{data.direct.phone_label}</p>
+          <a href={CONTACT.phone.href} class="contacts-direct__value">{CONTACT.phone.display}</a>
+        </div>
+      )}
 
       <div class="contacts-direct__row">
         <p class="contacts-direct__row-label">{data.direct.office_label}</p>
@@ -166,9 +172,9 @@ const channels = [
       </div>
 
       <div class="contacts-direct__briefs">
-        <p class="contacts-direct__row-label">Detailed brief</p>
-        <a href={briefWebsite} class="contacts-direct__brief-link">Website project brief</a>
-        <a href={briefAds} class="contacts-direct__brief-link">Advertising brief</a>
+        <p class="contacts-direct__row-label">{t('contacts_page.direct.briefs_label')}</p>
+        <a href={briefWebsite} class="contacts-direct__brief-link">{t('contacts_page.direct.brief_website_link')}</a>
+        <a href={briefAds} class="contacts-direct__brief-link">{t('contacts_page.direct.brief_ads_link')}</a>
       </div>
     </aside>
   </div>
@@ -424,6 +430,11 @@ const channels = [
     const accessKey = (form.elements.namedItem('access_key') as HTMLInputElement | null)?.value;
     const redirectUrl = (form.elements.namedItem('redirect') as HTMLInputElement | null)?.value;
 
+    const msgSending = form.dataset.i18nSending || 'Sending…';
+    const msgSuccess = form.dataset.i18nSuccess || 'Thanks — we will be in touch.';
+    const msgErrorGeneric = form.dataset.i18nErrorGeneric || 'Something went wrong. Please try again.';
+    const msgErrorNetwork = form.dataset.i18nErrorNetwork || 'Network error. Please try again.';
+
     form.addEventListener('submit', async (e) => {
       if (!status || !submit) return;
       e.preventDefault();
@@ -433,7 +444,7 @@ const channels = [
 
       submit.disabled = true;
       const originalLabel = submitLabel?.textContent ?? 'Send';
-      if (submitLabel) submitLabel.textContent = 'Sending…';
+      if (submitLabel) submitLabel.textContent = msgSending;
       status.dataset.state = '';
       status.textContent = '';
 
@@ -445,7 +456,7 @@ const channels = [
           return;
         }
         status.dataset.state = 'success';
-        status.textContent = 'Thanks — we will be in touch.';
+        status.textContent = msgSuccess;
         form.reset();
         submit.disabled = false;
         if (submitLabel) submitLabel.textContent = originalLabel;
@@ -457,15 +468,15 @@ const channels = [
         if (res.ok) {
           if (redirectUrl) { window.location.assign(redirectUrl); return; }
           status.dataset.state = 'success';
-          status.textContent = 'Thanks — we will be in touch.';
+          status.textContent = msgSuccess;
           form.reset();
         } else {
           status.dataset.state = 'error';
-          status.textContent = 'Something went wrong. Please try again or email us.';
+          status.textContent = msgErrorGeneric;
         }
       } catch {
         status.dataset.state = 'error';
-        status.textContent = 'Network error. Please try again.';
+        status.textContent = msgErrorNetwork;
       } finally {
         submit.disabled = false;
         if (submitLabel) submitLabel.textContent = originalLabel;

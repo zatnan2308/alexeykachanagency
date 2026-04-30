@@ -73,6 +73,10 @@ const sections: Section[] = data.sections ?? enAll.brief_pages[variant].sections
       class="brief-form"
       data-brief-form
       data-brief-variant={variant}
+      data-i18n-sending={t('form.status.sending')}
+      data-i18n-success={t('form.status.success_brief')}
+      data-i18n-error-generic={t('form.status.error_brief')}
+      data-i18n-error-network={t('form.status.error_network')}
       action="https://api.web3forms.com/submit"
       method="POST"
       novalidate
@@ -362,6 +366,11 @@ const sections: Section[] = data.sections ?? enAll.brief_pages[variant].sections
     };
     form.addEventListener('input', persist);
 
+    const msgSending = form.dataset.i18nSending || 'Sending…';
+    const msgSuccess = form.dataset.i18nSuccess || 'Brief received. Talk soon.';
+    const msgErrorGeneric = form.dataset.i18nErrorGeneric || 'Something went wrong sending the brief. Please try again or email us.';
+    const msgErrorNetwork = form.dataset.i18nErrorNetwork || 'Network error. Please try again.';
+
     form.addEventListener('submit', async (e) => {
       if (!status || !submit) return;
       e.preventDefault();
@@ -371,7 +380,7 @@ const sections: Section[] = data.sections ?? enAll.brief_pages[variant].sections
 
       submit.disabled = true;
       const originalLabel = submitLabel?.textContent ?? 'Submit';
-      if (submitLabel) submitLabel.textContent = 'Sending…';
+      if (submitLabel) submitLabel.textContent = msgSending;
 
       // Placeholder key — pretend success and redirect
       if (!accessKey || accessKey.includes('REPLACE_WITH')) {
@@ -389,15 +398,15 @@ const sections: Section[] = data.sections ?? enAll.brief_pages[variant].sections
           try { localStorage.removeItem(saveKey); } catch { /* ignore */ }
           if (redirectUrl) { window.location.assign(redirectUrl); return; }
           status.dataset.state = 'success';
-          status.textContent = 'Brief received. Talk soon.';
+          status.textContent = msgSuccess;
           form.reset();
         } else {
           status.dataset.state = 'error';
-          status.textContent = 'Something went wrong sending the brief. Please try again or email us.';
+          status.textContent = msgErrorGeneric;
         }
       } catch {
         status.dataset.state = 'error';
-        status.textContent = 'Network error. Please try again.';
+        status.textContent = msgErrorNetwork;
       } finally {
         submit.disabled = false;
         if (submitLabel) submitLabel.textContent = originalLabel;

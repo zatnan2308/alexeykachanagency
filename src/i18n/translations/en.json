@@ -395,7 +395,8 @@
           ]
         }
       ]
-    }
+    },
+    "cta_title": "Want this kind of accountability on your project?"
   },
   "contacts_page": {
     "kicker": "Get in touch",
@@ -416,7 +417,12 @@
       "office_label": "Office",
       "office_value": "Bucharest, Romania (EU-based business)",
       "hours_label": "Hours",
-      "hours_value": "Mon–Fri, 9:00–18:00 EET (UTC+2). Average response: < 4 hours."
+      "hours_value": "Mon–Fri, 9:00–18:00 EET (UTC+2). Average response: < 4 hours.",
+      "founder_role": "Founder · replies personally",
+      "briefs_label": "Detailed brief",
+      "brief_website_link": "Website project brief",
+      "brief_ads_link": "Advertising brief",
+      "unsure": "Not sure yet"
     },
     "channels_title": "Best ways to reach us",
     "channels_subtitle": "Pick the channel that fits your question.",
@@ -445,10 +451,34 @@
       "h1": "Tell us about the site.",
       "lead": "The more specific your answers, the more accurate our quote will be. Skip sections that don't apply — we'll fill the gaps in the kickoff call.",
       "contact_fields": [
-        { "name": "company_name", "label": "Company name", "type": "text", "required": true, "placeholder": "Brand or legal name" },
-        { "name": "contact_person", "label": "Your name & role", "type": "text", "required": true, "placeholder": "e.g. Anna Müller, Marketing Director" },
-        { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "you@company.com" },
-        { "name": "phone_messenger", "label": "Phone or messenger", "type": "tel", "required": false, "placeholder": "+ country code, or @telegram" }
+        {
+          "name": "company_name",
+          "label": "Company name",
+          "type": "text",
+          "required": true,
+          "placeholder": "Brand or legal name"
+        },
+        {
+          "name": "contact_person",
+          "label": "Your name & role",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. Anna Müller, Marketing Director"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true,
+          "placeholder": "you@company.com"
+        },
+        {
+          "name": "phone_messenger",
+          "label": "Phone or messenger",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+ country code, or @telegram"
+        }
       ],
       "sections": [
         {
@@ -542,10 +572,34 @@
       "h1": "Tell us about the campaign.",
       "lead": "Skip what doesn't apply — drafts save in your browser. We'll come back with a recommended channel mix, a starting budget, and a measurable target before any contract.",
       "contact_fields": [
-        { "name": "company_name", "label": "Company name", "type": "text", "required": true, "placeholder": "Brand or legal name" },
-        { "name": "contact_person", "label": "Your name & role", "type": "text", "required": true, "placeholder": "e.g. Anna Müller, Marketing Director" },
-        { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "you@company.com" },
-        { "name": "phone_messenger", "label": "Phone or messenger", "type": "tel", "required": false, "placeholder": "+ country code, or @telegram" }
+        {
+          "name": "company_name",
+          "label": "Company name",
+          "type": "text",
+          "required": true,
+          "placeholder": "Brand or legal name"
+        },
+        {
+          "name": "contact_person",
+          "label": "Your name & role",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. Anna Müller, Marketing Director"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true,
+          "placeholder": "you@company.com"
+        },
+        {
+          "name": "phone_messenger",
+          "label": "Phone or messenger",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+ country code, or @telegram"
+        }
       ],
       "sections": [
         {
@@ -854,6 +908,10 @@
       "related_title": "Similar work",
       "fallback_notice_title": "This case isn't translated yet",
       "fallback_notice_body": "Showing the English original. Translation in the works — or read it now in English."
+    },
+    "detail": {
+      "cta_title": "Ready for results like these?",
+      "cta_body": "Tell us about your project — we'll come back with scope, timeline and a fixed price within 4 hours."
     }
   },
   "blog_pages": {
@@ -908,11 +966,31 @@
         "label": "Why our prices are different",
         "title": "Same quality. Lower overhead.",
         "intro": "Why our prices are different — here's the math:",
-        "columns": ["Service", "US agency", "UK agency", "Us"],
+        "columns": [
+          "Service",
+          "US agency",
+          "UK agency",
+          "Us"
+        ],
         "rows": [
-          { "service": "Small business website", "us_agency": "$5,000–15,000", "uk_agency": "£3,500–10,000", "us": "from $1,495" },
-          { "service": "Monthly SEO", "us_agency": "$1,500–3,500/mo", "uk_agency": "£1,200–2,800/mo", "us": "from $395/mo" },
-          { "service": "Google Ads management", "us_agency": "$1,200–3,000/mo", "uk_agency": "£900–2,200/mo", "us": "from $295/mo + $395 setup" }
+          {
+            "service": "Small business website",
+            "us_agency": "$5,000–15,000",
+            "uk_agency": "£3,500–10,000",
+            "us": "from $1,495"
+          },
+          {
+            "service": "Monthly SEO",
+            "us_agency": "$1,500–3,500/mo",
+            "uk_agency": "£1,200–2,800/mo",
+            "us": "from $395/mo"
+          },
+          {
+            "service": "Google Ads management",
+            "us_agency": "$1,200–3,000/mo",
+            "uk_agency": "£900–2,200/mo",
+            "us": "from $295/mo + $395 setup"
+          }
         ],
         "outro": "Same quality bar. Lower overhead. We work remotely from the EU (Bucharest, Romania), so we don't pay $5,000/month for a Manhattan office — and we pass that saving on to you."
       },
@@ -1883,6 +1961,14 @@
       "title": "Message received",
       "body": "Thanks. I've got your message and will reply within 4 hours during business hours.",
       "next_steps": "Meanwhile, you can browse my recent work or read the blog."
+    },
+    "status": {
+      "sending": "Sending…",
+      "success_short": "Thanks — we will be in touch.",
+      "success_brief": "Brief received. Talk soon.",
+      "error_generic": "Something went wrong. Please try again.",
+      "error_brief": "Something went wrong sending the brief. Please try again or email us.",
+      "error_network": "Network error. Please try again."
     }
   },
   "footer": {
@@ -1940,5 +2026,11 @@
       "analytics": "Analytics",
       "marketing": "Marketing"
     }
+  },
+  "sitemap_page": {
+    "title": "Sitemap",
+    "h1": "Everything on alexeykachan.com.",
+    "lead": "Looking for the XML version?",
+    "xml_link": "/sitemap-index.xml"
   }
 }

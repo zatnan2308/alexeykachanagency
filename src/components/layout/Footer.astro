@@ -91,7 +91,16 @@ const telegram = CONTACT.telegram;
       <div class="footer__newsletter">
         <h3 class="footer__newsletter-title">{t('footer.newsletter_title')}</h3>
         <p class="footer__newsletter-sub">{t('footer.newsletter_subtitle')}</p>
-        <form class="footer__form" data-newsletter-form action="https://api.web3forms.com/submit" method="POST" novalidate>
+        <form
+          class="footer__form"
+          data-newsletter-form
+          data-i18n-success={t('form.status.success_short')}
+          data-i18n-error-generic={t('form.status.error_generic')}
+          data-i18n-error-network={t('form.status.error_network')}
+          action="https://api.web3forms.com/submit"
+          method="POST"
+          novalidate
+        >
           <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
           <input type="hidden" name="subject" value="Newsletter signup — alexeykachan.com" />
           <input type="hidden" name="from_name" value="alexeykachan.com newsletter" />
@@ -170,9 +179,13 @@ const telegram = CONTACT.telegram;
               Telegram · {telegram.handle}
             </a>
           </li>
-          <li class="footer__phone-note">
-            {t('footer.phone_coming_soon')}
-          </li>
+          {CONTACT.phone && (
+            <li>
+              <a href={CONTACT.phone.href} class="footer__link">
+                {CONTACT.phone.display}
+              </a>
+            </li>
+          )}
           <li class="footer__address">
             {t('footer.office_address')}
           </li>
@@ -552,6 +565,10 @@ const telegram = CONTACT.telegram;
       const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
       const accessKey = (form.elements.namedItem('access_key') as HTMLInputElement | null)?.value;
 
+      const msgSuccess = form.dataset.i18nSuccess || 'Thanks — we will be in touch.';
+      const msgErrorGeneric = form.dataset.i18nErrorGeneric || 'Something went wrong. Please try again.';
+      const msgErrorNetwork = form.dataset.i18nErrorNetwork || 'Network error. Please try again.';
+
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (!status || !submit) return;
@@ -568,7 +585,7 @@ const telegram = CONTACT.telegram;
         if (!accessKey || accessKey.includes('REPLACE_WITH')) {
           await new Promise((r) => setTimeout(r, 350));
           status.dataset.state = 'success';
-          status.textContent = 'Thanks — we’ll be in touch.';
+          status.textContent = msgSuccess;
           form.reset();
           submit.disabled = false;
           return;
@@ -581,15 +598,15 @@ const telegram = CONTACT.telegram;
           });
           if (res.ok) {
             status.dataset.state = 'success';
-            status.textContent = 'Thanks — we’ll be in touch.';
+            status.textContent = msgSuccess;
             form.reset();
           } else {
             status.dataset.state = 'error';
-            status.textContent = 'Something went wrong. Please try again.';
+            status.textContent = msgErrorGeneric;
           }
         } catch {
           status.dataset.state = 'error';
-          status.textContent = 'Network error. Please try again.';
+          status.textContent = msgErrorNetwork;
         } finally {
           submit.disabled = false;
         }
