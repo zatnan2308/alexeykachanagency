@@ -18,8 +18,8 @@ export const CONTACT = {
     href: 'https://wa.me/40735972434',
   },
   telegram: {
-    handle: '@alexeykachan',
-    href: 'https://t.me/alexeykachan',
+    handle: '@alexeykachanro',
+    href: 'https://t.me/alexeykachanro',
   },
 
   // Voice phone — same Romanian line as WhatsApp.
@@ -43,7 +43,7 @@ export const CONTACT = {
   social: {
     facebook:  'https://www.facebook.com/alexeykachan',
     instagram: 'https://www.instagram.com/alexeykachan',
-    telegram:  'https://t.me/alexeykachan',
+    telegram:  'https://t.me/alexeykachanro',
   },
 
   // Languages spoken by the team — surfaced in About card / footer
