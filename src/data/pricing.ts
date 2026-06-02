@@ -45,29 +45,29 @@ export const PRICING = {
   websiteDevelopment: {
     platforms: {
       plainHtml:    { fromUSD:   395, weeks: '1',   label: 'Plain HTML / CSS / JS' },
-      wixStudio:    { fromUSD:   555, weeks: '1-2', label: 'Wix Studio' },
-      elementor:    { fromUSD:   715, weeks: '1-2', label: 'Elementor (WordPress)' },
-      wordpress:    { fromUSD:  1195, weeks: '2-4', label: 'WordPress' },
+      wixStudio:    { fromUSD:   355, weeks: '1-2', label: 'Wix Studio' },
+      elementor:    { fromUSD:   515, weeks: '1-2', label: 'Elementor (WordPress)' },
+      wordpress:    { fromUSD:   800, weeks: '2-4', label: 'WordPress' },
       astro:        { fromUSD:  1515, weeks: '3-4', label: 'Astro' },
       shopify:      { fromUSD:  1995, weeks: '4-6', label: 'Shopify' },
-      headlessCms:  { fromUSD:  3995, weeks: '4-6', label: 'Headless CMS (Sanity / Storyblok / Contentful)' },
-      woocommerce:  { fromUSD:  4795, weeks: '6-8', label: 'WooCommerce' },
-      nextjs:       { fromUSD: 11995, weeks: '10+', label: 'Next.js' },
-      nodejs:       { fromUSD: 11995, weeks: '10+', label: 'Node.js bespoke' },
+      headlessCms:  { fromUSD:  2100, weeks: '4-6', label: 'Headless CMS (Sanity / Storyblok / Contentful)' },
+      woocommerce:  { fromUSD:  1100, weeks: '6-8', label: 'WooCommerce' },
+      nextjs:       { fromUSD:  2000, weeks: '10+', label: 'Next.js' },
+      nodejs:       { fromUSD:  3000, weeks: '10+', label: 'Node.js bespoke' },
     } satisfies Record<string, PriceEntry>,
 
     tiers: {
-      landing:     { fromUSD:   395, weeks: '1-2', label: 'Landing & one-pager',
+      landing:     { fromUSD:   355, weeks: '1-2', label: 'Landing & one-pager',
         description: 'Single landing or one-pager. Plain HTML, Wix Studio, or Elementor — chosen for the task.' },
-      business:    { fromUSD:  1195, weeks: '2-4', label: 'Business website',  mostPopular: true,
+      business:    { fromUSD:   800, weeks: '2-4', label: 'Business website',  mostPopular: true,
         description: '5–15 pages. WordPress or Astro — chosen by your team needs.' },
-      corporate:   { fromUSD:  2795, weeks: '4-6', label: 'Multilingual corporate',
+      corporate:   { fromUSD:  2195, weeks: '4-6', label: 'Multilingual corporate',
         description: '15+ pages, custom design system, advanced SEO, ready for 2–3 languages from launch.' },
       shopify:     { fromUSD:  1995, weeks: '4-6', label: 'E-commerce (Shopify)',
         description: 'Catalog, cart, checkout, payments. Faster, simpler — but platform-locked.' },
-      woocommerce: { fromUSD:  4795, weeks: '6-8', label: 'E-commerce (WooCommerce)',
+      woocommerce: { fromUSD:  1100, weeks: '6-8', label: 'E-commerce (WooCommerce)',
         description: 'Full ownership, no platform fees, custom checkout — but longer build.' },
-      custom:      { fromUSD: 11995, weeks: '10+', label: 'Custom / SaaS',
+      custom:      { fromUSD:  3000, weeks: '10+', label: 'Custom / SaaS',
         description: 'Auth, billing, dashboards, custom logic. Next.js or Node.js. Detailed scope after discovery.' },
     } satisfies Record<string, PriceEntry>,
   },
@@ -103,9 +103,9 @@ export const PRICING = {
   // SITE REDESIGN — must be ≤ Website Development of the same tier.
   // ---------------------------------------------------------------------------
   siteRedesign: {
-    starter: { fromUSD: 1195, weeks: '2-3', label: 'Starter',
+    starter: { fromUSD: 200, weeks: '2-3', label: 'Starter',
       description: 'Up to 15 pages. Single language. Visual refresh + SEO preservation.' },
-    growth:  { fromUSD: 2795, weeks: '4-6', label: 'Growth', mostPopular: true,
+    growth:  { fromUSD: 600, weeks: '4-6', label: 'Growth', mostPopular: true,
       description: 'Up to 50 pages, 2–3 languages. Heatmap-driven UX redesign + full migration.' },
     scale:   { fromUSD: null, weeks: '8+',  label: 'Scale',
       description: 'Enterprise migration, 100+ pages, multilingual, custom CMS migration.' },
@@ -115,9 +115,9 @@ export const PRICING = {
   // WEB DESIGN — design-only must be ≤ design+code of the same scope.
   // ---------------------------------------------------------------------------
   webDesign: {
-    starter: { fromUSD:  555, weeks: '1-2', label: 'Starter',
+    starter: { fromUSD: 125, weeks: '1-2', label: 'Starter',
       description: 'Single-page redesign or landing page. 1 page, 3 device sizes.' },
-    growth:  { fromUSD: 1515, weeks: '3-4', label: 'Growth', mostPopular: true,
+    growth:  { fromUSD: 230, weeks: '3-4', label: 'Growth', mostPopular: true,
       description: 'Up to 8 pages with full design system, interactive prototype, usability test.' },
     scale:   { fromUSD: null, weeks: '6+',  label: 'Scale',
       description: 'Full platform redesign, SaaS product, multi-persona research, design ops setup.' },
@@ -127,11 +127,11 @@ export const PRICING = {
   // PAID ADVERTISING
   // ---------------------------------------------------------------------------
   paidAdvertising: {
-    audit:  { fromUSD:  945, weeks: '1', recurring: 'one-time', label: 'Audit',
+    audit:  { fromUSD: 150, weeks: '1', recurring: 'one-time', label: 'Audit',
       description: 'One-off account audit + 30-day recovery plan.' },
-    growth: { fromUSD: 1195,              recurring: 'month',    label: 'Growth', mostPopular: true,
+    growth: { fromUSD: 300,               recurring: 'month',    label: 'Growth', mostPopular: true,
       description: 'Single platform (Google or Meta), up to $30k/month managed spend, 4 ads/month.' },
-    scale:  { fromUSD: null, customSuffix: '+ 10% of spend', recurring: 'month', label: 'Scale',
+    scale:  { fromUSD: null, recurring: 'month', label: 'Scale',
       description: 'Multi-platform, $50k+/month spend, server-side tracking, daily check-ins.' },
   } satisfies Record<string, PriceEntry>,
 
@@ -139,9 +139,9 @@ export const PRICING = {
   // SEO PROMOTION
   // ---------------------------------------------------------------------------
   seo: {
-    audit:  { fromUSD: 395, weeks: '2', recurring: 'one-time', label: 'Audit',
+    audit:  { fromUSD: 150, weeks: '2', recurring: 'one-time', label: 'Audit',
       description: '200-point technical audit, keyword research (50 keywords), 90-day roadmap.' },
-    growth: { fromUSD: 715,             recurring: 'month',    label: 'Growth', mostPopular: true,
+    growth: { fromUSD: 400,             recurring: 'month',    label: 'Growth', mostPopular: true,
       description: 'Top 20 pages optimized, 4 articles/month, 4 referring domains/month, monthly reports.' },
     scale:  { fromUSD: null,            recurring: 'month',    label: 'Scale',
       description: 'Top 50 pages, 8 articles/month, 8 referring domains DR50+/month, weekly check-ins.' },
@@ -153,9 +153,9 @@ export const PRICING = {
   siteSupport: {
     essentials: { fromUSD:  79, recurring: 'month', label: 'Essentials',
       description: 'Single-language sites under 30 pages. Updates, backups, monitoring, 1h edits/month.' },
-    growth:     { fromUSD: 199, recurring: 'month', label: 'Growth', mostPopular: true,
+    growth:     { fromUSD: 120, recurring: 'month', label: 'Growth', mostPopular: true,
       description: 'Multilingual sites or e-commerce up to 100 pages. Priority response, 4h edits/month.' },
-    scale:      { fromUSD: 399, recurring: 'month', label: 'Scale',
+    scale:      { fromUSD: 190, recurring: 'month', label: 'Scale',
       description: 'Mission-critical platforms. 1-hour SLA 24/7, dedicated Slack channel, custom hours.' },
   } satisfies Record<string, PriceEntry>,
 } as const;
