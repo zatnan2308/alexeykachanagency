@@ -17,6 +17,18 @@ interface Props {
   caseSlug: string;
 }
 const { lang, post, isFallback, caseSlug } = Astro.props;
+
+// Detail page shows the FULL-length screenshot (cover-full.jpg, uncropped) for
+// cases that ship one; the cropped cover.jpg stays for the card grids (home +
+// hub). Add a slug here once public/cases/<slug>/cover-full.jpg exists.
+const FULL_COVER_SLUGS = new Set([
+  'happy-sofa-cleaning', 'prime-service-co', 'mita-tennis-academy',
+  'hamersfix-appliance-repair', 'american-home-blueprint', 'ambassador-customs',
+]);
+const coverSrc = FULL_COVER_SLUGS.has(caseSlug)
+  ? `/cases/${caseSlug}/cover-full.jpg`
+  : `/cases/${caseSlug}/cover.jpg`;
+
 const t = useTranslations(lang);
 const all = getTranslations(lang) as any;
 const enAll = getTranslations('en') as any;
@@ -121,7 +133,7 @@ const ctaContacts = `${langPrefix}/${slugs.contacts?.[lang] ?? 'contacts'}/`;
   {/* Project cover screenshot */}
   <figure class="case__cover" data-reveal>
     <img
-      src={`/cases/${caseSlug}/cover.jpg`}
+      src={coverSrc}
       alt={`${post.data.client} — full-page website screenshot`}
       loading="lazy"
       decoding="async"
