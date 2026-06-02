@@ -17,7 +17,7 @@ for (const c of allCases) {
   bySlug.get(s)!.push(c);
 }
 
-// Sort: featured first, then most recent. Take up to 4.
+// Sort: featured first, then most recent. Take up to 6.
 const cases = Array.from(bySlug.entries())
   .map(([slug, variants]) => {
     const match =
@@ -32,7 +32,7 @@ const cases = Array.from(bySlug.entries())
     if (af !== bf) return bf - af;
     return +new Date(b.post.data.published) - +new Date(a.post.data.published);
   })
-  .slice(0, 4);
+  .slice(0, 6);
 
 // Build per-case detail URL
 const langPrefix = lang === 'en' ? '' : `/${lang}`;

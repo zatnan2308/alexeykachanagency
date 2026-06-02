@@ -17,7 +17,14 @@ import { LANGUAGES } from '@/i18n/slugs';
 const langSchema = z.enum(LANGUAGES as unknown as [string, ...string[]]);
 
 const blogCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  // Force path-based ids ("<slug>/<lang>") so multiple language variants in one
+  // folder stay distinct. Without this, the glob loader uses the frontmatter
+  // `slug` field as the id, collapsing en/uk/ru into one entry.
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/blog',
+    generateId: ({ entry }) => entry.replace(/\.mdx?$/i, ''),
+  }),
   schema: ({ image }) =>
     z.object({
       // Required
@@ -47,7 +54,12 @@ const blogCollection = defineCollection({
  *  src/content/cases/<slug>/<lang>.md
  */
 const casesCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/cases' }),
+  // Path-based ids ("<slug>/<lang>") — see blog loader note above.
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/cases',
+    generateId: ({ entry }) => entry.replace(/\.mdx?$/i, ''),
+  }),
   schema: ({ image }) =>
     z.object({
       title:        z.string().min(8).max(100),
