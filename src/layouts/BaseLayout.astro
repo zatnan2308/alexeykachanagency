@@ -20,6 +20,7 @@ import {
   getHtmlLang,
   getOgLocale,
   getHreflangMap,
+  getLocalizedPath,
   useTranslations,
   type Language,
 } from '@/i18n/utils';
@@ -208,10 +209,41 @@ const localBusinessSchema = {
 };
 
 const isHomepage = pageKey === 'home';
+
+// Services ItemList (homepage only) — gives Google an explicit, ordered list of
+// our service pages. This is the on-page lever that influences the "all services"
+// sitelinks/snippet (the sitelinks themselves stay algorithmic, but a clear
+// ItemList + strong internal links are what Google draws on).
+const SERVICE_NAV: Array<{ key: string; pageKey: string }> = [
+  { key: 'website_development',    pageKey: 'services.website-development' },
+  { key: 'mobile_app_development', pageKey: 'services.mobile-app-development' },
+  { key: 'site_design',            pageKey: 'services.site-design' },
+  { key: 'site_redesign',          pageKey: 'services.site-redesign' },
+  { key: 'site_analytics',         pageKey: 'services.site-analytics' },
+  { key: 'setting_up_ads',         pageKey: 'services.setting-up-ads' },
+  { key: 'site_support',           pageKey: 'services.site-support' },
+];
+const servicesItemList = isHomepage
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: `${siteName} — Services`,
+      itemListOrder: 'https://schema.org/ItemListOrderAscending',
+      numberOfItems: SERVICE_NAV.length,
+      itemListElement: SERVICE_NAV.map((s, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: t(`services_section.items.${s.key}.title`),
+        url: `${siteOrigin}${getLocalizedPath(s.pageKey, lang)}`,
+      })),
+    }
+  : null;
+
 const extraSchema = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 const allSchema: Record<string, unknown>[] = [
   orgSchema,
   ...(isHomepage ? [websiteSchema, localBusinessSchema] : []),
+  ...(servicesItemList ? [servicesItemList] : []),
   ...extraSchema,
 ];
 ---
