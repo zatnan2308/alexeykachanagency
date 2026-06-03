@@ -19,7 +19,7 @@ const WEB3FORMS_KEY = (import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefine
 
 const briefWebsite = getLocalizedPath('brief.website', lang);
 const briefAds = getLocalizedPath('brief.ads', lang);
-const thankYouUrl = getLocalizedPath('thank-you', lang) || '/thank-you/';
+const privacyUrl = getLocalizedPath('privacy-policy', lang) || '/privacy-policy/';
 
 // CONTACT (single source of truth) is imported at the top of this frontmatter.
 
@@ -63,10 +63,12 @@ const channels = [
         novalidate
       >
         <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-        <input type="hidden" name="subject" value="alexeykachan.com — contact form" />
+        <input type="hidden" name="subject" value="Новая заявка с сайта alexeykachan.com" />
         <input type="hidden" name="from_name" value="alexeykachan.com contact form" />
-        <input type="hidden" name="redirect" value={thankYouUrl} />
-        <input type="checkbox" name="botcheck" class="contacts-form__honeypot" tabindex="-1" autocomplete="off" />
+        {/* Reply-To = visitor's email (set on submit) so replies from Zoho go straight to them */}
+        <input type="hidden" name="replyto" value="" />
+        {/* Honeypot — invisible to humans; bots that fill it are dropped by Web3Forms */}
+        <input type="checkbox" name="botcheck" class="contacts-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
         <label class="contacts-form__field">
           <span class="contacts-form__label">{t('form.name')}</span>
@@ -109,7 +111,10 @@ const channels = [
 
         <label class="contacts-form__consent">
           <input type="checkbox" name="consent" required />
-          <span>{t('form.consent')}</span>
+          <span>
+            {t('form.consent')}{' '}
+            <a href={privacyUrl} class="contacts-form__consent-link" target="_blank" rel="noopener noreferrer">{t('page_titles.privacy')}</a>
+          </span>
         </label>
 
         <button type="submit" class="contacts-form__submit" data-magnetic data-magnetic-strength="0.25">
@@ -294,6 +299,8 @@ const channels = [
     cursor: pointer;
   }
   .contacts-form__consent input { margin-top: 0.25rem; flex-shrink: 0; accent-color: var(--accent); }
+  .contacts-form__consent-link { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .contacts-form__consent-link:hover { color: var(--accent-hover); }
   .contacts-form__submit {
     grid-column: 1 / -1;
     display: inline-flex;
@@ -315,6 +322,7 @@ const channels = [
     font-size: 0.875rem;
     min-height: 1.25rem;
   }
+  .contacts-form__status[data-state='pending'] { color: var(--text-muted); }
   .contacts-form__status[data-state='success'] { color: var(--success); }
   .contacts-form__status[data-state='error'] { color: var(--error); }
 
@@ -424,7 +432,8 @@ const channels = [
 </style>
 
 <script>
-  // Same pattern as newsletter form: graceful degradation with placeholder access_key
+  // Web3Forms submit: client validation -> fetch (no page reload) -> inline
+  // sending / sent / error states announced via the aria-live status element.
   function initContactsForm() {
     const form = document.querySelector<HTMLFormElement>('[data-contacts-form]');
     if (!form || form.dataset.bound === '1') return;
@@ -434,58 +443,73 @@ const channels = [
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
     const submitLabel = submit?.querySelector('.contacts-form__submit-label');
     const accessKey = (form.elements.namedItem('access_key') as HTMLInputElement | null)?.value;
-    const redirectUrl = (form.elements.namedItem('redirect') as HTMLInputElement | null)?.value;
 
     const msgSending = form.dataset.i18nSending || 'Sending…';
     const msgSuccess = form.dataset.i18nSuccess || 'Thanks — we will be in touch.';
     const msgErrorGeneric = form.dataset.i18nErrorGeneric || 'Something went wrong. Please try again.';
     const msgErrorNetwork = form.dataset.i18nErrorNetwork || 'Network error. Please try again.';
 
+    const setStatus = (state: string, text: string) => {
+      if (!status) return;
+      status.dataset.state = state;
+      status.textContent = text;
+    };
+
     form.addEventListener('submit', async (e) => {
-      if (!status || !submit) return;
       e.preventDefault();
+      if (!status || !submit) return;
+
+      // 1) Client-side validation (required name/email/message/consent + email format).
+      // novalidate suppresses the browser's own popups; reportValidity() shows them on demand.
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
 
       const formData = new FormData(form);
+
+      // 2) Honeypot — silently abort if a bot filled the hidden field.
       if (formData.get('botcheck')) return;
 
-      submit.disabled = true;
-      const originalLabel = submitLabel?.textContent ?? 'Send';
-      if (submitLabel) submitLabel.textContent = msgSending;
-      status.dataset.state = '';
-      status.textContent = '';
+      // 3) Reply-To = the visitor's email so replies sent from Zoho reach them directly.
+      formData.set('replyto', String(formData.get('email') || ''));
 
-      // Placeholder key — pretend success and redirect to thank-you page
-      if (!accessKey || accessKey.includes('REPLACE_WITH')) {
-        await new Promise((r) => setTimeout(r, 400));
-        if (redirectUrl) {
-          window.location.assign(redirectUrl);
-          return;
-        }
-        status.dataset.state = 'success';
-        status.textContent = msgSuccess;
-        form.reset();
+      const originalLabel = submitLabel?.textContent ?? 'Send';
+      const finish = () => {
         submit.disabled = false;
         if (submitLabel) submitLabel.textContent = originalLabel;
+      };
+
+      submit.disabled = true;
+      if (submitLabel) submitLabel.textContent = msgSending;
+      setStatus('pending', msgSending);
+
+      // No access key configured yet — simulate success without a network call.
+      if (!accessKey || accessKey.includes('REPLACE_WITH')) {
+        await new Promise((r) => setTimeout(r, 500));
+        setStatus('success', msgSuccess);
+        form.reset();
+        finish();
         return;
       }
 
       try {
-        const res = await fetch(form.action, { method: 'POST', body: formData });
-        if (res.ok) {
-          if (redirectUrl) { window.location.assign(redirectUrl); return; }
-          status.dataset.state = 'success';
-          status.textContent = msgSuccess;
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: formData,
+        });
+        const result = await res.json().catch(() => null);
+        if (res.ok && result && result.success) {
+          setStatus('success', msgSuccess);
           form.reset();
         } else {
-          status.dataset.state = 'error';
-          status.textContent = msgErrorGeneric;
+          setStatus('error', (result && result.message) ? result.message : msgErrorGeneric);
         }
       } catch {
-        status.dataset.state = 'error';
-        status.textContent = msgErrorNetwork;
+        setStatus('error', msgErrorNetwork);
       } finally {
-        submit.disabled = false;
-        if (submitLabel) submitLabel.textContent = originalLabel;
+        finish();
       }
     });
   }
