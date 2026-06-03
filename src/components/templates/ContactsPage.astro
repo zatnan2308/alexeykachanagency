@@ -1,12 +1,13 @@
 ---
 /**
  * ContactsPage — /contacts/ and localized equivalents.
- * Sections: hero → form (Web3Forms placeholder) + direct contact card → channels → CTA to briefs
+ * Sections: hero → form (Web3Forms, client-side fetch) + direct contact card → channels → CTA to briefs
  */
 import { useTranslations, getTranslations, getLocalizedPath, type Language } from '@/i18n/utils';
 import Breadcrumb from '@/components/layout/Breadcrumb.astro';
 import { CONTACT } from '@/data/contact';
 import PhoneInput from '@/components/forms/PhoneInput.astro';
+import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '@/lib/web3forms';
 
 interface Props { lang: Language }
 const { lang } = Astro.props;
@@ -14,8 +15,6 @@ const t = useTranslations(lang);
 const all = getTranslations(lang) as any;
 const enAll = getTranslations('en') as any;
 const data = all?.contacts_page ?? enAll.contacts_page;
-
-const WEB3FORMS_KEY = (import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined) || 'REPLACE_WITH_WEB3FORMS_KEY';
 
 const briefWebsite = getLocalizedPath('brief.website', lang);
 const briefAds = getLocalizedPath('brief.ads', lang);
@@ -58,11 +57,11 @@ const channels = [
         data-i18n-success={t('form.status.success_short')}
         data-i18n-error-generic={t('form.status.error_generic')}
         data-i18n-error-network={t('form.status.error_network')}
-        action="https://api.web3forms.com/submit"
+        action={WEB3FORMS_ENDPOINT}
         method="POST"
         novalidate
       >
-        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+        <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
         <input type="hidden" name="subject" value="Новая заявка с сайта alexeykachan.com" />
         <input type="hidden" name="from_name" value="alexeykachan.com contact form" />
         {/* Reply-To = visitor's email (set on submit) so replies from Zoho go straight to them */}
@@ -442,7 +441,6 @@ const channels = [
     const status = form.querySelector('[data-contacts-status]') as HTMLElement | null;
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
     const submitLabel = submit?.querySelector('.contacts-form__submit-label');
-    const accessKey = (form.elements.namedItem('access_key') as HTMLInputElement | null)?.value;
 
     const msgSending = form.dataset.i18nSending || 'Sending…';
     const msgSuccess = form.dataset.i18nSuccess || 'Thanks — we will be in touch.';
@@ -483,15 +481,6 @@ const channels = [
       submit.disabled = true;
       if (submitLabel) submitLabel.textContent = msgSending;
       setStatus('pending', msgSending);
-
-      // No access key configured yet — simulate success without a network call.
-      if (!accessKey || accessKey.includes('REPLACE_WITH')) {
-        await new Promise((r) => setTimeout(r, 500));
-        setStatus('success', msgSuccess);
-        form.reset();
-        finish();
-        return;
-      }
 
       try {
         const res = await fetch(form.action, {

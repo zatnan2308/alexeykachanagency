@@ -8,7 +8,7 @@
 
 export const CONTACT = {
   // Primary (always reachable)
-  email: 'info@alexeykachan.com',
+  email: 'mail@alexeykachan.com',
 
   // Messengers — Romanian line is live and used for WhatsApp and voice calls.
   whatsapp: {

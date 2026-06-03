@@ -5,6 +5,7 @@
  * Hidden on the contacts page itself (would be redundant).
  */
 import { useTranslations, getLangFromUrl, type Language } from '@/i18n/utils';
+import { CONTACT } from '@/data/contact';
 
 const lang: Language = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -32,12 +33,12 @@ const hidden = HIDE_ON.some((p) => path.includes(p)) || path.endsWith('/kontakt/
         <span class="chat__item-label">WhatsApp</span>
         <span class="chat__item-handle">+40 735 972 434</span>
       </a>
-      <a href="mailto:info@alexeykachan.com" class="chat__item">
+      <a href={`mailto:${CONTACT.email}`} class="chat__item">
         <span class="chat__item-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
         </span>
         <span class="chat__item-label">Email</span>
-        <span class="chat__item-handle">info@alexeykachan.com</span>
+        <span class="chat__item-handle">{CONTACT.email}</span>
       </a>
     </div>
 

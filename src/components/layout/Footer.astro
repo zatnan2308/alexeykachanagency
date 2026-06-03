@@ -12,8 +12,7 @@
 import { getLocalizedPath, useTranslations, type Language } from '@/i18n/utils';
 import LanguageSwitcher from '@/components/layout/LanguageSwitcher.astro';
 import { CONTACT } from '@/data/contact';
-
-const WEB3FORMS_KEY = (import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined) || 'REPLACE_WITH_WEB3FORMS_KEY';
+import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '@/lib/web3forms';
 
 interface Props {
   lang: Language;
@@ -98,11 +97,11 @@ const telegram = CONTACT.telegram;
           data-i18n-success={t('form.status.success_short')}
           data-i18n-error-generic={t('form.status.error_generic')}
           data-i18n-error-network={t('form.status.error_network')}
-          action="https://api.web3forms.com/submit"
+          action={WEB3FORMS_ENDPOINT}
           method="POST"
           novalidate
         >
-          <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+          <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
           <input type="hidden" name="subject" value="Newsletter signup — alexeykachan.com" />
           <input type="hidden" name="from_name" value="alexeykachan.com newsletter" />
           <input type="checkbox" name="botcheck" class="footer__honeypot" tabindex="-1" autocomplete="off" />
@@ -553,9 +552,7 @@ const telegram = CONTACT.telegram;
 </script>
 
 <script>
-  // Newsletter form: graceful client-side handling.
-  // If access_key is still placeholder → show "thanks" without submitting.
-  // If real key → submit via fetch + show success/error.
+  // Newsletter form: submit via fetch (no reload), show success/error.
   function initNewsletter() {
     const forms = document.querySelectorAll<HTMLFormElement>('[data-newsletter-form]');
     forms.forEach((form) => {
@@ -564,7 +561,6 @@ const telegram = CONTACT.telegram;
 
       const status = form.querySelector('[data-newsletter-status]') as HTMLElement | null;
       const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
-      const accessKey = (form.elements.namedItem('access_key') as HTMLInputElement | null)?.value;
 
       const msgSuccess = form.dataset.i18nSuccess || 'Thanks — we will be in touch.';
       const msgErrorGeneric = form.dataset.i18nErrorGeneric || 'Something went wrong. Please try again.';
@@ -581,16 +577,6 @@ const telegram = CONTACT.telegram;
         submit.disabled = true;
         status.dataset.state = '';
         status.textContent = '';
-
-        // Placeholder key — pretend success without hitting the API
-        if (!accessKey || accessKey.includes('REPLACE_WITH')) {
-          await new Promise((r) => setTimeout(r, 350));
-          status.dataset.state = 'success';
-          status.textContent = msgSuccess;
-          form.reset();
-          submit.disabled = false;
-          return;
-        }
 
         try {
           const res = await fetch(form.action, {
