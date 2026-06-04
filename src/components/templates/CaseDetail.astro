@@ -24,6 +24,7 @@ const { lang, post, isFallback, caseSlug } = Astro.props;
 const FULL_COVER_SLUGS = new Set([
   'happy-sofa-cleaning', 'prime-service-co', 'mita-tennis-academy',
   'hamersfix-appliance-repair', 'american-home-blueprint', 'ambassador-customs',
+  'lazer-7-odesa',
 ]);
 const coverSrc = FULL_COVER_SLUGS.has(caseSlug)
   ? `/cases/${caseSlug}/cover-full.jpg`
