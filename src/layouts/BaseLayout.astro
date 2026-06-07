@@ -38,6 +38,9 @@ import { CONTACT } from '@/data/contact';
 // Analytics IDs (read at build-time from .env). Empty = scripts not injected.
 const GTM_ID     = import.meta.env.PUBLIC_GTM_ID as string | undefined;
 const CLARITY_ID = import.meta.env.PUBLIC_CLARITY_ID as string | undefined;
+// GA4 Measurement ID. Override via PUBLIC_GA4_ID; default is the production
+// property for alexeykachan.com so the build picks it up even without .env.
+const GA4_ID     = (import.meta.env.PUBLIC_GA4_ID as string | undefined) || 'G-1NRREHZKDH';
 
 interface Props {
   /** Slug map key (e.g. 'home', 'services.website-development') — drives hreflang */
@@ -353,6 +356,19 @@ const allSchema: Record<string, unknown>[] = [
       <script type="text/partytown" is:inline set:html={`
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');
       `} />
+    )}
+
+    {/* Google Analytics 4 (gtag.js). Loads main-thread async; respects
+        Consent Mode v2 defaults set above (no analytics_storage / ad_*
+        until the cookie banner upgrades them). */}
+    {GA4_ID && (
+      <>
+        <script async is:inline src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}></script>
+        <script is:inline set:html={`
+          gtag('js', new Date());
+          gtag('config', '${GA4_ID}', { anonymize_ip: true });
+        `} />
+      </>
     )}
 
     {/* Microsoft Clarity — gated by analytics consent at runtime */}
