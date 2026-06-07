@@ -319,41 +319,6 @@ const allSchema: Record<string, unknown>[] = [
     {/* Sitemap link (helps SEO discovery) */}
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
-    {/* Google Consent Mode v2 — default GRANTED so GA4 fires a real
-        page_view on first load (lets Google verify the install and
-        Realtime report shows visitors immediately). The cookie banner
-        can still downgrade consent via gtag('consent','update',...)
-        when a user actively rejects a category. */}
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
-      window.gtag = gtag;
-      gtag('consent', 'default', {
-        ad_storage: 'granted',
-        ad_user_data: 'granted',
-        ad_personalization: 'granted',
-        analytics_storage: 'granted',
-        functionality_storage: 'granted',
-        security_storage: 'granted'
-      });
-      // Honour any prior choice — if the user previously rejected a
-      // category, immediately downgrade to 'denied' for that category.
-      try {
-        const raw = localStorage.getItem('cookie-consent-v1');
-        if (raw) {
-          const c = JSON.parse(raw);
-          if (c && c.version === 1) {
-            gtag('consent', 'update', {
-              ad_storage:         c.marketing ? 'granted' : 'denied',
-              ad_user_data:       c.marketing ? 'granted' : 'denied',
-              ad_personalization: c.marketing ? 'granted' : 'denied',
-              analytics_storage:  c.analytics ? 'granted' : 'denied',
-            });
-          }
-        }
-      } catch {}
-    </script>
-
     {/* Google Tag Manager — runs in a Web Worker via Partytown */}
     {GTM_ID && (
       <script type="text/partytown" is:inline set:html={`
@@ -361,15 +326,41 @@ const allSchema: Record<string, unknown>[] = [
       `} />
     )}
 
-    {/* Google Analytics 4 (gtag.js). Loads main-thread async; respects
-        Consent Mode v2 defaults set above (no analytics_storage / ad_*
-        until the cookie banner upgrades them). */}
+    {/* Google tag (gtag.js) — Google Analytics 4. One block, as Google
+        ships it, plus Consent Mode v2 default + cookie-banner hydration
+        inline. Order matters: dataLayer → gtag fn → consent default →
+        consent update from saved choice → js → config. */}
     {GA4_ID && (
       <>
         <script async is:inline src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}></script>
         <script is:inline set:html={`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('consent', 'default', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted',
+            functionality_storage: 'granted',
+            security_storage: 'granted'
+          });
+          try {
+            var raw = localStorage.getItem('cookie-consent-v1');
+            if (raw) {
+              var c = JSON.parse(raw);
+              if (c && c.version === 1) {
+                gtag('consent', 'update', {
+                  ad_storage:         c.marketing ? 'granted' : 'denied',
+                  ad_user_data:       c.marketing ? 'granted' : 'denied',
+                  ad_personalization: c.marketing ? 'granted' : 'denied',
+                  analytics_storage:  c.analytics ? 'granted' : 'denied'
+                });
+              }
+            }
+          } catch (e) {}
           gtag('js', new Date());
-          gtag('config', '${GA4_ID}', { anonymize_ip: true });
+          gtag('config', '${GA4_ID}');
         `} />
       </>
     )}
