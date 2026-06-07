@@ -319,22 +319,25 @@ const allSchema: Record<string, unknown>[] = [
     {/* Sitemap link (helps SEO discovery) */}
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
-    {/* Google Consent Mode v2 — default DENIED before any tag fires.
-        Cookie banner upgrades via gtag('consent','update',...). */}
+    {/* Google Consent Mode v2 — default GRANTED so GA4 fires a real
+        page_view on first load (lets Google verify the install and
+        Realtime report shows visitors immediately). The cookie banner
+        can still downgrade consent via gtag('consent','update',...)
+        when a user actively rejects a category. */}
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){ dataLayer.push(arguments); }
       window.gtag = gtag;
       gtag('consent', 'default', {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        analytics_storage: 'denied',
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted',
         functionality_storage: 'granted',
-        security_storage: 'granted',
-        wait_for_update: 500
+        security_storage: 'granted'
       });
-      // Hydrate from previously saved consent (so analytics works on repeat visits).
+      // Honour any prior choice — if the user previously rejected a
+      // category, immediately downgrade to 'denied' for that category.
       try {
         const raw = localStorage.getItem('cookie-consent-v1');
         if (raw) {
