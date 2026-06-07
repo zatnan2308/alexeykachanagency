@@ -207,9 +207,14 @@ export default defineConfig({
       },
     }),
     partytown({
-      // Run analytics in a Web Worker for performance
+      // Forward only globals that are actually consumed by a
+      // <script type="text/partytown"> tag. GA4 (gtag.js) loads on
+      // the main thread now, so we MUST NOT forward 'gtag' or
+      // 'dataLayer.push' — Partytown would intercept those globals
+      // and proxy them to an empty Web Worker, eating every GA4 hit.
+      // Re-add them here if/when GTM is re-enabled via Partytown.
       config: {
-        forward: ['dataLayer.push', 'gtag', 'fbq', 'clarity'],
+        forward: ['fbq', 'clarity'],
         debug: false,
       },
     }),
