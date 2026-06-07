@@ -168,6 +168,12 @@ html {
   -webkit-text-size-adjust: 100%;
   font-feature-settings: 'cv11', 'ss01', 'ss03';
   scroll-behavior: smooth;
+  /* Clip horizontal overflow at the document root so GSAP entry-reveal
+     transforms (translate ±40px on data-reveal elements) and the
+     marquee logo strip in HomeTrust don't add a horizontal scroll on
+     mobile. `clip` is preferred over `hidden` because it preserves the
+     position: sticky scroll context for descendants (e.g. the header). */
+  overflow-x: clip;
 }
 
 body {

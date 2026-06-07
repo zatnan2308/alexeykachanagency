@@ -64,9 +64,16 @@ const faqSchema = {
     }
   }
   .faq__header {
-    position: sticky;
-    top: calc(var(--header-height) + 1rem);
     align-self: start;
+  }
+  /* Only stick the heading next to the question list on desktop where the
+     layout is 2-column; on mobile (single column) sticky overlaps the
+     question text. Matches the same breakpoint as the grid switch above. */
+  @media (min-width: 1024px) {
+    .faq__header {
+      position: sticky;
+      top: calc(var(--header-height) + 1rem);
+    }
   }
   .faq__label {
     font-size: 0.875rem;
